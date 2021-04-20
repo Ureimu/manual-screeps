@@ -21,8 +21,40 @@
         ".rpt2_cache/**": true,
         "dist/**": true,
         "node_modules/**": true,
-        "typings/**": true
+        "typings/**": true,
+        "**/.nyc_output": true,
+        "**/coverage": true,
     },
     "typescript.tsdk": "./node_modules/typescript/lib",
-    "eslint.enable": true
+    "cSpell.words": [
+        "Buildable",
+        "Coord",
+        "Iclass",
+        "Ifun",
+        "Inte",
+        "Parens",
+        "Scorpior",
+        "Unlicense",
+        "bodyparts",
+        "bodysetting",
+        "buble",
+        "crzytrane",
+        "dont",
+        "estree",
+        "lcov",
+        "mincut",
+        "nodent",
+        "nuker",
+        "pserver",
+        "screepers",
+        "toolbelt"
+    ],
+    "mochaExplorer.files": [
+        "dist/test-integration.bundle.js",
+        "dist/test-unit.bundle.js"
+    ],
+    "mochaExplorer.require": [
+        "ts-node/register",
+        "test/setup-node.js"
+    ],
 }
