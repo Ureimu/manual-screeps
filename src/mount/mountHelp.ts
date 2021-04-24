@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/unbound-method */
 import GlobalAlias from "../help";
 
 // 挂载全局拓展

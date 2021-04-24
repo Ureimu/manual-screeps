@@ -47,7 +47,8 @@
         "nuker",
         "pserver",
         "screepers",
-        "toolbelt"
+        "toolbelt",
+        "treemap"
     ],
     "mochaExplorer.files": [
         "dist/test-integration.bundle.js",

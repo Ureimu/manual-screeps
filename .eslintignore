@@ -1,2 +1,4 @@
 **/*.js
 /src_old
+/src/utils/echarts
+/src/utils/memoryAnalyzer

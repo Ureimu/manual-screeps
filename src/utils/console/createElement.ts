@@ -85,19 +85,19 @@ export default class createElement {
 
         /**
          * 封装表单内容获取方法
-         * 注意后面的 \`(${buttonDetail.command})(\${JSON.stringify(formDatas)\})\`
+         * 注意后面的 \`(${buttonDetail.command})(\${JSON.stringify(formData)\})\`
          * 这里之所以用 \ 把 ` 和 $ 转义了是因为要生成一个按钮点击时才会用到的模板字符串，通过这个方法来把表单的内容f=当做参数提供给 sendCommand 里要执行的方法
-         * 如果直接填 formDatas 而不是 JSON.stringify(formDatas) 的话，会报错找不到 formdatas
+         * 如果直接填 formData 而不是 JSON.stringify(formData) 的话，会报错找不到 formData
          */
         const commandWarp = `(() => {
             const form = document.forms['${formName}'];
-            let formDatas = {};
+            let formData = {};
             [${details
                 .map(detail => `'${detail.name}'`)
-                .toString()}].map(eleName => formDatas[eleName] = form[eleName].value);
+                .toString()}].map(eleName => formData[eleName] = form[eleName].value);
             angular.element(document.body).injector().get('Console').sendCommand(\`(${
                 buttonDetail.command
-            })(\${JSON.stringify(formDatas)})\`, 1);
+            })(\${JSON.stringify(formData)})\`, 1);
         })()`;
         // 添加提交按钮
         parts.push(
@@ -105,7 +105,16 @@ export default class createElement {
         );
         parts.push(`</form>`);
 
-        // 压缩成一行
-        return parts.join("").replace(/\n/g, "").replace(/\s\s/g, "");
+        // 每个元素一行
+        return parts
+            .map((value, index, array) => {
+                if (index >= 2 && index < array.length - 1) {
+                    return value + "\n";
+                } else {
+                    return value;
+                }
+            })
+            .join("");
+        // .replace(/\n/g, "").replace(/\s\s/g, "")
     }
 }
