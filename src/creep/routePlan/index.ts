@@ -6,8 +6,9 @@ export function callOnStart(): void {
 
 export class routePlan {
     public static addMidpoint(): string {
+        const commitFunctionName = "routePlanCommit.addMidpoint";
         return createElement.form(
-            "routePlanCommit.addMidpoint" + String(Game.time),
+            commitFunctionName + String(Game.time),
             [
                 {
                     name: "routeName",
@@ -55,14 +56,15 @@ export class routePlan {
             ],
             {
                 content: "提交",
-                command: `(args) => routePlanCommit.addMidpoint(args)`
+                command: `(args) => ${commitFunctionName}(args)`
             }
         );
     }
 
     public static create(): string {
+        const commitFunctionName = "routePlanCommit.create";
         return createElement.form(
-            "routePlanCommit.create" + String(Game.time),
+            commitFunctionName + String(Game.time),
             [
                 { name: "routeName", label: "路径名称", type: "input", placeholder: "路径名称" },
                 {
@@ -77,14 +79,15 @@ export class routePlan {
             ],
             {
                 content: "提交",
-                command: `(args) => routePlanCommit.create(args)`
+                command: `(args) => ${commitFunctionName}(args)`
             }
         );
     }
 
     public static chooseRouteForCreep(): string {
+        const commitFunctionName = "routePlanCommit.chooseRouteForCreep";
         return createElement.form(
-            "routePlanCommit.chooseRouteForCreep" + String(Game.time),
+            commitFunctionName + String(Game.time),
             [
                 { name: "creepName", label: "creep名称", type: "input", placeholder: "creep名称" },
                 {
@@ -98,14 +101,15 @@ export class routePlan {
             ],
             {
                 content: "提交",
-                command: `(args) => routePlanCommit.chooseRouteForCreep(args)`
+                command: `(args) => ${commitFunctionName}(args)`
             }
         );
     }
 
     public static setRouteProperties(): string {
+        const commitFunctionName = "routePlanCommit.setRouteProperties";
         return createElement.form(
-            "routePlanCommit.setRouteProperties" + String(Game.time),
+            commitFunctionName + String(Game.time),
             [
                 {
                     name: "routeName",
@@ -127,14 +131,15 @@ export class routePlan {
             ],
             {
                 content: "提交",
-                command: `(args) => routePlanCommit.setRouteProperties(args)`
+                command: `(args) => ${commitFunctionName}(args)`
             }
         );
     }
 
     public static showRoutes(): string {
+        const commitFunctionName = "routePlanCommit.showRoutes";
         return createElement.form(
-            "routePlanCommit.showRoutes" + String(Game.time),
+            commitFunctionName + String(Game.time),
             [
                 {
                     name: "routeName",
@@ -157,7 +162,7 @@ export class routePlan {
             ],
             {
                 content: "提交",
-                command: `(args) => routePlanCommit.showRoutes(args)`
+                command: `(args) => ${commitFunctionName}(args)`
             }
         );
     }
@@ -167,7 +172,7 @@ declare global {
     interface Memory {
         routes: {
             [name: string]: {
-                routeDetailArray: RouteDetail[];
+                routeDetailArray: RouteMidpointDetail[];
                 ifLoop: boolean;
                 ifShow: boolean;
             };
@@ -175,7 +180,7 @@ declare global {
     }
 }
 
-export interface RouteDetail {
+export interface RouteMidpointDetail {
     pathMidpointPos: string;
     range: number;
     doWhenArrive: string;

@@ -4,6 +4,8 @@ import { initConstructionScheduleMemory } from "construction/utils/initConstruct
 import { RoomPositionStr } from "construction";
 import { RoomPositionToStr } from "construction/utils/strToRoomPosition";
 import { getCutTiles } from "utils/mincut/minCut";
+import { GUIfun } from "utils/roomVisualGUI";
+import { newAcrossTickTask } from "utils/AcrossTick";
 
 /** 网格建筑布局。
  * 该函数为静态函数，即只要输入相同，则输出必定相同，所以一个房间只需要执行一次。
@@ -128,14 +130,11 @@ export function ifEnoughSpace(
             // __判断是否building周围还有路，没有则弹出集合
             for (const buildingExpandPosStr of buildingExpand) {
                 const buildingExpandPos = rts.getPosFromStr(buildingExpandPosStr);
-                const buildingExpandPosAround = buildingExpandPos.getSquare();
+                const buildingExpandPosAroundStr = rts.getSquarePosStr(rts.setPosToStr(buildingExpandPos));
                 let j = 0;
-                for (const buildingExpandPosAroundPos of buildingExpandPosAround) {
-                    const terrain: Terrain[] = buildingExpandPosAroundPos.lookFor(LOOK_TERRAIN);
-                    if (
-                        terrain[0] === "wall" ||
-                        !isPosSetInPos(roadExpand, rts.setPosToStr(buildingExpandPosAroundPos))
-                    ) {
+                for (const buildingExpandPosAroundPosStr of buildingExpandPosAroundStr) {
+                    const terrain: Terrain[] = rts.getPosFromStr(buildingExpandPosAroundPosStr).lookFor(LOOK_TERRAIN);
+                    if (terrain[0] === "wall" || !isPosSetInPos(roadExpand, buildingExpandPosAroundPosStr)) {
                         j++;
                     }
                 }
@@ -173,8 +172,8 @@ export function getGridLayout(room: Room): void {
     initConstructionScheduleMemory(room, "gridLayout");
     const roadExpandStrList: RoomPositionStr[] = [];
     // 先确定中心，这里设置为了本房间第一个spawn。
-    Game.spawns[room.memory.firstSpawnName].pos.getDiagSquare().forEach(pos => {
-        roadExpandStrList.push(rts.setPosToStr(pos));
+    rts.getDiagPosStr(rts.setPosToStr(Game.spawns[room.memory.firstSpawnName].pos)).forEach(pos => {
+        roadExpandStrList.push(pos);
     });
     const returnSpace = ifEnoughSpace(room, rts.setPosToStr(Game.spawns[room.memory.firstSpawnName].pos), {
         useRoomFind: true
@@ -289,14 +288,11 @@ export function getGridLayout(room: Room): void {
                     sourceAndControllerRoadPosSet.add(rts.setPosToStr(pos1));
                 });
                 sourceContainerPosSet.add(rts.setPosToStr(pos));
-                const posAround = pos.getSquare();
+                const posAround = rts.getSquarePosStr(rts.setPosToStr(pos));
                 for (const posAroundPos of posAround) {
-                    const terrain: Terrain[] = posAroundPos.lookFor(LOOK_TERRAIN);
-                    if (
-                        terrain[0] !== "wall" &&
-                        !isPosSetInPos(sourceAndControllerRoadPosSet, rts.setPosToStr(posAroundPos))
-                    ) {
-                        sourceLinkPosSet.add(rts.setPosToStr(posAroundPos));
+                    const terrain: Terrain[] = rts.getPosFromStr(posAroundPos).lookFor(LOOK_TERRAIN);
+                    if (terrain[0] !== "wall" && !isPosSetInPos(sourceAndControllerRoadPosSet, posAroundPos)) {
+                        sourceLinkPosSet.add(posAroundPos);
                         break;
                     }
                 }
@@ -306,14 +302,11 @@ export function getGridLayout(room: Room): void {
                     sourceAndControllerRoadPosSet.add(rts.setPosToStr(pos1));
                 });
                 controllerContainerPosSet.add(rts.setPosToStr(pos));
-                const posAround = pos.getSquare();
+                const posAround = rts.getSquarePosStr(rts.setPosToStr(pos));
                 for (const posAroundPos of posAround) {
-                    const terrain: Terrain[] = posAroundPos.lookFor(LOOK_TERRAIN);
-                    if (
-                        terrain[0] !== "wall" &&
-                        !isPosSetInPos(sourceAndControllerRoadPosSet, rts.setPosToStr(posAroundPos))
-                    ) {
-                        controllerLinkPosSet.add(rts.setPosToStr(posAroundPos));
+                    const terrain: Terrain[] = rts.getPosFromStr(posAroundPos).lookFor(LOOK_TERRAIN);
+                    if (terrain[0] !== "wall" && !isPosSetInPos(sourceAndControllerRoadPosSet, posAroundPos)) {
+                        controllerLinkPosSet.add(posAroundPos);
                         break;
                     }
                 }
@@ -724,23 +717,31 @@ export function getGridLayout(room: Room): void {
     for (let i = 0, j = setList.length; i < j; i++) {
         pushLayout(setList[i], i, layout, xUp, text, color, rts);
     }
-    const visual0 = global.GUI.draw(new RoomVisual(room.name), layout);
-    if (!global.state) global.state = {};
-    if (!global.stateLoop) global.stateLoop = {};
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    global.testX.gridLayout = visual0.export();
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    global.testX.gridLayoutRoom = room.name;
-    global.state.gridLayout = Game.time;
-    global.stateLoop.gridLayout = () => {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        if (Game.time - (global.state.gridLayout as number) < keepTime && global.testX.gridLayout) {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-            const visual = new RoomVisual(global.testX.gridLayoutRoom);
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-            visual.import(global.testX.gridLayout);
+    const GUI = GUIfun();
+    const visual0 = GUI.draw(new RoomVisual(room.name), layout);
+    newAcrossTickTask(
+        {
+            taskName: "gridLayout.showLayout", // 任务名称
+            args: [visual0.export(), room.name, keepTime], // 传递的参数，要能够放在memory的类型
+            executeTick: Game.time + 1, // 执行时间
+            intervalTick: 1 // 执行间隔
+        },
+        task => {
+            // console.log(
+            //     `${Game.time} Running TickTask: ${task.taskName},args:${JSON.stringify(task.args)} created in ${
+            //         task.taskCreateTick as number
+            //     } succeed`
+            // );
+            const [visualExportsArg, roomNameArg, durationArg] = task.args as string[];
+            if ((task.taskCreateTick as number) + Number(durationArg) <= Game.time) {
+                const roomVisual = new RoomVisual(roomNameArg);
+                roomVisual.import(visualExportsArg);
+                return "runAgain";
+            } else {
+                return "finish";
+            }
         }
-    };
+    );
 
     const endCpu = Game.cpu.getUsed();
     console.log(`耗费cpu:${(endCpu - startCpu).toFixed(2)}`);

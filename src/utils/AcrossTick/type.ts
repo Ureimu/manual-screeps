@@ -2,6 +2,13 @@ declare global {
     interface Memory {
         AcrossTick: { [tick: string]: AcrossTickMemory[] };
     }
+    namespace NodeJS {
+        interface Global {
+            AcrossTickTaskFunction: {
+                [taskName: string]: (task: AcrossTickMemory) => AcrossTickReturnCode;
+            };
+        }
+    }
 }
 
 export interface AcrossTickMemory {
@@ -11,3 +18,5 @@ export interface AcrossTickMemory {
     taskCreateTick?: number;
     intervalTick: number;
 }
+
+export type AcrossTickReturnCode = "finish" | "emptyTask" | "runAgain";

@@ -1,8 +1,9 @@
 import { clearCreepRouteMemory } from "creep/action";
-import { newAcrossTickTask } from "utils/AcrossTick/runAfterTask";
+import { newAcrossTickTask } from "utils/AcrossTick";
 import { PosStr } from "utils/RoomPositionToStr";
-import { RouteDetail } from "./index";
-import { showRoutes } from "./showRoutes";
+import { getBooleanFromString } from "utils/typeTransfer";
+import { RouteMidpointDetail } from "./index";
+import { showRoutes } from "./show";
 
 export const routePlanCommit = {
     create: (args: { routeName: string; ifLoop: string }): string => {
@@ -16,7 +17,7 @@ export const routePlanCommit = {
     addMidpoint: (
         args: {
             routeName: string;
-        } & RouteDetail
+        } & RouteMidpointDetail
     ): string => {
         const { routeName, range = 1, pathMidpointPos, doWhenArrive, doOnLoad, doOnUnload } = args;
         const flag = Game.flags[pathMidpointPos];
@@ -60,23 +61,29 @@ export const routePlanCommit = {
         console.log(routeName, ifRun);
         Memory.routes[routeName].ifShow = getBooleanFromString(ifRun);
         const visualExports = showRoutes(routeName, roomName);
-        newAcrossTickTask({
-            taskName: "routePlanCommit.showRoutes", // 任务名称
-            args: [visualExports, roomName, routeName], // 传递的参数，要能够放在memory的类型
-            executeTick: Game.time + 1,
-            intervalTick: 1 // 在多久后执行
-        });
+        newAcrossTickTask(
+            {
+                taskName: "routePlanCommit.showRoutes", // 任务名称
+                args: [visualExports, roomName, routeName], // 传递的参数，要能够放在memory的类型
+                executeTick: Game.time + 1,
+                intervalTick: 1 // 在多久后执行
+            },
+            task => {
+                // console.log(
+                //     `${Game.time} Running TickTask: ${task.taskName},args:${JSON.stringify(task.args)} created in ${
+                //         task.taskCreateTick as number
+                //     } succeed`
+                // );
+                const [visualExportsArg, roomNameArg, routeNameArg] = task.args as string[];
+                if (Memory.routes[routeNameArg].ifShow) {
+                    const roomVisual = new RoomVisual(roomNameArg);
+                    roomVisual.import(visualExportsArg);
+                    return "runAgain";
+                } else {
+                    return "finish";
+                }
+            }
+        );
         return `执行可视化 ${routeName} : ${roomName} : ${ifRun}`;
     }
 };
-export function getBooleanFromString(str: string): boolean {
-    let boolIfLoop = true;
-    if (str === "true") {
-        boolIfLoop = true;
-    } else if (str === "false") {
-        boolIfLoop = false;
-    } else {
-        console.log(`boolean 类型str输入值错误: ${str} ，采用默认值true`);
-    }
-    return boolIfLoop;
-}

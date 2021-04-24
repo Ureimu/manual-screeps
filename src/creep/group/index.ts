@@ -1,0 +1,127 @@
+import createElement from "utils/console/createElement";
+
+export function callOnStart(): void {
+    if (!Memory.creepGroups) Memory.creepGroups = {};
+}
+
+export class creepGroup {
+    public static create(): string {
+        const commitFunctionName = "creepGroupCommit.create";
+        return createElement.form(
+            commitFunctionName + String(Game.time),
+            [
+                { name: "creepGroupName", label: "creep组名称", type: "input", placeholder: "creep组名称" },
+                {
+                    name: "routeName",
+                    label: "分配的路径名称",
+                    type: "select",
+                    options: Object.keys(Memory.routes).map(value => {
+                        return { value, label: value };
+                    })
+                }
+            ],
+            {
+                content: "提交",
+                command: `(args) => ${commitFunctionName}(args)`
+            }
+        );
+    }
+
+    public static addCreep(): string {
+        const commitFunctionName = "creepGroupCommit.addCreep";
+        return createElement.form(
+            commitFunctionName + String(Game.time),
+            [
+                { name: "creepName", label: "creep名称", type: "input", placeholder: "creep名称" },
+                {
+                    name: "creepGroupName",
+                    label: "creep组名称",
+                    type: "select",
+                    options: Object.keys(Memory.creepGroups).map(value => {
+                        return { value, label: value };
+                    })
+                }
+            ],
+            {
+                content: "提交",
+                command: `(args) => ${commitFunctionName}(args)`
+            }
+        );
+    }
+
+    public static setCreepGroupProperties(): string {
+        const commitFunctionName = "creepGroupCommit.setCreepGroupProperties";
+        return createElement.form(
+            commitFunctionName + String(Game.time),
+            [
+                {
+                    name: "creepGroupName",
+                    label: "creep组名称",
+                    type: "select",
+                    options: Object.keys(Memory.creepGroups).map(value => {
+                        return { value, label: value };
+                    })
+                },
+                {
+                    name: "routeName",
+                    label: "分配的路径名称",
+                    type: "select",
+                    options: Object.keys(Memory.routes).map(value => {
+                        return { value, label: value };
+                    })
+                }
+            ],
+            {
+                content: "提交",
+                command: `(args) => ${commitFunctionName}(args)`
+            }
+        );
+    }
+
+    public static showCreepGroups(): string {
+        const commitFunctionName = "creepGroupCommit.showCreepGroups";
+        return createElement.form(
+            commitFunctionName + String(Game.time),
+            [
+                {
+                    name: "creepGroupName",
+                    label: "creep组名称",
+                    type: "select",
+                    options: Object.keys(Memory.creepGroups).map(value => {
+                        return { value, label: value };
+                    })
+                },
+                { name: "roomName", label: "房间名称", type: "input", placeholder: "房间名称" },
+                {
+                    name: "ifRun",
+                    label: "是否执行",
+                    type: "select",
+                    options: [
+                        { value: "true", label: "是" },
+                        { value: "false", label: "否" }
+                    ]
+                }
+            ],
+            {
+                content: "提交",
+                command: `(args) => ${commitFunctionName}(args)`
+            }
+        );
+    }
+}
+
+declare global {
+    interface Memory {
+        creepGroups: {
+            [creepGroupName: string]: {
+                creepNameList: string[];
+                routeName: string;
+                ifShow: boolean;
+            };
+        };
+    }
+}
+
+export interface creepGroupDetail {
+    creepNameList: string[];
+}

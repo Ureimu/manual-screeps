@@ -1,11 +1,14 @@
-import { RouteDetail } from "creep/routePlan";
+import { RouteMidpointDetail } from "creep/routePlan";
 import { state } from "..";
+import { goTo } from "./goTo";
 import { harvestSource } from "./harvestSource";
 import { signController } from "./signController";
 import { upgradeController } from "./upgradeController";
 
-export function switchDoWhenArrive(routeDetail: RouteDetail, creep: Creep): state {
+export function switchDoWhenArrive(routeDetail: RouteMidpointDetail, creep: Creep): state {
     switch (routeDetail.doWhenArrive) {
+        case "goTo":
+            return goTo(creep);
         case "harvestSource":
             return harvestSource(creep);
         case "upgradeController":

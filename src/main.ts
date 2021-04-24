@@ -1,3 +1,4 @@
+import { autoConstruction } from "construction";
 import { runCreepAction } from "creep/action";
 import mountCallOnStart from "mount/mountCallOnStart";
 import mountCommit from "mount/mountCommit";
@@ -5,7 +6,7 @@ import mountGlobalMicroFunction from "mount/mountGlobalFunction";
 import mountGlobalFunctionClass from "mount/mountGlobalFunctionClass";
 import mountGlobalFunctionObject from "mount/mountGlobalFunctionObject";
 import mountGlobalHelp from "mount/mountHelp";
-import { runAllAcrossTickTask } from "utils/AcrossTick/runAfterTask";
+import { runAllAcrossTickTask } from "utils/AcrossTick";
 import bodypartsGenerator from "utils/bodypartsGenerator";
 import { ErrorMapper } from "utils/ErrorMapper";
 import condition, { customFunction } from "utils/stateCut/condition";
@@ -30,6 +31,7 @@ export const loop = ErrorMapper.wrapLoop(() => {
         if (Game.time % 100 === 0) console.log(`Current game tick is ${Game.time}`);
         const firstSpawn = Game.spawns.Spawn1;
         const firstRoom = firstSpawn.room;
+        autoConstruction(firstRoom);
         const spawns = firstRoom.find(FIND_MY_SPAWNS);
         const creeps = firstRoom.find(FIND_CREEPS);
         const sources = firstRoom.find(FIND_SOURCES);
