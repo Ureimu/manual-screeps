@@ -1,13 +1,11 @@
-import { PosStr } from "utils/RoomPositionToStr";
+import { CreepAction } from ".";
 import { state } from "..";
+import { getMidpointObjects } from "./utils/getMidpointObjects";
 
-export function harvestSource(creep: Creep): state {
-    const routeInfo = creep.memory.route;
-    const routeDetail = Memory.routes[routeInfo.name].routeDetailArray[routeInfo.index];
-    const sourcePos = PosStr.getPosFromStr(routeDetail.pathMidpointPos);
-    const source = sourcePos.lookFor(LOOK_SOURCES)[0];
+function run(creep: Creep): state {
+    const source = getMidpointObjects(creep, LOOK_SOURCES)[0];
 
-    const ifHarvesting = creep.store.getFreeCapacity() === 0;
+    const ifHarvesting = creep.store.getFreeCapacity() !== 0;
     if (ifHarvesting) {
         creep.harvest(source);
         return "arrived";
@@ -15,3 +13,10 @@ export function harvestSource(creep: Creep): state {
         return "moving";
     }
 }
+
+export const harvestSource: CreepAction = {
+    run,
+    name: "harvestSource",
+    description: "挖能量矿",
+    type: "stay"
+};

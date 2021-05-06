@@ -1,14 +1,22 @@
+import { creepBody } from "creep/body";
 import { creepGroup } from "creep/group";
 import { routePlan } from "creep/routePlan";
-import createElement from "utils/console/createElement";
+import { plugin } from "plugin";
+import { posMaintainer } from "posMaintainer";
+import { spawnPool } from "spawn/spawnPool";
+import { creators } from "utils/console/form";
 
 declare global {
     namespace NodeJS {
         interface Global {
             functionClass: {
-                createElement: typeof createElement;
+                creators: typeof creators;
                 routePlan: typeof routePlan;
                 creepGroup: typeof creepGroup;
+                spawnPool: typeof spawnPool;
+                creepBody: typeof creepBody;
+                posMaintainer: typeof posMaintainer;
+                plugin: typeof plugin;
             };
         }
     }
@@ -16,5 +24,5 @@ declare global {
 
 // 挂载全局拓展
 export default function mountGlobalFunctionClass(): void {
-    global.functionClass = { createElement, routePlan, creepGroup };
+    global.functionClass = { creators, routePlan, creepGroup, spawnPool, creepBody, posMaintainer, plugin };
 }

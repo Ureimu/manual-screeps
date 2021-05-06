@@ -1,0 +1,104 @@
+<!-- 表单模板 -->
+<form name="{formName}">
+    {formContent}
+    <button
+        class="element"
+        type="button"
+        onclick="(() => {
+            // 获取表单数据
+            const form = document.forms['{formName}'];
+            let formDatas = {};
+            [{elementNames}].map(eleName => {
+                // 如果是复选框的话需要特殊处理下
+                if (form[eleName] instanceof RadioNodeList && form[eleName][0].type === 'checkbox') {
+                    formDatas[eleName] = []
+                    form[eleName].forEach(el => el.checked && formDatas[eleName].push(el.value))
+                }
+                else formDatas[eleName] = form[eleName].value;
+            });
+
+            // 将表单数据格式化为 JSON 对象在控制台发给指定的命令
+            // @see https://screeps.slack.com/files/U5GS01HT8/FJGTY8VQE/console_button.php
+            angular.element(document.body).injector().get('Console').sendCommand(
+                `({command})(${JSON.stringify(formDatas)})`
+            , 1);
+        })()"
+    >{buttonLabel}</button>
+</form>
+
+;;
+
+<!-- 下拉框模板  -->
+<select name="{name}" class="element">{option}</select>
+
+;;
+
+<!-- 下拉框选项模板 -->
+<option value="{value}">{label}</option>
+
+;;
+
+<!-- 输入框模板 -->
+<input name="{name}" placeholder="{placeholder}" class="element"/>
+
+;;
+
+<!-- 复选框模板 -->
+<input type="checkbox" name="{name}" value="{value}" class="element"> {label}</input>
+
+;;
+
+<!-- 单选框模板 -->
+<input type="radio" name="{name}" value="{value}" class="element"> {label}</input>
+
+;;
+
+<!-- 按钮模板 -->
+<button
+    class="element"
+    type="button"
+    name="{name}"
+    onclick="(() => {
+        // @see https://screeps.slack.com/files/U5GS01HT8/FJGTY8VQE/console_button.php
+        angular.element(document.body).injector().get('Console').sendCommand(
+            `({command})()`
+        , 1);
+    })()"
+>{buttonLabel}</button>
+
+;;
+
+<!-- 表单项容器 -->
+<div class="element-field">
+    <span>{label}</span>
+    {content}
+</div>
+
+;;
+
+<!-- 手风琴式菜单容器 -->
+<div class="div" name="{name}">
+    <div align="center">
+        ${label}</div>
+    ${value}
+</div>
+
+;;
+
+<!-- 手风琴式菜单选项容器 -->
+<div>
+    <p>${label}</p>
+    <ul>
+        ${listValues}
+    </ul>
+</div>
+
+;;
+
+<!-- 列表容器 -->
+<li>${value}</li>
+
+;;
+
+<!-- 文件上传框模板 -->
+<input type="file" name="{name}" id="{id}" class="element"/>

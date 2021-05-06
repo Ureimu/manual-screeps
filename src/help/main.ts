@@ -1,6 +1,14 @@
+import { creators } from "utils/console/form";
+import { createFlattenHelp } from "utils/console/flattenHelp";
 import colorful from "../utils/console/colorful";
-import { createHelp } from "../utils/createConsoleHelp/createHelp";
-
+const getButton = (alias: string) => {
+    return creators.button({
+        command: `() => ${alias}`,
+        content: `${alias}`,
+        type: "button",
+        name: alias
+    });
+};
 /**
  * 全局拓展的别名
  * 使用别名来方便在控制台执行方法
@@ -20,125 +28,50 @@ export default [
         alias: "help",
         exec(): string {
             return [
-                `\n半自动 AI，调用指定房间 help 方法来查看更详细的帮助信息 (如：${colorful(
-                    "Game.rooms.W1N1.help",
-                    "yellow"
-                )}())。在 ${colorful(
-                    "Link, Factory, Terminal, PowerSpawn, Observer",
-                    "yellow"
-                )} 对象实例上也包含对应的 help 方法。\n`,
+                `\n偏手动操作型ai，所有行动都可以通过console进行操作\n`,
 
-                createHelp(
-                    {
-                        name: "全局指令",
-                        describe: "直接输入就可以执行，不需要加 ()",
-                        api: [
-                            {
-                                title: "查看资源常量",
-                                commandType: true,
-                                functionName: "res"
-                            },
-                            {
-                                title: "查看 powerSpawn 状态汇总",
-                                commandType: true,
-                                functionName: "ps"
-                            },
-                            {
-                                title: "查看 observer 状态汇总",
-                                commandType: true,
-                                functionName: "ob"
-                            },
-                            {
-                                title: "查看商品生产线",
-                                commandType: true,
-                                functionName: "comm"
-                            },
-                            {
-                                title: "列出所有路径缓存",
-                                describe: "路径缓存是全局的，会在 global 重置时清空",
-                                commandType: true,
-                                functionName: "route"
-                            },
-                            {
-                                title: "发射核弹",
-                                describe: "向指定旗帜发射核弹，直接输入该命令来了解更多信息",
-                                commandType: true,
-                                functionName: "nuker"
-                            }
-                        ]
-                    },
-                    {
-                        name: "全局方法",
-                        describe: "定义在全局的函数，优化手操体验",
-                        api: [
-                            {
-                                title: "获取游戏对象",
-                                describe: "Game.getObjectById 方法的别名",
-                                params: [{ name: "id", desc: "要查询的对象 id" }],
-                                functionName: "get"
-                            },
-                            {
-                                title: "追加订单容量",
-                                describe: "Game.market.extendOrder 方法的别名",
-                                params: [
-                                    { name: "orderId", desc: "订单的 id" },
-                                    { name: "amount", desc: "要追加的数量" }
-                                ],
-                                functionName: "orderExtend"
-                            },
-                            {
-                                title: "查询指定资源",
-                                describe: "全局搜索资源的数量以及所处房间",
-                                params: [{ name: "resourceName", desc: "要查询的资源名" }],
-                                functionName: "seeres"
-                            },
-                            {
-                                title: "运行自动选址",
-                                params: [{ name: "roomName", desc: "要搜索的房间" }],
-                                functionName: "base"
-                            },
-                            {
-                                title: "全局发送资源",
-                                describe: "会遍历所有房间搜索资源并发送直到总量到达指定数量",
-                                params: [
-                                    { name: "roomName", desc: "要发送到的房间名" },
-                                    { name: "resourceType", desc: "资源类型" },
-                                    { name: "amount", desc: "发送数量" }
-                                ],
-                                functionName: "give"
-                            },
-                            {
-                                title: "欢呼",
-                                params: [
-                                    { name: "content", desc: "欢呼内容" },
-                                    { name: "toPublic", desc: "[可选] 其他人是否可见，默认为 true" }
-                                ],
-                                functionName: "hail"
-                            }
-                        ]
-                    },
-                    {
-                        name: "全局模块",
-                        describe: "可以全局访问的模块，访问其 help 方法来了解更多信息。",
-                        api: [
-                            {
-                                title: "白名单",
-                                describe: "查看白名单帮助信息",
-                                functionName: "whitelist.help"
-                            },
-                            {
-                                title: "房间绕过",
-                                describe: "查看房间绕过帮助信息",
-                                functionName: "bypass.help"
-                            },
-                            {
-                                title: "掠夺配置",
-                                describe: "查看掠夺配置帮助信息",
-                                functionName: "reive.help"
-                            }
-                        ]
-                    }
-                )
+                createFlattenHelp({
+                    name: "help API",
+                    describe: "总帮助",
+                    api: [
+                        {
+                            title: "routePlan",
+                            describe: "规划creep路线。",
+                            functionName: getButton("routePlan"),
+                            commandType: true
+                        },
+                        {
+                            title: "creepGroup",
+                            describe: "规划creep组",
+                            functionName: getButton("creepGroup"),
+                            commandType: true
+                        },
+                        {
+                            title: "creepBody",
+                            describe: "规划creep身体部件",
+                            functionName: getButton("creepBody"),
+                            commandType: true
+                        },
+                        {
+                            title: "spawnPool",
+                            describe: "规划creep的孵化",
+                            functionName: getButton("spawnPool"),
+                            commandType: true
+                        },
+                        {
+                            title: "posMaintainer",
+                            describe: "创建各个对象的pos",
+                            functionName: getButton("posMaintainer"),
+                            commandType: true
+                        },
+                        {
+                            title: "plugin",
+                            describe: "插件管理",
+                            functionName: getButton("plugin"),
+                            commandType: true
+                        }
+                    ]
+                })
             ].join("\n");
         }
     },

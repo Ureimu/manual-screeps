@@ -6,7 +6,7 @@
         "editor.formatOnSave": true
     },
     "[typescript]": {
-        "editor.formatOnSave": false
+        "editor.formatOnSave": true
     },
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": true
@@ -27,6 +27,7 @@
     },
     "typescript.tsdk": "./node_modules/typescript/lib",
     "cSpell.words": [
+        "BODYPART",
         "Buildable",
         "Coord",
         "Iclass",
@@ -43,12 +44,15 @@
         "estree",
         "lcov",
         "mincut",
+        "mwcarhit",
+        "mwcarhlt",
         "nodent",
         "nuker",
         "pserver",
         "screepers",
         "toolbelt",
-        "treemap"
+        "treemap",
+        "typeof"
     ],
     "mochaExplorer.files": [
         "dist/test-integration.bundle.js",

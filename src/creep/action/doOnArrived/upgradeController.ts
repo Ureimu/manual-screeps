@@ -1,9 +1,10 @@
+import { CreepAction } from ".";
 import { state } from "..";
 
-export function upgradeController(creep: Creep): state {
+function run(creep: Creep): state {
     const controller = creep.room.controller;
 
-    const ifUpgradeController = creep.store.getUsedCapacity() === 0;
+    const ifUpgradeController = creep.store[RESOURCE_ENERGY] !== 0;
     if (ifUpgradeController) {
         creep.upgradeController(controller as StructureController);
         return "arrived";
@@ -11,3 +12,10 @@ export function upgradeController(creep: Creep): state {
         return "moving";
     }
 }
+
+export const upgradeController: CreepAction = {
+    run,
+    name: "upgradeController",
+    description: "升级控制器",
+    type: "stay"
+};

@@ -1,3 +1,4 @@
+import { isRouteMidpointDetail } from "creep/routePlan";
 import { Coord, PosStr } from "utils/RoomPositionToStr";
 
 export function showCreepGroups(creepGroupName: string, roomName: string): string {
@@ -5,7 +6,8 @@ export function showCreepGroups(creepGroupName: string, roomName: string): strin
     const creepCoordList: Coord[] = [];
     const creepList: Creep[] = [];
     Memory.creepGroups[creepGroupName].creepNameList.forEach(creepName => {
-        creepList.push(Game.creeps[creepName]);
+        const creep = Game.creeps[creepName];
+        if (creep) creepList.push(creep);
     });
     creepList.forEach(creep => {
         const coord = PosStr.parseCoord(PosStr.setPosToStr(creep.pos));
@@ -21,8 +23,10 @@ export function showCreepGroups(creepGroupName: string, roomName: string): strin
     const midpointDirectionCoordList: [Coord, Coord][] = [];
     const routeName = Memory.creepGroups[creepGroupName].routeName;
     Memory.routes[routeName].routeDetailArray.forEach(routeDetail => {
-        const coord = PosStr.parseCoord(routeDetail.pathMidpointPos);
-        midpointCoordList.push(coord);
+        if (isRouteMidpointDetail(routeDetail)) {
+            const coord = PosStr.parseCoord(routeDetail.pathMidpointPos);
+            midpointCoordList.push(coord);
+        }
     });
     const midpointCoordListLength = midpointCoordList.length;
     for (let index = 0; index < midpointCoordListLength; index++) {
@@ -41,10 +45,13 @@ export function showCreepGroups(creepGroupName: string, roomName: string): strin
     const creepDestinationList: Coord[] = [];
     const creepDirectionCoordList: [Coord, Coord][] = [];
     creepList.forEach(creep => {
-        const destinationCoord = PosStr.parseCoord(
-            Memory.routes[routeName].routeDetailArray[creep.memory.route.index].pathMidpointPos
-        );
-        creepDestinationList.push(destinationCoord);
+        const creepRouteDetail = Memory.routes[routeName].routeDetailArray[creep.memory.route.index];
+        if (isRouteMidpointDetail(creepRouteDetail)) {
+            const destinationCoord = PosStr.parseCoord(creepRouteDetail.pathMidpointPos);
+            creepDestinationList.push(destinationCoord);
+        } else {
+            creepDestinationList.push({ x: creep.pos.x, y: creep.pos.y });
+        }
     });
     const creepDestinationListLength = creepDestinationList.length;
     for (let index = 0; index < creepDestinationListLength; index++) {

@@ -1,13 +1,12 @@
-import createElement from "utils/console/createElement";
-import { createFlattenHelp } from "utils/createConsoleHelp/flattenHelp";
-import { routePlan } from ".";
-import colorful from "../../utils/console/colorful";
-import { createHelp } from "../../utils/createConsoleHelp/createHelp";
+import { creators } from "utils/console/form";
+import { createFlattenHelp } from "utils/console/flattenHelp";
 
 const getButton = (funcName: string) => {
-    return createElement.button({
+    return creators.button({
         command: `() => functionClass.${funcName}()`,
-        content: `${funcName}`
+        content: `${funcName}`,
+        type: "button",
+        name: funcName
     });
 };
 
@@ -33,11 +32,18 @@ export default [
                             commandType: true
                         },
                         {
-                            title: "为creep选择路线",
-                            describe: "为creep选择路线",
-                            functionName: getButton("routePlan.chooseRouteForCreep"),
+                            title: "增加条件式",
+                            describe: "增加条件式",
+                            functionName: getButton("routePlan.addCondition"),
                             commandType: true
                         },
+                        // !不建议console使用下方函数，会引起调用bug，请使用creepGroup相关api代替
+                        // {
+                        //     title: "为creep选择路线",
+                        //     describe: "为creep选择路线",
+                        //     functionName: getButton("routePlan.chooseRouteForCreep"),
+                        //     commandType: true
+                        // },
                         {
                             title: "对路线进行设置",
                             describe: "对路线进行设置",
@@ -48,6 +54,18 @@ export default [
                             title: "在房间显示路线",
                             describe: "在房间显示路线",
                             functionName: getButton("routePlan.showRoutes"),
+                            commandType: true
+                        },
+                        {
+                            title: "删除路径",
+                            describe: "删除路径",
+                            functionName: getButton("routePlan.deleteRoute"),
+                            commandType: true
+                        },
+                        {
+                            title: "打印路径详细信息",
+                            describe: "打印路径详细信息",
+                            functionName: getButton("routePlan.printRouteDetail"),
                             commandType: true
                         }
                     ]

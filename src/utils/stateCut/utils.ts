@@ -3,27 +3,30 @@
  *
  * @export
  * @param {number[]} stateMemory
- * @param {((anyOther: Record<string, unknown>) => number)[]} condition
+ * @param {{ run: (...args: any[]) => number; description: string }[]} condition
  * @param {number} stateIndex
- * @param {Record<string, unknown>} [anyOther={}]
- * @param {(anyOther: Record<string, unknown>) => null} onStateChange
- * @param {string[]} [say=["🚧 working", "🔄 harvest"]]
+ * @param {(stateNum: number, description: string) => void} onStateChange
  * @returns {number}
  */
 export function stateCut(
     stateMemory: number[],
-    condition: (() => number)[],
+    condition: { run: (...args: any[]) => number; description: string; name: string }[],
+    conditionArgs: any[],
     stateIndex: number,
-    onStateChange: (stateNum: number) => void
+    onStateChange: (name: string, stateNum: number, description: string) => void
 ): number {
     while (stateMemory.length <= stateIndex) {
         stateMemory.push(0);
     }
     // console.log(stateMemory.toString());
-    const stateNum = condition[Number(stateMemory[stateIndex])]();
+    const stateNum = condition[Number(stateMemory[stateIndex])].run(...conditionArgs);
     if (stateMemory[stateIndex] !== stateNum) {
         stateMemory[stateIndex] = stateNum;
-        onStateChange(stateNum);
+        onStateChange(
+            condition[Number(stateMemory[stateIndex])].name,
+            stateNum,
+            condition[Number(stateMemory[stateIndex])].description
+        );
     }
     return stateMemory[stateIndex];
 }

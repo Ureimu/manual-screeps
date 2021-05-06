@@ -1,5 +1,4 @@
-import colorful from "../utils/console/colorful";
-import { createHelp } from "../utils/createConsoleHelp/createHelp";
+import { createFlattenHelp } from "utils/console/flattenHelp";
 
 const profilerParams = [
     { name: "ticks", desc: "持续的tick数" },
@@ -11,7 +10,7 @@ export default [
         alias: "profiler",
         exec(): string {
             return [
-                createHelp({
+                createFlattenHelp({
                     name: "profiler API",
                     describe: "挂载在Game对象上的cpu消耗检测分析函数。",
                     api: [

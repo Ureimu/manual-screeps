@@ -1,4 +1,5 @@
 /* eslint-disable no-underscore-dangle */
+
 import { SourceMapConsumer } from "source-map";
 
 export class ErrorMapper {
@@ -37,22 +38,25 @@ export class ErrorMapper {
         let outStack = error.toString();
 
         while ((match = re.exec(stack))) {
+            // console.log(match.toString());
             if (match[2] === "main") {
                 const pos = this.consumer.originalPositionFor({
                     column: parseInt(match[4], 10),
                     line: parseInt(match[3], 10)
                 });
-
                 if (pos.line != null) {
                     if (pos.name) {
-                        outStack += `\n    at ${pos.name} (${pos.source}:${pos.line}:${pos.column})`;
+                        // console.log(pos.name);
+                        outStack += `\n    at ${pos.name} (${pos.source.split("../")[1]}:${pos.line}:${pos.column})`;
                     } else {
                         if (match[1]) {
                             // no original source file name known - use file name from given trace
-                            outStack += `\n    at ${match[1]} (${pos.source}:${pos.line}:${pos.column})`;
+                            outStack += `\n    at ${match[1]} (${pos.source.split("../")[1]}:${pos.line}:${
+                                pos.column
+                            })`;
                         } else {
                             // no original source file name known or in given trace - omit name
-                            outStack += `\n    at ${pos.source}:${pos.line}:${pos.column}`;
+                            outStack += `\n    at ${pos.source.split("../")[1]}:${pos.line}:${pos.column}`;
                         }
                     }
                 } else {
@@ -60,7 +64,7 @@ export class ErrorMapper {
                     break;
                 }
             } else {
-                // no more parseable lines
+                // no more parsable lines
                 break;
             }
         }
@@ -74,15 +78,17 @@ export class ErrorMapper {
             try {
                 loop();
             } catch (e) {
+                // console.log("got exception, requested by ErrorMapper");
                 if (e instanceof Error) {
                     if ("sim" in Game.rooms) {
                         const message = `Source maps don't work in the simulator - displaying original error`;
-                        console.log(`<span style='color:red'>${message}<br>${_.escape(e.stack)}</span>`);
+                        console.log(`<span style='color:#FF6666'>${message}<br>${_.escape(e.stack)}</span>`);
                     } else {
-                        console.log(`<span style='color:red'>${_.escape(this.sourceMappedStackTrace(e))}</span>`);
+                        console.log(`<span style='color:#FF6666'>${_.escape(this.sourceMappedStackTrace(e))}</span>`);
                     }
                 } else {
                     // can't handle it
+                    console.log("can't handle it. By ErrorMapper");
                     throw e;
                 }
             }

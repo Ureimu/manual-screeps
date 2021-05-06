@@ -6,12 +6,13 @@ export function callOnStart(room: Room): void {
     const controller = room.controller as StructureController;
     if (controller.my) {
         if (room.memory.firstSpawnName === undefined) {
-            room.memory = {
+            (room.memory as Partial<RoomMemory>) = {
                 construction: {},
                 constructionSchedule: {},
                 startTime: Game.time,
                 roomControlStatus: [1],
-                firstSpawnName: room.find(FIND_MY_SPAWNS)[0].name
+                firstSpawnName: room.find(FIND_MY_SPAWNS)[0].name,
+                objectNum: {}
             };
         }
     }
@@ -94,7 +95,7 @@ export function autoConstruction(room: Room): void {
     room.memory.roomControlStatus[1] = room.controller?.progress as number;
     room.memory.roomControlStatus[2] = room.controller?.progressTotal as number;
     room.memory.roomControlStatus[3] = constructionSites.length;
-    if ((Game.time - room.memory.startTime) % 100 === 100 - 1) runLayout(room, "gridLayout", getGridLayout);
+    if ((Game.time - room.memory.startTime) % 30 === 30 - 1) runLayout(room, "gridLayout", getGridLayout);
 }
 
 function updateConstruction(room: Room): void {

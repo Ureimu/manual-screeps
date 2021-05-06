@@ -146,7 +146,7 @@ export function ifEnoughSpace(
         }
 
         // 判断方格数量是否足够放下所有需要占位的building
-        console.log(buildingExpand.size);
+        //console.log(buildingExpand.size);
         if (buildingExpand.size === num) {
             console.log("无法在此位置寻找到合适布局。");
             cpu = Game.cpu.getUsed() - cpu;
@@ -159,9 +159,9 @@ export function ifEnoughSpace(
         }
     }
     // console.log(JSON.stringify(terrainData));
-    console.log("已经在此位置寻找到合适布局。");
+    // console.log("已经在此位置寻找到合适布局。");
     cpu = Game.cpu.getUsed() - cpu;
-    console.log(cpu);
+    // console.log(cpu);
     return { roadExpand, buildingExpand };
 }
 
@@ -323,14 +323,13 @@ export function getGridLayout(room: Room): void {
     // 寻找mineral路径
     const mineralRoadPosSet = new Set<string>(); // 寻找source,controller的路径
     const mineralContainerPosSet = new Set<string>();
-    const mineralGoals = _.map(
-        room.find(FIND_MINERALS) as { pos: RoomPosition; structureType?: string }[],
-        function (source) {
-            // 我们没办法走到 source 上 -- 将 `range` 设置为 1
-            // 所以我们将寻路至其旁边,这里应该寻路到对应的container上
-            return { pos: source.pos, range: 1 };
-        }
-    );
+    const mineralGoals = _.map(room.find(FIND_MINERALS) as { pos: RoomPosition; structureType?: string }[], function (
+        source
+    ) {
+        // 我们没办法走到 source 上 -- 将 `range` 设置为 1
+        // 所以我们将寻路至其旁边,这里应该寻路到对应的container上
+        return { pos: source.pos, range: 1 };
+    });
 
     for (const mineralGoal of mineralGoals) {
         const ret = PathFinder.search(Game.spawns[room.memory.firstSpawnName].pos, mineralGoal, {
@@ -508,7 +507,7 @@ export function getGridLayout(room: Room): void {
     });
     cpu = Game.cpu.getUsed() - cpu;
     if (square2Set.size === 9 && square3Set.size === 9 && coreLabPos.length === 2) {
-        console.log(`在第${m}个位置检索后，找到了lab布局，消耗cpu为${cpu.toFixed(2)}`);
+        // console.log(`在第${m}个位置检索后，找到了lab布局，消耗cpu为${cpu.toFixed(2)}`);
         const snakeLabPosSetList = rts.get2SnakePosStr(new Set(coreLabPos));
         snakeLabPosSetList[0].forEach(posStr => {
             labSet.add(posStr);
@@ -744,7 +743,7 @@ export function getGridLayout(room: Room): void {
     );
 
     const endCpu = Game.cpu.getUsed();
-    console.log(`耗费cpu:${(endCpu - startCpu).toFixed(2)}`);
+    // console.log(`耗费cpu:${(endCpu - startCpu).toFixed(2)}`);
 }
 
 function isPosSetInPos(posSet: Set<string>, pos: RoomPositionStr): boolean {
@@ -827,6 +826,6 @@ function getMinCut(
     // console.log('Positions returned', positions.length);
     cpu = Game.cpu.getUsed() - cpu;
     // console.log('Needed', cpu, ' cpu time');
-    console.log(`生成rampart和wall位置个数：${positions.length};` + `该子任务消耗cpu: ${cpu.toFixed(2)}`);
+    // console.log(`生成rampart和wall位置个数：${positions.length};` + `该子任务消耗cpu: ${cpu.toFixed(2)}`);
     return new Set(coordToRoomPositionStr(positions, room, rts));
 }

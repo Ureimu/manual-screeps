@@ -1,12 +1,15 @@
 import { Coord, PosStr } from "utils/RoomPositionToStr";
+import { isRouteMidpointDetail } from ".";
 
 export function showRoutes(routeName: string, roomName: string): string {
     const roomVisual = new RoomVisual(roomName);
     const coordList: Coord[] = [];
     const directionCoordList: [Coord, Coord][] = [];
     Memory.routes[routeName].routeDetailArray.forEach(routeDetail => {
-        const coord = PosStr.parseCoord(routeDetail.pathMidpointPos);
-        coordList.push(coord);
+        if (isRouteMidpointDetail(routeDetail)) {
+            const coord = PosStr.parseCoord(routeDetail.pathMidpointPos);
+            coordList.push(coord);
+        }
     });
     const coordListLength = coordList.length;
     for (let index = 0; index < coordListLength; index++) {
@@ -15,15 +18,10 @@ export function showRoutes(routeName: string, roomName: string): string {
         directionCoordList.push([element0, element1]);
     }
     coordList.forEach(coord => {
-        roomVisual.circle(coord.x + 0.5, coord.y + 0.5);
+        roomVisual.circle(coord.x, coord.y);
     });
     directionCoordList.forEach(directionCoord => {
-        roomVisual.line(
-            directionCoord[0].x + 0.5,
-            directionCoord[0].y + 0.5,
-            directionCoord[1].x + 0.5,
-            directionCoord[1].y + 0.5
-        );
+        roomVisual.line(directionCoord[0].x, directionCoord[0].y, directionCoord[1].x, directionCoord[1].y);
     });
     return roomVisual.export();
 }

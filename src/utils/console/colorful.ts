@@ -21,3 +21,5 @@ export default function colorful(content: string, colorName?: Colors, bolder = f
 
     return `<text style="${[colorStyle, bolderStyle].join(" ")}">${content}</text>`;
 }
+
+export type Colors = "red" | "green" | "yellow" | "blue";

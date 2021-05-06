@@ -55,9 +55,9 @@ export interface Rectangle {
 }
 
 export class Graph {
-    totalVertices: number;
-    level: number[];
-    edges: { [from: number]: Edge[] };
+    private totalVertices: number;
+    private level: number[];
+    private edges: { [from: number]: Edge[] };
 
     constructor(totalVertices: number) {
         this.totalVertices = totalVertices;
@@ -86,7 +86,7 @@ export class Graph {
      * @param from - vertex to start from
      * @param to - vertex to try and reach
      */
-    createLevelGraph(from: number, to: number) {
+    private createLevelGraph(from: number, to: number) {
         if (to >= this.totalVertices) {
             return false;
         }
@@ -116,7 +116,7 @@ export class Graph {
      * @param targetFlow - the amount of flow to try and achieve
      * @param count - keep track of which vertices have been visited so we don't include them twice
      */
-    calcFlow(start: number, end: number, targetFlow: number, count: number[]) {
+    private calcFlow(start: number, end: number, targetFlow: number, count: number[]) {
         if (start === end) {
             // Sink reached , abort recursion
             return targetFlow;

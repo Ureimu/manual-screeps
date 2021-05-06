@@ -1,4 +1,4 @@
-import createElement from "utils/console/createElement";
+import { createForm } from "utils/console";
 
 export function callOnStart(): void {
     if (!Memory.creepGroups) Memory.creepGroups = {};
@@ -7,7 +7,7 @@ export function callOnStart(): void {
 export class creepGroup {
     public static create(): string {
         const commitFunctionName = "creepGroupCommit.create";
-        return createElement.form(
+        return createForm(
             commitFunctionName + String(Game.time),
             [
                 { name: "creepGroupName", label: "creep组名称", type: "input", placeholder: "creep组名称" },
@@ -22,14 +22,16 @@ export class creepGroup {
             ],
             {
                 content: "提交",
-                command: `(args) => ${commitFunctionName}(args)`
+                command: `(args) => ${commitFunctionName}(args)`,
+                type: "button",
+                name: "button" + String(Game.time) + commitFunctionName
             }
         );
     }
 
     public static addCreep(): string {
         const commitFunctionName = "creepGroupCommit.addCreep";
-        return createElement.form(
+        return createForm(
             commitFunctionName + String(Game.time),
             [
                 { name: "creepName", label: "creep名称", type: "input", placeholder: "creep名称" },
@@ -44,14 +46,48 @@ export class creepGroup {
             ],
             {
                 content: "提交",
-                command: `(args) => ${commitFunctionName}(args)`
+                command: `(args) => ${commitFunctionName}(args)`,
+                type: "button",
+                name: "button" + String(Game.time) + commitFunctionName
+            }
+        );
+    }
+
+    public static moveCreep(): string {
+        const commitFunctionName = "creepGroupCommit.moveCreep";
+        return createForm(
+            commitFunctionName + String(Game.time),
+            [
+                {
+                    name: "currentCreepGroupName",
+                    label: "现在的creep组名称",
+                    type: "select",
+                    options: Object.keys(Memory.creepGroups).map(value => {
+                        return { value, label: value };
+                    })
+                },
+                { name: "creepName", label: "creep名称", type: "input", placeholder: "creep名称" },
+                {
+                    name: "newCreepGroupName",
+                    label: "新的creep组名称",
+                    type: "select",
+                    options: Object.keys(Memory.creepGroups).map(value => {
+                        return { value, label: value };
+                    })
+                }
+            ],
+            {
+                content: "提交",
+                command: `(args) => ${commitFunctionName}(args)`,
+                type: "button",
+                name: "button" + String(Game.time) + commitFunctionName
             }
         );
     }
 
     public static setCreepGroupProperties(): string {
         const commitFunctionName = "creepGroupCommit.setCreepGroupProperties";
-        return createElement.form(
+        return createForm(
             commitFunctionName + String(Game.time),
             [
                 {
@@ -73,14 +109,16 @@ export class creepGroup {
             ],
             {
                 content: "提交",
-                command: `(args) => ${commitFunctionName}(args)`
+                command: `(args) => ${commitFunctionName}(args)`,
+                type: "button",
+                name: "button" + String(Game.time) + commitFunctionName
             }
         );
     }
 
     public static showCreepGroups(): string {
         const commitFunctionName = "creepGroupCommit.showCreepGroups";
-        return createElement.form(
+        return createForm(
             commitFunctionName + String(Game.time),
             [
                 {
@@ -104,7 +142,9 @@ export class creepGroup {
             ],
             {
                 content: "提交",
-                command: `(args) => ${commitFunctionName}(args)`
+                command: `(args) => ${commitFunctionName}(args)`,
+                type: "button",
+                name: "button" + String(Game.time) + commitFunctionName
             }
         );
     }
@@ -119,6 +159,10 @@ declare global {
                 ifShow: boolean;
             };
         };
+    }
+
+    interface CreepMemory {
+        groupName: string;
     }
 }
 
