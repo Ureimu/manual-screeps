@@ -4,10 +4,12 @@ import { creepGroupCommit } from "creep/group/commit";
 import { SpawnCreepDetail } from "spawn/spawnPool";
 import { TaskPool } from "utils/PriorityQueue/taskPool";
 import { SetTools } from "utils/SetTools";
+import { callOnBirth } from "./callOnBirth";
 import { readyCondition } from "./readyCondition";
 
 export function runSpawnQueue(spawn: StructureSpawn): void {
     if (spawn.spawning) return;
+    if (spawn.room.energyAvailable < BODYPART_COST["carry"] * 6) return;
     if (!spawn.memory.spawnQueue) {
         spawn.memory = {
             spawnQueue: []
@@ -84,6 +86,13 @@ export function runSpawnPool(room: Room): void {
                 creepGroupName: groupName,
                 creepName
             });
+        });
+    }
+
+    if (justSpawningCreepSet?.size) {
+        justSpawningCreepSet.forEach(creepName => {
+            const creep = Game.creeps[creepName];
+            callOnBirth(creep);
         });
     }
 

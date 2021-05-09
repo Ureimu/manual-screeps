@@ -1,4 +1,5 @@
-import { ObjectPosDetail, ObjectPosType } from "posMaintainer";
+import { ObjectPosDetail, ObjectPosType } from "flagMaintainer";
+import colorful from "utils/console/colorful";
 
 function getName(roomName: string, type: ObjectPosType, index: number) {
     return `${roomName}${type}${index}`;
@@ -40,7 +41,8 @@ export function maintainPos(room: Room, typeList: ObjectPosType[]): void {
         }
         // 移除多余的flag
         flagList.forEach(flag => {
-            if (Number(flag.name.split(flagNameRegExp)[1]) > (room.memory.objectNum[type]?.num as number)) {
+            if (Number(flag.name.split(flagNameRegExp)[1]) >= (room.memory.objectNum[type]?.num as number)) {
+                console.log(colorful(`移除旗帜 ${flag.name}`, "yellow"));
                 flag.remove();
             }
         });
@@ -73,7 +75,14 @@ function createFlagsForObjects<T extends Exclude<FindConstant, FindOptionWithout
     filter?: FilterFunction<T>
 ): void {
     const objects = room.find(find, { filter: filter ? filter : () => true });
-    objects.forEach((object, index) => object.pos.createFlag(getName(room.name, type, index)));
+    objects.forEach((object, index) => {
+        const name = getName(room.name, type, index);
+        if (!Game.flags[name]) {
+            object.pos.createFlag(name);
+        } else {
+            Game.flags[name].setPosition(object.pos);
+        }
+    });
     (room.memory.objectNum[type] as ObjectPosDetail<typeof type>) = {
         num: objects.length,
         type

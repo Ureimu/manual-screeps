@@ -9,24 +9,33 @@
  * @returns {number}
  */
 export function stateCut(
-    stateMemory: number[],
-    condition: { run: (...args: any[]) => number; description: string; name: string }[],
+    stateMemory: (number | string)[],
+    condition: Record<
+        number | string,
+        {
+            run: (...args: any[]) => string | number;
+            description: string;
+            name: string;
+        }
+    >,
+
     conditionArgs: any[],
     stateIndex: number,
-    onStateChange: (name: string, stateNum: number, description: string) => void
-): number {
+    onStateChange: (name: string, state: string | number, description: string) => void
+): number | string {
     while (stateMemory.length <= stateIndex) {
-        stateMemory.push(0);
+        stateMemory.push("startState");
     }
     // console.log(stateMemory.toString());
-    const stateNum = condition[Number(stateMemory[stateIndex])].run(...conditionArgs);
-    if (stateMemory[stateIndex] !== stateNum) {
-        stateMemory[stateIndex] = stateNum;
-        onStateChange(
-            condition[Number(stateMemory[stateIndex])].name,
-            stateNum,
-            condition[Number(stateMemory[stateIndex])].description
-        );
+    const stateObject = condition[stateMemory[stateIndex]];
+    if (!stateObject) console.log(stateMemory[stateIndex], Object.keys(condition));
+    //console.log(stateMemory[stateIndex], Object.keys(condition));
+    const state = stateObject.run(...conditionArgs);
+    if (stateMemory[stateIndex] !== state) {
+        stateMemory[stateIndex] = state;
+        const newStateObject = condition[state];
+        onStateChange(newStateObject.name, state, newStateObject.description);
     }
+
     return stateMemory[stateIndex];
 }

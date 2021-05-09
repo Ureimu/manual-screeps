@@ -7,7 +7,7 @@ export function chooseBefittingBody(args: { creepBodyConfigName: string; spawn: 
     const controllerLevel = spawn.room.controller?.level;
     for (let index = Number(controllerLevel); index > 0; index--) {
         const config = fullConfig[String(index) as ControllerLevels];
-        if (config && bodyTools.getEnergyCost(config.body) <= spawn.room.energyCapacityAvailable) {
+        if (config && bodyTools.getEnergyCost(config.body) <= spawn.room.energyAvailable) {
             return config.body;
         }
     }

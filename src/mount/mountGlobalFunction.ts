@@ -56,6 +56,9 @@ function clearAll(): void {
         Game.creeps[creepName].suicide();
     }
     RawMemory.set("{}");
+    for (const spawn in Game.spawns) {
+        Game.spawns[spawn].spawning?.cancel();
+    }
     // Game.cpu.halt(); 自己手动执行
 }
 

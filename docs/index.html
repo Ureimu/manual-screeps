@@ -1,0 +1,502 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>manual-screeps</title>
+	<meta name="description" content="Documentation for manual-screeps">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+	<script async src="assets/js/search.js" id="search-script"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">manual-screeps</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<h1>manual-screeps</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<a href="#screeps-typescript-starter" id="screeps-typescript-starter" style="color: inherit; text-decoration: none;">
+					<h1>Screeps Typescript Starter</h1>
+				</a>
+				<p>Screeps Typescript Starter is a starting point for a Screeps AI written in Typescript. It provides everything you need to start writing your AI whilst leaving <code>main.ts</code> as empty as possible.</p>
+				<a href="#basic-usage" id="basic-usage" style="color: inherit; text-decoration: none;">
+					<h2>Basic Usage</h2>
+				</a>
+				<p>You will need:</p>
+				<ul>
+					<li><a href="https://nodejs.org/en/download">Node.JS</a> (10.x)</li>
+					<li>A Package Manager (<a href="https://yarnpkg.com/en/docs/getting-started">Yarn</a> or <a href="https://docs.npmjs.com/getting-started/installing-node">npm</a>)</li>
+					<li>Rollup CLI (Optional, install via <code>npm install -g rollup</code>)</li>
+				</ul>
+				<p>Download the latest source <a href="https://github.com/screepers/screeps-typescript-starter/archive/master.zip">here</a> and extract it to a folder.</p>
+				<p>Open the folder in your terminal and run your package manager to install the required packages and TypeScript declaration files:</p>
+				<pre><code class="language-bash"><span style="color: #008000"># npm</span>
+<span style="color: #000000">npm install</span>
+
+<span style="color: #008000"># yarn</span>
+<span style="color: #000000">yarn</span>
+</code></pre>
+				<p>Fire up your preferred editor with typescript installed and you are good to go!</p>
+				<a href="#rollup-and-code-upload" id="rollup-and-code-upload" style="color: inherit; text-decoration: none;">
+					<h3>Rollup and code upload</h3>
+				</a>
+				<p>Screeps Typescript Starter uses rollup to compile your typescript and upload it to a screeps server.</p>
+				<p>Move or copy <code>screeps.sample.json</code> to <code>screeps.json</code> and edit it, changing the credentials and optionally adding or removing some of the destinations.</p>
+				<p>Running <code>rollup -c</code> will compile your code and do a &quot;dry run&quot;, preparing the code for upload but not actually pushing it. Running <code>rollup -c --environment DEST:main</code> will compile your code, and then upload it to a screeps server using the <code>main</code> config from <code>screeps.json</code>.</p>
+				<p>You can use <code>-cw</code> instead of <code>-c</code> to automatically re-run when your source code changes - for example, <code>rollup -cw --environment DEST:main</code> will automatically upload your code to the <code>main</code> configuration every time your code is changed.</p>
+				<p>Finally, there are also NPM scripts that serve as aliases for these commands in <code>package.json</code> for IDE integration. Running <code>npm run push-main</code> is equivalent to <code>rollup -c --environment DEST:main</code>, and <code>npm run watch-sim</code> is equivalent to <code>rollup -cw --dest sim</code>.</p>
+				<a href="#important-to-upload-code-to-a-private-server-you-must-have-screepsmod-auth-installed-and-configured" id="important-to-upload-code-to-a-private-server-you-must-have-screepsmod-auth-installed-and-configured" style="color: inherit; text-decoration: none;">
+					<h4>Important! To upload code to a private server, you must have <a href="https://github.com/ScreepsMods/screepsmod-auth">screepsmod-auth</a> installed and configured!</h4>
+				</a>
+				<a href="#typings" id="typings" style="color: inherit; text-decoration: none;">
+					<h2>Typings</h2>
+				</a>
+				<p>The type definitions for Screeps come from <a href="https://github.com/screepers/typed-screeps">typed-screeps</a>. If you find a problem or have a suggestion, please open an issue there.</p>
+				<a href="#documentation" id="documentation" style="color: inherit; text-decoration: none;">
+					<h2>Documentation</h2>
+				</a>
+				<p>We&#39;ve also spent some time reworking the documentation from the ground-up, which is now generated through <a href="https://www.gitbook.com/">Gitbooks</a>. Includes all the essentials to get you up and running with Screeps AI development in TypeScript, as well as various other tips and tricks to further improve your development workflow.</p>
+				<p>Maintaining the docs will also become a more community-focused effort, which means you too, can take part in improving the docs for this starter kit.</p>
+				<p>To visit the docs, <a href="https://screepers.gitbook.io/screeps-typescript-starter/">click here</a>.</p>
+				<a href="#contributing" id="contributing" style="color: inherit; text-decoration: none;">
+					<h2>Contributing</h2>
+				</a>
+				<p>Issues, Pull Requests, and contribution to the docs are welcome! See our <a href="CONTRIBUTING.md">Contributing Guidelines</a> for more details.</p>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class=" ">
+						<a href="modules.html">Exports</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/ai.html">ai</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/ai_room.html">ai/room</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/ai_room_maintain_carrysourceandfill.html">ai/room/maintain/carry<wbr>Source<wbr>And<wbr>Fill</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/ai_room_maintain_carrysourceandfill_fillspawn.html">ai/room/maintain/carry<wbr>Source<wbr>And<wbr>Fill/fill<wbr>Spawn</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/ai_room_maintain_carrysourceandfill_setcarrysourceandfillbody.html">ai/room/maintain/carry<wbr>Source<wbr>And<wbr>Fill/set<wbr>Carry<wbr>Source<wbr>And<wbr>Fill<wbr>Body</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/ai_room_maintain_harvestsource.html">ai/room/maintain/harvest<wbr>Source</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/ai_room_maintain_harvestsource_buildsourcecontainer.html">ai/room/maintain/harvest<wbr>Source/build<wbr>Source<wbr>Container</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/ai_room_maintain_harvestsource_keepharvesting.html">ai/room/maintain/harvest<wbr>Source/keep<wbr>Harvesting</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/ai_room_maintain_harvestsource_setbodyconfig.html">ai/room/maintain/harvest<wbr>Source/set<wbr>Body<wbr>Config</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/ai_room_maintain_upgradecontroller.html">ai/room/maintain/upgrade<wbr>Controller</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/ai_room_maintain_upgradecontroller_setupgradecontrollerbody.html">ai/room/maintain/upgrade<wbr>Controller/set<wbr>Upgrade<wbr>Controller<wbr>Body</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/ai_room_maintain_upgradecontroller_upgradecontroller.html">ai/room/maintain/upgrade<wbr>Controller/upgrade<wbr>Controller</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/ai_room_maintain_utils_end.html">ai/room/maintain/utils/end</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/ai_utils_createcreepgroup.html">ai/utils/create<wbr>Creep<wbr>Group</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/ai_utils_createcreepnamelist.html">ai/utils/create<wbr>Creep<wbr>Name<wbr>List</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/ai_utils_createflaglist.html">ai/utils/create<wbr>Flag<wbr>List</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/ai_utils_createroute.html">ai/utils/create<wbr>Route</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/ai_utils_movecreepbetweengroup.html">ai/utils/move<wbr>Creep<wbr>Between<wbr>Group</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/ai_utils_setbodyconfig.html">ai/utils/set<wbr>Body<wbr>Config</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/console_style.html">console/style</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/construction.html">construction</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/construction_composition_gridlayout.html">construction/composition/grid<wbr>Layout</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/construction_composition_runlayout.html">construction/composition/run<wbr>Lay<wbr>Out</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/construction_utils_initconstructionmemory.html">construction/utils/init<wbr>Construction<wbr>Memory</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/construction_utils_strtoroomposition.html">construction/utils/str<wbr>ToRoom<wbr>Position</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/creep_action.html">creep/action</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/creep_action_doonarrived.html">creep/action/do<wbr>OnArrived</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/creep_action_doonarrived_build.html">creep/action/do<wbr>OnArrived/build</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/creep_action_doonarrived_buildinrange.html">creep/action/do<wbr>OnArrived/build<wbr>InRange</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/creep_action_doonarrived_fillspawnandextension.html">creep/action/do<wbr>OnArrived/fill<wbr>Spawn<wbr>And<wbr>Extension</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/creep_action_doonarrived_goto.html">creep/action/do<wbr>OnArrived/go<wbr>To</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/creep_action_doonarrived_harvestsource.html">creep/action/do<wbr>OnArrived/harvest<wbr>Source</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/creep_action_doonarrived_keeponharvestingsource.html">creep/action/do<wbr>OnArrived/keep<wbr>OnHarvesting<wbr>Source</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/creep_action_doonarrived_signcontroller.html">creep/action/do<wbr>OnArrived/sign<wbr>Controller</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/creep_action_doonarrived_transferenergy.html">creep/action/do<wbr>OnArrived/transfer<wbr>Energy</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/creep_action_doonarrived_upgradecontroller.html">creep/action/do<wbr>OnArrived/upgrade<wbr>Controller</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/creep_action_doonarrived_utils_getmidpointobjects.html">creep/action/do<wbr>OnArrived/utils/get<wbr>Midpoint<wbr>Objects</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/creep_action_doonarrived_withdrawenergy.html">creep/action/do<wbr>OnArrived/withdraw<wbr>Energy</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/creep_action_doonjudgecondition.html">creep/action/do<wbr>OnJudge<wbr>Condition</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/creep_action_onarrived.html">creep/action/on<wbr>Arrived</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/creep_action_onjudgecondition.html">creep/action/on<wbr>Judge<wbr>Condition</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/creep_action_onmoving.html">creep/action/on<wbr>Moving</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/creep_action_routecache.html">creep/action/route<wbr>Cache</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/creep_action_routecache_getcostmatrix.html">creep/action/route<wbr>Cache/get<wbr>Cost<wbr>Matrix</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/creep_body.html">creep/body</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/creep_body_choosecondition.html">creep/body/choose<wbr>Condition</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/creep_body_commit.html">creep/body/commit</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/creep_body_help.html">creep/body/help</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/creep_body_tools.html">creep/body/tools</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/creep_group.html">creep/group</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/creep_group_commit.html">creep/group/commit</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/creep_group_help.html">creep/group/help</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/creep_group_show.html">creep/group/show</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/creep_routeplan.html">creep/route<wbr>Plan</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/creep_routeplan_commit.html">creep/route<wbr>Plan/commit</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/creep_routeplan_help.html">creep/route<wbr>Plan/help</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/creep_routeplan_show.html">creep/route<wbr>Plan/show</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/flagmaintainer.html">flag<wbr>Maintainer</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/flagmaintainer_commit.html">flag<wbr>Maintainer/commit</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/flagmaintainer_help.html">flag<wbr>Maintainer/help</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/flagmaintainer_maintainer.html">flag<wbr>Maintainer/maintainer</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/frame.html">frame</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/globalenv.html">global<wbr>Env</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/globalenv_html.html">global<wbr>Env/html</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/globalenv_lodash.html">global<wbr>Env/lodash</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/help.html">help</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/help_main.html">help/main</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/help_profiler.html">help/profiler</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/main.html">main</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/mount.html">mount</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/mount_mountcallonstart.html">mount/mount<wbr>Call<wbr>OnStart</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/mount_mountcommit.html">mount/mount<wbr>Commit</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/mount_mountconsole.html">mount/mount<wbr>Console</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/mount_mountglobalfunction.html">mount/mount<wbr>Global<wbr>Function</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/mount_mountglobalfunctionclass.html">mount/mount<wbr>Global<wbr>Function<wbr>Class</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/mount_mountglobalfunctionobject.html">mount/mount<wbr>Global<wbr>Function<wbr>Object</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/mount_mounthelp.html">mount/mount<wbr>Help</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/mount_mountstructures.html">mount/mount<wbr>Structures</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/plugin.html">plugin</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/plugin_commit.html">plugin/commit</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/plugin_help.html">plugin/help</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/plugin_tools_analyzer.html">plugin/tools/analyzer</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/plugin_tools_loader.html">plugin/tools/loader</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/spawn_spawnpool.html">spawn/spawn<wbr>Pool</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/spawn_spawnpool_commit.html">spawn/spawn<wbr>Pool/commit</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/spawn_spawnpool_help.html">spawn/spawn<wbr>Pool/help</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/spawn_spawning.html">spawn/spawning</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/spawn_spawning_callonbirth.html">spawn/spawning/call<wbr>OnBirth</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/spawn_spawning_readycondition.html">spawn/spawning/ready<wbr>Condition</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/utils_acrosstick.html">utils/<wbr>Across<wbr>Tick</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/utils_acrosstick_runtask.html">utils/<wbr>Across<wbr>Tick/run<wbr>Task</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/utils_acrosstick_type.html">utils/<wbr>Across<wbr>Tick/type</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/utils_errormapper.html">utils/<wbr>Error<wbr>Mapper</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/utils_priorityqueue.html">utils/<wbr>Priority<wbr>Queue</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/utils_priorityqueue_taskpool.html">utils/<wbr>Priority<wbr>Queue/task<wbr>Pool</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/utils_roompositiontostr.html">utils/<wbr>Room<wbr>Position<wbr>ToStr</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/utils_settools.html">utils/<wbr>Set<wbr>Tools</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/utils_bodypartsgenerator.html">utils/bodyparts<wbr>Generator</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/utils_console.html">utils/console</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/utils_console_colorful.html">utils/console/colorful</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/utils_console_flattenhelp.html">utils/console/flatten<wbr>Help</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/utils_console_form.html">utils/console/form</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/utils_console_form_example.html">utils/console/form/example</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/utils_console_form_types.html">utils/console/form/types</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/utils_console_help.html">utils/console/help</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/utils_console_help_types.html">utils/console/help/types</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/utils_console_utils.html">utils/console/utils</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/utils_loader.html">utils/loader</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/utils_mincut_mincut.html">utils/mincut/min<wbr>Cut</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/utils_profiler.html">utils/profiler</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/utils_roomvisualgui.html">utils/room<wbr>VisualGUI</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/utils_roomvisualgui_guitype.html">utils/room<wbr>VisualGUI/GUIType</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/utils_roomvisualgui_utils.html">utils/room<wbr>VisualGUI/utils</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/utils_statecut_condition.html">utils/state<wbr>Cut/condition</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/utils_statecut_utils.html">utils/state<wbr>Cut/utils</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/version.html">version</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-namespace"><span class="tsd-kind-icon">Namespace</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -32,7 +32,8 @@ export default {
         typescript({ tsconfig: "./tsconfig.json" }),
         copy({
             targets: [
-                { src: "./src/utils/PriorityQueue/priority_queue.wasm", dest: "./dist/" }
+                { src: "./src/utils/PriorityQueue/priority_queue.wasm", dest: "./dist/" },
+                { src: "./src/utils/moveOptimize/moveOptimize.js", dest: "./dist/" }
             ]
         }),
         html({

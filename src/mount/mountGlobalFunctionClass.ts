@@ -2,7 +2,7 @@ import { creepBody } from "creep/body";
 import { creepGroup } from "creep/group";
 import { routePlan } from "creep/routePlan";
 import { plugin } from "plugin";
-import { posMaintainer } from "posMaintainer";
+import { posMaintainer } from "flagMaintainer";
 import { spawnPool } from "spawn/spawnPool";
 import { creators } from "utils/console/form";
 

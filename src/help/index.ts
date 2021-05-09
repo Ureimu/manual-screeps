@@ -4,7 +4,7 @@ import routePlanAlias from "../creep/routePlan/help";
 import creepGroupAlias from "../creep/group/help";
 import creepBodyAlias from "../creep/body/help";
 import spawnQueueAlias from "../spawn/spawnPool/help";
-import posMaintainerAlias from "../posMaintainer/help";
+import posMaintainerAlias from "../flagMaintainer/help";
 import pluginAlias from "../plugin/help";
 
 export default _.flatten([

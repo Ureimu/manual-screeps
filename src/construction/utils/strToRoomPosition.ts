@@ -182,7 +182,7 @@ export class RoomPositionToStr {
             });
             strSet.delete(str);
         });
-        console.log(JSON.stringify(incomeList));
+        // console.log(JSON.stringify(incomeList));
         const exitPosStrSet = new Set<string>();
         for (const posStr in incomeList) {
             if (incomeList[posStr].income === 1) {
@@ -193,7 +193,7 @@ export class RoomPositionToStr {
                     2 * centerCoord.y - edgeCoord.y,
                     roomName
                 );
-                console.log(exitPosStr);
+                // console.log(exitPosStr);
                 strSet.delete(exitPosStr);
                 exitPosStrSet.add(exitPosStr);
             }

@@ -4,7 +4,7 @@ import { actionIndexedList } from "./doOnArrived";
 import { doStuff } from "./onArrived";
 import { judgeCondition } from "./onJudgeCondition";
 import { moveCreep } from "./onMoving";
-import { createRouteCache } from "./routeCache";
+import { createRouteCache, emptyRouteCacheDetail } from "./routeCache";
 
 export function clearCreepRouteMemory(creepMemory: CreepMemory): void {
     creepMemory.route = {
@@ -12,6 +12,18 @@ export function clearCreepRouteMemory(creepMemory: CreepMemory): void {
         index: 0,
         state: "moving"
     };
+}
+
+export function callOnCreepBirth(creep: Creep): void {
+    if (!global.creepMemory) global.creepMemory = {};
+    if (!global.creepMemory[creep.name]) global.creepMemory[creep.name] = emptyRouteCacheDetail;
+}
+
+export function callOnStart(): void {
+    global.routeCache = {};
+    _.forEach(Game.creeps, creep => {
+        callOnCreepBirth(creep);
+    });
 }
 
 export interface CreepMemoryRouteDetail {
@@ -41,6 +53,7 @@ export function runRecursiveCreepAction(
     creepRoute: CreepMemoryRouteDetail,
     switchCounter: { count: number }
 ): void {
+    if (creep.spawning) return;
     switchCounter.count++;
     const maxCount = 100;
     if (switchCounter.count > maxCount) {
@@ -63,14 +76,11 @@ export function runRecursiveCreepAction(
                 creepRoute.state = doStuff(creep, routeDetail);
                 const nextMidpoint = Memory.routes[creep.memory.route.name].routeDetailArray[creep.memory.route.index];
                 if (creepRoute.state === "moving") {
-                    if (!global.creepMemory) global.creepMemory = {};
-                    if (!global.creepMemory[creep.name])
-                        (global.creepMemory[creep.name] as Partial<typeof global.creepMemory["12"]>) = {};
-                    if (type === "stay" && isRouteMidpointDetail(nextMidpoint)) {
-                        global.creepMemory[creep.name] = createRouteCache(routeDetail, nextMidpoint, creep.pos);
-                    } else {
-                        (global.creepMemory[creep.name] as Partial<typeof global.creepMemory["12"]>) = {};
-                    }
+                    // if (type === "stay" && isRouteMidpointDetail(nextMidpoint)) {
+                    //     global.creepMemory[creep.name] = createRouteCache(routeDetail, nextMidpoint, creep.pos);
+                    // } else {
+                    //     global.creepMemory[creep.name] = emptyRouteCacheDetail;
+                    // }
                     runRecursiveCreepAction(creep, creepRoute, switchCounter);
                 }
                 break;

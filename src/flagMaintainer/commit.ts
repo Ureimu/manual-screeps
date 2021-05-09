@@ -1,6 +1,6 @@
 import { maintainPos } from "./maintainer";
 import { consoleStyle } from "console/style";
-import { ObjectPosType } from "posMaintainer";
+import { ObjectPosType } from "flagMaintainer";
 
 const style = consoleStyle("routePlan");
 

@@ -814,8 +814,8 @@ function getMinCut(
     }
     if (colony.controller) {
         const { x, y } = colony.controller.pos;
-        const [x1, y1] = [Math.max(x - 3, 0), Math.max(y - 3, 0)];
-        const [x2, y2] = [Math.min(x + 3, 49), Math.min(y + 3, 49)];
+        const [x1, y1] = [Math.max(x - 4, 0), Math.max(y - 4, 0)];
+        const [x2, y2] = [Math.min(x + 4, 49), Math.min(y + 4, 49)];
         rectArray.push({ x1, y1, x2, y2 });
     }
 
