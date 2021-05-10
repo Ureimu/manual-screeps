@@ -58,53 +58,28 @@
 	<div class="row">
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
-				<a href="#screeps-typescript-starter" id="screeps-typescript-starter" style="color: inherit; text-decoration: none;">
-					<h1>Screeps Typescript Starter</h1>
+				<a href="#manual-screeps" id="manual-screeps" style="color: inherit; text-decoration: none;">
+					<h1>manual-screeps</h1>
 				</a>
-				<p>Screeps Typescript Starter is a starting point for a Screeps AI written in Typescript. It provides everything you need to start writing your AI whilst leaving <code>main.ts</code> as empty as possible.</p>
-				<a href="#basic-usage" id="basic-usage" style="color: inherit; text-decoration: none;">
-					<h2>Basic Usage</h2>
+				<p>为手动操作优化过，开箱即用的 screeps 游戏代码框架。</p>
+				<a href="#介绍" id="介绍" style="color: inherit; text-decoration: none;">
+					<h2>介绍</h2>
 				</a>
-				<p>You will need:</p>
-				<ul>
-					<li><a href="https://nodejs.org/en/download">Node.JS</a> (10.x)</li>
-					<li>A Package Manager (<a href="https://yarnpkg.com/en/docs/getting-started">Yarn</a> or <a href="https://docs.npmjs.com/getting-started/installing-node">npm</a>)</li>
-					<li>Rollup CLI (Optional, install via <code>npm install -g rollup</code>)</li>
-				</ul>
-				<p>Download the latest source <a href="https://github.com/screepers/screeps-typescript-starter/archive/master.zip">here</a> and extract it to a folder.</p>
-				<p>Open the folder in your terminal and run your package manager to install the required packages and TypeScript declaration files:</p>
-				<pre><code class="language-bash"><span style="color: #008000"># npm</span>
-<span style="color: #000000">npm install</span>
-
-<span style="color: #008000"># yarn</span>
-<span style="color: #000000">yarn</span>
-</code></pre>
-				<p>Fire up your preferred editor with typescript installed and you are good to go!</p>
-				<a href="#rollup-and-code-upload" id="rollup-and-code-upload" style="color: inherit; text-decoration: none;">
-					<h3>Rollup and code upload</h3>
+				<p>该框架提供了一系列在游戏控制台的操作方法，以便于玩家在控制台完成从添加 creep 到使 creep 完成一系列任务的复杂操作。具体可见教程。</p>
+				<a href="#教程" id="教程" style="color: inherit; text-decoration: none;">
+					<h2>教程</h2>
 				</a>
-				<p>Screeps Typescript Starter uses rollup to compile your typescript and upload it to a screeps server.</p>
-				<p>Move or copy <code>screeps.sample.json</code> to <code>screeps.json</code> and edit it, changing the credentials and optionally adding or removing some of the destinations.</p>
-				<p>Running <code>rollup -c</code> will compile your code and do a &quot;dry run&quot;, preparing the code for upload but not actually pushing it. Running <code>rollup -c --environment DEST:main</code> will compile your code, and then upload it to a screeps server using the <code>main</code> config from <code>screeps.json</code>.</p>
-				<p>You can use <code>-cw</code> instead of <code>-c</code> to automatically re-run when your source code changes - for example, <code>rollup -cw --environment DEST:main</code> will automatically upload your code to the <code>main</code> configuration every time your code is changed.</p>
-				<p>Finally, there are also NPM scripts that serve as aliases for these commands in <code>package.json</code> for IDE integration. Running <code>npm run push-main</code> is equivalent to <code>rollup -c --environment DEST:main</code>, and <code>npm run watch-sim</code> is equivalent to <code>rollup -cw --dest sim</code>.</p>
-				<a href="#important-to-upload-code-to-a-private-server-you-must-have-screepsmod-auth-installed-and-configured" id="important-to-upload-code-to-a-private-server-you-must-have-screepsmod-auth-installed-and-configured" style="color: inherit; text-decoration: none;">
-					<h4>Important! To upload code to a private server, you must have <a href="https://github.com/ScreepsMods/screepsmod-auth">screepsmod-auth</a> installed and configured!</h4>
+				<p>教你如何上手使用该框架。</p>
+				<p><a href="tutorial/index.md">教程目录</a></p>
+				<a href="#api-文档" id="api-文档" style="color: inherit; text-decoration: none;">
+					<h2>api 文档</h2>
 				</a>
-				<a href="#typings" id="typings" style="color: inherit; text-decoration: none;">
-					<h2>Typings</h2>
+				<p>api 文档由 typedoc 自动生成。</p>
+				<p><a href="https://ureimu.github.io/manual-screeps/">文档地址</a></p>
+				<a href="#致谢" id="致谢" style="color: inherit; text-decoration: none;">
+					<h2>致谢</h2>
 				</a>
-				<p>The type definitions for Screeps come from <a href="https://github.com/screepers/typed-screeps">typed-screeps</a>. If you find a problem or have a suggestion, please open an issue there.</p>
-				<a href="#documentation" id="documentation" style="color: inherit; text-decoration: none;">
-					<h2>Documentation</h2>
-				</a>
-				<p>We&#39;ve also spent some time reworking the documentation from the ground-up, which is now generated through <a href="https://www.gitbook.com/">Gitbooks</a>. Includes all the essentials to get you up and running with Screeps AI development in TypeScript, as well as various other tips and tricks to further improve your development workflow.</p>
-				<p>Maintaining the docs will also become a more community-focused effort, which means you too, can take part in improving the docs for this starter kit.</p>
-				<p>To visit the docs, <a href="https://screepers.gitbook.io/screeps-typescript-starter/">click here</a>.</p>
-				<a href="#contributing" id="contributing" style="color: inherit; text-decoration: none;">
-					<h2>Contributing</h2>
-				</a>
-				<p>Issues, Pull Requests, and contribution to the docs are welcome! See our <a href="CONTRIBUTING.md">Contributing Guidelines</a> for more details.</p>
+				<p>灵感来源于 openttd 的 ui 操作方式，感谢各位群友大佬的建议和提供的轮子。</p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -153,13 +128,13 @@
 						<a href="modules/ai_room_maintain_utils_end.html">ai/room/maintain/utils/end</a>
 					</li>
 					<li class=" tsd-kind-module">
+						<a href="modules/ai_structure_tower.html">ai/structure/tower</a>
+					</li>
+					<li class=" tsd-kind-module">
 						<a href="modules/ai_utils_createcreepgroup.html">ai/utils/create<wbr>Creep<wbr>Group</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="modules/ai_utils_createcreepnamelist.html">ai/utils/create<wbr>Creep<wbr>Name<wbr>List</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/ai_utils_createflaglist.html">ai/utils/create<wbr>Flag<wbr>List</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="modules/ai_utils_createroute.html">ai/utils/create<wbr>Route</a>
@@ -202,6 +177,9 @@
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="modules/creep_action_doonarrived_fillspawnandextension.html">creep/action/do<wbr>OnArrived/fill<wbr>Spawn<wbr>And<wbr>Extension</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/creep_action_doonarrived_filltower.html">creep/action/do<wbr>OnArrived/fill<wbr>Tower</a>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="modules/creep_action_doonarrived_goto.html">creep/action/do<wbr>OnArrived/go<wbr>To</a>
