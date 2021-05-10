@@ -8,7 +8,7 @@ export class ErrorMapper {
 
     public static get consumer(): SourceMapConsumer {
         if (this._consumer == null) {
-            this._consumer = new SourceMapConsumer(require("main.js.map"));
+            this._consumer = new SourceMapConsumer(require("main.js.map")) as SourceMapConsumer;
         }
 
         return this._consumer;

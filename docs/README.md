@@ -1,3 +1,5 @@
+manual-screeps / [Exports](modules.md)
+
 # manual-screeps
 
 为手动操作优化过，开箱即用的 screeps 游戏代码框架。
