@@ -1,9 +1,9 @@
-import { creepBody } from "creep/body";
-import { creepGroup } from "creep/group";
-import { routePlan } from "creep/routePlan";
+import { creepBodyForm } from "creep/body/form";
+import { creepGroupForm } from "creep/group/form";
+import { routePlanForm } from "creep/routePlan/form";
 import { plugin } from "plugin";
 import { posMaintainer } from "flagMaintainer";
-import { spawnPool } from "spawn/spawnPool";
+import { spawnPoolForm } from "spawn/spawnPool/form";
 import { creators } from "utils/console/form";
 
 declare global {
@@ -11,10 +11,10 @@ declare global {
         interface Global {
             functionClass: {
                 creators: typeof creators;
-                routePlan: typeof routePlan;
-                creepGroup: typeof creepGroup;
-                spawnPool: typeof spawnPool;
-                creepBody: typeof creepBody;
+                routePlanForm: typeof routePlanForm;
+                creepGroupForm: typeof creepGroupForm;
+                spawnPoolForm: typeof spawnPoolForm;
+                creepBodyForm: typeof creepBodyForm;
                 posMaintainer: typeof posMaintainer;
                 plugin: typeof plugin;
             };
@@ -24,5 +24,13 @@ declare global {
 
 // 挂载全局拓展
 export default function mountGlobalFunctionClass(): void {
-    global.functionClass = { creators, routePlan, creepGroup, spawnPool, creepBody, posMaintainer, plugin };
+    global.functionClass = {
+        creators,
+        routePlanForm,
+        creepGroupForm,
+        spawnPoolForm,
+        creepBodyForm,
+        posMaintainer,
+        plugin
+    };
 }

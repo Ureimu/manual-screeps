@@ -1,4 +1,4 @@
-[manual-screeps](../README.md) / [Exports](../modules.md) / [creep/routePlan](../modules/creep_routeplan.md) / routePlan
+[manual-screeps](../README.md) / [Modules](../modules.md) / [creep/routePlan](../modules/creep_routeplan.md) / routePlan
 
 # Class: routePlan
 
@@ -33,78 +33,185 @@
 
 ### addCondition
 
-▸ `Static` **addCondition**(): *string*
+▸ `Static` **addCondition**(`args`: { `routeName`: *string*  } & RouteConditionDetail): *string*
+
+添加状态判断。
+
+**`static`**
+
+**`memberof`** routePlan
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `args` | { `routeName`: *string*  } & RouteConditionDetail |
 
 **Returns:** *string*
 
-Defined in: src/creep/routePlan/index.ts:65
+Defined in: creep/routePlan/index.ts:75
 
 ___
 
 ### addMidpoint
 
-▸ `Static` **addMidpoint**(): *string*
+▸ `Static` **addMidpoint**(`args`: { `routeName`: *string*  } & RouteMidpointDetail): *string*
+
+添加路径点。
+
+**`static`**
+
+**`memberof`** routePlan
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `args` | { `routeName`: *string*  } & RouteMidpointDetail |
 
 **Returns:** *string*
 
-Defined in: src/creep/routePlan/index.ts:9
+Defined in: creep/routePlan/index.ts:37
 
 ___
 
 ### chooseRouteForCreep
 
-▸ `Static` **chooseRouteForCreep**(): *string*
+▸ `Static` **chooseRouteForCreep**(`args`: { `creepName`: *string* ; `routeName`: *string*  }): *string*
+
+为creep选择路径。
+
+**`static`**
+
+**`memberof`** routePlan
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `args` | *object* |
+| `args.creepName` | *string* |
+| `args.routeName` | *string* |
 
 **Returns:** *string*
 
-Defined in: src/creep/routePlan/index.ts:115
+Defined in: creep/routePlan/index.ts:97
 
 ___
 
 ### create
 
-▸ `Static` **create**(): *string*
+▸ `Static` **create**(`args`: { `ifLoop`: *string* ; `routeName`: *string*  }): *string*
+
+创建路径。
+
+**`static`**
+
+**`memberof`** routePlan
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `args` | *object* |
+| `args.ifLoop` | *string* |
+| `args.routeName` | *string* |
 
 **Returns:** *string*
 
-Defined in: src/creep/routePlan/index.ts:90
+Defined in: creep/routePlan/index.ts:19
 
 ___
 
 ### deleteRoute
 
-▸ `Static` **deleteRoute**(): *string*
+▸ `Static` **deleteRoute**(`args`: { `routeName`: *string*  }): *string*
+
+删除路径。
+
+**`static`**
+
+**`memberof`** routePlan
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `args` | *object* |
+| `args.routeName` | *string* |
 
 **Returns:** *string*
 
-Defined in: src/creep/routePlan/index.ts:204
+Defined in: creep/routePlan/index.ts:163
 
 ___
 
 ### printRouteDetail
 
-▸ `Static` **printRouteDetail**(): *string*
+▸ `Static` **printRouteDetail**(`args`: { `routeName`: *string*  }): *string*
+
+打印路径信息。
+
+**`static`**
+
+**`memberof`** routePlan
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `args` | *object* |
+| `args.routeName` | *string* |
 
 **Returns:** *string*
 
-Defined in: src/creep/routePlan/index.ts:227
+Defined in: creep/routePlan/index.ts:177
 
 ___
 
 ### setRouteProperties
 
-▸ `Static` **setRouteProperties**(): *string*
+▸ `Static` **setRouteProperties**(`args`: { `ifLoop`: *string* ; `routeName`: *string*  }): *string*
+
+设置路径参数。
+
+**`static`**
+
+**`memberof`** routePlan
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `args` | *object* |
+| `args.ifLoop` | *string* |
+| `args.routeName` | *string* |
 
 **Returns:** *string*
 
-Defined in: src/creep/routePlan/index.ts:139
+Defined in: creep/routePlan/index.ts:118
 
 ___
 
 ### showRoutes
 
-▸ `Static` **showRoutes**(): *string*
+▸ `Static` **showRoutes**(`args`: { `ifRun`: *string* ; `roomName`: *string* ; `routeName`: *string*  }): *string*
+
+在房间中展示路径。
+
+**`static`**
+
+**`memberof`** routePlan
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `args` | *object* |
+| `args.ifRun` | *string* |
+| `args.roomName` | *string* |
+| `args.routeName` | *string* |
 
 **Returns:** *string*
 
-Defined in: src/creep/routePlan/index.ts:171
+Defined in: creep/routePlan/index.ts:132

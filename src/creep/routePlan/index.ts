@@ -1,280 +1,192 @@
-import { actionIndexedList } from "creep/action/doOnArrived";
-import { createForm } from "utils/console";
+import { clearCreepRouteMemory } from "creep/action";
+import { newAcrossTickTask } from "utils/AcrossTick";
+import { PosStr } from "utils/RoomPositionToStr";
+import { isRouteMidpointDetail, RouteConditionDetail, RouteMidpointDetail } from "./form";
+import { showRoutes } from "./show";
+import { consoleStyle } from "console/style";
 
-export function callOnStart(): void {
-    if (!Memory.routes) Memory.routes = {};
-}
+const style = consoleStyle("routePlan");
 
 export class routePlan {
-    public static addMidpoint(): string {
-        const commitFunctionName = "routePlanCommit.addMidpoint";
-        return createForm(
-            commitFunctionName + String(Game.time),
-            [
-                {
-                    name: "routeName",
-                    label: "路径名称",
-                    type: "select",
-                    options: Object.keys(Memory.routes).map(value => {
-                        return { value, label: value };
-                    })
-                },
-                { name: "flagPos", label: "路径点位置(flag)", type: "input", placeholder: "flag名称" },
-                // {
-                //     name: "objectPos",
-                //     label: "路径点位置(object)",
-                //     type: "select",
-                //     options: Object.keys(defaultPos).map(value => {
-                //         return { value, label: value };
-                //     })
-                // },
-                {
-                    name: "roomName",
-                    label: "房间名称",
-                    type: "select",
-                    options: Object.keys(Memory.rooms).map(value => {
-                        return { value, label: value };
-                    })
-                },
-                { name: "range", label: "范围", type: "input", placeholder: "置空则为1" },
-                {
-                    name: "doWhenArrive",
-                    label: "到达时的执行动作",
-                    type: "select",
-                    options: Object.entries(actionIndexedList).map(value => {
-                        const [name, CreepAction] = value;
-                        return { value: name, label: CreepAction.description };
-                    })
-                },
-                {
-                    name: "actionArgs",
-                    label: "执行动作传入的参数",
-                    type: "input",
-                    placeholder: "可选"
+    /**
+     * 创建路径。
+     *
+     * @static
+     * @param {{ routeName: string; ifLoop: string }} args
+     * @returns {string}
+     * @memberof routePlan
+     */
+    public static create(args: { routeName: string; ifLoop: string }): string {
+        const { routeName, ifLoop = "true" } = args;
+        if (routeName === "") {
+            return style(`路径名称不可以为空`, "error");
+        }
+        Memory.routes[routeName] = { routeDetailArray: [], ifLoop: Boolean(ifLoop), ifShow: false };
+        return style(`路径 ${routeName} 创建成功`, "log");
+    }
+    /**
+     * 添加路径点。
+     *
+     * @static
+     * @param {({
+     *             routeName: string;
+     *         } & RouteMidpointDetail)} args
+     * @returns {string}
+     * @memberof routePlan
+     */
+    public static addMidpoint(
+        args: {
+            routeName: string;
+        } & RouteMidpointDetail
+    ): string {
+        const { routeName, range = 1, pathMidpointPos, doWhenArrive, actionArgs } = args;
+        const flag = Game.flags[pathMidpointPos];
+        if (!flag) {
+            return style(`路径点位置 ${pathMidpointPos} 旗帜不存在，请先创建该路径旗帜`, "error");
+        }
+        // console.log(routeName, flag.pos, [doWhenArrive]);
+        if (!Memory.routes[routeName]) {
+            return style(`路径 ${routeName} 不存在，请先创建该路径`, "error");
+        } else {
+            Memory.routes[routeName].routeDetailArray.push({
+                pathMidpointPos: PosStr.setPosToStr(flag.pos),
+                range,
+                doWhenArrive,
+                actionArgs
+            });
+        }
+        return style(
+            `为路径${routeName} 添加路径点位置 ${pathMidpointPos} : ${PosStr.setPosToStr(flag.pos)} 成功，现在有 ${
+                Memory.routes[routeName].routeDetailArray.length
+            } 个路径点`,
+            "log"
+        );
+    }
+    /**
+     * 添加状态判断。
+     *
+     * @static
+     * @param {({
+     *             routeName: string;
+     *         } & RouteConditionDetail)} args
+     * @returns {string}
+     * @memberof routePlan
+     */
+    public static addCondition(
+        args: {
+            routeName: string;
+        } & RouteConditionDetail
+    ): string {
+        const { routeName, condition, jumpTo } = args;
+        // console.log(routeName);
+        if (!Memory.routes[routeName]) {
+            return style(`路径 ${routeName} 不存在，请先创建该路径`, "error");
+        } else {
+            Memory.routes[routeName].routeDetailArray.push({ condition, jumpTo });
+        }
+        return style(`添加条件 ${condition} jumpTo ${jumpTo} 成功`, "log");
+    }
+    /**
+     * 为creep选择路径。
+     *
+     * @static
+     * @param {{ creepName: string; routeName: string }} args
+     * @returns {string}
+     * @memberof routePlan
+     */
+    public static chooseRouteForCreep(args: { creepName: string; routeName: string }): string {
+        const { creepName, routeName } = args;
+        // console.log(creepName);
+        const creepMemory = Memory.creeps[creepName];
+        if (!creepMemory) {
+            (Memory.creeps[creepName] as Partial<CreepMemory>) = {};
+            clearCreepRouteMemory(Memory.creeps[creepName]);
+        } else {
+            clearCreepRouteMemory(creepMemory);
+        }
+        creepMemory.route.name = routeName;
+        return style(`为creep ${creepName} 选择路径 ${routeName} 完成`, "log");
+    }
+    /**
+     * 设置路径参数。
+     *
+     * @static
+     * @param {{ ifLoop: string; routeName: string }} args
+     * @returns {string}
+     * @memberof routePlan
+     */
+    public static setRouteProperties(args: { ifLoop: string; routeName: string }): string {
+        const { ifLoop, routeName } = args;
+        // console.log(routeName, ifLoop);
+        Memory.routes[routeName].ifLoop = Boolean(ifLoop);
+        return style(`修改路径 ${routeName} 设置完成`, "log");
+    }
+    /**
+     * 在房间中展示路径。
+     *
+     * @static
+     * @param {{ ifRun: string; routeName: string; roomName: string }} args
+     * @returns {string}
+     * @memberof routePlan
+     */
+    public static showRoutes(args: { ifRun: string; routeName: string; roomName: string }): string {
+        const { ifRun, routeName, roomName } = args;
+        // console.log(routeName, ifRun);
+        Memory.routes[routeName].ifShow = Boolean(ifRun);
+        newAcrossTickTask(
+            {
+                taskName: "routePlan.showRoutes", // 任务名称
+                args: [roomName, routeName], // 传递的参数，要能够放在memory的类型
+                executeTick: Game.time + 1,
+                intervalTick: 1 // 在多久后执行
+            },
+            task => {
+                const [roomNameArg, routeNameArg] = task.args as string[];
+                if (Memory.routes[routeNameArg].ifShow) {
+                    showRoutes(routeNameArg, roomNameArg);
+                    return "runAgain";
+                } else {
+                    return "finish";
                 }
-            ],
-            {
-                content: "提交",
-                command: `(args) => ${commitFunctionName}(args)`,
-                type: "button",
-                name: "button" + String(Game.time) + commitFunctionName
             }
         );
+        return style(`执行可视化 ${routeName} : ${roomName} : ${ifRun}`, "log");
     }
-
-    public static addCondition(): string {
-        const commitFunctionName = "routePlanCommit.addCondition";
-        return createForm(
-            commitFunctionName + String(Game.time),
-            [
-                {
-                    name: "routeName",
-                    label: "路径名称",
-                    type: "select",
-                    options: Object.keys(Memory.routes).map(value => {
-                        return { value, label: value };
-                    })
-                },
-                { name: "condition", label: "条件", type: "input", placeholder: "condition" },
-                { name: "jumpTo", label: "跳转至", type: "input", placeholder: "jumpTo" }
-            ],
-            {
-                content: "提交",
-                command: `(args) => ${commitFunctionName}(args)`,
-                type: "button",
-                name: "button" + String(Game.time) + commitFunctionName
+    /**
+     * 删除路径。
+     *
+     * @static
+     * @param {{ routeName: string }} args
+     * @returns {string}
+     * @memberof routePlan
+     */
+    public static deleteRoute(args: { routeName: string }): string {
+        const { routeName } = args;
+        // console.log(routeName);
+        delete Memory.routes[routeName];
+        return style(`删除路径 ${routeName} 设置完成`, "log");
+    }
+    /**
+     * 打印路径信息。
+     *
+     * @static
+     * @param {{ routeName: string }} args
+     * @returns {string}
+     * @memberof routePlan
+     */
+    public static printRouteDetail(args: { routeName: string }): string {
+        const { routeName } = args;
+        const routeDetail = Memory.routes[routeName];
+        let log = "";
+        let index = 0;
+        routeDetail.routeDetailArray.forEach(detail => {
+            if (isRouteMidpointDetail(detail)) {
+                log = log.concat(`${index} ${detail.pathMidpointPos} ${detail.range} ${detail.doWhenArrive}` + "\n");
+            } else {
+                log = log.concat(`${index} ${detail.condition} ${detail.jumpTo}` + "\n");
             }
-        );
+            index++;
+        });
+        return style(`${log}`, "log");
     }
-
-    public static create(): string {
-        const commitFunctionName = "routePlanCommit.create";
-        return createForm(
-            commitFunctionName + String(Game.time),
-            [
-                { name: "routeName", label: "路径名称", type: "input", placeholder: "路径名称" },
-                {
-                    name: "ifLoop",
-                    label: "是否循环执行",
-                    type: "select",
-                    options: [
-                        { value: "true", label: "是" },
-                        { value: "false", label: "否" }
-                    ]
-                }
-            ],
-            {
-                content: "提交",
-                command: `(args) => ${commitFunctionName}(args)`,
-                type: "button",
-                name: "button" + String(Game.time) + commitFunctionName
-            }
-        );
-    }
-
-    public static chooseRouteForCreep(): string {
-        const commitFunctionName = "routePlanCommit.chooseRouteForCreep";
-        return createForm(
-            commitFunctionName + String(Game.time),
-            [
-                { name: "creepName", label: "creep名称", type: "input", placeholder: "creep名称" },
-                {
-                    name: "routeName",
-                    label: "路径名称",
-                    type: "select",
-                    options: Object.keys(Memory.routes).map(value => {
-                        return { value, label: value };
-                    })
-                }
-            ],
-            {
-                content: "提交",
-                command: `(args) => ${commitFunctionName}(args)`,
-                type: "button",
-                name: "button" + String(Game.time) + commitFunctionName
-            }
-        );
-    }
-
-    public static setRouteProperties(): string {
-        const commitFunctionName = "routePlanCommit.setRouteProperties";
-        return createForm(
-            commitFunctionName + String(Game.time),
-            [
-                {
-                    name: "routeName",
-                    label: "路径名称",
-                    type: "select",
-                    options: Object.keys(Memory.routes).map(value => {
-                        return { value, label: value };
-                    })
-                },
-                {
-                    name: "ifLoop",
-                    label: "是否循环执行",
-                    type: "select",
-                    options: [
-                        { value: "true", label: "是" },
-                        { value: "false", label: "否" }
-                    ]
-                }
-            ],
-            {
-                content: "提交",
-                command: `(args) => ${commitFunctionName}(args)`,
-                type: "button",
-                name: "button" + String(Game.time) + commitFunctionName
-            }
-        );
-    }
-
-    public static showRoutes(): string {
-        const commitFunctionName = "routePlanCommit.showRoutes";
-        return createForm(
-            commitFunctionName + String(Game.time),
-            [
-                {
-                    name: "routeName",
-                    label: "路径名称",
-                    type: "select",
-                    options: Object.keys(Memory.routes).map(value => {
-                        return { value, label: value };
-                    })
-                },
-                { name: "roomName", label: "房间名称", type: "input", placeholder: "房间名称" },
-                {
-                    name: "ifRun",
-                    label: "是否执行",
-                    type: "select",
-                    options: [
-                        { value: "true", label: "是" },
-                        { value: "false", label: "否" }
-                    ]
-                }
-            ],
-            {
-                content: "提交",
-                command: `(args) => ${commitFunctionName}(args)`,
-                type: "button",
-                name: "button" + String(Game.time) + commitFunctionName
-            }
-        );
-    }
-
-    public static deleteRoute(): string {
-        const commitFunctionName = "routePlanCommit.deleteRoute";
-        return createForm(
-            commitFunctionName + String(Game.time),
-            [
-                {
-                    name: "routeName",
-                    label: "路径名称",
-                    type: "select",
-                    options: Object.keys(Memory.routes).map(value => {
-                        return { value, label: value };
-                    })
-                }
-            ],
-            {
-                content: "提交",
-                command: `(args) => ${commitFunctionName}(args)`,
-                type: "button",
-                name: "button" + String(Game.time) + commitFunctionName
-            }
-        );
-    }
-
-    public static printRouteDetail(): string {
-        const commitFunctionName = "routePlanCommit.printRouteDetail";
-        return createForm(
-            commitFunctionName + String(Game.time),
-            [
-                {
-                    name: "routeName",
-                    label: "路径名称",
-                    type: "select",
-                    options: Object.keys(Memory.routes).map(value => {
-                        return { value, label: value };
-                    })
-                }
-            ],
-            {
-                content: "提交",
-                command: `(args) => ${commitFunctionName}(args)`,
-                type: "button",
-                name: "button" + String(Game.time) + commitFunctionName
-            }
-        );
-    }
-}
-
-declare global {
-    interface Memory {
-        routes: {
-            [name: string]: {
-                routeDetailArray: RouteSingleDetail[];
-                ifLoop: boolean;
-                ifShow: boolean;
-            };
-        };
-    }
-}
-
-export type RouteSingleDetail = RouteMidpointDetail | RouteConditionDetail;
-
-export interface RouteMidpointDetail {
-    pathMidpointPos: string;
-    range: number;
-    doWhenArrive: keyof typeof actionIndexedList;
-    actionArgs?: string;
-}
-
-export interface RouteConditionDetail {
-    condition: string;
-    jumpTo: number;
-    conditionArgs?: string;
-}
-
-export function isRouteMidpointDetail(detail: RouteSingleDetail): detail is RouteMidpointDetail {
-    return Boolean((detail as RouteMidpointDetail).pathMidpointPos);
 }

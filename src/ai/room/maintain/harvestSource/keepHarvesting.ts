@@ -1,5 +1,5 @@
 import { createRoute } from "ai/utils/createRoute";
-import { creepGroupCommit } from "creep/group/commit";
+import { creepGroup } from "creep/group";
 import { createFlagList, getFlagList } from "flagMaintainer/maintainer";
 import { PosStr } from "utils/RoomPositionToStr";
 
@@ -36,7 +36,7 @@ export const keepHarvesting = {
                         })
                     );
                     log.push(
-                        creepGroupCommit.setCreepGroupProperties({
+                        creepGroup.setCreepGroupProperties({
                             creepGroupName: flagName + "harvest",
                             routeName: flagName + taskName
                         })

@@ -1,161 +1,102 @@
-import { readyCondition, ReadyCondition } from "spawn/spawning/readyCondition";
-import { createForm } from "utils/console";
+import { clearCreepRouteMemory } from "creep/action";
+import { readyConditionKey } from "./form";
+import { consoleStyle } from "console/style";
 
-export function callOnStart(): void {
-    if (!Memory.spawns) Memory.spawns = {};
-    for (const spawnName in Game.spawns) {
-        if (!Memory.spawns[spawnName]) {
-            Memory.spawns[spawnName] = {
-                spawnQueue: []
-            };
-        }
-    }
-}
+const style = consoleStyle("spawnPool");
 
 export class spawnPool {
-    public static addCreep(): string {
-        const commitFunctionName = "spawnPoolCommit.addCreep";
-        return createForm(
-            commitFunctionName + String(Game.time),
-            [
-                {
-                    name: "creepName",
-                    label: "creep名称",
-                    type: "input",
-                    placeholder: "creep名称"
-                },
-                {
-                    name: "creepBody",
-                    label: "creep身体部件",
-                    type: "select",
-                    options: Object.keys(Memory.creepBodyConfig).map(value => {
-                        return { value, label: value };
-                    })
-                },
-                { name: "priority", label: "优先级", type: "input", placeholder: "priority（数字）" },
-                {
-                    name: "roomName",
-                    label: "spawn名称",
-                    type: "select",
-                    options: Object.keys(Game.spawns).map(value => {
-                        return { value, label: value };
-                    })
-                },
-                {
-                    name: "readyCondition",
-                    label: "执行条件",
-                    type: "select",
-                    options: Object.keys(readyCondition).map(value => {
-                        return { value, label: value };
-                    })
-                }
-            ],
-            {
-                content: "提交",
-                command: `(args) => ${commitFunctionName}(args)`,
-                type: "button",
-                name: "button" + String(Game.time)
-            }
-        );
-    }
-
-    public static deleteCreep(): string {
-        const commitFunctionName = "spawnPoolCommit.deleteCreep";
-        return createForm(
-            commitFunctionName + String(Game.time),
-            [
-                {
-                    name: "creepName",
-                    label: "creep名称",
-                    type: "input",
-                    placeholder: "creep名称"
-                },
-                {
-                    name: "roomName",
-                    label: "spawn名称",
-                    type: "select",
-                    options: Object.keys(Game.spawns).map(value => {
-                        return { value, label: value };
-                    })
-                }
-            ],
-            {
-                content: "提交",
-                command: `(args) => ${commitFunctionName}(args)`,
-                type: "button",
-                name: "button" + String(Game.time)
-            }
-        );
-    }
-
-    public static setCreepProperties(): string {
-        const commitFunctionName = "spawnPoolCommit.setCreepProperties";
-        return createForm(
-            commitFunctionName + String(Game.time),
-            [
-                {
-                    name: "creepName",
-                    label: "creep名称",
-                    type: "input",
-                    placeholder: "creep名称"
-                },
-                {
-                    name: "roomName",
-                    label: "房间名称",
-                    type: "select",
-                    options: Object.keys(Game.spawns).map(value => {
-                        return { value, label: value };
-                    })
-                },
-                {
-                    name: "creepBody",
-                    label: "creep身体部件",
-                    type: "select",
-                    options: Object.keys(Memory.creepBodyConfig).map(value => {
-                        return { value, label: value };
-                    })
-                },
-                { name: "priority", label: "优先级", type: "input", placeholder: "priority（数字）" },
-                {
-                    name: "readyCondition",
-                    label: "执行条件",
-                    type: "select",
-                    options: Object.keys(readyCondition).map(value => {
-                        return { value, label: value };
-                    })
-                }
-            ],
-            {
-                content: "提交",
-                command: `(args) => ${commitFunctionName}(args)`,
-                type: "button",
-                name: "button" + String(Game.time)
-            }
-        );
-    }
-}
-
-declare global {
-    interface SpawnMemory {
-        spawnQueue: SpawnCreepDetail[];
-    }
-
-    interface RoomMemory {
-        diedCreepList: string[];
-        spawnPool: {
-            [creepName: string]: SpawnCreepDetail;
+    /**
+     * 添加creep。
+     *
+     * @static
+     * @param {{
+     *         creepName: string;
+     *         creepBody: string;
+     *         priority: string;
+     *         roomName: string;
+     *         readyCondition: readyConditionKey;
+     *     }} args
+     * @returns {string}
+     * @memberof spawnPool
+     */
+    public static addCreep(args: {
+        creepName: string;
+        creepBody: string;
+        priority: string;
+        roomName: string;
+        readyCondition: readyConditionKey;
+    }): string {
+        const { creepName, creepBody: creepBodyConfigName, priority, roomName, readyCondition } = args;
+        if (!Game.rooms[roomName]?.memory) {
+            console.log(style(`请检查房间是否存在可用spawn，如果存在则请忽略`, "warning"));
+        }
+        const roomMemory = Game.rooms[roomName].memory;
+        if (!roomMemory?.spawnPool) {
+            roomMemory.spawnPool = {};
+        }
+        roomMemory.spawnPool[creepName] = {
+            creepName,
+            creepBody: creepBodyConfigName,
+            priority: Number(priority),
+            readyCondition,
+            state: "ready"
         };
+        if (!Memory.creeps) {
+            Memory.creeps = {};
+        }
+        if (!Memory.creeps[creepName]) {
+            (Memory.creeps[creepName] as Partial<CreepMemory>) = {};
+            clearCreepRouteMemory(Memory.creeps[creepName]);
+        }
+        return style(
+            `添加creep ${creepName} creepBody: ${creepBodyConfigName} priority: ${priority} 到roomName: ${roomName} , readyCondition: ${readyCondition} 成功`,
+            "log"
+        );
+    }
+    /**
+     * 删除creep。
+     *
+     * @static
+     * @param {{ creepName: string; roomName: string }} args
+     * @returns {string}
+     * @memberof spawnPool
+     */
+    public static deleteCreep(args: { creepName: string; roomName: string }): string {
+        const { creepName, roomName } = args;
+        // console.log(creepName);
+        delete Memory.rooms[roomName].spawnPool[creepName];
+        return style(`删除在 ${roomName} 的creep ${creepName} 完成`, "log");
+    }
+    /**
+     * 设置creep参数。
+     *
+     * @static
+     * @param {{
+     *         creepName: string;
+     *         roomName: string;
+     *         creepBody: string;
+     *         priority: string;
+     *         readyCondition: readyConditionKey;
+     *     }} args
+     * @returns {string}
+     * @memberof spawnPool
+     */
+    public static setCreepProperties(args: {
+        creepName: string;
+        roomName: string;
+        creepBody: string;
+        priority: string;
+        readyCondition: readyConditionKey;
+    }): string {
+        const { creepName, roomName, creepBody, priority, readyCondition } = args;
+        const memCopy = Object.assign({}, Memory.rooms[roomName].spawnPool[creepName]);
+        Memory.rooms[roomName].spawnPool[creepName] = {
+            creepName: memCopy.creepName,
+            creepBody: creepBody || memCopy.creepBody,
+            priority: Number(priority) || memCopy.priority,
+            readyCondition: readyCondition || memCopy.readyCondition,
+            state: "ready"
+        };
+        return style(`修改creepSpawn信息 ${creepName} 设置完成`, "log");
     }
 }
-
-export interface SpawnCreepDetail {
-    creepName: string;
-    creepBody: string;
-    priority: number;
-    readyCondition: readyConditionKey;
-    state: runningState;
-    spawnName?: string;
-}
-
-export type runningState = "running" | "ready" | "notReady";
-export type readyConditionKey = keyof ReadyCondition;

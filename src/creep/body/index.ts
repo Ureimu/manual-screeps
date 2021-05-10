@@ -1,104 +1,66 @@
-import { createForm } from "utils/console";
+import { consoleStyle } from "console/style";
+import { ControllerLevels } from "./form";
+import { bodyTools } from "./tools";
 
-export function callOnStart(): void {
-    if (!Memory.creepBodyConfig) Memory.creepBodyConfig = {};
-}
+const style = consoleStyle("creepBody");
 
 export class creepBody {
-    public static createConfig(): string {
-        const commitFunctionName = "creepBodyCommit.createConfig";
-        return createForm(
-            commitFunctionName + String(Game.time),
-            [
-                {
-                    name: "creepBodyConfigName",
-                    label: "creep身体部件配置项名称",
-                    type: "input",
-                    placeholder: "creepBodyConfigName"
-                }
-            ],
-            {
-                content: "提交",
-                command: `(args) => ${commitFunctionName}(args)`,
-                type: "button",
-                name: "button" + String(Game.time) + commitFunctionName
-            }
-        );
+    /**
+     * 创建creep身体部件配置项。
+     *
+     * @static
+     * @param {{ creepBodyConfigName: string }} args 名称
+     * @returns {string} 一段文字说明
+     * @memberof creepBody
+     */
+    public static createConfig(args: { creepBodyConfigName: string }): string {
+        const { creepBodyConfigName } = args;
+        if (creepBodyConfigName === "") {
+            return style(`creep身体部件配置项名称不可以为空`, "error");
+        }
+        Memory.creepBodyConfig[creepBodyConfigName] = {};
+        return style(`creep身体部件配置项 ${creepBodyConfigName} 创建成功`, "log");
     }
-
-    public static setConfig(): string {
-        const commitFunctionName = "creepBodyCommit.setConfig";
-        return createForm(
-            commitFunctionName + String(Game.time),
-            [
-                {
-                    name: "creepBodyConfigName",
-                    label: "creep身体部件配置项名称",
-                    type: "select",
-                    options: Object.keys(Memory.creepBodyConfig).map(value => {
-                        return { value, label: value };
-                    })
-                },
-                {
-                    name: "controllerLevel",
-                    label: "controller等级",
-                    type: "select",
-                    options: [0, 1, 2, 3, 4, 5, 6, 7, 8].map(value => {
-                        return { value: String(value) as ControllerLevels, label: String(value) };
-                    })
-                },
-                {
-                    name: "creepBodyConfig",
-                    label: "creep身体部件配置项",
-                    type: "input",
-                    placeholder: "creep身体部件配置项"
-                }
-            ],
-            {
-                content: "提交",
-                command: `(args) => ${commitFunctionName}(args)`,
-                type: "button",
-                name: "button" + String(Game.time) + commitFunctionName
-            }
-        );
+    /**
+     * 设置creep身体部件配置项。
+     *
+     * @static
+     * @param {{
+     *         creepBodyConfigName: string;
+     *         controllerLevel: ControllerLevels;
+     *         creepBodyConfig: string;
+     *     }} args
+     * @returns {string}
+     * @memberof creepBody
+     */
+    public static setConfig(args: {
+        creepBodyConfigName: string;
+        controllerLevel: ControllerLevels;
+        creepBodyConfig: string;
+    }): string {
+        const { creepBodyConfigName, controllerLevel, creepBodyConfig } = args;
+        if (bodyTools.check(creepBodyConfig)) {
+            Memory.creepBodyConfig[creepBodyConfigName][controllerLevel] = { body: creepBodyConfig };
+            return style(
+                `设置creep身体部件配置项 ${creepBodyConfigName} level: ${controllerLevel} 为 ${creepBodyConfig} 成功`,
+                "log"
+            );
+        } else {
+            return style(`creep身体部件配置项 ${creepBodyConfig} 格式不合法`, "error");
+        }
     }
-
-    public static deleteConfig(): string {
-        const commitFunctionName = "creepBodyCommit.deleteConfig";
-        return createForm(
-            commitFunctionName + String(Game.time),
-            [
-                {
-                    name: "creepBodyConfigName",
-                    label: "creep身体部件配置项名称",
-                    type: "select",
-                    options: Object.keys(Memory.creepBodyConfig).map(value => {
-                        return { value, label: value };
-                    })
-                }
-            ],
-            {
-                content: "提交",
-                command: `(args) => ${commitFunctionName}(args)`,
-                type: "button",
-                name: "button" + String(Game.time) + commitFunctionName
-            }
-        );
-    }
-}
-
-export type ControllerLevels = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8";
-
-declare global {
-    interface Memory {
-        creepBodyConfig: {
-            [name: string]: Partial<
-                {
-                    [p in ControllerLevels]: {
-                        body: string;
-                    };
-                }
-            >;
-        };
+    /**
+     * 删除creep身体部件配置项。
+     *
+     * @static
+     * @param {{ creepBodyConfigName: string }} args
+     * @returns {string}
+     * @memberof creepBody
+     */
+    public static deleteConfig(args: { creepBodyConfigName: string }): string {
+        const { creepBodyConfigName } = args;
+        // console.log(creepBodyConfigName);
+        delete Memory.creepBodyConfig[creepBodyConfigName];
+        return style(`删除creep身体部件配置项 ${creepBodyConfigName} 完成`, "log");
     }
 }

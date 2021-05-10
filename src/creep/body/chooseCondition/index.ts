@@ -1,4 +1,4 @@
-import { ControllerLevels } from "..";
+import { ControllerLevels } from "../form";
 import { bodyTools } from "../tools";
 
 export function chooseBefittingBody(args: { creepBodyConfigName: string; spawn: StructureSpawn }): string {

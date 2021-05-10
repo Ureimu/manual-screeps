@@ -1,4 +1,4 @@
-import { RouteConditionDetail } from "creep/routePlan";
+import { RouteConditionDetail } from "creep/routePlan/form";
 import { state } from ".";
 import { switchDoWhenCondition } from "./doOnJudgeCondition";
 

@@ -1,4 +1,4 @@
-import { isRouteMidpointDetail } from "creep/routePlan";
+import { isRouteMidpointDetail } from "creep/routePlan/form";
 import { Coord, PosStr } from "utils/RoomPositionToStr";
 
 export function showCreepGroups(creepGroupName: string, roomName: string): string {

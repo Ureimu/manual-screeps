@@ -1,7 +1,7 @@
 import { chooseBefittingBody } from "creep/body/chooseCondition";
 import { bodyTools } from "creep/body/tools";
-import { creepGroupCommit } from "creep/group/commit";
-import { SpawnCreepDetail } from "spawn/spawnPool";
+import { creepGroup } from "creep/group";
+import { SpawnCreepDetail } from "spawn/spawnPool/form";
 import { TaskPool } from "utils/PriorityQueue/taskPool";
 import { SetTools } from "utils/SetTools";
 import { callOnBirth } from "./callOnBirth";
@@ -82,7 +82,7 @@ export function runSpawnPool(room: Room): void {
         justDiedCreepSet.forEach(creepName => {
             const { groupName } = Memory.creeps[creepName];
             // 死亡重置memory
-            creepGroupCommit.addCreep({
+            creepGroup.addCreep({
                 creepGroupName: groupName,
                 creepName
             });

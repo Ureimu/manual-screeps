@@ -1,4 +1,4 @@
-import { SpawnCreepDetail } from "spawn/spawnPool";
+import { SpawnCreepDetail } from "spawn/spawnPool/form";
 
 export const readyCondition: ReadyCondition = {
     loop: (spawnCreepDetail: SpawnCreepDetail): void => {

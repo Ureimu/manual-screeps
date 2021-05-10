@@ -1,4 +1,4 @@
-[manual-screeps](../README.md) / [Exports](../modules.md) / [spawn/spawnPool](../modules/spawn_spawnpool.md) / spawnPool
+[manual-screeps](../README.md) / [Modules](../modules.md) / [spawn/spawnPool](../modules/spawn_spawnpool.md) / spawnPool
 
 # Class: spawnPool
 
@@ -28,28 +28,76 @@
 
 ### addCreep
 
-▸ `Static` **addCreep**(): *string*
+▸ `Static` **addCreep**(`args`: { `creepBody`: *string* ; `creepName`: *string* ; `priority`: *string* ; `readyCondition`: keyof ReadyCondition ; `roomName`: *string*  }): *string*
+
+添加creep。
+
+**`static`**
+
+**`memberof`** spawnPool
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `args` | *object* |
+| `args.creepBody` | *string* |
+| `args.creepName` | *string* |
+| `args.priority` | *string* |
+| `args.readyCondition` | keyof ReadyCondition |
+| `args.roomName` | *string* |
 
 **Returns:** *string*
 
-Defined in: src/spawn/spawnPool/index.ts:16
+Defined in: spawn/spawnPool/index.ts:22
 
 ___
 
 ### deleteCreep
 
-▸ `Static` **deleteCreep**(): *string*
+▸ `Static` **deleteCreep**(`args`: { `creepName`: *string* ; `roomName`: *string*  }): *string*
+
+删除creep。
+
+**`static`**
+
+**`memberof`** spawnPool
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `args` | *object* |
+| `args.creepName` | *string* |
+| `args.roomName` | *string* |
 
 **Returns:** *string*
 
-Defined in: src/spawn/spawnPool/index.ts:62
+Defined in: spawn/spawnPool/index.ts:64
 
 ___
 
 ### setCreepProperties
 
-▸ `Static` **setCreepProperties**(): *string*
+▸ `Static` **setCreepProperties**(`args`: { `creepBody`: *string* ; `creepName`: *string* ; `priority`: *string* ; `readyCondition`: keyof ReadyCondition ; `roomName`: *string*  }): *string*
+
+设置creep参数。
+
+**`static`**
+
+**`memberof`** spawnPool
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `args` | *object* |
+| `args.creepBody` | *string* |
+| `args.creepName` | *string* |
+| `args.priority` | *string* |
+| `args.readyCondition` | keyof ReadyCondition |
+| `args.roomName` | *string* |
 
 **Returns:** *string*
 
-Defined in: src/spawn/spawnPool/index.ts:91
+Defined in: spawn/spawnPool/index.ts:84

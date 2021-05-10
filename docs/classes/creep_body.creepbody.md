@@ -1,4 +1,4 @@
-[manual-screeps](../README.md) / [Exports](../modules.md) / [creep/body](../modules/creep_body.md) / creepBody
+[manual-screeps](../README.md) / [Modules](../modules.md) / [creep/body](../modules/creep_body.md) / creepBody
 
 # Class: creepBody
 
@@ -28,28 +28,71 @@
 
 ### createConfig
 
-▸ `Static` **createConfig**(): *string*
+▸ `Static` **createConfig**(`args`: { `creepBodyConfigName`: *string*  }): *string*
+
+创建creep身体部件配置项。
+
+**`static`**
+
+**`memberof`** creepBody
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `args` | *object* | 名称 |
+| `args.creepBodyConfigName` | *string* | - |
 
 **Returns:** *string*
 
-Defined in: src/creep/body/index.ts:8
+一段文字说明
+
+Defined in: creep/body/index.ts:16
 
 ___
 
 ### deleteConfig
 
-▸ `Static` **deleteConfig**(): *string*
+▸ `Static` **deleteConfig**(`args`: { `creepBodyConfigName`: *string*  }): *string*
+
+删除creep身体部件配置项。
+
+**`static`**
+
+**`memberof`** creepBody
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `args` | *object* |
+| `args.creepBodyConfigName` | *string* |
 
 **Returns:** *string*
 
-Defined in: src/creep/body/index.ts:66
+Defined in: creep/body/index.ts:60
 
 ___
 
 ### setConfig
 
-▸ `Static` **setConfig**(): *string*
+▸ `Static` **setConfig**(`args`: { `controllerLevel`: ControllerLevels ; `creepBodyConfig`: *string* ; `creepBodyConfigName`: *string*  }): *string*
+
+设置creep身体部件配置项。
+
+**`static`**
+
+**`memberof`** creepBody
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `args` | *object* |
+| `args.controllerLevel` | ControllerLevels |
+| `args.creepBodyConfig` | *string* |
+| `args.creepBodyConfigName` | *string* |
 
 **Returns:** *string*
 
-Defined in: src/creep/body/index.ts:29
+Defined in: creep/body/index.ts:36

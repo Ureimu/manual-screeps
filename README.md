@@ -10,7 +10,7 @@
 
 教你如何上手使用该框架。
 
-[教程目录](tutorial/index.md)
+[教程目录](tutorial/README.md)
 
 ## api 文档
 

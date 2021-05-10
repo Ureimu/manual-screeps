@@ -1,13 +1,13 @@
-import { RouteMidpointDetail } from "creep/routePlan";
-import { routePlanCommit } from "creep/routePlan/commit";
+import { RouteMidpointDetail } from "creep/routePlan/form";
+import { routePlan } from "creep/routePlan";
 
 export function createRoute(args: { routeName: string; ifLoop: string; midPointList: RouteMidpointDetail[] }): string {
     const { routeName, ifLoop, midPointList } = args;
     const logList: string[] = [];
-    logList.push(routePlanCommit.create({ routeName, ifLoop }));
+    logList.push(routePlan.create({ routeName, ifLoop }));
     midPointList.forEach(midPointDetail => {
         logList.push(
-            routePlanCommit.addMidpoint({
+            routePlan.addMidpoint({
                 routeName,
                 ...midPointDetail
             })

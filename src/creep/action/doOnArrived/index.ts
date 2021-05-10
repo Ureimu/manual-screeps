@@ -1,4 +1,4 @@
-import { RouteMidpointDetail } from "creep/routePlan";
+import { RouteMidpointDetail } from "creep/routePlan/form";
 import { state } from "..";
 import { build } from "./build";
 import { buildInRange } from "./buildInRange";

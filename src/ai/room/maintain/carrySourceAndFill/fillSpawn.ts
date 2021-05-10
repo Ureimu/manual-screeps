@@ -1,7 +1,7 @@
 import { createCreepGroup } from "ai/utils/createCreepGroup";
 import { createCreepNameList } from "ai/utils/createCreepNameList";
 import { createRoute } from "ai/utils/createRoute";
-import { RouteMidpointDetail } from "creep/routePlan";
+import { RouteMidpointDetail } from "creep/routePlan/form";
 import { createFlagList, getFlagList } from "flagMaintainer/maintainer";
 
 export const fillSpawn = {

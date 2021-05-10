@@ -1,27 +1,27 @@
-import { creepGroupCommit } from "creep/group/commit";
-import { spawnPoolCommit } from "spawn/spawnPool/commit";
+import { creepGroup } from "creep/group";
+import { spawnPool } from "spawn/spawnPool";
 
 export function createCreepGroup(
-    args: Omit<Parameters<typeof spawnPoolCommit.addCreep>[0], "creepName"> &
-        Omit<Parameters<typeof creepGroupCommit.addCreep>[0], "creepName"> & {
+    args: Omit<Parameters<typeof spawnPool.addCreep>[0], "creepName"> &
+        Omit<Parameters<typeof creepGroup.addCreep>[0], "creepName"> & {
             creepNameList: string[];
             routeName: string;
         }
 ): string {
     const { creepBody, creepGroupName, priority, roomName, readyCondition, creepNameList, routeName } = args;
     const logList: string[] = [];
-    creepGroupCommit.create({ routeName, creepGroupName });
+    creepGroup.create({ routeName, creepGroupName });
     creepNameList.forEach(creepName => {
         logList.push(
             ...[
-                spawnPoolCommit.addCreep({
+                spawnPool.addCreep({
                     creepName,
                     creepBody,
                     priority,
                     roomName,
                     readyCondition
                 }),
-                creepGroupCommit.addCreep({ creepName, creepGroupName })
+                creepGroup.addCreep({ creepName, creepGroupName })
             ]
         );
     });

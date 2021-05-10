@@ -1,11 +1,11 @@
-import { ControllerLevels } from "creep/body";
-import { creepBodyCommit } from "creep/body/commit";
+import { ControllerLevels } from "creep/body/form";
+import { creepBody } from "creep/body";
 
 export function setBodyConfig(creepBodyConfigName: string, creepBodyConfigList: string[]): string {
     const logList: string[] = [];
-    logList.push(creepBodyCommit.createConfig({ creepBodyConfigName }));
+    logList.push(creepBody.createConfig({ creepBodyConfigName }));
     for (let index = 0; index < creepBodyConfigList.length; index++) {
-        creepBodyCommit.setConfig({
+        creepBody.setConfig({
             creepBodyConfigName,
             controllerLevel: String(index + 1) as ControllerLevels,
             creepBodyConfig: creepBodyConfigList[index]

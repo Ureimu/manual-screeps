@@ -1,5 +1,5 @@
 import { Coord, PosStr } from "utils/RoomPositionToStr";
-import { isRouteMidpointDetail } from ".";
+import { isRouteMidpointDetail } from "./form";
 
 export function showRoutes(routeName: string, roomName: string): string {
     const roomVisual = new RoomVisual(roomName);
