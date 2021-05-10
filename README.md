@@ -8,12 +8,14 @@
 
 ## 教程
 
-教你如何上手使用该框架
+教你如何上手使用该框架。
+
 [教程目录](tutorial/index.md)
 
 ## api 文档
 
 api 文档由 typedoc 自动生成。
+
 [文档地址](https://ureimu.github.io/manual-screeps/)
 
 ## 致谢
