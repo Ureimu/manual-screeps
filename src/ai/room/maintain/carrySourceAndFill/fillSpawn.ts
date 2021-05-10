@@ -33,6 +33,11 @@ export const fillSpawn = {
                 range: 1,
                 doWhenArrive: "fillSpawnAndExtension"
             });
+            midPointList.push({
+                pathMidpointPos: midPointList[midPointList.length - 1].pathMidpointPos,
+                range: 1,
+                doWhenArrive: "fillTower"
+            });
             log.push(
                 createRoute({
                     routeName: routeName,

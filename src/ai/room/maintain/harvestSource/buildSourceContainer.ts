@@ -8,12 +8,20 @@ export const buildSourceContainer = {
     run(room: Room) {
         createFlagList(room, ["containerConstructionSite", "source", "container"]);
         const containerConstructionSiteFlagList: { [name: string]: Flag } = {};
+        const sourceContainerFlagList: { [name: string]: Flag } = {};
         const taskName = "HarvestSourceAndBuildContainer";
         const siteList = getFlagList(room, ["containerConstructionSite"]).containerConstructionSite;
         //console.log(siteList);
         const sourceFlagList = getFlagList(room, ["source"]).source;
         if (siteList.length > 0) {
             const log: string[] = [room.name + "尝试执行" + taskName];
+            sourceFlagList.forEach(flagName => {
+                const containerFlag = Game.flags[flagName].pos.findInRange(FIND_FLAGS, 1, {
+                    filter: i => i.name.indexOf("container") !== -1 && i.name.indexOf("ConstructionSite") === -1
+                })[0];
+                if (containerFlag) sourceContainerFlagList[flagName] = containerFlag;
+            });
+            if (Object.keys(sourceContainerFlagList).length >= 2) return "keepHarvesting";
             sourceFlagList.forEach(flagName => {
                 const containerConstructionSiteFlag = Game.flags[flagName].pos.findInRange(FIND_FLAGS, 1, {
                     filter: i => i.name.indexOf("containerConstructionSite") !== -1

@@ -1,0 +1,63 @@
+<script>
+    // 创建快捷键，只应在第一次时监听，防止添加多个监听器导致重复触发
+    if (!global.shortcutKey) {
+        const shortcutKey = e => {
+            // 如果俺下了 ctrl + z
+            if (e.key === 'z' && e.ctrlKey === true) {
+                // 直接触发对应的操作
+                startCreateRoute()
+            }
+
+            // ... 更多的快捷键操作
+        }
+
+        document.body.addEventListener('keyup', shortcutKey)
+        global.shortcutKey = shortcutKey
+    }
+    // TODO 添加新建路径点手操方法
+    // 录制中路由点位的存放位置
+    let recordPos = []
+
+    function startCreateRoute() {
+        if (global.getClickPos) return
+
+        alert('开始录制路径，请点击房间点位')
+
+        // 获取点击的位置
+        const getClickPos = () => {
+            // 从 url 中读到所在房间名
+            const roomName = 一堆操作
+
+            const posElements = document.querySelectorAll('房间右侧位置面板，x，y 坐标位置的 selector')
+            // 一大堆的 dom 操作，获取到实际的位置信息
+            const xPos, yPos = 又一堆操作
+
+            // 缺少位置信息，点击的不是房间位置
+            if (!roomName || !xPos || !yPos) return
+
+            // 进行记录
+            recordPos.push(xPos, yPos, roomName)
+
+            // 可以设置一些操作回馈逻辑...
+        }
+
+        // 添加点击事件
+        document.body.addEventListener('click', getClickPos)
+        global.getClickPos = getClickPos
+    }
+
+    function finishCreateRoute() {
+        if (!global.getClickPos) return
+        document.removeEventListener(global.getClickPos)
+
+        // 触发路径新建逻辑：添加路径名、回馈给游戏代码等等....
+
+        // 重置状态，等待下一次录制
+        recordPos = []
+    }
+</script>
+
+<div>
+    <button onclick="startCreateRoute">创建路径</button>
+    <button onclick="finishCreateRoute">结束路径创建</button>
+</div>

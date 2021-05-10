@@ -3,6 +3,7 @@ import { state } from "..";
 import { build } from "./build";
 import { buildInRange } from "./buildInRange";
 import { fillSpawnAndExtension } from "./fillSpawnAndExtension";
+import { fillTower } from "./fillTower";
 import { goTo } from "./goTo";
 import { harvestSource } from "./harvestSource";
 import { keepOnHarvestingSource } from "./keepOnHarvestingSource";
@@ -17,7 +18,6 @@ export interface CreepAction {
     description: string;
     type: "move" | "stay";
 }
-
 export const actionIndexedList = {
     goTo,
     harvestSource,
@@ -28,7 +28,8 @@ export const actionIndexedList = {
     build,
     keepOnHarvestingSource,
     buildInRange,
-    fillSpawnAndExtension
+    fillSpawnAndExtension,
+    fillTower
 };
 
 export function switchDoWhenArrive(routeDetail: RouteMidpointDetail, creep: Creep): state {
