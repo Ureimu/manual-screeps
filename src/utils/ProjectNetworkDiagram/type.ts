@@ -3,6 +3,12 @@ export interface Node {
     out: string[];
     name: string;
     state: NodeState;
+    time: TimeState;
+}
+
+export interface TimeState {
+    start: number;
+    end: number;
 }
 export type NodeState = "unplayed" | "start" | "working" | "end";
 export interface DiagramDict {

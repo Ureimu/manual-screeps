@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import { Colors, colors } from "utils/console/colorful";
 import {
     BoxStyle,
@@ -49,19 +50,25 @@ export class mermaid {
     public printCode(): string {
         return this.mermaidContentList.join("\n");
     }
-    public showInBrowser(): string {
+    public printFlattenCode(): string {
+        return this.mermaidContentList.join(" ");
+    }
+    public printMarkdownCode(): string {
+        return "```mermaid\n" + this.mermaidContentList.join("\n") + "\n```";
+    }
+    public static showInBrowser(data: string): string {
         return `<script>
         const sendMemoryInfo = ({ source }) => {
             removeEventListener('message', sendMemoryInfo);
-            source.postMessage(${this.mermaidContentList.join(" ")}, '*')
+            source.postMessage("${Base64.encodeURI(data)}", '*')
         };
         addEventListener('message', sendMemoryInfo);
-        open('https://screeps-cn.github.io/memory-analyzer/main.html', '_blank', 'fullscreen=no');
+        open('https://ureimu.github.io/manual-screeps/tools/mermaid.html', '_blank', 'fullscreen=no');
 
         setTimeout(function () {
-        $(".console-controls .md-button:eq(1)").trigger('click');
+            $(".console-controls .md-button:eq(1)").trigger('click');
         });
-    </script>`.replace(/\n/g, "");
+    <\/script>`.replace(/((\s\s)|\n)/g, "");
     }
     private boxed(content: string, boxStyle: BoxStyle) {
         return `${BoxStyleCorrespond[boxStyle].left}"${content}"${BoxStyleCorrespond[boxStyle].right}`;

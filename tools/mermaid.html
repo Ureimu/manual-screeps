@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+    <script src="https://cdn.bootcss.com/mermaid/8.0.0-rc.8/mermaid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-base64@3.6.0/base64.min.js"></script>
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,7 +15,7 @@
                 var insertSvg = function (svgCode, bindFunctions) {
                     document.querySelector("#graphDiv").innerHTML = svgCode;
                 };
-                var graphDefinition = data;
+                var graphDefinition = Base64.decode(data);
                 var graph = mermaid.render("graphDiv", graphDefinition, insertSvg);
             }
             // 监听游戏传入进来的 Memory 数据并进行渲染
@@ -29,5 +31,4 @@
             });
         </script>
     </body>
-    <script src="https://cdn.bootcss.com/mermaid/8.0.0-rc.8/mermaid.min.js"></script>
 </html>

@@ -23,13 +23,21 @@ export class ProjectNetworkDiagram {
         in: [],
         out: [],
         name: "",
-        state: "unplayed"
+        state: "unplayed",
+        time: {
+            start: -1,
+            end: -1
+        }
     };
     private startNode: Node = {
         in: [],
         out: [],
         name: this.startNodeName,
-        state: "end"
+        state: "end",
+        time: {
+            start: Game.time,
+            end: Game.time
+        }
     };
     private readonly Regex = /(?<=\s)([a-zA-Z0-9]+)(?=\s)/g;
 
@@ -58,11 +66,10 @@ export class ProjectNetworkDiagram {
         });
         const inSet = new Set<string>(preNodeNameList);
         inSet.delete(nodeName);
-        if (nodeName === "4") console.log(nodeName, JSON.stringify(this.diagram, undefined, 4));
         newNode.in = Array.from(inSet);
-        if (nodeName === "4") console.log(nodeName, JSON.stringify(this.diagram, undefined, 4));
         if (newNode.in.every(inNodeName => this.diagram[inNodeName].state === "end")) {
             newNode.state = "start";
+            newNode.time.start = Game.time;
         }
         this.diagram[newNode.name] = newNode;
     }
@@ -76,13 +83,25 @@ export class ProjectNetworkDiagram {
      * @memberof ProjectNetworkDiagram
      */
     public updateNodeState(nodeName: string, state: NodeState): void {
+        this.changeNodeState(nodeName, state);
+    }
+
+    private changeNodeState(nodeName: string, state: NodeState): void {
         this.diagram[nodeName].state = state;
-        if (state === "end") {
-            this.diagram[nodeName].out.forEach(outNodeName => {
-                return this.diagram[outNodeName].in.every(inNodeName => this.diagram[inNodeName].state === "end")
-                    ? (this.diagram[outNodeName].state = "start")
-                    : undefined;
-            });
+        switch (state) {
+            case "start":
+                if (this.diagram[nodeName].time.start === -1) this.diagram[nodeName].time.start = Game.time;
+                break;
+            case "end":
+                if (this.diagram[nodeName].time.end === -1) this.diagram[nodeName].time.end = Game.time;
+                this.diagram[nodeName].out.forEach(outNodeName => {
+                    return this.diagram[outNodeName].in.every(inNodeName => this.diagram[inNodeName].state === "end")
+                        ? this.changeNodeState(outNodeName, "start")
+                        : undefined;
+                });
+                break;
+            default:
+                break;
         }
     }
 
@@ -99,10 +118,17 @@ export class ProjectNetworkDiagram {
     }
 
     private getNodeContent(nodeName: string): string {
-        return `${nodeName}(${this.diagram[nodeName].state})`;
+        const nodeContentList: string[] = [];
+        const node = this.diagram[nodeName];
+        nodeContentList.push(`${nodeName}(${node.state})`);
+        if (node.time.start !== -1) nodeContentList.push(`start:${node.time.start}`);
+        if (node.time.end !== -1) nodeContentList.push(`end:${node.time.end}`);
+        if (node.time.start !== -1 && node.time.end !== -1)
+            nodeContentList.push(`time of duration:${node.time.end - node.time.start}`);
+        return nodeContentList.join("<br/>");
     }
 
-    public printDiagram(): void {
+    private getDiagramCode(markdown: boolean): string {
         const mermaidDiagram = new mermaid();
         mermaidDiagram.chooseDirection("top bottom");
         for (const nodeName in this.diagram) {
@@ -120,6 +146,17 @@ export class ProjectNetworkDiagram {
                 strokeWidth: "2px"
             });
         }
-        return loader.download(mermaidDiagram.draw(), "mermaidDiagram.md");
+        if (markdown) {
+            return mermaidDiagram.printMarkdownCode();
+        }
+        return mermaidDiagram.printFlattenCode();
+    }
+
+    public printDiagram(): string {
+        return mermaid.showInBrowser(this.getDiagramCode(false));
+    }
+
+    public downloadDiagram(): void {
+        loader.download(this.getDiagramCode(true), `diagram${Game.time}.md`);
     }
 }

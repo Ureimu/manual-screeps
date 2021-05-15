@@ -5,6 +5,7 @@ import { plugin } from "plugin";
 import { posMaintainer } from "flagMaintainer";
 import { spawnPoolForm } from "spawn/spawnPool/form";
 import { creators } from "utils/console/form";
+import { mermaid } from "utils/mermaid";
 
 declare global {
     namespace NodeJS {
@@ -17,6 +18,7 @@ declare global {
                 creepBodyForm: typeof creepBodyForm;
                 posMaintainer: typeof posMaintainer;
                 plugin: typeof plugin;
+                mermaid: typeof mermaid;
             };
         }
     }
@@ -31,6 +33,7 @@ export default function mountGlobalFunctionClass(): void {
         spawnPoolForm,
         creepBodyForm,
         posMaintainer,
-        plugin
+        plugin,
+        mermaid
     };
 }
