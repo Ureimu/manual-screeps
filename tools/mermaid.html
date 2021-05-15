@@ -9,22 +9,23 @@
         <title>Document</title>
     </head>
     <body>
-        <div id="graphDiv" style="max-width: 100px !important"></div>
+        <div id="graphDiv" style="max-width: 800px !important"></div>
         <script>
             function addSvg(data) {
                 var insertSvg = function (svgCode, bindFunctions) {
                     document.querySelector("#graphDiv").innerHTML = svgCode;
                 };
                 var graphDefinition = Base64.decode(data);
+                console.log("start render");
                 var graph = mermaid.render("graphDiv", graphDefinition, insertSvg);
             }
-            // 监听游戏传入进来的 Memory 数据并进行渲染
+            // 监听游戏传入进来的 graphDiv 数据并进行渲染
             window.opener.postMessage("ready", "*");
             window.addEventListener("message", ({ data }) => {
                 try {
                     addSvg(data);
                 } catch (e) {
-                    alert("代码错误,请联系 Ureium");
+                    alert("代码错误,请联系 Ureium" + "\n" + e.join("\n") + Base64.decode(data));
                     console.error(e);
                     console.error(data);
                 }

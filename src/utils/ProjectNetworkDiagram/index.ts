@@ -149,7 +149,7 @@ export class ProjectNetworkDiagram {
         if (markdown) {
             return mermaidDiagram.printMarkdownCode();
         }
-        return mermaidDiagram.printFlattenCode();
+        return mermaidDiagram.printCode();
     }
 
     public printDiagram(): string {

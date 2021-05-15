@@ -7,11 +7,11 @@ export function maintainRoom(): void {
             if (!room.memory.AIUreium || !room.memory.AIUreium.maintainRoom)
                 room.memory.AIUreium = { maintainRoom: {} };
             const diagram = new ProjectNetworkDiagram(room.memory.AIUreium.maintainRoom);
-            if (Game.time % 50 === 0) {
+            if (Game.time % 15 === 0) {
                 diagram.addNode("first", [diagram.startNodeName]);
                 diagram.addNode("second", [diagram.startNodeName]);
                 diagram.addNode("third", ["second"]);
-                // console.log(diagram.downloadDiagram());
+                console.log(diagram.printDiagram());
             }
 
             const stateNodes = diagram.getStateNode(["start", "working"]);
