@@ -21,7 +21,7 @@
                 var graphDefinition = Base64.decode(data);
                 console.log("start render");
                 console.log(graphDefinition);
-                var graph = mermaid.render("graphDiv", graphDefinition, insertSvg);
+                var graph = mermaid.mermaidAPI.render("graphDiv", graphDefinition, insertSvg);
             }
             // 监听游戏传入进来的 graphDiv 数据并进行渲染
             if (window.opener) window.opener.postMessage("ready", "*");
