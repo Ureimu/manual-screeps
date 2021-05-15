@@ -21,21 +21,23 @@ export class mermaid {
     }
     public addEdge(
         startNodeID: string,
-        startNodeContent: string,
         endNodeID: string,
-        endNodeContent: string,
         opts: { annotation: string; boxStyle: BoxStyle; connectStyle: ConnectStyle } = {
             annotation: "",
             boxStyle: "rounded rectangle",
             connectStyle: "solid arrow"
         }
     ): void {
-        const { annotation = "", boxStyle = "rounded rectangle", connectStyle = "solid arrow" } = opts;
+        const { annotation = "", connectStyle = "solid arrow" } = opts;
         this.mermaidContentList.push(
-            `${startNodeID}${this.boxed(startNodeContent, boxStyle)} ${ConnectStyleCorrespond[connectStyle]}${
+            `${startNodeID} ${ConnectStyleCorrespond[connectStyle]}${
                 annotation !== "" ? `|${annotation}|` : ""
-            } ${endNodeID}${this.boxed(endNodeContent, boxStyle)}`
+            } ${endNodeID}`
         );
+    }
+    public setNodeText(nodeID: string, nodeContent: string, opts: { boxStyle: BoxStyle }): void {
+        const { boxStyle = "rounded rectangle" } = opts;
+        this.mermaidContentList.push(`${nodeID}${this.boxed(nodeContent, boxStyle)}`);
     }
     public setNodeStyle(nodeID: string, opts: { fill: Colors; stroke: string; strokeWidth: string }): void {
         const { fill = "blue", stroke = "#333", strokeWidth = "2px" } = opts;

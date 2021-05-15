@@ -132,19 +132,15 @@ export class ProjectNetworkDiagram {
         const mermaidDiagram = new mermaid();
         mermaidDiagram.chooseDirection("top bottom");
         for (const nodeName in this.diagram) {
-            this.diagram[nodeName].out.forEach(outNodeName =>
-                mermaidDiagram.addEdge(
-                    nodeName,
-                    this.getNodeContent(nodeName),
-                    outNodeName,
-                    this.getNodeContent(outNodeName)
-                )
-            );
+            mermaidDiagram.setNodeText(nodeName, this.getNodeContent(nodeName), { boxStyle: "rounded rectangle" });
             mermaidDiagram.setNodeStyle(nodeName, {
                 fill: this.stateColor[this.diagram[nodeName].state],
                 stroke: "#333",
                 strokeWidth: "2px"
             });
+        }
+        for (const nodeName in this.diagram) {
+            this.diagram[nodeName].out.forEach(outNodeName => mermaidDiagram.addEdge(nodeName, outNodeName));
         }
         if (markdown) {
             return mermaidDiagram.printMarkdownCode();

@@ -24,7 +24,8 @@
                 var graph = mermaid.render("graphDiv", graphDefinition, insertSvg);
             }
             // 监听游戏传入进来的 graphDiv 数据并进行渲染
-            window.opener.postMessage("ready", "*");
+            if (window.opener) window.opener.postMessage("ready", "*");
+            else window.postMessage("ready", "*");
             window.addEventListener("message", ({ data }) => {
                 try {
                     addSvg(data);

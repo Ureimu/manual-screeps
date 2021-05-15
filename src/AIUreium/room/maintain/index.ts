@@ -12,6 +12,7 @@ export function maintainRoom(): void {
                 diagram.addNode("second", [diagram.startNodeName]);
                 diagram.addNode("third", ["second"]);
                 console.log(diagram.printDiagram());
+                console.log(diagram.downloadDiagram());
             }
 
             const stateNodes = diagram.getStateNode(["start", "working"]);
