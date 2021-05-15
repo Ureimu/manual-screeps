@@ -25,12 +25,26 @@
             }
             // 监听游戏传入进来的 graphDiv 数据并进行渲染
             if (window.opener) window.opener.postMessage("ready", "*");
-            else window.postMessage("ready", "*");
-            window.addEventListener("message", ({ data }) => {
+            window.addEventListener("message", ({ source, data }) => {
                 try {
-                    addSvg(data);
+                    var url = "";
+                    try {
+                        url = window.top.document.referrer;
+                    } catch (M) {
+                        if (window.parent) {
+                            try {
+                                url = window.parent.document.referrer;
+                            } catch (L) {
+                                url = "";
+                            }
+                        }
+                    }
+                    if (url === "") {
+                        url = document.referrer;
+                    }
+                    if (url === source) addSvg(data);
                 } catch (e) {
-                    alert("代码错误,请联系 Ureium" + "\n" + e.join("\n") + Base64.decode(data));
+                    alert("代码错误,请联系 Ureium" + "\n");
                     console.error(e);
                     console.error(data);
                 }
