@@ -23,6 +23,9 @@
             window.opener.postMessage("ready", "*");
             window.addEventListener("message", ({ data }) => {
                 try {
+                    mermaid.mermaidAPI.initialize({
+                        startOnLoad: false
+                    });
                     addSvg(data);
                 } catch (e) {
                     alert("代码错误,请联系 Ureium" + "\n" + e.join("\n") + Base64.decode(data));
