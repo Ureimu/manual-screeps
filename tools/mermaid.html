@@ -27,22 +27,7 @@
             if (window.opener) window.opener.postMessage("ready", "*");
             window.addEventListener("message", ({ source, data }) => {
                 try {
-                    var url = "";
-                    try {
-                        url = window.top.document.referrer;
-                    } catch (M) {
-                        if (window.parent) {
-                            try {
-                                url = window.parent.document.referrer;
-                            } catch (L) {
-                                url = "";
-                            }
-                        }
-                    }
-                    if (url === "") {
-                        url = document.referrer;
-                    }
-                    if (url === source) addSvg(data);
+                    addSvg(data);
                 } catch (e) {
                     alert("代码错误,请联系 Ureium" + "\n");
                     console.error(e);
