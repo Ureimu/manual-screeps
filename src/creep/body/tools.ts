@@ -9,8 +9,19 @@ export const bodyAbbreviation: { [name: string]: BodyPartConstant } = {
     t: "tough"
 };
 
+export const MOCK_BODYPART_COST = {
+    move: 50,
+    work: 100,
+    attack: 80,
+    carry: 50,
+    heal: 250,
+    ranged_attack: 150,
+    tough: 10,
+    claim: 600
+};
+
 export const bodyAbbreviationCost: { [name: string]: number } = _.mapValues(bodyAbbreviation, function (value) {
-    return BODYPART_COST[value];
+    return MOCK_BODYPART_COST[value];
 });
 // {
 //     m: 50,

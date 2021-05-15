@@ -76,7 +76,7 @@ ___
 
 ### setConfig
 
-▸ `Static` **setConfig**(`args`: { `controllerLevel`: ControllerLevels ; `creepBodyConfig`: *string* ; `creepBodyConfigName`: *string*  }): *string*
+▸ `Static` **setConfig**(`args`: { `controllerLevel`: [*ControllerLevels*](../modules/creep_body_type.md#controllerlevels) ; `creepBodyConfig`: *string* ; `creepBodyConfigName`: *string*  }): *string*
 
 设置creep身体部件配置项。
 
@@ -89,7 +89,7 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `args` | *object* |
-| `args.controllerLevel` | ControllerLevels |
+| `args.controllerLevel` | [*ControllerLevels*](../modules/creep_body_type.md#controllerlevels) |
 | `args.creepBodyConfig` | *string* |
 | `args.creepBodyConfigName` | *string* |
 

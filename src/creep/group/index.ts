@@ -14,7 +14,15 @@ export class creepGroup {
      * @returns {string}
      * @memberof creepGroup
      */
-    public static create(args: { routeName: string; creepGroupName: string }): string {
+    public static create(args: {
+        /**
+         * 路径名称
+         *
+         * @type {string}
+         */
+        routeName: string;
+        creepGroupName: string;
+    }): string {
         const { routeName, creepGroupName } = args;
         if (routeName === "") {
             return style(`路径名称不可以为空`, "error");
@@ -108,7 +116,15 @@ export class creepGroup {
      * @returns {string}
      * @memberof creepGroup
      */
-    public static setCreepGroupProperties(args: { creepGroupName: string; routeName: string }): string {
+    public static setCreepGroupProperties(args: {
+        creepGroupName: string;
+        /**
+         * 路径名称
+         *
+         * @type {string}
+         */
+        routeName: string;
+    }): string {
         const { creepGroupName, routeName } = args;
         // console.log(creepGroupName, routeName);
         Memory.creepGroups[creepGroupName].routeName = routeName;

@@ -1,4 +1,4 @@
-import { RouteConditionDetail } from "creep/routePlan/form";
+import { RouteConditionDetail } from "creep/routePlan/type";
 import { state } from "..";
 
 export interface CreepCondition {

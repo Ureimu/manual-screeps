@@ -1,5 +1,6 @@
 import { actionIndexedList } from "creep/action/doOnArrived";
 import { createForm } from "utils/console";
+import { RouteSingleDetail, RouteMidpointDetail } from "./type";
 
 export function callOnStart(): void {
     if (!Memory.routes) Memory.routes = {};
@@ -246,35 +247,4 @@ export class routePlanForm {
             }
         );
     }
-}
-
-declare global {
-    interface Memory {
-        routes: {
-            [name: string]: {
-                routeDetailArray: RouteSingleDetail[];
-                ifLoop: boolean;
-                ifShow: boolean;
-            };
-        };
-    }
-}
-
-export type RouteSingleDetail = RouteMidpointDetail | RouteConditionDetail;
-
-export interface RouteMidpointDetail {
-    pathMidpointPos: string;
-    range: number;
-    doWhenArrive: keyof typeof actionIndexedList;
-    actionArgs?: string;
-}
-
-export interface RouteConditionDetail {
-    condition: string;
-    jumpTo: number;
-    conditionArgs?: string;
-}
-
-export function isRouteMidpointDetail(detail: RouteSingleDetail): detail is RouteMidpointDetail {
-    return Boolean((detail as RouteMidpointDetail).pathMidpointPos);
 }

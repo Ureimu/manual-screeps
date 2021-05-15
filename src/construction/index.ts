@@ -11,15 +11,13 @@ export function callOnStart(room: Room): void {
                 constructionSchedule: {},
                 startTime: Game.time,
                 roomControlStatus: [1],
-                firstSpawnName: room.find(FIND_MY_SPAWNS)[0].name,
-                objectNum: {}
+                firstSpawnName: room.find(FIND_MY_SPAWNS)[0].name
             };
         }
     }
 }
 
 declare global {
-    // Types defined in a global block are available globally
     interface RoomMemory {
         startTime: number;
         roomControlStatus: number[]; // 用来与上一次建造时做比较，在每次升级时会重新建造一次
@@ -122,21 +120,20 @@ declare global {
 function buildingName(myStructure: Structure): string {
     if (!global.constructionMemory) global.constructionMemory = {};
     if (!global.constructionMemory[myStructure.id]) {
-        const rts = new RoomPositionToStr(myStructure.room.name);
+        const PosStr = new RoomPositionToStr(myStructure.room.name);
         for (const con in Memory.rooms[myStructure.room.name].construction) {
             const m: { [name: string]: constructionSitesInf<AnyStructure> } =
                 Memory.rooms[myStructure.room.name].construction;
             if (m[con].structureType === myStructure.structureType) {
                 for (const nStr of m[con].pos) {
-                    const n = rts.getPosFromStr(nStr);
+                    const n = PosStr.getPosFromStr(nStr);
                     if (myStructure.pos.isEqualTo(n)) {
                         if (
-                            m[con].id.findIndex(
-                                value => value === ((myStructure.id as unknown) as Id<AnyStructure>)
-                            ) === -1
+                            m[con].id.findIndex(value => value === (myStructure.id as unknown as Id<AnyStructure>)) ===
+                            -1
                         ) {
                             Memory.rooms[myStructure.room.name].construction[con].id.push(
-                                (myStructure.id as unknown) as Id<AnyStructure>
+                                myStructure.id as unknown as Id<AnyStructure>
                             );
                         }
                         global.constructionMemory[myStructure.id] = {

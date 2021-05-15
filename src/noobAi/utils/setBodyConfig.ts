@@ -1,4 +1,4 @@
-import { ControllerLevels } from "creep/body/form";
+import { ControllerLevels } from "creep/body/type";
 import { creepBody } from "creep/body";
 
 export function setBodyConfig(creepBodyConfigName: string, creepBodyConfigList: string[]): string {

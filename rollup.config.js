@@ -7,6 +7,7 @@ import typescript from 'rollup-plugin-typescript2';
 import copy from "rollup-plugin-copy";
 import screeps from 'rollup-plugin-screeps';
 import html from 'rollup-plugin-html';
+import json from '@rollup/plugin-json'
 
 let cfg;
 const dest = process.env.DEST;
@@ -45,6 +46,7 @@ export default {
                 removeComments: true
             }
 		}),
+        json({include: '**/*.json'}),
         screeps({ config: cfg, dryRun: cfg == null })
     ]
 }

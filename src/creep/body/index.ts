@@ -1,5 +1,5 @@
 import { consoleStyle } from "console/style";
-import { ControllerLevels } from "./form";
+import { ControllerLevels } from "./type";
 import { bodyTools } from "./tools";
 
 const style = consoleStyle("creepBody");

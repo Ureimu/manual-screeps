@@ -1,4 +1,4 @@
-import { RouteMidpointDetail } from "creep/routePlan/form";
+import { RouteMidpointDetail } from "creep/routePlan/type";
 import { PosStr } from "utils/RoomPositionToStr";
 import { state } from ".";
 import { CostMatrixOpts } from "./routeCache/getCostMatrix";

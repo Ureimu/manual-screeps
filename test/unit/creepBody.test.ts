@@ -1,6 +1,5 @@
 import { assert } from "chai";
 import { bodyTools } from "creep/body/tools";
-
 describe("compileCreepBody", () => {
     it("should return right number of cost", () => {
         assert.isTrue(bodyTools.getEnergyCost("m2c2") === 200);

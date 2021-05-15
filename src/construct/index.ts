@@ -1,0 +1,1 @@
+export { autoConstruction } from "./auto";

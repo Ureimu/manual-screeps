@@ -1,4 +1,4 @@
-import { runAi } from "ai";
+import { runAi } from "AIUreium";
 import { runFrame } from "frame";
 import { runAllAcrossTickTask } from "utils/AcrossTick";
 import { ErrorMapper } from "utils/ErrorMapper";

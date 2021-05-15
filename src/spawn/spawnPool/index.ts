@@ -1,5 +1,5 @@
 import { clearCreepRouteMemory } from "creep/action";
-import { readyConditionKey } from "./form";
+import { readyConditionKey } from "./type";
 import { consoleStyle } from "console/style";
 
 const style = consoleStyle("spawnPool");

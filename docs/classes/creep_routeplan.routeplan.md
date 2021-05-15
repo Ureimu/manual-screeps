@@ -33,7 +33,7 @@
 
 ### addCondition
 
-▸ `Static` **addCondition**(`args`: { `routeName`: *string*  } & RouteConditionDetail): *string*
+▸ `Static` **addCondition**(`args`: { `routeName`: *string*  } & [*RouteConditionDetail*](../interfaces/creep_routeplan_type.routeconditiondetail.md)): *string*
 
 添加状态判断。
 
@@ -45,17 +45,17 @@
 
 | Name | Type |
 | :------ | :------ |
-| `args` | { `routeName`: *string*  } & RouteConditionDetail |
+| `args` | { `routeName`: *string*  } & [*RouteConditionDetail*](../interfaces/creep_routeplan_type.routeconditiondetail.md) |
 
 **Returns:** *string*
 
-Defined in: creep/routePlan/index.ts:75
+Defined in: creep/routePlan/index.ts:93
 
 ___
 
 ### addMidpoint
 
-▸ `Static` **addMidpoint**(`args`: { `routeName`: *string*  } & RouteMidpointDetail): *string*
+▸ `Static` **addMidpoint**(`args`: { `routeName`: *string*  } & [*RouteMidpointDetail*](../interfaces/creep_routeplan_type.routemidpointdetail.md)): *string*
 
 添加路径点。
 
@@ -67,11 +67,11 @@ ___
 
 | Name | Type |
 | :------ | :------ |
-| `args` | { `routeName`: *string*  } & RouteMidpointDetail |
+| `args` | { `routeName`: *string*  } & [*RouteMidpointDetail*](../interfaces/creep_routeplan_type.routemidpointdetail.md) |
 
 **Returns:** *string*
 
-Defined in: creep/routePlan/index.ts:37
+Defined in: creep/routePlan/index.ts:50
 
 ___
 
@@ -87,15 +87,15 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `args` | *object* |
-| `args.creepName` | *string* |
-| `args.routeName` | *string* |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `args` | *object* |  |
+| `args.creepName` | *string* | creep名称 |
+| `args.routeName` | *string* | 路径名称 |
 
 **Returns:** *string*
 
-Defined in: creep/routePlan/index.ts:97
+Defined in: creep/routePlan/index.ts:120
 
 ___
 
@@ -111,11 +111,11 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `args` | *object* |
-| `args.ifLoop` | *string* |
-| `args.routeName` | *string* |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `args` | *object* |  |
+| `args.ifLoop` | *string* | 是否循环执行 |
+| `args.routeName` | *string* | 路径名称 |
 
 **Returns:** *string*
 
@@ -135,14 +135,14 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `args` | *object* |
-| `args.routeName` | *string* |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `args` | *object* |  |
+| `args.routeName` | *string* | 路径名称 |
 
 **Returns:** *string*
 
-Defined in: creep/routePlan/index.ts:163
+Defined in: creep/routePlan/index.ts:231
 
 ___
 
@@ -158,14 +158,14 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `args` | *object* |
-| `args.routeName` | *string* |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `args` | *object* |  |
+| `args.routeName` | *string* | 路径名称 |
 
 **Returns:** *string*
 
-Defined in: creep/routePlan/index.ts:177
+Defined in: creep/routePlan/index.ts:252
 
 ___
 
@@ -181,15 +181,15 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `args` | *object* |
-| `args.ifLoop` | *string* |
-| `args.routeName` | *string* |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `args` | *object* |  |
+| `args.ifLoop` | *string* | 循环条件 |
+| `args.routeName` | *string* | 路径名称 |
 
 **Returns:** *string*
 
-Defined in: creep/routePlan/index.ts:118
+Defined in: creep/routePlan/index.ts:154
 
 ___
 
@@ -205,13 +205,13 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `args` | *object* |
-| `args.ifRun` | *string* |
-| `args.roomName` | *string* |
-| `args.routeName` | *string* |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `args` | *object* |  |
+| `args.ifRun` | *string* | 是否执行 |
+| `args.roomName` | *string* | 执行可视化的房间名称 |
+| `args.routeName` | *string* | 路径名称 |
 
 **Returns:** *string*
 
-Defined in: creep/routePlan/index.ts:132
+Defined in: creep/routePlan/index.ts:181

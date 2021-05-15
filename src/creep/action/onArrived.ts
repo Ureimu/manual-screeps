@@ -1,4 +1,4 @@
-import { RouteMidpointDetail } from "creep/routePlan/form";
+import { RouteMidpointDetail } from "creep/routePlan/type";
 import { state } from ".";
 import { switchDoWhenArrive } from "./doOnArrived";
 

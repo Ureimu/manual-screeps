@@ -1,7 +1,7 @@
-import { createCreepGroup } from "ai/utils/createCreepGroup";
-import { createCreepNameList } from "ai/utils/createCreepNameList";
-import { createRoute } from "ai/utils/createRoute";
-import { RouteMidpointDetail } from "creep/routePlan/form";
+import { createCreepGroup } from "noobAi/utils/createCreepGroup";
+import { createCreepNameList } from "noobAi/utils/createCreepNameList";
+import { createRoute } from "noobAi/utils/createRoute";
+import { RouteMidpointDetail } from "creep/routePlan/type";
 import { createFlagList, getFlagList } from "flagMaintainer/maintainer";
 
 export const fillSpawn = {
@@ -40,7 +40,7 @@ export const fillSpawn = {
             });
             log.push(
                 createRoute({
-                    routeName: routeName,
+                    routeName,
                     ifLoop: "true",
                     midPointList
                 })
@@ -54,7 +54,7 @@ export const fillSpawn = {
                     readyCondition: "loop",
                     creepGroupName: "carrySourceAndFill",
                     creepNameList,
-                    routeName: routeName
+                    routeName
                 })
             );
             console.log(log.join("\n"));

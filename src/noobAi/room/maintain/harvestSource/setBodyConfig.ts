@@ -1,4 +1,4 @@
-import { setBodyConfig } from "ai/utils/setBodyConfig";
+import { setBodyConfig } from "noobAi/utils/setBodyConfig";
 
 export const setHarvestSourceBody = {
     name: "setHarvestSourceBody",

@@ -14,6 +14,7 @@
         "experimentalDecorators": true,
         "noImplicitReturns": true,
         "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
         "allowUnreachableCode": false
     },
     "exclude": [

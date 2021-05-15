@@ -1,4 +1,4 @@
-import { createRoute } from "ai/utils/createRoute";
+import { createRoute } from "noobAi/utils/createRoute";
 import { creepGroup } from "creep/group";
 import { createFlagList, getFlagList } from "flagMaintainer/maintainer";
 import { PosStr } from "utils/RoomPositionToStr";

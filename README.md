@@ -16,7 +16,7 @@
 
 api 文档由 typedoc 自动生成。
 
-请参照 docs 目录下的 readme。
+[api 文档目录](docs/modules.md)
 
 ## 致谢
 

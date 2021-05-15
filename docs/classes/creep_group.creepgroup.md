@@ -49,7 +49,7 @@
 
 **Returns:** *string*
 
-Defined in: creep/group/index.ts:40
+Defined in: creep/group/index.ts:48
 
 ___
 
@@ -65,11 +65,11 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `args` | *object* |
-| `args.creepGroupName` | *string* |
-| `args.routeName` | *string* |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `args` | *object* |  |
+| `args.creepGroupName` | *string* | - |
+| `args.routeName` | *string* | 路径名称 |
 
 **Returns:** *string*
 
@@ -96,7 +96,7 @@ ___
 
 **Returns:** *string*
 
-Defined in: creep/group/index.ts:159
+Defined in: creep/group/index.ts:175
 
 ___
 
@@ -121,7 +121,7 @@ ___
 
 **Returns:** *string*
 
-Defined in: creep/group/index.ts:73
+Defined in: creep/group/index.ts:81
 
 ___
 
@@ -137,15 +137,15 @@ ___
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `args` | *object* |
-| `args.creepGroupName` | *string* |
-| `args.routeName` | *string* |
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `args` | *object* |  |
+| `args.creepGroupName` | *string* | - |
+| `args.routeName` | *string* | 路径名称 |
 
 **Returns:** *string*
 
-Defined in: creep/group/index.ts:111
+Defined in: creep/group/index.ts:119
 
 ___
 
@@ -170,4 +170,4 @@ ___
 
 **Returns:** *string*
 
-Defined in: creep/group/index.ts:128
+Defined in: creep/group/index.ts:144

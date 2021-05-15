@@ -1,4 +1,4 @@
-import { readyCondition, ReadyCondition } from "spawn/spawning/readyCondition";
+import { readyCondition } from "spawn/spawning/readyCondition";
 import { createForm } from "utils/console";
 
 export function callOnStart(): void {
@@ -134,28 +134,3 @@ export class spawnPoolForm {
         );
     }
 }
-
-declare global {
-    interface SpawnMemory {
-        spawnQueue: SpawnCreepDetail[];
-    }
-
-    interface RoomMemory {
-        diedCreepList: string[];
-        spawnPool: {
-            [creepName: string]: SpawnCreepDetail;
-        };
-    }
-}
-
-export interface SpawnCreepDetail {
-    creepName: string;
-    creepBody: string;
-    priority: number;
-    readyCondition: readyConditionKey;
-    state: runningState;
-    spawnName?: string;
-}
-
-export type runningState = "running" | "ready" | "notReady";
-export type readyConditionKey = keyof ReadyCondition;

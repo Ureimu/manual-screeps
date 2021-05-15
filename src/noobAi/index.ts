@@ -1,5 +1,5 @@
 import { maintainRoom } from "./room";
-import { tower } from "./structure/tower";
+import { tower } from "../AIUreium/structure/tower";
 import { setBodyConfig } from "./utils/setBodyConfig";
 
 export function runAi(): void {

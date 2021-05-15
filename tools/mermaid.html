@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Document</title>
+    </head>
+    <body>
+        <div id="graphDiv" style="max-width: 100px !important"></div>
+        <script>
+            function addSvg(data) {
+                var insertSvg = function (svgCode, bindFunctions) {
+                    document.querySelector("#graphDiv").innerHTML = svgCode;
+                };
+                var graphDefinition = data;
+                var graph = mermaid.render("graphDiv", graphDefinition, insertSvg);
+            }
+            // 监听游戏传入进来的 Memory 数据并进行渲染
+            window.opener.postMessage("ready", "*");
+            window.addEventListener("message", ({ data }) => {
+                try {
+                    addSvg(data);
+                } catch (e) {
+                    alert("代码错误,请联系 Ureium");
+                    console.error(e);
+                    console.error(data);
+                }
+            });
+        </script>
+    </body>
+    <script src="https://cdn.bootcss.com/mermaid/8.0.0-rc.8/mermaid.min.js"></script>
+</html>

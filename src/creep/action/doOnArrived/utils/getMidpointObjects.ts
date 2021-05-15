@@ -1,4 +1,4 @@
-import { RouteMidpointDetail } from "creep/routePlan/form";
+import { RouteMidpointDetail } from "creep/routePlan/type";
 import { PosStr } from "utils/RoomPositionToStr";
 
 export function getMidpointObjects<T extends keyof AllLookAtTypes>(creep: Creep, type: T): AllLookAtTypes[T][] {

@@ -1,7 +1,7 @@
 import { chooseBefittingBody } from "creep/body/chooseCondition";
 import { bodyTools } from "creep/body/tools";
 import { creepGroup } from "creep/group";
-import { SpawnCreepDetail } from "spawn/spawnPool/form";
+import { SpawnCreepDetail } from "spawn/spawnPool/type";
 import { TaskPool } from "utils/PriorityQueue/taskPool";
 import { SetTools } from "utils/SetTools";
 import { callOnBirth } from "./callOnBirth";

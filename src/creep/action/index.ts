@@ -1,10 +1,9 @@
-import { isRouteMidpointDetail } from "creep/routePlan/form";
-import { PosStr } from "utils/RoomPositionToStr";
+import { isRouteMidpointDetail } from "creep/routePlan/type";
 import { actionIndexedList } from "./doOnArrived";
 import { doStuff } from "./onArrived";
 import { judgeCondition } from "./onJudgeCondition";
 import { moveCreep } from "./onMoving";
-import { createRouteCache, emptyRouteCacheDetail } from "./routeCache";
+import { emptyRouteCacheDetail } from "./routeCache";
 
 export function clearCreepRouteMemory(creepMemory: CreepMemory): void {
     creepMemory.route = {

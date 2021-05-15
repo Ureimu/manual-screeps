@@ -1,9 +1,9 @@
 import { clearCreepRouteMemory } from "creep/action";
 import { newAcrossTickTask } from "utils/AcrossTick";
 import { PosStr } from "utils/RoomPositionToStr";
-import { isRouteMidpointDetail, RouteConditionDetail, RouteMidpointDetail } from "./form";
 import { showRoutes } from "./show";
 import { consoleStyle } from "console/style";
+import { RouteMidpointDetail, RouteConditionDetail, isRouteMidpointDetail } from "./type";
 
 const style = consoleStyle("routePlan");
 
@@ -16,7 +16,20 @@ export class routePlan {
      * @returns {string}
      * @memberof routePlan
      */
-    public static create(args: { routeName: string; ifLoop: string }): string {
+    public static create(args: {
+        /**
+         * 路径名称
+         *
+         * @type {string}
+         */
+        routeName: string;
+        /**
+         * 是否循环执行
+         *
+         * @type {string}
+         */
+        ifLoop: string;
+    }): string {
         const { routeName, ifLoop = "true" } = args;
         if (routeName === "") {
             return style(`路径名称不可以为空`, "error");
@@ -36,6 +49,11 @@ export class routePlan {
      */
     public static addMidpoint(
         args: {
+            /**
+             * 路径名称
+             *
+             * @type {string}
+             */
             routeName: string;
         } & RouteMidpointDetail
     ): string {
@@ -74,6 +92,11 @@ export class routePlan {
      */
     public static addCondition(
         args: {
+            /**
+             * 路径名称
+             *
+             * @type {string}
+             */
             routeName: string;
         } & RouteConditionDetail
     ): string {
@@ -94,7 +117,20 @@ export class routePlan {
      * @returns {string}
      * @memberof routePlan
      */
-    public static chooseRouteForCreep(args: { creepName: string; routeName: string }): string {
+    public static chooseRouteForCreep(args: {
+        /**
+         * creep名称
+         *
+         * @type {string}
+         */
+        creepName: string;
+        /**
+         * 路径名称
+         *
+         * @type {string}
+         */
+        routeName: string;
+    }): string {
         const { creepName, routeName } = args;
         // console.log(creepName);
         const creepMemory = Memory.creeps[creepName];
@@ -115,7 +151,20 @@ export class routePlan {
      * @returns {string}
      * @memberof routePlan
      */
-    public static setRouteProperties(args: { ifLoop: string; routeName: string }): string {
+    public static setRouteProperties(args: {
+        /**
+         * 循环条件
+         *
+         * @type {string}
+         */
+        ifLoop: string;
+        /**
+         * 路径名称
+         *
+         * @type {string}
+         */
+        routeName: string;
+    }): string {
         const { ifLoop, routeName } = args;
         // console.log(routeName, ifLoop);
         Memory.routes[routeName].ifLoop = Boolean(ifLoop);
@@ -129,7 +178,26 @@ export class routePlan {
      * @returns {string}
      * @memberof routePlan
      */
-    public static showRoutes(args: { ifRun: string; routeName: string; roomName: string }): string {
+    public static showRoutes(args: {
+        /**
+         * 是否执行
+         *
+         * @type {string}
+         */
+        ifRun: string;
+        /**
+         * 路径名称
+         *
+         * @type {string}
+         */
+        routeName: string;
+        /**
+         * 执行可视化的房间名称
+         *
+         * @type {string}
+         */
+        roomName: string;
+    }): string {
         const { ifRun, routeName, roomName } = args;
         // console.log(routeName, ifRun);
         Memory.routes[routeName].ifShow = Boolean(ifRun);
@@ -160,7 +228,14 @@ export class routePlan {
      * @returns {string}
      * @memberof routePlan
      */
-    public static deleteRoute(args: { routeName: string }): string {
+    public static deleteRoute(args: {
+        /**
+         * 路径名称
+         *
+         * @type {string}
+         */
+        routeName: string;
+    }): string {
         const { routeName } = args;
         // console.log(routeName);
         delete Memory.routes[routeName];
@@ -174,7 +249,14 @@ export class routePlan {
      * @returns {string}
      * @memberof routePlan
      */
-    public static printRouteDetail(args: { routeName: string }): string {
+    public static printRouteDetail(args: {
+        /**
+         * 路径名称
+         *
+         * @type {string}
+         */
+        routeName: string;
+    }): string {
         const { routeName } = args;
         const routeDetail = Memory.routes[routeName];
         let log = "";

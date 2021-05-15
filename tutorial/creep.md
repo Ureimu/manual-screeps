@@ -17,3 +17,7 @@
 7. 添加 creep 到 creep 组。点击 creepGroup.addCreep，creep 名称填你刚才向 spawnPool 添加的，creep 组选你刚才创建的。
 
 至此，你已经创建了一条路径，并有了一组在路径上运行的 creep 组了。
+
+## 代码方法
+
+调用上面对应的 api 即可

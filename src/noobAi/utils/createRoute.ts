@@ -1,4 +1,4 @@
-import { RouteMidpointDetail } from "creep/routePlan/form";
+import { RouteMidpointDetail } from "creep/routePlan/type";
 import { routePlan } from "creep/routePlan";
 
 export function createRoute(args: { routeName: string; ifLoop: string; midPointList: RouteMidpointDetail[] }): string {
