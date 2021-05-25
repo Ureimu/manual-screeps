@@ -6,4 +6,4 @@
 
 ### Classes
 
-- [routePlan](../classes/creep_routeplan.routeplan.md)
+- [RoutePlan](../classes/creep_routeplan.routeplan.md)

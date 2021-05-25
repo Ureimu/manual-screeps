@@ -1,5 +1,7 @@
 import { assert } from "chai";
 import { bodyTools } from "creep/body/tools";
+import { mockConstants } from "./mock";
+mockConstants();
 describe("compileCreepBody", () => {
     it("should return right number of cost", () => {
         assert.isTrue(bodyTools.getEnergyCost("m2c2") === 200);
@@ -9,6 +11,9 @@ describe("compileCreepBody", () => {
     it("should return right number of body", () => {
         assert.isTrue(bodyTools.getNum("m2c2") === 4);
         assert.isTrue(bodyTools.getNum("m2c2*5w1") === 21);
+        assert.isTrue(bodyTools.getNum("m5c5w1") === 11);
+        assert.isTrue(bodyTools.getNum("m2c2*5w1", ["move"]) === 10);
+        assert.isTrue(bodyTools.getNum("m2c2*5w1", ["claim"]) === 0);
     });
 
     it("should return right body", () => {

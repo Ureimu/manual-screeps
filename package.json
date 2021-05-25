@@ -53,7 +53,7 @@
         "eslint-plugin-import": "^2.22.0",
         "eslint-plugin-prettier": "^3.1.4",
         "lodash": "^3.10.1",
-        "mocha": "^5.2.0",
+        "mocha": "^8.4.0",
         "prettier": "2.3.0",
         "rollup": "^2.6.1",
         "rollup-plugin-clear": "^2.0.7",
@@ -67,13 +67,14 @@
         "ts-node": "^8.8.2",
         "tsconfig-paths": "^3.9.0",
         "typedoc": "^0.20.36",
-        "typedoc-plugin-markdown": "^3.8.0",
-        "typescript": "^4.2.4"
+        "typedoc-plugin-markdown": "^3.8.0"
     },
     "dependencies": {
         "@rollup/plugin-json": "^4.1.0",
         "cli-diagram": "^0.3.0",
         "js-base64": "^3.6.0",
-        "source-map": "~0.6.1"
+        "screeps-calculator": "^0.1.2",
+        "source-map": "~0.6.1",
+        "typescript": "^4.2.4"
     }
 }

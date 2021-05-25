@@ -23,13 +23,15 @@ export interface constructMemory {
 
 export type formedLayout = {
     [structureName in BuildableStructureConstant]?: {
-        [name: string]: { posStrList: string[]; levelToBuild?: number };
+        [specifiedName in SpecifiedStructureNameList<structureName>]: { posStrList: string[]; levelToBuild?: number };
     };
 };
 
 export interface constructionSiteInf<T extends BuildableStructureConstant> {
     hasPutSites: boolean;
+    hasBuilt: boolean;
     type: T;
+    num: number;
     memory: {
         [name: string]: {
             built: boolean;
@@ -38,3 +40,11 @@ export interface constructionSiteInf<T extends BuildableStructureConstant> {
         };
     };
 }
+
+export type SpecifiedStructureNameList<T extends BuildableStructureConstant> = T extends "container"
+    ? "sourceContainer" | "controllerContainer" | "mineralContainer"
+    : T extends "link"
+    ? "sourceLink" | "controllerLink" | "centerLink"
+    : T extends "road"
+    ? "baseRoad" | "sourceAndControllerRoad" | "mineralRoad" | "outwardsRoad"
+    : T;

@@ -1,25 +1,25 @@
-import { creepGroup } from "creep/group";
-import { spawnPool } from "spawn/spawnPool";
+import { CreepGroup } from "creep/group";
+import { SpawnPool } from "spawn/spawnPool";
 
 export function moveCreepBetweenGroup(
-    args: Omit<Parameters<typeof spawnPool.addCreep>[0], "creepName"> &
-        Omit<Parameters<typeof creepGroup.addCreep>[0], "creepName"> & {
+    args: Omit<Parameters<typeof SpawnPool.addCreep>[0], "creepName"> &
+        Omit<Parameters<typeof CreepGroup.addCreep>[0], "creepName"> & {
             creepNameList: string[];
         }
 ): string {
     const { creepBody, creepGroupName, priority, roomName, readyCondition, creepNameList } = args;
     const logList: string[] = [];
-    creepGroup.create({ routeName: creepGroupName, creepGroupName });
+    CreepGroup.create({ routeName: creepGroupName, creepGroupName });
     creepNameList.forEach(creepName => {
         logList.push(
-            spawnPool.addCreep({
+            SpawnPool.addCreep({
                 creepName,
                 creepBody,
                 priority,
                 roomName,
                 readyCondition
             }),
-            creepGroup.addCreep({ creepName, creepGroupName })
+            CreepGroup.addCreep({ creepName, creepGroupName })
         );
     });
     return logList.join("\n");

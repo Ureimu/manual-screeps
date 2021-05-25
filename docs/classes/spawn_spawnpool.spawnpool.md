@@ -1,8 +1,8 @@
-[manual-screeps](../README.md) / [Modules](../modules.md) / [spawn/spawnPool](../modules/spawn_spawnpool.md) / spawnPool
+[manual-screeps](../README.md) / [Modules](../modules.md) / [spawn/spawnPool](../modules/spawn_spawnpool.md) / SpawnPool
 
-# Class: spawnPool
+# Class: SpawnPool
 
-[spawn/spawnPool](../modules/spawn_spawnpool.md).spawnPool
+[spawn/spawnPool](../modules/spawn_spawnpool.md).SpawnPool
 
 ## Table of contents
 
@@ -20,9 +20,9 @@
 
 ### constructor
 
-\+ **new spawnPool**(): [*spawnPool*](spawn_spawnpool.spawnpool.md)
+\+ **new SpawnPool**(): [*SpawnPool*](spawn_spawnpool.spawnpool.md)
 
-**Returns:** [*spawnPool*](spawn_spawnpool.spawnpool.md)
+**Returns:** [*SpawnPool*](spawn_spawnpool.spawnpool.md)
 
 ## Methods
 

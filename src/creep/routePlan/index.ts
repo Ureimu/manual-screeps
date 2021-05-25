@@ -7,7 +7,7 @@ import { RouteMidpointDetail, RouteConditionDetail, isRouteMidpointDetail } from
 
 const style = consoleStyle("routePlan");
 
-export class routePlan {
+export class RoutePlan {
     /**
      * 创建路径。
      *
@@ -28,7 +28,7 @@ export class routePlan {
          *
          * @type {string}
          */
-        ifLoop: string;
+        ifLoop: "true" | "false";
     }): string {
         const { routeName, ifLoop = "true" } = args;
         if (routeName === "") {

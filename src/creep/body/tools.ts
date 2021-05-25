@@ -8,21 +8,6 @@ export const bodyAbbreviation: { [name: string]: BodyPartConstant } = {
     i: "claim",
     t: "tough"
 };
-
-export const MOCK_BODYPART_COST = {
-    move: 50,
-    work: 100,
-    attack: 80,
-    carry: 50,
-    heal: 250,
-    ranged_attack: 150,
-    tough: 10,
-    claim: 600
-};
-
-export const bodyAbbreviationCost: { [name: string]: number } = _.mapValues(bodyAbbreviation, function (value) {
-    return MOCK_BODYPART_COST[value];
-});
 // {
 //     m: 50,
 //     w: 100,
@@ -35,9 +20,9 @@ export const bodyAbbreviationCost: { [name: string]: number } = _.mapValues(body
 // };
 
 export class bodyTools {
-    private static regExp = /([mwcarhit])([1-9]+)/g;
-    private static mulRegExp = /([*])([1-9]+)/g;
-    private static checkRegExp = /^([mwcarhit*][1-9]+)*$/;
+    private static regExp = /([mwcarhit])([0-9]+)/g;
+    private static mulRegExp = /([*])([0-9]+)/g;
+    private static checkRegExp = /^([mwcarhit*][0-9]+)*$/;
 
     /**
      * 展平creepBody
@@ -48,6 +33,10 @@ export class bodyTools {
      * @memberof bodyTools
      */
     private static flatten(body: string): string {
+        if (!body) {
+            console.log(body);
+            throw Error("body不存在");
+        }
         const mulSplitResult = body.split(this.mulRegExp);
 
         if (mulSplitResult.length > 1) {
@@ -136,7 +125,9 @@ export class bodyTools {
         let cost = 0;
         if (bodypartNameList) {
             for (let index0 = 0; index0 < compiledElementList.length; index0 += 3) {
-                if (bodypartNameList?.findIndex(val => compiledElementList[index0 + 1] === val)) {
+                if (
+                    bodypartNameList.findIndex(val => bodyAbbreviation[compiledElementList[index0 + 1]] === val) !== -1
+                ) {
                     const num = Number(compiledElementList[index0 + 2]);
                     if (num) {
                         cost += num;
@@ -170,7 +161,11 @@ export class bodyTools {
         for (let index0 = 0; index0 < compiledElementList.length; index0 += 3) {
             const num = Number(compiledElementList[index0 + 2]);
             if (num) {
-                cost += num * bodyAbbreviationCost[compiledElementList[index0 + 1]];
+                cost +=
+                    num *
+                    _.mapValues(bodyAbbreviation, function (value) {
+                        return BODYPART_COST[value];
+                    })[compiledElementList[index0 + 1]];
             }
         }
         // console.log(compiledElementList, cost);
@@ -186,6 +181,7 @@ export class bodyTools {
      * @memberof bodyTools
      */
     public static check(body: string): boolean {
+        if (!body) return false;
         return this.checkRegExp.test(body);
     }
 }

@@ -2,7 +2,7 @@ import { creepBodyForm } from "creep/body/form";
 import { creepGroupForm } from "creep/group/form";
 import { routePlanForm } from "creep/routePlan/form";
 import { plugin } from "plugin";
-import { posMaintainer } from "flagMaintainer";
+import { posMaintainerForm } from "flagMaintainer/form";
 import { spawnPoolForm } from "spawn/spawnPool/form";
 import { creators } from "utils/console/form";
 import { mermaid } from "utils/mermaid";
@@ -16,7 +16,7 @@ declare global {
                 creepGroupForm: typeof creepGroupForm;
                 spawnPoolForm: typeof spawnPoolForm;
                 creepBodyForm: typeof creepBodyForm;
-                posMaintainer: typeof posMaintainer;
+                posMaintainerForm: typeof posMaintainerForm;
                 plugin: typeof plugin;
                 mermaid: typeof mermaid;
             };
@@ -32,7 +32,7 @@ export default function mountGlobalFunctionClass(): void {
         creepGroupForm,
         spawnPoolForm,
         creepBodyForm,
-        posMaintainer,
+        posMaintainerForm,
         plugin,
         mermaid
     };

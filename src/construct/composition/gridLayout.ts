@@ -1,9 +1,7 @@
-import { initConstructionScheduleMemory } from "construction/utils/initConstructionMemory";
-import { RoomPositionStr } from "construction";
-import { RoomPositionToStr } from "construction/utils/strToRoomPosition";
 import { getCutTiles } from "utils/mincut/minCut";
 import { GUIfun } from "utils/roomVisualGUI";
 import { newAcrossTickTask } from "utils/AcrossTick";
+import { PosStr } from "utils/RoomPositionToStr";
 
 /** 网格建筑布局。
  * 该函数为静态函数，即只要输入相同，则输出必定相同，所以一个房间只需要执行一次。
@@ -12,9 +10,8 @@ import { newAcrossTickTask } from "utils/AcrossTick";
  */
 const keepTime = 80; // 预览的持续时间
 const xUp = 0.25;
-const defaultRange = { xMin: 5, yMin: 5, xMax: 44, yMax: 44 }; // 在这个范围内放墙壁才有意义
-const buildNumberLimit = CONTROLLER_STRUCTURES;
-buildNumberLimit.constructedWall = {
+export const gridLayoutBuildNumberLimit = _.cloneDeep(CONTROLLER_STRUCTURES);
+gridLayoutBuildNumberLimit.constructedWall = {
     0: 0,
     1: 0,
     2: 0,
@@ -25,7 +22,7 @@ buildNumberLimit.constructedWall = {
     7: 2500,
     8: 2500
 };
-buildNumberLimit.rampart = {
+gridLayoutBuildNumberLimit.rampart = {
     0: 0,
     1: 0,
     2: 0,
@@ -39,13 +36,12 @@ buildNumberLimit.rampart = {
 
 export function ifEnoughSpace(
     room: Room,
-    firstSpawnPos: RoomPositionStr,
+    firstSpawnPos: string,
     opts?: { useRoomFind: boolean }
 ): { roadExpand: Set<string>; buildingExpand: Set<string> } | undefined {
     let cpu = Game.cpu.getUsed();
-    const PosStr = new RoomPositionToStr(room.name, defaultRange);
     const terrainData = room.lookForAtArea<LOOK_TERRAIN>(LOOK_TERRAIN, 0, 0, 49, 49);
-    const roadExpandStrList: RoomPositionStr[] = [];
+    const roadExpandStrList: string[] = [];
     // 先确定中心，这里设置为了本房间第一个spawn。
     PosStr.getDiagPosStr(firstSpawnPos).forEach(pos => {
         roadExpandStrList.push(pos);
@@ -58,7 +54,7 @@ export function ifEnoughSpace(
         // 判断数量是否足够
         // 进行一次扩张，如果没有墙和沼泽阻碍扩张，则会增加4n-4个空位(n>2)
         let ExpandList: string[] = [];
-        roadExpand.forEach((posStr: RoomPositionStr) => {
+        roadExpand.forEach((posStr: string) => {
             PosStr.getQuadPosStr(posStr).forEach(pos => {
                 ExpandList.push(pos);
             });
@@ -68,7 +64,7 @@ export function ifEnoughSpace(
             roadExpand.add(pos);
         });
         ExpandList = [];
-        buildingExpand.forEach((posStr: RoomPositionStr) => {
+        buildingExpand.forEach((posStr: string) => {
             PosStr.getQuadPosStr(posStr).forEach(pos => {
                 ExpandList.push(pos);
             });
@@ -146,7 +142,7 @@ export function ifEnoughSpace(
         }
 
         // 判断方格数量是否足够放下所有需要占位的building
-        //console.log(buildingExpand.size);
+        // console.log(buildingExpand.size);
         if (buildingExpand.size === num) {
             console.log("无法在此位置寻找到合适布局。");
             cpu = Game.cpu.getUsed() - cpu;
@@ -166,18 +162,22 @@ export function ifEnoughSpace(
 }
 
 export function getGridLayout(room: Room): void {
-    const PosStr = new RoomPositionToStr(room.name, defaultRange);
     const startCpu = Game.cpu.getUsed();
     // 初始化memory
-    initConstructionScheduleMemory(room, "gridLayout");
-    const roadExpandStrList: RoomPositionStr[] = [];
+    const roadExpandStrList: string[] = [];
     // 先确定中心，这里设置为了本房间第一个spawn。
-    PosStr.getDiagPosStr(PosStr.setPosToStr(Game.spawns[room.memory.firstSpawnName].pos)).forEach(pos => {
-        roadExpandStrList.push(pos);
-    });
-    const returnSpace = ifEnoughSpace(room, PosStr.setPosToStr(Game.spawns[room.memory.firstSpawnName].pos), {
-        useRoomFind: true
-    });
+    PosStr.getDiagPosStr(PosStr.setPosToStr(Game.spawns[room.memory.construct.firstSpawnName.name].pos)).forEach(
+        pos => {
+            roadExpandStrList.push(pos);
+        }
+    );
+    const returnSpace = ifEnoughSpace(
+        room,
+        PosStr.setPosToStr(Game.spawns[room.memory.construct.firstSpawnName.name].pos),
+        {
+            useRoomFind: true
+        }
+    );
     if (!returnSpace) {
         console.log("找不到布局，退出布局函数");
         return;
@@ -191,9 +191,10 @@ export function getGridLayout(room: Room): void {
     const outwardsRoadPosSet = new Set<string>();
     for (const direction of directionList) {
         const targetRoomPositionList = room.find(direction);
-        const pos = Game.spawns[room.memory.firstSpawnName].pos.findClosestByPath(targetRoomPositionList);
+        const pos =
+            Game.spawns[room.memory.construct.firstSpawnName.name].pos.findClosestByPath(targetRoomPositionList);
         if (pos) {
-            const ret = PathFinder.search(Game.spawns[room.memory.firstSpawnName].pos, pos, {
+            const ret = PathFinder.search(Game.spawns[room.memory.construct.firstSpawnName.name].pos, pos, {
                 // 我们需要把默认的移动成本设置的更高一点
                 // 这样我们就可以在 roomCallback 里把道路移动成本设置的更低
                 plainCost: 2,
@@ -252,7 +253,7 @@ export function getGridLayout(room: Room): void {
     );
 
     for (const goal of goals) {
-        const ret = PathFinder.search(Game.spawns[room.memory.firstSpawnName].pos, goal, {
+        const ret = PathFinder.search(Game.spawns[room.memory.construct.firstSpawnName.name].pos, goal, {
             // 我们需要把默认的移动成本设置的更高一点
             // 这样我们就可以在 roomCallback 里把道路移动成本设置的更低
             plainCost: 2,
@@ -333,7 +334,7 @@ export function getGridLayout(room: Room): void {
     );
 
     for (const mineralGoal of mineralGoals) {
-        const ret = PathFinder.search(Game.spawns[room.memory.firstSpawnName].pos, mineralGoal, {
+        const ret = PathFinder.search(Game.spawns[room.memory.construct.firstSpawnName.name].pos, mineralGoal, {
             // 我们需要把默认的移动成本设置的更高一点
             // 这样我们就可以在 roomCallback 里把道路移动成本设置的更低
             plainCost: 2,
@@ -378,11 +379,11 @@ export function getGridLayout(room: Room): void {
             }
         });
     }
-    // 为所有建筑确定位置，并将分配结果存入room.memory.constructionSchedule["gridLayout"]中，方便建筑建造函数调用结果。
+    // 为所有建筑确定位置，并将分配结果存入room.memory.construct.layout中，方便建筑建造函数调用结果。
     // 判断是否有中央布局的位置（四个构成斜正方形的building空位,会自动由内向外判断，尽量取离spawn最近的），如果没有则告知并提醒用户手动规划，有则转移给centerConstruction的memory.
     let center = "";
     let buildingExpandWithoutSpawn = buildingExpand;
-    buildingExpandWithoutSpawn.delete(PosStr.setPosToStr(Game.spawns[room.memory.firstSpawnName].pos)); // 避免把spawn作为中心布局点
+    buildingExpandWithoutSpawn.delete(PosStr.setPosToStr(Game.spawns[room.memory.construct.firstSpawnName.name].pos)); // 避免把spawn作为中心布局点
     buildingExpandWithoutSpawn = PosStr.reverseSet(buildingExpandWithoutSpawn); // 一开始的集合元素遍历顺序是由外向内，这里把集合里的元素倒过来，变成由内向外。
     buildingExpandWithoutSpawn.forEach(posStr0 => {
         PosStr.getDiagPosStr(posStr0).forEach(posStr1 => {
@@ -415,7 +416,7 @@ export function getGridLayout(room: Room): void {
     const powerSpawnSet = new Set<string>();
     const nukerSet = new Set<string>();
     const spawnSet = new Set<string>();
-    spawnSet.add(PosStr.setPosToStr(Game.spawns[room.memory.firstSpawnName].pos));
+    spawnSet.add(PosStr.setPosToStr(Game.spawns[room.memory.construct.firstSpawnName.name].pos));
     for (const posStr of buildingExpandPowerSpawn) {
         powerSpawnSet.add(posStr);
         buildingExpandPowerSpawn.delete(posStr);
@@ -527,12 +528,7 @@ export function getGridLayout(room: Room): void {
         console.log("未找到lab布局");
     }
 
-    const wallAndRampartPosSet = getMinCut(
-        true,
-        PosStr.mergeSet(fullBuildingExpand, sourceContainerPosSet),
-        room,
-        PosStr
-    );
+    const wallAndRampartPosSet = getMinCut(true, PosStr.mergeSet(fullBuildingExpand, sourceContainerPosSet), room);
     const wallPosSet = new Set<string>();
     const rampartPosSet = new Set<string>();
 
@@ -563,14 +559,12 @@ export function getGridLayout(room: Room): void {
     }
 
     // 初始化memory
-    initConstructionScheduleMemory(room, "gridLayout");
-    room.memory.constructionSchedule.gridLayout.creepWorkPos = {
-        centerPos: [center]
+    room.memory.construct.centerPos = center;
+    room.memory.construct.firstSpawnName = {
+        name: room.memory.construct.firstSpawnName.name,
+        pos: PosStr.setPosToStr(Game.spawns[room.memory.construct.firstSpawnName.name].pos)
     };
-    room.memory.constructionSchedule.gridLayout.firstSpawnPos = PosStr.setPosToStr(
-        Game.spawns[room.memory.firstSpawnName].pos
-    );
-    room.memory.constructionSchedule.gridLayout.layout = {
+    room.memory.construct.layout = {
         road: {
             baseRoad: { posStrList: Array.from(fullRoadExpand.keys()), levelToBuild: 8 },
             sourceAndControllerRoad: {
@@ -626,7 +620,7 @@ export function getGridLayout(room: Room): void {
             }
         },
         constructedWall: {
-            wall: {
+            constructedWall: {
                 posStrList: Array.from(wallPosSet.keys()),
                 levelToBuild: 5
             }
@@ -720,7 +714,7 @@ export function getGridLayout(room: Room): void {
     ]; // 文字颜色
 
     for (let i = 0, j = setList.length; i < j; i++) {
-        pushLayout(setList[i], i, layout, xUp, text, color, PosStr);
+        pushLayout(setList[i], i, layout, xUp, text, color);
     }
     const GUI = GUIfun();
     const visual0 = GUI.draw(new RoomVisual(room.name), layout);
@@ -738,7 +732,7 @@ export function getGridLayout(room: Room): void {
             //     } succeed`
             // );
             const [visualExportsArg, roomNameArg, durationArg] = task.args as string[];
-            if ((task.taskCreateTick as number) + Number(durationArg) <= Game.time) {
+            if ((task.taskCreateTick as number) + Number(durationArg) >= Game.time) {
                 const roomVisual = new RoomVisual(roomNameArg);
                 roomVisual.import(visualExportsArg);
                 return "runAgain";
@@ -752,7 +746,7 @@ export function getGridLayout(room: Room): void {
     // console.log(`耗费cpu:${(endCpu - startCpu).toFixed(2)}`);
 }
 
-function isPosSetInPos(posSet: Set<string>, pos: RoomPositionStr): boolean {
+function isPosSetInPos(posSet: Set<string>, pos: string): boolean {
     for (const posSetPosStr of posSet) {
         if (posSetPosStr === pos) {
             return true;
@@ -766,7 +760,7 @@ interface Coord {
     y: number;
 }
 
-function coordToRoomPositionStr(coordList: Coord[], room: Room, PosStr: RoomPositionToStr): string[] {
+function coordToRoomPositionStr(coordList: Coord[], room: Room): string[] {
     const roomPositionStrList = [];
     for (const coord of coordList) {
         roomPositionStrList.push(PosStr.genePosStr(coord.x, coord.y, room.name));
@@ -780,8 +774,7 @@ function pushLayout(
     layout: map<"Text">[] = [],
     x: number,
     text: string[],
-    color: string[],
-    PosStr: RoomPositionToStr
+    color: string[]
 ): void {
     exp.forEach(posStr => {
         const coord = PosStr.parseCoord(posStr);
@@ -798,12 +791,7 @@ function pushLayout(
 }
 
 // 生成rampart和wall的摆放位置（使用overMind的minCut）
-function getMinCut(
-    preferCloserBarriers = true,
-    fullBuildingExpand: Set<string>,
-    room: Room,
-    PosStr: RoomPositionToStr
-): Set<string> {
+function getMinCut(preferCloserBarriers = true, fullBuildingExpand: Set<string>, room: Room): Set<string> {
     const colony = room;
     const colonyName = room.name;
     let cpu = Game.cpu.getUsed();
@@ -833,5 +821,5 @@ function getMinCut(
     cpu = Game.cpu.getUsed() - cpu;
     // console.log('Needed', cpu, ' cpu time');
     // console.log(`生成rampart和wall位置个数：${positions.length};` + `该子任务消耗cpu: ${cpu.toFixed(2)}`);
-    return new Set(coordToRoomPositionStr(positions, room, PosStr));
+    return new Set(coordToRoomPositionStr(positions, room));
 }

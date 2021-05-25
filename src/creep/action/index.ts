@@ -61,6 +61,8 @@ export function runRecursiveCreepAction(
     }
     const routeInfo = creep.memory.route;
     const route = Memory.routes[routeInfo.name];
+    if (!route) throw Error(`creep ${creep.name} 从属的路径 ${routeInfo.name} 尚未定义，请先定义该路径`);
+    if (!route.routeDetailArray) return;
     const routeDetail = route.routeDetailArray[routeInfo.index];
     if (isRouteMidpointDetail(routeDetail)) {
         switch (creepRoute.state) {
@@ -70,7 +72,7 @@ export function runRecursiveCreepAction(
                     runRecursiveCreepAction(creep, creepRoute, switchCounter);
                 }
                 break;
-            case "arrived":
+            case "arrived": {
                 const type = actionIndexedList[routeDetail.doWhenArrive].type;
                 creepRoute.state = doStuff(creep, routeDetail);
                 const nextMidpoint = Memory.routes[creep.memory.route.name].routeDetailArray[creep.memory.route.index];
@@ -83,6 +85,7 @@ export function runRecursiveCreepAction(
                     runRecursiveCreepAction(creep, creepRoute, switchCounter);
                 }
                 break;
+            }
             case "end":
                 clearCreepRouteMemory(creep.memory);
                 break;

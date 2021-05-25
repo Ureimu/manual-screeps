@@ -1,8 +1,8 @@
-[manual-screeps](../README.md) / [Modules](../modules.md) / [creep/routePlan](../modules/creep_routeplan.md) / routePlan
+[manual-screeps](../README.md) / [Modules](../modules.md) / [creep/routePlan](../modules/creep_routeplan.md) / RoutePlan
 
-# Class: routePlan
+# Class: RoutePlan
 
-[creep/routePlan](../modules/creep_routeplan.md).routePlan
+[creep/routePlan](../modules/creep_routeplan.md).RoutePlan
 
 ## Table of contents
 
@@ -25,9 +25,9 @@
 
 ### constructor
 
-\+ **new routePlan**(): [*routePlan*](creep_routeplan.routeplan.md)
+\+ **new RoutePlan**(): [*RoutePlan*](creep_routeplan.routeplan.md)
 
-**Returns:** [*routePlan*](creep_routeplan.routeplan.md)
+**Returns:** [*RoutePlan*](creep_routeplan.routeplan.md)
 
 ## Methods
 
@@ -101,7 +101,7 @@ ___
 
 ### create
 
-▸ `Static` **create**(`args`: { `ifLoop`: *string* ; `routeName`: *string*  }): *string*
+▸ `Static` **create**(`args`: { `ifLoop`: ``"true"`` \| ``"false"`` ; `routeName`: *string*  }): *string*
 
 创建路径。
 
@@ -114,7 +114,7 @@ ___
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `args` | *object* |  |
-| `args.ifLoop` | *string* | 是否循环执行 |
+| `args.ifLoop` | ``"true"`` \| ``"false"`` | 是否循环执行 |
 | `args.routeName` | *string* | 路径名称 |
 
 **Returns:** *string*

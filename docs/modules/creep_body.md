@@ -6,4 +6,4 @@
 
 ### Classes
 
-- [creepBody](../classes/creep_body.creepbody.md)
+- [CreepBody](../classes/creep_body.creepbody.md)

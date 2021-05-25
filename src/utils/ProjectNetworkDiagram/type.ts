@@ -10,7 +10,7 @@ export interface TimeState {
     start: number;
     end: number;
 }
-export type NodeState = "unplayed" | "start" | "working" | "end";
+export type NodeState = "unplayed" | "start" | "working" | "justFinished" | "end";
 export interface DiagramDict {
     [name: string]: Node;
 }
@@ -24,3 +24,7 @@ declare global {
         }
     }
 }
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface stringArray extends Array<string> {}
+export type NodeLeaf = stringArray | string;

@@ -4,7 +4,7 @@ import { consoleStyle } from "console/style";
 
 const style = consoleStyle("spawnPool");
 
-export class spawnPool {
+export class SpawnPool {
     /**
      * 添加creep。
      *

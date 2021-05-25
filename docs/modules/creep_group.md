@@ -6,4 +6,4 @@
 
 ### Classes
 
-- [creepGroup](../classes/creep_group.creepgroup.md)
+- [CreepGroup](../classes/creep_group.creepgroup.md)

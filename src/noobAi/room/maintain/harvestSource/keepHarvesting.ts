@@ -1,5 +1,5 @@
 import { createRoute } from "noobAi/utils/createRoute";
-import { creepGroup } from "creep/group";
+import { CreepGroup } from "creep/group";
 import { createFlagList, getFlagList } from "flagMaintainer/maintainer";
 import { PosStr } from "utils/RoomPositionToStr";
 
@@ -36,7 +36,7 @@ export const keepHarvesting = {
                         })
                     );
                     log.push(
-                        creepGroup.setCreepGroupProperties({
+                        CreepGroup.setCreepGroupProperties({
                             creepGroupName: flagName + "harvest",
                             routeName: flagName + taskName
                         })

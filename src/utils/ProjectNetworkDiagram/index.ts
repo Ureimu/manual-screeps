@@ -10,11 +10,13 @@ import { DiagramDict, DiagramMemory, Node, NodeState } from "./type";
  * @class ProjectNetworkDiagram
  */
 export class ProjectNetworkDiagram {
-    public readonly startNodeName = "startNode";
+    public readonly NodeStateList: NodeState[] = ["unplayed", "start", "working", "justFinished", "end"];
+    public static readonly startNodeName = "startNode";
     public readonly stateColor: Record<NodeState, Colors> = {
         start: "yellow",
         unplayed: "green",
         working: "blue",
+        justFinished: "blue",
         end: "red"
     };
     public memoryPath: DiagramMemory;
@@ -32,7 +34,7 @@ export class ProjectNetworkDiagram {
     private startNode: Node = {
         in: [],
         out: [],
-        name: this.startNodeName,
+        name: ProjectNetworkDiagram.startNodeName,
         state: "end",
         time: {
             start: Game.time,
@@ -49,6 +51,16 @@ export class ProjectNetworkDiagram {
         this.diagram = memoryPath.diagram;
     }
 
+    public get nodeNum(): number {
+        return Object.keys(this.diagram).length;
+    }
+
+    public nextState(state: NodeState): NodeState {
+        const index = this.NodeStateList.findIndex(nowState => nowState === state);
+        if (index + 1 < this.NodeStateList.length) return this.NodeStateList[index + 1];
+        else return state;
+    }
+
     /**
      * 添加节点。
      *
@@ -57,9 +69,12 @@ export class ProjectNetworkDiagram {
      * @memberof ProjectNetworkDiagram
      */
     public addNode(nodeName: string, preNodeNameList: string[]): void {
+        if (nodeName === ProjectNetworkDiagram.startNodeName)
+            throw Error(`起始节点不需要初始化，请不要对起始节点调用addNode方法`);
         const newNode = _.cloneDeep(this.emptyNode); // 一定要clone
         newNode.name = nodeName;
         preNodeNameList.forEach(name => {
+            if (!this.diagram[name]) throw Error(`节点： ${nodeName} 的前置节点 ${name} 不存在，请先初始化该前置节点`);
             const outSet = new Set<string>(this.diagram[name].out);
             outSet.add(nodeName);
             this.diagram[name].out = Array.from(outSet);

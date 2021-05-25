@@ -29,7 +29,7 @@ export function stateCut(
     // console.log(stateMemory.toString());
     const stateObject = condition[stateMemory[stateIndex]];
     if (!stateObject) console.log(stateMemory[stateIndex], Object.keys(condition));
-    //console.log(stateMemory[stateIndex], Object.keys(condition));
+    // console.log(stateMemory[stateIndex], Object.keys(condition));
     const state = stateObject.run(...conditionArgs);
     if (stateMemory[stateIndex] !== state) {
         stateMemory[stateIndex] = state;

@@ -1,6 +1,6 @@
 import { chooseBefittingBody } from "creep/body/chooseCondition";
 import { bodyTools } from "creep/body/tools";
-import { creepGroup } from "creep/group";
+import { CreepGroup } from "creep/group";
 import { SpawnCreepDetail } from "spawn/spawnPool/type";
 import { TaskPool } from "utils/PriorityQueue/taskPool";
 import { SetTools } from "utils/SetTools";
@@ -9,7 +9,7 @@ import { readyCondition } from "./readyCondition";
 
 export function runSpawnQueue(spawn: StructureSpawn): void {
     if (spawn.spawning) return;
-    if (spawn.room.energyAvailable < BODYPART_COST["carry"] * 6) return;
+    if (spawn.room.energyAvailable < BODYPART_COST.carry * 6) return;
     if (!spawn.memory.spawnQueue) {
         spawn.memory = {
             spawnQueue: []
@@ -82,7 +82,7 @@ export function runSpawnPool(room: Room): void {
         justDiedCreepSet.forEach(creepName => {
             const { groupName } = Memory.creeps[creepName];
             // 死亡重置memory
-            creepGroup.addCreep({
+            CreepGroup.addCreep({
                 creepGroupName: groupName,
                 creepName
             });

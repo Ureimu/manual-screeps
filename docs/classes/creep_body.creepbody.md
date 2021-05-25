@@ -1,8 +1,8 @@
-[manual-screeps](../README.md) / [Modules](../modules.md) / [creep/body](../modules/creep_body.md) / creepBody
+[manual-screeps](../README.md) / [Modules](../modules.md) / [creep/body](../modules/creep_body.md) / CreepBody
 
-# Class: creepBody
+# Class: CreepBody
 
-[creep/body](../modules/creep_body.md).creepBody
+[creep/body](../modules/creep_body.md).CreepBody
 
 ## Table of contents
 
@@ -20,9 +20,9 @@
 
 ### constructor
 
-\+ **new creepBody**(): [*creepBody*](creep_body.creepbody.md)
+\+ **new CreepBody**(): [*CreepBody*](creep_body.creepbody.md)
 
-**Returns:** [*creepBody*](creep_body.creepbody.md)
+**Returns:** [*CreepBody*](creep_body.creepbody.md)
 
 ## Methods
 

@@ -1,11 +1,11 @@
 import { consoleStyle } from "console/style";
-import { routePlan } from "creep/routePlan";
+import { RoutePlan } from "creep/routePlan";
 import { newAcrossTickTask } from "utils/AcrossTick";
 import { showCreepGroups } from "./show";
 
 const style = consoleStyle("creepGroup");
 
-export class creepGroup {
+export class CreepGroup {
     /**
      * 创建creep组。
      *
@@ -59,7 +59,7 @@ export class creepGroup {
             (Memory.creeps[creepName] as Partial<CreepMemory>) = {};
         }
         const routeName = Memory.creepGroups[creepGroupName].routeName;
-        routePlan.chooseRouteForCreep({ creepName, routeName });
+        RoutePlan.chooseRouteForCreep({ creepName, routeName });
         Memory.creeps[creepName].groupName = creepGroupName;
         return style(
             `为creep组 ${creepGroupName} 添加creep ${creepName} 成功，现在有 ${Memory.creepGroups[creepGroupName].creepNameList.length} 个creep`,
@@ -99,7 +99,7 @@ export class creepGroup {
             (Memory.creeps[creepName] as Partial<CreepMemory>) = {};
         }
         const routeName = Memory.creepGroups[newCreepGroupName].routeName;
-        routePlan.chooseRouteForCreep({ creepName, routeName });
+        RoutePlan.chooseRouteForCreep({ creepName, routeName });
         Memory.creeps[creepName].groupName = newCreepGroupName;
         return style(
             `为creep组 ${currentCreepGroupName} 删除creep ${creepName} 成功，${currentCreepGroupName} 现在有 ${Memory.creepGroups[currentCreepGroupName].creepNameList.length} 个creep;` +
@@ -129,7 +129,7 @@ export class creepGroup {
         // console.log(creepGroupName, routeName);
         Memory.creepGroups[creepGroupName].routeName = routeName;
         Memory.creepGroups[creepGroupName].creepNameList.forEach(creepName => {
-            routePlan.chooseRouteForCreep({ creepName, routeName });
+            RoutePlan.chooseRouteForCreep({ creepName, routeName });
         });
         return style(`将creep组 ${creepGroupName} 的路径修改为 ${routeName} 设置完成`, "log");
     }

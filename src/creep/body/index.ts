@@ -4,7 +4,7 @@ import { bodyTools } from "./tools";
 
 const style = consoleStyle("creepBody");
 
-export class creepBody {
+export class CreepBody {
     /**
      * 创建creep身体部件配置项。
      *

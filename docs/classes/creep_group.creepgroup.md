@@ -1,8 +1,8 @@
-[manual-screeps](../README.md) / [Modules](../modules.md) / [creep/group](../modules/creep_group.md) / creepGroup
+[manual-screeps](../README.md) / [Modules](../modules.md) / [creep/group](../modules/creep_group.md) / CreepGroup
 
-# Class: creepGroup
+# Class: CreepGroup
 
-[creep/group](../modules/creep_group.md).creepGroup
+[creep/group](../modules/creep_group.md).CreepGroup
 
 ## Table of contents
 
@@ -23,9 +23,9 @@
 
 ### constructor
 
-\+ **new creepGroup**(): [*creepGroup*](creep_group.creepgroup.md)
+\+ **new CreepGroup**(): [*CreepGroup*](creep_group.creepgroup.md)
 
-**Returns:** [*creepGroup*](creep_group.creepgroup.md)
+**Returns:** [*CreepGroup*](creep_group.creepgroup.md)
 
 ## Methods
 

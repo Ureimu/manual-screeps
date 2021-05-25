@@ -6,4 +6,4 @@
 
 ### Classes
 
-- [spawnPool](../classes/spawn_spawnpool.spawnpool.md)
+- [SpawnPool](../classes/spawn_spawnpool.spawnpool.md)

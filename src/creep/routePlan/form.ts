@@ -1,9 +1,8 @@
 import { actionIndexedList } from "creep/action/doOnArrived";
 import { createForm } from "utils/console";
-import { RouteSingleDetail, RouteMidpointDetail } from "./type";
 
 export function callOnStart(): void {
-    if (!Memory.routes) Memory.routes = {};
+    if (!Memory.routes) Memory.routes = { "": { routeDetailArray: [], ifLoop: true, ifShow: false } };
 }
 
 export class routePlanForm {
