@@ -1,6 +1,6 @@
 import { ObjectPosDetail, ObjectPosType } from "flagMaintainer/type";
 import colorful from "utils/console/colorful";
-import { flagTools } from "./tools";
+import { FlagTools } from "./tools";
 
 export const flagNameRegExp = /^[EW]\d{1,2}[NS]\d{1,2}[a-z]+(\d{1,2})$/;
 export const constructionSiteRegExp = /(ConstructionSite)/;
@@ -57,7 +57,7 @@ export function getFlagList<T extends ObjectPosType>(room: Room, typeList: T[]):
         const objectFlagList: string[] = [];
         if (room.memory.objectNum[type]) {
             for (let index = 0; index < (room.memory.objectNum[type]?.num as number); index++) {
-                objectFlagList.push(flagTools.getName(room.name, type, index));
+                objectFlagList.push(FlagTools.getName(room.name, type, index));
             }
         }
         returnObject[type] = objectFlagList;
@@ -73,7 +73,7 @@ function createFlagsForObjects<T extends Exclude<FindConstant, FindOptionWithout
 ): void {
     const objects = room.find(find, { filter: filter ? filter : () => true });
     objects.forEach((object, index) => {
-        const name = flagTools.getName(room.name, type, index);
+        const name = FlagTools.getName(room.name, type, index);
         if (!Game.flags[name]) {
             object.pos.createFlag(name);
         } else {

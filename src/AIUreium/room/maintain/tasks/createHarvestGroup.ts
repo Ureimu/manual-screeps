@@ -14,7 +14,7 @@ export const createHarvestGroup: TaskObject<RoomTaskArgs> = {
         const sources = room.find(FIND_SOURCES);
         for (let index = 0; index < sources.length; index++) {
             const creepName = `${room.name}h${index}`;
-            const routeName = `${room.name}h${index}`;
+            const creepGroupName = `${room.name}h${index}`;
             SpawnPool.addCreep({
                 creepName,
                 creepBody: "harvester",
@@ -22,8 +22,8 @@ export const createHarvestGroup: TaskObject<RoomTaskArgs> = {
                 roomName: room.name,
                 readyCondition: "loop"
             });
-            CreepGroup.create({ routeName, creepGroupName: routeName });
-            CreepGroup.addCreep({ creepName, creepGroupName: routeName });
+            CreepGroup.create({ creepGroupName });
+            CreepGroup.addCreep({ creepName, creepGroupName });
         }
         return "end";
     },

@@ -12,19 +12,24 @@ export const createDefaultBodyparts: TaskObject<RoomTaskArgs> = {
     working() {
         const bodyCollection: { [name: string]: creepBodyConfigDetail } = {
             worker: {
-                "1": { body: "m2w1c1" }
+                "1": { body: "m2w1c1" },
+                "2": { body: "m1w1c1*2" },
+                "3": { body: "m1w1c1*4" },
+                "4": { body: "m1w1c1*6" },
+                "5": { body: "m1w1c1*7" }
             },
             harvester: {
-                "1": { body: "m1w1*1c1m1" },
-                "2": { body: "m1w1*3c1m1" },
-                "3": { body: "m1w1*4c1m1" },
-                "4": { body: "m1w1*5c1m1" }
+                "1": { body: "w2c1m1" },
+                "2": { body: "w4c1m1" },
+                "3": { body: "w6c1m1" },
+                "5": { body: "w8c4m2" }
             },
             carrier: {
-                "1": { body: "m1c1*3" },
-                "2": { body: "m1c1*5" },
-                "3": { body: "m1c1*7" },
-                "4": { body: "m1c1*9" }
+                "1": { body: "m3c3" },
+                "2": { body: "m3c6" },
+                "3": { body: "m5c10" },
+                "4": { body: "m8c16" },
+                "5": { body: "m10c20" }
             }
         };
 

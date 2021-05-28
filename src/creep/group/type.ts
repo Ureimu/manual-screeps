@@ -3,7 +3,7 @@ declare global {
         creepGroups: {
             [creepGroupName: string]: {
                 creepNameList: string[];
-                routeName: string;
+                routeName?: string;
                 ifShow: boolean;
             };
         };

@@ -7,6 +7,7 @@ import { fillTower } from "./fillTower";
 import { goTo } from "./goTo";
 import { harvestSource } from "./harvestSource";
 import { keepOnHarvestingSource } from "./keepOnHarvestingSource";
+import { pause } from "./pause";
 import { signController } from "./signController";
 import { transferEnergy } from "./transferEnergy";
 import { upgradeController } from "./upgradeController";
@@ -29,9 +30,9 @@ export const actionIndexedList = {
     keepOnHarvestingSource,
     buildInRange,
     fillSpawnAndExtension,
-    fillTower
+    fillTower,
+    pause
 };
-
 export function switchDoWhenArrive(routeDetail: RouteMidpointDetail, creep: Creep): state {
     if (actionIndexedList[routeDetail.doWhenArrive]) {
         return actionIndexedList[routeDetail.doWhenArrive].run(

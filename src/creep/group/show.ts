@@ -22,6 +22,9 @@ export function showCreepGroups(creepGroupName: string, roomName: string): strin
     const midpointCoordList: Coord[] = [];
     const midpointDirectionCoordList: [Coord, Coord][] = [];
     const routeName = Memory.creepGroups[creepGroupName].routeName;
+    if (!routeName) {
+        return style(`路径名称不可以为空`, "error");
+    }
     Memory.routes[routeName].routeDetailArray.forEach(routeDetail => {
         if (isRouteMidpointDetail(routeDetail)) {
             const coord = PosStr.parseCoord(routeDetail.pathMidpointPos);
@@ -65,4 +68,7 @@ export function showCreepGroups(creepGroupName: string, roomName: string): strin
         });
     });
     return roomVisual.export();
+}
+function style(arg0: string, arg1: string): string {
+    throw new Error("Function not implemented.");
 }

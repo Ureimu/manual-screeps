@@ -71,6 +71,7 @@ export class ProjectNetworkDiagram {
     public addNode(nodeName: string, preNodeNameList: string[]): void {
         if (nodeName === ProjectNetworkDiagram.startNodeName)
             throw Error(`起始节点不需要初始化，请不要对起始节点调用addNode方法`);
+        if (nodeName in this.diagram) return; // 如果已经有该节点，则不重复添加
         const newNode = _.cloneDeep(this.emptyNode); // 一定要clone
         newNode.name = nodeName;
         preNodeNameList.forEach(name => {

@@ -14,28 +14,16 @@ export class CreepGroup {
      * @returns {string}
      * @memberof creepGroup
      */
-    public static create(args: {
-        /**
-         * 路径名称
-         *
-         * @type {string}
-         */
-        routeName: string;
-        creepGroupName: string;
-    }): string {
-        const { routeName, creepGroupName } = args;
-        if (routeName === "") {
-            return style(`路径名称不可以为空`, "error");
-        }
+    public static create(args: { creepGroupName: string }): string {
+        const { creepGroupName } = args;
         if (creepGroupName === "") {
             return style(`creep组名称不可以为空`, "error");
         }
         Memory.creepGroups[creepGroupName] = {
             creepNameList: [],
-            routeName,
             ifShow: false
         };
-        return style(`creep组 ${creepGroupName} 创建成功，分配路径 ${routeName}`, "log");
+        return style(`creep组 ${creepGroupName} 创建成功`, "log");
     }
     /**
      * 为creep组添加creep
@@ -59,7 +47,7 @@ export class CreepGroup {
             (Memory.creeps[creepName] as Partial<CreepMemory>) = {};
         }
         const routeName = Memory.creepGroups[creepGroupName].routeName;
-        RoutePlan.chooseRouteForCreep({ creepName, routeName });
+        if (routeName && routeName !== "") RoutePlan.chooseRouteForCreep({ creepName, routeName });
         Memory.creeps[creepName].groupName = creepGroupName;
         return style(
             `为creep组 ${creepGroupName} 添加creep ${creepName} 成功，现在有 ${Memory.creepGroups[creepGroupName].creepNameList.length} 个creep`,
@@ -99,7 +87,7 @@ export class CreepGroup {
             (Memory.creeps[creepName] as Partial<CreepMemory>) = {};
         }
         const routeName = Memory.creepGroups[newCreepGroupName].routeName;
-        RoutePlan.chooseRouteForCreep({ creepName, routeName });
+        if (routeName) RoutePlan.chooseRouteForCreep({ creepName, routeName });
         Memory.creeps[creepName].groupName = newCreepGroupName;
         return style(
             `为creep组 ${currentCreepGroupName} 删除creep ${creepName} 成功，${currentCreepGroupName} 现在有 ${Memory.creepGroups[currentCreepGroupName].creepNameList.length} 个creep;` +
@@ -145,6 +133,10 @@ export class CreepGroup {
         const { creepGroupName, roomName, ifRun } = args;
         // console.log(creepGroupName, roomName);
         Memory.creepGroups[creepGroupName].ifShow = Boolean(ifRun);
+        const routeName = Memory.creepGroups[creepGroupName].routeName;
+        if (!routeName || routeName === "") {
+            return style(`路径名称不可以为空`, "error");
+        }
         newAcrossTickTask(
             {
                 taskName: "routePlan.showCreepGroups", // 任务名称

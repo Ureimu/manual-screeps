@@ -1,23 +1,40 @@
 import { RouteConditionDetail } from "creep/routePlan/type";
-import { state } from "..";
+import { conditionState, state } from "..";
+import { creepStore } from "./creepStore";
+import { store } from "./store";
 
 export interface CreepCondition {
-    run: (creep: Creep, conditionArgs?: string[]) => state;
+    run: (creep: Creep, conditionArgs?: string[]) => [state, conditionState];
     name: string;
     description: string;
-    type: "move" | "stay";
 }
 
-export const conditionIndexedList: { [name: string]: CreepCondition } = {};
+export const conditionIndexedList = { store, creepStore };
 
 export function switchDoWhenCondition(routeDetail: RouteConditionDetail, creep: Creep): state {
     if (conditionIndexedList[routeDetail.condition]) {
-        creep.memory.route.index = routeDetail.jumpTo;
-        const state = conditionIndexedList[routeDetail.condition].run(
+        const stateHere = conditionIndexedList[routeDetail.condition].run(
             creep,
             routeDetail.conditionArgs ? routeDetail.conditionArgs.split(",") : undefined
         );
-        return state;
+        if (stateHere[1] === "jump") {
+            const routeInfo = creep.memory.route;
+            creep.memory.route.index = routeDetail.jumpTo + creep.memory.route.index;
+            if (
+                creep.memory.route.index < 0 ||
+                creep.memory.route.index >= Memory.routes[routeInfo.name].routeDetailArray.length
+            )
+                throw new Error(
+                    `route索引超出限制，请检查route:${routeInfo.name}的${
+                        creep.memory.route.index - routeDetail.jumpTo
+                    }条件跳转值`
+                ); // 跳转是相对位置
+        }
+        if (stateHere[0] === "moving" && stateHere[1] !== "jump") {
+            const routeInfo = creep.memory.route;
+            routeInfo.index = (routeInfo.index + 1) % Memory.routes[routeInfo.name].routeDetailArray.length;
+        }
+        return stateHere[0];
     } else {
         console.log(`${routeDetail.condition} 不在CreepCondition预设值内`);
         return "arrived";

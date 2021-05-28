@@ -1,4 +1,5 @@
 import { actionIndexedList } from "creep/action/doOnArrived";
+import { conditionIndexedList } from "creep/action/doOnJudgeCondition";
 
 declare global {
     interface Memory {
@@ -52,7 +53,7 @@ export interface RouteMidpointDetail {
 }
 
 export interface RouteConditionDetail {
-    condition: string;
+    condition: keyof typeof conditionIndexedList;
     jumpTo: number;
     conditionArgs?: string;
 }

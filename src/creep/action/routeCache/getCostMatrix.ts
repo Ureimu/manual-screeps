@@ -3,25 +3,25 @@ import { getFlagList } from "flagMaintainer/maintainer";
 export const CostMatrixOpts = {
     plainCost: 2,
     swampCost: 10,
-    costCallback, //Room.find
-    roomCallback //PathFinder
+    costCallback, // Room.find
+    roomCallback // PathFinder
 };
 
 function costCallback(roomName: string, CostMatrix: CostMatrix): void {
-    let room = Game.rooms[roomName];
+    const room = Game.rooms[roomName];
     if (!room) return;
     callback(roomName, CostMatrix);
 }
 
 function roomCallback(roomName: string): void {
-    let room = Game.rooms[roomName];
+    const room = Game.rooms[roomName];
     if (!room) return;
     const CostMatrix = new PathFinder.CostMatrix();
     callback(roomName, CostMatrix);
 }
 
 function callback(roomName: string, CostMatrix: CostMatrix): void {
-    let room = Game.rooms[roomName];
+    const room = Game.rooms[roomName];
     if (!room) return;
     room.find(FIND_STRUCTURES).forEach(function (structure) {
         if (structure.structureType === STRUCTURE_ROAD) {

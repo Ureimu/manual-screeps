@@ -15,7 +15,7 @@ function defend(roomName: string) {
                 structureType: STRUCTURE_TOWER
             }
         }) as StructureTower[];
-        towers.forEach(tower => tower.attack(hostiles[0]));
+        towers.forEach(towerHere => towerHere.attack(hostiles[0]));
     }
 }
 
@@ -30,6 +30,6 @@ function repair(roomName: string, hitsMin: number) {
     });
     targets.sort((a, b) => a.hits - b.hits);
     if (targets.length > 0) {
-        towers.forEach(tower => tower.repair(targets[0]));
+        towers.forEach(towerHere => towerHere.repair(targets[0]));
     }
 }

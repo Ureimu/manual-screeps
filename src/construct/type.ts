@@ -30,6 +30,7 @@ export type formedLayout = {
 export interface constructionSiteInf<T extends BuildableStructureConstant> {
     hasPutSites: boolean;
     hasBuilt: boolean;
+    sitePosList: string[];
     type: T;
     num: number;
     memory: {

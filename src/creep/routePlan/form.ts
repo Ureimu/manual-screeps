@@ -76,7 +76,13 @@ export class routePlanForm {
                     })
                 },
                 { name: "condition", label: "条件", type: "input", placeholder: "condition" },
-                { name: "jumpTo", label: "跳转至", type: "input", placeholder: "jumpTo" }
+                { name: "jumpTo", label: "跳转至", type: "input", placeholder: "jumpTo" },
+                {
+                    name: "conditionArgs",
+                    label: "判断时传入的参数",
+                    type: "input",
+                    placeholder: "可选"
+                }
             ],
             {
                 content: "提交",

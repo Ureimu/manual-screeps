@@ -100,12 +100,12 @@ export class RoutePlan {
             routeName: string;
         } & RouteConditionDetail
     ): string {
-        const { routeName, condition, jumpTo } = args;
+        const { routeName, condition, jumpTo, conditionArgs } = args;
         // console.log(routeName);
         if (!Memory.routes[routeName]) {
             return style(`路径 ${routeName} 不存在，请先创建该路径`, "error");
         } else {
-            Memory.routes[routeName].routeDetailArray.push({ condition, jumpTo });
+            Memory.routes[routeName].routeDetailArray.push({ condition, jumpTo, conditionArgs });
         }
         return style(`添加条件 ${condition} jumpTo ${jumpTo} 成功`, "log");
     }

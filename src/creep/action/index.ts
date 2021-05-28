@@ -38,6 +38,7 @@ declare global {
 }
 
 export type state = "moving" | "arrived" | "end" | "getState";
+export type conditionState = "jump" | "notJump";
 
 export function runCreepAction(creep: Creep): void {
     if (creep.memory.route && creep.memory.route.name !== "") {
@@ -94,6 +95,8 @@ export function runRecursiveCreepAction(
         }
     } else {
         switch (creepRoute.state) {
+            case "moving":
+            case "arrived":
             case "getState":
                 creepRoute.state = judgeCondition(creep, routeDetail);
                 if (creepRoute.state === "moving") {

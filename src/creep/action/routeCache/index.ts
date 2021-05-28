@@ -9,7 +9,7 @@ declare global {
             routeCache: {
                 [origin: string]: { [destination: string]: routeCacheDetail };
             };
-            creepMemory: { [creepName: string]: routeCacheDetail };
+            creepMemory: { [creepName: string]: { count?: number; gameTime?: number } & routeCacheDetail };
         }
     }
 }

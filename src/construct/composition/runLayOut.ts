@@ -69,6 +69,7 @@ function initConstructionMemory(room: Room, name: string, structureType: Buildab
                 [name: string]: constructionSiteInf<typeof structureType>;
             }
         )[name] = {
+            sitePosList: [],
             hasPutSites: false,
             hasBuilt: false,
             type: structureType,
@@ -135,6 +136,11 @@ function putConstructionSites(
                         [name: string]: constructionSiteInf<typeof structureType>;
                     }
                 )[name].num++;
+                (
+                    room.memory.construct.construction[structureType] as {
+                        [name: string]: constructionSiteInf<typeof structureType>;
+                    }
+                )[name].sitePosList.push(PosStr.setPosToStr(posList[i]));
                 countX[0] = 1;
                 break;
             }
@@ -148,6 +154,11 @@ function putConstructionSites(
                         [name: string]: constructionSiteInf<typeof structureType>;
                     }
                 )[name].num++;
+                (
+                    room.memory.construct.construction[structureType] as {
+                        [name: string]: constructionSiteInf<typeof structureType>;
+                    }
+                )[name].sitePosList.push(PosStr.setPosToStr(posList[i]));
                 if (totalSitesNum >= 100) {
                     return totalSitesNum;
                 }
