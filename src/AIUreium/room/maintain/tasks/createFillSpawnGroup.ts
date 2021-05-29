@@ -3,17 +3,17 @@ import { SpawnPool } from "spawn/spawnPool";
 import { TaskObject } from "utils/ProjectRunner";
 import { RoomTaskArgs } from "../taskRelation";
 
-export const createBuildGroup: TaskObject<RoomTaskArgs> = {
-    name: "createBuildGroup",
-    description: "createBuildGroup",
+export const createFillSpawnGroup: TaskObject<RoomTaskArgs> = {
+    name: "createFillSpawnGroup",
+    description: "createFillSpawnGroup",
     start() {
         return "end";
     },
     working(room) {
-        const creepGroupName = `${room.name}build`;
+        const creepGroupName = `${room.name}fs`;
         CreepGroup.create({ creepGroupName });
         for (let index = 0; index < 2; index++) {
-            addCreep(room, creepGroupName, index);
+            createCreepGroup(room, creepGroupName, index);
         }
         return "end";
     },
@@ -22,12 +22,12 @@ export const createBuildGroup: TaskObject<RoomTaskArgs> = {
     }
 };
 
-function addCreep(room: Room, creepGroupName: string, index: number) {
+function createCreepGroup(room: Room, creepGroupName: string, index: number) {
     const creepName = `${creepGroupName}${index}`;
     SpawnPool.addCreep({
         creepName,
-        creepBody: "worker",
-        priority: "7",
+        creepBody: "carrier",
+        priority: "10",
         roomName: room.name,
         readyCondition: "loop"
     });

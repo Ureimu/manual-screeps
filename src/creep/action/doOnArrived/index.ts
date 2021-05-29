@@ -8,6 +8,7 @@ import { goTo } from "./goTo";
 import { harvestSource } from "./harvestSource";
 import { keepOnHarvestingSource } from "./keepOnHarvestingSource";
 import { pause } from "./pause";
+import { repair } from "./repair";
 import { signController } from "./signController";
 import { transferEnergy } from "./transferEnergy";
 import { upgradeController } from "./upgradeController";
@@ -31,7 +32,8 @@ export const actionIndexedList = {
     buildInRange,
     fillSpawnAndExtension,
     fillTower,
-    pause
+    pause,
+    repair
 };
 export function switchDoWhenArrive(routeDetail: RouteMidpointDetail, creep: Creep): state {
     if (actionIndexedList[routeDetail.doWhenArrive]) {

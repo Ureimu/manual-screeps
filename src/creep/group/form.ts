@@ -6,7 +6,7 @@ export function callOnStart(): void {
 
 export class creepGroupForm {
     public static create(): string {
-        const commitFunctionName = "creepGroup.create";
+        const commitFunctionName = "CreepGroup.create";
         return createForm(
             commitFunctionName + String(Game.time),
             [{ name: "creepGroupName", label: "creep组名称", type: "input", placeholder: "creep组名称" }],
@@ -20,7 +20,7 @@ export class creepGroupForm {
     }
 
     public static addCreep(): string {
-        const commitFunctionName = "creepGroup.addCreep";
+        const commitFunctionName = "CreepGroup.addCreep";
         return createForm(
             commitFunctionName + String(Game.time),
             [
@@ -44,7 +44,7 @@ export class creepGroupForm {
     }
 
     public static moveCreep(): string {
-        const commitFunctionName = "creepGroup.moveCreep";
+        const commitFunctionName = "CreepGroup.moveCreep";
         return createForm(
             commitFunctionName + String(Game.time),
             [
@@ -76,7 +76,7 @@ export class creepGroupForm {
     }
 
     public static setCreepGroupProperties(): string {
-        const commitFunctionName = "creepGroup.setCreepGroupProperties";
+        const commitFunctionName = "CreepGroup.setCreepGroupProperties";
         return createForm(
             commitFunctionName + String(Game.time),
             [
@@ -107,7 +107,7 @@ export class creepGroupForm {
     }
 
     public static showCreepGroups(): string {
-        const commitFunctionName = "creepGroup.showCreepGroups";
+        const commitFunctionName = "CreepGroup.showCreepGroups";
         return createForm(
             commitFunctionName + String(Game.time),
             [

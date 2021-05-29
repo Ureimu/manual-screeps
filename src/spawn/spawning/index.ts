@@ -7,14 +7,43 @@ import { SetTools } from "utils/SetTools";
 import { callOnBirth } from "./callOnBirth";
 import { readyCondition } from "./readyCondition";
 
+function runSpawnTask(spawn: StructureSpawn): boolean {
+    if (!spawn.memory.lastFinishSpawnTime) {
+        spawn.memory = {
+            spawnQueue: [],
+            isSpawning: false
+        };
+        spawn.memory.lastFinishSpawnTime = Game.time;
+    }
+    if (typeof spawn.spawning?.name === "string") {
+        if (!spawn.memory.isSpawning) {
+            spawn.memory.isSpawning = true;
+        }
+        return false;
+    } else {
+        if (spawn.memory.isSpawning) {
+            spawn.memory.lastFinishSpawnTime = Game.time;
+            spawn.memory.isSpawning = false;
+        }
+        spawn.memory.recorder =
+            (Game.time - spawn.memory.lastFinishSpawnTime) *
+                Math.max(Math.log1p(spawn.memory.spawnQueue.length + 1), 1) -
+            40 * Math.floor((spawn.room.energyCapacityAvailable - spawn.room.energyAvailable) / 200 + 1);
+        if (
+            (spawn.memory.recorder > 0 && spawn.room.energyAvailable >= 300) ||
+            (spawn.room.energyAvailable === spawn.room.energyCapacityAvailable && spawn.room.energyAvailable >= 300)
+        ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
 export function runSpawnQueue(spawn: StructureSpawn): void {
+    if (!runSpawnTask(spawn)) return;
     if (spawn.spawning) return;
     if (spawn.room.energyAvailable < BODYPART_COST.carry * 6) return;
-    if (!spawn.memory.spawnQueue) {
-        spawn.memory = {
-            spawnQueue: []
-        };
-    }
 
     // 执行spawn
     const taskPool = new TaskPool<SpawnCreepDetail>();

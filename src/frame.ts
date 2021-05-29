@@ -2,6 +2,7 @@ import { autoConstruction } from "construct";
 import { runCreepAction } from "creep/action";
 import { mountAll } from "mount";
 import { runSpawnPool, runSpawnQueue } from "spawn/spawning";
+import { roomVisualize } from "visual/roomVisual";
 
 export function runFrame(): void {
     mountAll();
@@ -10,6 +11,7 @@ export function runFrame(): void {
         if (room.controller?.my && room.find(FIND_MY_SPAWNS).length !== 0) {
             autoConstruction(room);
             runSpawnPool(room);
+            roomVisualize(room);
         }
     });
 

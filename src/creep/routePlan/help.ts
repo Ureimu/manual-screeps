@@ -22,19 +22,19 @@ export default [
                         {
                             title: "创建一条路线",
                             describe: "创建一条路线。",
-                            functionName: getButton("routePlan.create"),
+                            functionName: getButton("routePlanForm.create"),
                             commandType: true
                         },
                         {
                             title: "增加中转点",
                             describe: "增加中转点",
-                            functionName: getButton("routePlan.addMidpoint"),
+                            functionName: getButton("routePlanForm.addMidpoint"),
                             commandType: true
                         },
                         {
                             title: "增加条件式",
                             describe: "增加条件式",
-                            functionName: getButton("routePlan.addCondition"),
+                            functionName: getButton("routePlanForm.addCondition"),
                             commandType: true
                         },
                         // !不建议console使用下方函数，会引起调用bug，请使用creepGroup相关api代替
@@ -47,25 +47,25 @@ export default [
                         {
                             title: "对路线进行设置",
                             describe: "对路线进行设置",
-                            functionName: getButton("routePlan.setRouteProperties"),
+                            functionName: getButton("routePlanForm.setRouteProperties"),
                             commandType: true
                         },
                         {
                             title: "在房间显示路线",
                             describe: "在房间显示路线",
-                            functionName: getButton("routePlan.showRoutes"),
+                            functionName: getButton("routePlanForm.showRoutes"),
                             commandType: true
                         },
                         {
                             title: "删除路径",
                             describe: "删除路径",
-                            functionName: getButton("routePlan.deleteRoute"),
+                            functionName: getButton("routePlanForm.deleteRoute"),
                             commandType: true
                         },
                         {
                             title: "打印路径详细信息",
                             describe: "打印路径详细信息",
-                            functionName: getButton("routePlan.printRouteDetail"),
+                            functionName: getButton("routePlanForm.printRouteDetail"),
                             commandType: true
                         }
                     ]

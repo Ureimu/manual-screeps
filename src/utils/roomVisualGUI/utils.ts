@@ -1,4 +1,4 @@
-export function getStringList(str: string): string[] {
+function getStringList(str: string): string[] {
     let j = -1;
     let m = str + "\n";
     const strList = [];

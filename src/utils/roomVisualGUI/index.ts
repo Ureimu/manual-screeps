@@ -94,7 +94,7 @@ export function GUIfun(): GUIclass {
         /**
          * 在下方定义组件的绘制过程，您可以仿造示例来创建自己的自定义组件
          *
-         * 提示：自定义组件会被渲染引擎调用，被调用时会传入两个参数，分别是visula和box
+         * 提示：自定义组件会被渲染引擎调用，被调用时会传入两个参数，分别是visual和box
          * visual 是标准的Screeps Room Visual 对象，可以使用这个对象进行你的绘制
          * box 包含了这个组件的layout属性列表，您可以通过box.layout来进行访问
          * 此外，box还包含了当前的绘制坐标点，他们分别是

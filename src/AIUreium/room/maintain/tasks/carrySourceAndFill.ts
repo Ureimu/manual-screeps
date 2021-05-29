@@ -6,9 +6,9 @@ import { TaskObject } from "utils/ProjectRunner";
 import { PosStr } from "utils/RoomPositionToStr";
 import { RoomTaskArgs } from "../taskRelation";
 
-export const buildStructureBySource: TaskObject<RoomTaskArgs> = {
-    name: "buildStructureBySource",
-    description: "buildStructureBySource",
+export const carrySourceAndFill: TaskObject<RoomTaskArgs> = {
+    name: "carrySourceAndFill",
+    description: "carrySourceAndFill",
     start(room) {
         if (Game.time % 15 === 0) {
             FlagMaintainer.refresh({
@@ -25,12 +25,11 @@ export const buildStructureBySource: TaskObject<RoomTaskArgs> = {
         const sources = room.find(FIND_SOURCES);
         FlagMaintainer.refresh({
             roomName: room.name,
-            typeList: FlagMaintainer.getTypeList(["container", "source", "controller"])
+            typeList: FlagMaintainer.getTypeList(["container", "containerConstructionSite", "source"])
         });
 
-        const routeName = `${room.name}buildStructureBySource`;
-        const creepGroupName = `${room.name}build`;
-        const controllerFlagName = FlagTools.getName(room.name, "controller", 0);
+        const routeName = `${room.name}carrySourceAndFill`;
+        const creepGroupName = `${room.name}c`;
 
         RoutePlan.create({ routeName, ifLoop: "true" });
         for (let index = 0; index < sources.length; index++) {
@@ -48,7 +47,7 @@ export const buildStructureBySource: TaskObject<RoomTaskArgs> = {
                 routeName,
                 condition: "store",
                 jumpTo: 2,
-                conditionArgs: `${PosStr.setPosToStr(Game.flags[containerFlagName].pos)},${RESOURCE_ENERGY},<=,800`
+                conditionArgs: `${PosStr.setPosToStr(Game.flags[containerFlagName].pos)},${RESOURCE_ENERGY},<=,500`
             });
             RoutePlan.addMidpoint({
                 routeName,
@@ -60,9 +59,9 @@ export const buildStructureBySource: TaskObject<RoomTaskArgs> = {
             if (index === sources.length - 1) {
                 RoutePlan.addMidpoint({
                     routeName,
-                    pathMidpointPos: controllerFlagName,
+                    pathMidpointPos: containerFlagName,
                     range: 50,
-                    doWhenArrive: "build"
+                    doWhenArrive: "fillSpawnAndExtension"
                 });
                 RoutePlan.addCondition({
                     routeName,
@@ -72,25 +71,13 @@ export const buildStructureBySource: TaskObject<RoomTaskArgs> = {
                 });
                 RoutePlan.addMidpoint({
                     routeName,
-                    pathMidpointPos: controllerFlagName,
+                    pathMidpointPos: containerFlagName,
                     range: 50,
-                    doWhenArrive: "repair"
-                });
-                RoutePlan.addCondition({
-                    routeName,
-                    condition: "creepStore",
-                    jumpTo: 2,
-                    conditionArgs: `empty`
+                    doWhenArrive: "fillTower"
                 });
                 RoutePlan.addMidpoint({
                     routeName,
-                    pathMidpointPos: controllerFlagName,
-                    range: 3,
-                    doWhenArrive: "upgradeController"
-                });
-                RoutePlan.addMidpoint({
-                    routeName,
-                    pathMidpointPos: controllerFlagName,
+                    pathMidpointPos: containerFlagName,
                     range: 50,
                     doWhenArrive: "pause"
                 });

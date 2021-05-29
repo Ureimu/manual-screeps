@@ -136,11 +136,19 @@ function putConstructionSites(
                         [name: string]: constructionSiteInf<typeof structureType>;
                     }
                 )[name].num++;
+                const sitePosSet = new Set<string>(
+                    (
+                        room.memory.construct.construction[structureType] as {
+                            [name: string]: constructionSiteInf<typeof structureType>;
+                        }
+                    )[name].sitePosList
+                );
+                sitePosSet.add(PosStr.setPosToStr(posList[i]));
                 (
                     room.memory.construct.construction[structureType] as {
                         [name: string]: constructionSiteInf<typeof structureType>;
                     }
-                )[name].sitePosList.push(PosStr.setPosToStr(posList[i]));
+                )[name].sitePosList = Array.from(sitePosSet);
                 countX[0] = 1;
                 break;
             }
@@ -154,11 +162,19 @@ function putConstructionSites(
                         [name: string]: constructionSiteInf<typeof structureType>;
                     }
                 )[name].num++;
+                const sitePosSet = new Set<string>(
+                    (
+                        room.memory.construct.construction[structureType] as {
+                            [name: string]: constructionSiteInf<typeof structureType>;
+                        }
+                    )[name].sitePosList
+                );
+                sitePosSet.add(PosStr.setPosToStr(posList[i]));
                 (
                     room.memory.construct.construction[structureType] as {
                         [name: string]: constructionSiteInf<typeof structureType>;
                     }
-                )[name].sitePosList.push(PosStr.setPosToStr(posList[i]));
+                )[name].sitePosList = Array.from(sitePosSet);
                 if (totalSitesNum >= 100) {
                     return totalSitesNum;
                 }

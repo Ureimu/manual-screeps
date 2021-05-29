@@ -3,6 +3,9 @@ import { ReadyCondition } from "spawn/spawning/readyCondition";
 declare global {
     interface SpawnMemory {
         spawnQueue: SpawnCreepDetail[];
+        recorder?: number;
+        lastFinishSpawnTime?: number;
+        isSpawning: boolean;
     }
 
     interface RoomMemory {

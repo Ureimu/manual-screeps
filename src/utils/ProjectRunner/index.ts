@@ -10,6 +10,7 @@ export class ProjectRunner {
         const stateNodeGroup = taskDiagram.getStateNode(["start", "working", "justFinished"]);
         stateList.forEach(stateName => {
             stateNodeGroup[stateName].forEach(nodeName => {
+                if (!taskCollection[nodeName]) throw new Error(`${nodeName}不存在于taskCollection内`);
                 const taskFunction = taskCollection[nodeName][stateName];
                 const returnCode = taskFunction(...args);
                 if (returnCode === "end") {

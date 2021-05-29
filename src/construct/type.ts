@@ -22,7 +22,7 @@ export interface constructMemory {
 }
 
 export type formedLayout = {
-    [structureName in BuildableStructureConstant]?: {
+    [structureName in BuildableStructureConstant]: {
         [specifiedName in SpecifiedStructureNameList<structureName>]: { posStrList: string[]; levelToBuild?: number };
     };
 };

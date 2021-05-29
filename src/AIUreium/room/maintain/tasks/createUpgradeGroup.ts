@@ -23,7 +23,7 @@ export const createUpgradeGroup: TaskObject<RoomTaskArgs> = {
 };
 
 function addCreep(room: Room, creepGroupName: string, index: number) {
-    const creepName = `${room.name}up${index}`;
+    const creepName = `${creepGroupName}${index}`;
     SpawnPool.addCreep({
         creepName,
         creepBody: "worker",

@@ -10,6 +10,10 @@ export const buildSourceContainer: TaskObject<RoomTaskArgs> = {
     name: "buildSourceContainer",
     description: "buildSourceContainer",
     start(room) {
+        FlagMaintainer.refresh({
+            roomName: room.name,
+            typeList: FlagMaintainer.getTypeList(["container", "containerConstructionSite", "source"])
+        });
         if (room.memory.construct.construction.container?.sourceContainer?.hasPutSites) {
             return "end";
         }
@@ -30,7 +34,7 @@ export const buildSourceContainer: TaskObject<RoomTaskArgs> = {
             const sourceFlagName = FlagTools.getName(room.name, "source", index);
             const containerSiteFlagName = Game.flags[sourceFlagName].pos.findInRange(FIND_FLAGS, 1, {
                 filter: i => i.name.indexOf("containerConstructionSite") !== -1
-            })[0].name;
+            })[0]?.name;
 
             RoutePlan.create({ routeName, ifLoop: "true" });
             RoutePlan.addMidpoint({
@@ -42,7 +46,7 @@ export const buildSourceContainer: TaskObject<RoomTaskArgs> = {
             RoutePlan.addMidpoint({
                 routeName,
                 pathMidpointPos: containerSiteFlagName,
-                range: 1,
+                range: 0,
                 doWhenArrive: "build"
             });
             RoutePlan.addMidpoint({

@@ -10,26 +10,18 @@ export const carrySource: TaskObject<RoomTaskArgs> = {
     name: "carrySource",
     description: "carrySource",
     start(room) {
-        if (Game.time % 15 === 0) {
-            FlagMaintainer.refresh({
-                roomName: room.name,
-                typeList: FlagMaintainer.getTypeList(["container", "containerConstructionSite", "source"])
-            });
-        }
-        if (room.memory.construct.construction.container?.sourceContainer?.hasBuilt) {
-            return "end";
-        }
-        return "running";
+        FlagMaintainer.refresh({
+            roomName: room.name,
+            typeList: FlagMaintainer.getTypeList(["storage", "container"])
+        });
+        return "end";
     },
     working(room) {
         const sources = room.find(FIND_SOURCES);
-        FlagMaintainer.refresh({
-            roomName: room.name,
-            typeList: FlagMaintainer.getTypeList(["container", "containerConstructionSite", "source"])
-        });
 
         const routeName = `${room.name}carrySource`;
         const creepGroupName = `${room.name}c`;
+        const storageFlagName = FlagTools.getName(room.name, "storage", 0);
 
         RoutePlan.create({ routeName, ifLoop: "true" });
         for (let index = 0; index < sources.length; index++) {
@@ -57,11 +49,20 @@ export const carrySource: TaskObject<RoomTaskArgs> = {
             });
             CreepGroup.setCreepGroupProperties({ creepGroupName, routeName });
             if (index === sources.length - 1) {
+                const maxEnergyNum = 5e5;
+                RoutePlan.addCondition({
+                    routeName,
+                    condition: "store",
+                    jumpTo: 2,
+                    conditionArgs: `${PosStr.setPosToStr(
+                        Game.flags[containerFlagName].pos
+                    )},${RESOURCE_ENERGY},>=,${maxEnergyNum}`
+                });
                 RoutePlan.addMidpoint({
                     routeName,
-                    pathMidpointPos: containerFlagName,
-                    range: 50,
-                    doWhenArrive: "fillSpawnAndExtension"
+                    pathMidpointPos: storageFlagName,
+                    range: 1,
+                    doWhenArrive: "transferEnergy"
                 });
                 RoutePlan.addMidpoint({
                     routeName,

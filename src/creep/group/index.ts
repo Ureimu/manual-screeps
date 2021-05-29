@@ -3,7 +3,7 @@ import { RoutePlan } from "creep/routePlan";
 import { newAcrossTickTask } from "utils/AcrossTick";
 import { showCreepGroups } from "./show";
 
-const style = consoleStyle("creepGroup");
+const style = consoleStyle("CreepGroup");
 
 export class CreepGroup {
     /**
@@ -132,28 +132,31 @@ export class CreepGroup {
     public static showCreepGroups(args: { creepGroupName: string; roomName: string; ifRun: string }): string {
         const { creepGroupName, roomName, ifRun } = args;
         // console.log(creepGroupName, roomName);
-        Memory.creepGroups[creepGroupName].ifShow = Boolean(ifRun);
+        const booleanIfRun = ifRun === "true" ? true : false;
+        Memory.creepGroups[creepGroupName].ifShow = booleanIfRun;
         const routeName = Memory.creepGroups[creepGroupName].routeName;
         if (!routeName || routeName === "") {
             return style(`路径名称不可以为空`, "error");
         }
-        newAcrossTickTask(
-            {
-                taskName: "routePlan.showCreepGroups", // 任务名称
-                args: [roomName, creepGroupName], // 传递的参数，要能够放在memory的类型
-                executeTick: Game.time + 1,
-                intervalTick: 1 // 在多久后执行
-            },
-            task => {
-                const [roomNameArg, creepGroupNameArg] = task.args as string[];
-                if (Memory.creepGroups[creepGroupNameArg].ifShow) {
-                    showCreepGroups(creepGroupNameArg, roomNameArg);
-                    return "runAgain";
-                } else {
-                    return "finish";
+        if (booleanIfRun) {
+            newAcrossTickTask(
+                {
+                    taskName: "routePlan.showCreepGroups", // 任务名称
+                    args: [roomName, creepGroupName], // 传递的参数，要能够放在memory的类型
+                    executeTick: Game.time + 1,
+                    intervalTick: 1 // 在多久后执行
+                },
+                task => {
+                    const [roomNameArg, creepGroupNameArg] = task.args as string[];
+                    if (Memory.creepGroups[creepGroupNameArg].ifShow) {
+                        showCreepGroups(creepGroupNameArg, roomNameArg);
+                        return "runAgain";
+                    } else {
+                        return "finish";
+                    }
                 }
-            }
-        );
+            );
+        }
         return style(`执行可视化 ${creepGroupName} : ${roomName} : ${ifRun}`, "log");
     }
     /**

@@ -22,37 +22,37 @@ export default [
                         {
                             title: "创建一个creep组",
                             describe: "创建一个creep组。",
-                            functionName: getButton("creepGroup.create"),
+                            functionName: getButton("creepGroupForm.create"),
                             commandType: true
                         },
                         {
                             title: "为creep组增加creep",
                             describe: "为creep组增加creep",
-                            functionName: getButton("creepGroup.addCreep"),
+                            functionName: getButton("creepGroupForm.addCreep"),
                             commandType: true
                         },
                         {
                             title: "在creep组之间移动creep",
                             describe: "在creep组之间移动creep",
-                            functionName: getButton("creepGroup.moveCreep"),
+                            functionName: getButton("creepGroupForm.moveCreep"),
                             commandType: true
                         },
                         {
                             title: "对creep组进行设置",
                             describe: "对creep组进行设置",
-                            functionName: getButton("creepGroup.setCreepGroupProperties"),
+                            functionName: getButton("creepGroupForm.setCreepGroupProperties"),
                             commandType: true
                         },
                         {
                             title: "在房间显示creep组",
                             describe: "在房间显示creep组",
-                            functionName: getButton("creepGroup.showCreepGroups"),
+                            functionName: getButton("creepGroupForm.showCreepGroups"),
                             commandType: true
                         },
                         {
                             title: "删除creep组",
                             describe: "删除creep组",
-                            functionName: getButton("creepGroup.deleteCreepGroup"),
+                            functionName: getButton("creepGroupForm.deleteCreepGroup"),
                             commandType: true
                         }
                     ]

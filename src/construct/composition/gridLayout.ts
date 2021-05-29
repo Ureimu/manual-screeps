@@ -2,6 +2,7 @@ import { getCutTiles } from "utils/mincut/minCut";
 import { GUIfun } from "utils/roomVisualGUI";
 import { newAcrossTickTask } from "utils/AcrossTick";
 import { PosStr } from "utils/RoomPositionToStr";
+import { SetTools } from "utils/SetTools";
 
 /** 网格建筑布局。
  * 该函数为静态函数，即只要输入相同，则输出必定相同，所以一个房间只需要执行一次。
@@ -527,8 +528,13 @@ export function getGridLayout(room: Room): void {
     } else {
         console.log("未找到lab布局");
     }
-
-    const wallAndRampartPosSet = getMinCut(true, PosStr.mergeSet(fullBuildingExpand, sourceContainerPosSet), room);
+    // sourceContainerPosSet
+    const wallAndRampartPosSet = getMinCut(
+        true,
+        fullBuildingExpand,
+        SetTools.mergeSet(SetTools.mergeSet(sourceContainerPosSet, mineralContainerPosSet), sourceLinkPosSet),
+        room
+    );
     const wallPosSet = new Set<string>();
     const rampartPosSet = new Set<string>();
 
@@ -791,7 +797,12 @@ function pushLayout(
 }
 
 // 生成rampart和wall的摆放位置（使用overMind的minCut）
-function getMinCut(preferCloserBarriers = true, fullBuildingExpand: Set<string>, room: Room): Set<string> {
+function getMinCut(
+    preferCloserBarriers = true,
+    fullBuildingExpand: Set<string>,
+    containerAndLinkSet: Set<string>,
+    room: Room
+): Set<string> {
     const colony = room;
     const colonyName = room.name;
     let cpu = Game.cpu.getUsed();
@@ -806,11 +817,25 @@ function getMinCut(preferCloserBarriers = true, fullBuildingExpand: Set<string>,
             rectArray.push({ x1, y1, x2, y2 });
         }
     }
+    // const containerAndLinkSetPadding = 1;
+    // for (const building of containerAndLinkSet) {
+    //     if (building) {
+    //         const { x, y } = PosStr.parseCoord(building);
+    //         const [x1, y1] = [Math.max(x - containerAndLinkSetPadding, 0), Math.max(y - containerAndLinkSetPadding, 0)];
+    //         const [x2, y2] = [
+    //             Math.min(x + containerAndLinkSetPadding, 49),
+    //             Math.min(y + containerAndLinkSetPadding, 49)
+    //         ];
+    //         rectArray.push({ x1, y1, x2, y2 });
+    //     }
+    // }
     if (colony.controller) {
         const { x, y } = colony.controller.pos;
-        const [x1, y1] = [Math.max(x - 4, 0), Math.max(y - 4, 0)];
-        const [x2, y2] = [Math.min(x + 4, 49), Math.min(y + 4, 49)];
-        rectArray.push({ x1, y1, x2, y2 });
+        const [x1, y1] = [Math.max(x - 4, 4), Math.max(y - 4, 4)];
+        const [x2, y2] = [Math.min(x + 4, 45), Math.min(y + 4, 45)];
+        if (x < 4 || x > 45 || y < 4 || y > 45) {
+            console.log("bad controller pos");
+        } else rectArray.push({ x1, y1, x2, y2 });
     }
 
     // Get Min cut

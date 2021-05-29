@@ -7,7 +7,7 @@ export function callOnStart(): void {
 
 export class routePlanForm {
     public static addMidpoint(): string {
-        const commitFunctionName = "routePlan.addMidpoint";
+        const commitFunctionName = "RoutePlan.addMidpoint";
         return createForm(
             commitFunctionName + String(Game.time),
             [
@@ -63,7 +63,7 @@ export class routePlanForm {
     }
 
     public static addCondition(): string {
-        const commitFunctionName = "routePlan.addCondition";
+        const commitFunctionName = "RoutePlan.addCondition";
         return createForm(
             commitFunctionName + String(Game.time),
             [
@@ -94,7 +94,7 @@ export class routePlanForm {
     }
 
     public static create(): string {
-        const commitFunctionName = "routePlan.create";
+        const commitFunctionName = "RoutePlan.create";
         return createForm(
             commitFunctionName + String(Game.time),
             [
@@ -119,7 +119,7 @@ export class routePlanForm {
     }
 
     public static chooseRouteForCreep(): string {
-        const commitFunctionName = "routePlan.chooseRouteForCreep";
+        const commitFunctionName = "RoutePlan.chooseRouteForCreep";
         return createForm(
             commitFunctionName + String(Game.time),
             [
@@ -143,7 +143,7 @@ export class routePlanForm {
     }
 
     public static setRouteProperties(): string {
-        const commitFunctionName = "routePlan.setRouteProperties";
+        const commitFunctionName = "RoutePlan.setRouteProperties";
         return createForm(
             commitFunctionName + String(Game.time),
             [
@@ -175,7 +175,7 @@ export class routePlanForm {
     }
 
     public static showRoutes(): string {
-        const commitFunctionName = "routePlan.showRoutes";
+        const commitFunctionName = "RoutePlan.showRoutes";
         return createForm(
             commitFunctionName + String(Game.time),
             [
@@ -208,7 +208,7 @@ export class routePlanForm {
     }
 
     public static deleteRoute(): string {
-        const commitFunctionName = "routePlan.deleteRoute";
+        const commitFunctionName = "RoutePlan.deleteRoute";
         return createForm(
             commitFunctionName + String(Game.time),
             [
@@ -231,7 +231,7 @@ export class routePlanForm {
     }
 
     public static printRouteDetail(): string {
-        const commitFunctionName = "routePlan.printRouteDetail";
+        const commitFunctionName = "RoutePlan.printRouteDetail";
         return createForm(
             commitFunctionName + String(Game.time),
             [

@@ -23,7 +23,7 @@ export const createCarryGroup: TaskObject<RoomTaskArgs> = {
 };
 
 function createCreepGroup(room: Room, creepGroupName: string, index: number) {
-    const creepName = `${room.name}c${index}`;
+    const creepName = `${creepGroupName}${index}`;
     SpawnPool.addCreep({
         creepName,
         creepBody: "carrier",

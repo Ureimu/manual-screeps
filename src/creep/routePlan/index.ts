@@ -200,24 +200,28 @@ export class RoutePlan {
     }): string {
         const { ifRun, routeName, roomName } = args;
         // console.log(routeName, ifRun);
-        Memory.routes[routeName].ifShow = Boolean(ifRun);
-        newAcrossTickTask(
-            {
-                taskName: "routePlan.showRoutes", // 任务名称
-                args: [roomName, routeName], // 传递的参数，要能够放在memory的类型
-                executeTick: Game.time + 1,
-                intervalTick: 1 // 在多久后执行
-            },
-            task => {
-                const [roomNameArg, routeNameArg] = task.args as string[];
-                if (Memory.routes[routeNameArg].ifShow) {
-                    showRoutes(routeNameArg, roomNameArg);
-                    return "runAgain";
-                } else {
-                    return "finish";
+        const booleanIfRun = ifRun === "true" ? true : false;
+        Memory.routes[routeName].ifShow = booleanIfRun;
+        if (booleanIfRun) {
+            newAcrossTickTask(
+                {
+                    taskName: "routePlan.showRoutes", // 任务名称
+                    args: [roomName, routeName], // 传递的参数，要能够放在memory的类型
+                    executeTick: Game.time + 1,
+                    intervalTick: 1 // 在多久后执行
+                },
+                task => {
+                    const [roomNameArg, routeNameArg] = task.args as string[];
+                    if (Memory.routes[routeNameArg].ifShow) {
+                        showRoutes(routeNameArg, roomNameArg);
+                        return "runAgain";
+                    } else {
+                        return "finish";
+                    }
                 }
-            }
-        );
+            );
+        }
+
         return style(`执行可视化 ${routeName} : ${roomName} : ${ifRun}`, "log");
     }
     /**
