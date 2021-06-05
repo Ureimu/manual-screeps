@@ -13,7 +13,7 @@ mkdirSync(storagePath, { recursive: true });
 mockConstants();
 describe("calculator", () => {
     it("should return right number of out", () => {
-        for (let index5 = 0; index5 < 400; index5 += 1) {
+        for (let index5 = 0; index5 < 1; index5 += 1) {
             console.log(index5);
             const path = {
                 ownedRoomPathLength: { plain: 0, swamp: 0, road: 30 },

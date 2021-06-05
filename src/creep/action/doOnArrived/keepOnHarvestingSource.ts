@@ -9,7 +9,7 @@ function run(creep: Creep, actionArgs?: string[]): state {
         console.log(colorful(`错误的使用keepOnHarvestingSource：没有传入source位置参数`, "red"));
         return "moving";
     }
-    if (Game.time % 15 === 0) {
+    if (Game.time % 5 === 0) {
         const pos = PosStr.getPosFromStr(
             (Memory.routes[creep.memory.route.name].routeDetailArray[creep.memory.route.index] as RouteMidpointDetail)
                 .pathMidpointPos

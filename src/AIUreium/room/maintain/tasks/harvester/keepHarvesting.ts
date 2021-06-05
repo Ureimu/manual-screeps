@@ -5,13 +5,13 @@ import { FlagTools } from "flagMaintainer/tools";
 import { SpawnPool } from "spawn/spawnPool";
 import { TaskObject } from "utils/ProjectRunner";
 import { PosStr } from "utils/RoomPositionToStr";
-import { RoomTaskArgs } from "../taskRelation";
+import { RoomTaskArgs } from "../../taskRelation";
 
 export const keepHarvesting: TaskObject<RoomTaskArgs> = {
     name: "keepHarvesting",
     description: "keepHarvesting",
     start(room) {
-        if (Game.time % 15 === 0) {
+        if (Game.time % 5 === 0) {
             FlagMaintainer.refresh({
                 roomName: room.name,
                 typeList: FlagMaintainer.getTypeList(["container", "containerConstructionSite", "source"])

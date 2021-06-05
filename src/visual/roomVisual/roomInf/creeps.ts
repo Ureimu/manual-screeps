@@ -9,10 +9,14 @@ import { bodyTools } from "creep/body/tools";
  */
 export function getBpSumInSpawnQueue(spawn: StructureSpawn): number {
     let m = 0;
-    spawn.memory.spawnQueue.forEach(task => {
-        m += bodyTools.getNum(task.creepBody);
-    });
-    return m;
+    if (spawn?.memory?.spawnQueue) {
+        spawn.memory.spawnQueue.forEach(task => {
+            m += bodyTools.getNum(task.creepBody);
+        });
+        return m;
+    } else {
+        return 0;
+    }
 }
 
 /**

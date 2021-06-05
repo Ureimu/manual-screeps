@@ -4,7 +4,7 @@ import { FlagMaintainer } from "flagMaintainer";
 import { FlagTools } from "flagMaintainer/tools";
 import { SpawnPool } from "spawn/spawnPool";
 import { TaskObject } from "utils/ProjectRunner";
-import { RoomTaskArgs } from "../taskRelation";
+import { RoomTaskArgs } from "../../taskRelation";
 
 export const buildSourceContainer: TaskObject<RoomTaskArgs> = {
     name: "buildSourceContainer",

@@ -54,6 +54,12 @@ export default [
                             describe: "删除creep组",
                             functionName: getButton("creepGroupForm.deleteCreepGroup"),
                             commandType: true
+                        },
+                        {
+                            title: "从creep组删除creep",
+                            describe: "从creep组删除creep",
+                            functionName: getButton("creepGroupForm.deleteCreep"),
+                            commandType: true
                         }
                     ]
                 })

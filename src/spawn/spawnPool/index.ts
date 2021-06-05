@@ -84,9 +84,9 @@ export class SpawnPool {
     public static setCreepProperties(args: {
         creepName: string;
         roomName: string;
-        creepBody: string;
-        priority: string;
-        readyCondition: readyConditionKey;
+        creepBody?: string;
+        priority?: string;
+        readyCondition?: readyConditionKey;
     }): string {
         const { creepName, roomName, creepBody, priority, readyCondition } = args;
         const memCopy = Object.assign({}, Memory.rooms[roomName].spawnPool[creepName]);

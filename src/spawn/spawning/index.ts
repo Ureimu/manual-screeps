@@ -61,7 +61,8 @@ export function runSpawnQueue(spawn: StructureSpawn): void {
             });
             if (returnCode === OK) {
                 spawn.spawnCreep(creepBody, spawnTask.creepName);
-                spawn.room.memory.spawnPool[spawnTask.creepName].state = "notReady";
+                if (spawn.room.memory.spawnPool[spawnTask.creepName])
+                    spawn.room.memory.spawnPool[spawnTask.creepName].state = "notReady";
             } else {
                 if (returnCode !== ERR_NOT_ENOUGH_ENERGY && returnCode !== ERR_NAME_EXISTS) {
                     console.log(`spawn:${spawn.name} 返回错误 returnCode: ${returnCode}`);

@@ -54,7 +54,7 @@ export interface RouteMidpointDetail {
 
 export interface RouteConditionDetail {
     condition: keyof typeof conditionIndexedList;
-    jumpTo: number;
+    jumpTo: number | "front" | "end";
     conditionArgs?: string;
 }
 

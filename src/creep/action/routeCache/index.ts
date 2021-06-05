@@ -15,6 +15,9 @@ declare global {
                     gameTime?: number;
                     lastRenovate?: string;
                     lastRenovateHit?: number;
+                    collectPos?: string;
+                    scoutRoomName?: string;
+                    parkingSpot?: string;
                 } & Partial<routeCacheDetail>;
             };
         }

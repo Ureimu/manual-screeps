@@ -1,5 +1,6 @@
 import { CreepAction } from ".";
 import { state } from "..";
+import { runningCounter } from "./utils/runningCounter";
 
 function run(creep: Creep): state {
     const targets = creep.room.find(FIND_STRUCTURES, {
@@ -24,11 +25,24 @@ function run(creep: Creep): state {
                 });
             } else {
                 creep.transfer(closestTarget, "energy");
+                const index = targets.findIndex(value => value.pos.isEqualTo(closestTarget));
+                targets.splice(index, 1);
+                const secondClosestTarget = creep.pos.findClosestByRange(targets);
+                if (secondClosestTarget) {
+                    if (!creep.pos.inRangeTo(secondClosestTarget, 1)) {
+                        creep.moveTo(secondClosestTarget, {
+                            range: 1,
+                            visualizePathStyle: {
+                                stroke: "#ffffff"
+                            }
+                        });
+                    }
+                }
             }
         }
         return "arrived";
     } else {
-        return "moving";
+        return runningCounter(creep);
     }
 }
 

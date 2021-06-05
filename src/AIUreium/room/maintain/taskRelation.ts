@@ -1,19 +1,22 @@
 import { ProjectNetworkDiagram } from "utils/ProjectNetworkDiagram";
 import { ProjectRunner } from "utils/ProjectRunner";
-import { buildSourceContainer } from "./tasks/buildSourceContainer";
-import { buildStructureBySource } from "./tasks/buildStructureBySource";
-import { carrySource } from "./tasks/carrySource";
-import { carrySourceAndFill } from "./tasks/carrySourceAndFill";
-import { createBuildGroup } from "./tasks/createBuildGroup";
-import { createCarryGroup } from "./tasks/createCarryGroup";
+import { buildSourceContainer } from "./tasks/harvester/buildSourceContainer";
+import { buildStructureBySource } from "./tasks/builder/buildStructureBySource";
+import { buildStructureByStorage } from "./tasks/builder/buildStructureByStorage";
+import { carrySource } from "./tasks/carrier/carrySource";
+import { carrySourceAndFill } from "./tasks/carrier/carrySourceAndFill";
+import { createBuildGroup } from "./tasks/createCreepGroup/createBuildGroup";
+import { createCarryGroup } from "./tasks/createCreepGroup/createCarryGroup";
 import { createDefaultBodyparts } from "./tasks/createDefaultBodyparts";
-import { createFillSpawnGroup } from "./tasks/createFillSpawnGroup";
-import { createHarvestGroup } from "./tasks/createHarvestGroup";
-import { createUpgradeGroup } from "./tasks/createUpgradeGroup";
-import { fillSpawn } from "./tasks/fillSpawn";
-import { keepHarvesting } from "./tasks/keepHarvesting";
-import { structureHasBuilt } from "./tasks/structureHasBuilt";
-import { upgradeBySource } from "./tasks/upgradeBySource";
+import { createFillSpawnGroup } from "./tasks/createCreepGroup/createFillSpawnGroup";
+import { createHarvestGroup } from "./tasks/createCreepGroup/createHarvestGroup";
+import { createUpgradeGroup } from "./tasks/createCreepGroup/createUpgradeGroup";
+import { fillSpawn } from "./tasks/carrier/fillSpawn";
+import { keepHarvesting } from "./tasks/harvester/keepHarvesting";
+import { structureHasBuilt } from "./tasks/utils/structureHasBuilt";
+import { upgradeBySource } from "./tasks/upgrader/upgradeBySource";
+import { upgradeByStorage } from "./tasks/upgrader/upgradeByStorage";
+import { createScoutGroup } from "./tasks/createCreepGroup/createScoutGroup";
 
 const memoryAddress = (room: Room) => room.memory?.AIUreium?.maintainRoom;
 
@@ -41,7 +44,10 @@ export const taskRelation = {
     [centerLinkHasBuilt.name]: [buildStructureBySource.name],
     [createFillSpawnGroup.name]: [storageHasBuilt.name],
     [fillSpawn.name]: [createFillSpawnGroup.name],
-    [carrySource.name]: [createFillSpawnGroup.name]
+    [carrySource.name]: [createFillSpawnGroup.name],
+    [buildStructureByStorage.name]: [storageHasBuilt.name],
+    [upgradeByStorage.name]: [storageHasBuilt.name],
+    [createScoutGroup.name]: [storageHasBuilt.name]
 };
 
 export const taskCollection = {
@@ -62,7 +68,10 @@ export const taskCollection = {
     centerLinkHasBuilt,
     createFillSpawnGroup,
     fillSpawn,
-    carrySource
+    carrySource,
+    buildStructureByStorage,
+    upgradeByStorage,
+    createScoutGroup
 };
 
 export function runTasks(room: Room): void {

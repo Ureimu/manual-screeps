@@ -19,6 +19,7 @@ export interface constructMemory {
     layout?: formedLayout;
     ifCompleted: boolean;
     centerPos?: string;
+    freeSpacePosList?: string[];
 }
 
 export type formedLayout = {
@@ -47,5 +48,5 @@ export type SpecifiedStructureNameList<T extends BuildableStructureConstant> = T
     : T extends "link"
     ? "sourceLink" | "controllerLink" | "centerLink"
     : T extends "road"
-    ? "baseRoad" | "sourceAndControllerRoad" | "mineralRoad" | "outwardsRoad"
+    ? "baseRoad" | "sourceAndControllerRoad" | "mineralRoad"
     : T;

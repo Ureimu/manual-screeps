@@ -1,4 +1,5 @@
 import { isRouteMidpointDetail } from "creep/routePlan/type";
+import * as profiler from "../../utils/profiler";
 import { actionIndexedList } from "./doOnArrived";
 import { doStuff } from "./onArrived";
 import { judgeCondition } from "./onJudgeCondition";
@@ -40,7 +41,8 @@ declare global {
 export type state = "moving" | "arrived" | "end" | "getState";
 export type conditionState = "jump" | "notJump";
 
-export function runCreepAction(creep: Creep): void {
+export default profiler.registerFN(runCreepAction, "runCreepAction");
+function runCreepAction(creep: Creep): void {
     if (creep.memory.route && creep.memory.route.name !== "") {
         const creepRoute = creep.memory.route;
         const switchCounter = { count: 0 };
@@ -48,7 +50,7 @@ export function runCreepAction(creep: Creep): void {
     }
 }
 
-export function runRecursiveCreepAction(
+function runRecursiveCreepAction(
     creep: Creep,
     creepRoute: CreepMemoryRouteDetail,
     switchCounter: { count: number }

@@ -5,8 +5,9 @@ import { callOnStart as spawnPool } from "spawn/spawnPool/form";
 import { callOnStart as plugin } from "plugin";
 import { callOnStart as routeCache } from "creep/action";
 import { callOnStart as UreiumAi } from "AIUreium/callOnStart";
+import { callOnStart as creep } from "creep/callOnStart";
 // 挂载全局拓展
 export default function mountCallOnStart(): void {
-    const startFunctionList = [routePlan, creepGroup, creepBody, spawnPool, plugin, routeCache, UreiumAi];
+    const startFunctionList = [routePlan, creepGroup, creepBody, spawnPool, plugin, routeCache, UreiumAi, creep];
     startFunctionList.forEach(startFunction => startFunction());
 }

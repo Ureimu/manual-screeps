@@ -13,6 +13,8 @@ function run(creep: Creep, actionArgs?: string[]): state {
     let droppedResource: Resource<ResourceConstant> | undefined;
     let storableObject: Structure<StructureConstant> | Ruin | Tombstone | undefined;
     const structure = pos.lookFor(LOOK_STRUCTURES)[0] as AnyStoreStructure;
+    const resourceNumberList: Record<string, number> = {};
+    // TODO 添加一个表来记录所有可能存能量的东西，并从这个表里选出能量最多的让creep去withdraw
     if (existStoredResource(structure, resourceType)) {
         storableObject = structure;
     } else {

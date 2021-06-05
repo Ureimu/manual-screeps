@@ -1,5 +1,5 @@
 import { autoConstruction } from "construct";
-import { runCreepAction } from "creep/action";
+import runCreepAction from "creep/action";
 import { mountAll } from "mount";
 import { runSpawnPool, runSpawnQueue } from "spawn/spawning";
 import { roomVisualize } from "visual/roomVisual";

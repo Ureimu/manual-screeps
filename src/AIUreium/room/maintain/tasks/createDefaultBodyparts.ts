@@ -30,6 +30,9 @@ export const createDefaultBodyparts: TaskObject<RoomTaskArgs> = {
                 "3": { body: "m5c10" },
                 "4": { body: "m8c16" },
                 "5": { body: "m10c20" }
+            },
+            scouter: {
+                "1": { body: "m1" }
             }
         };
 

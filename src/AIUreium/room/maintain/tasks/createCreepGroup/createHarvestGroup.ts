@@ -2,7 +2,7 @@ import { CreepGroup } from "creep/group";
 import { RoutePlan } from "creep/routePlan";
 import { SpawnPool } from "spawn/spawnPool";
 import { TaskObject } from "utils/ProjectRunner";
-import { RoomTaskArgs } from "../taskRelation";
+import { RoomTaskArgs } from "../../taskRelation";
 
 export const createHarvestGroup: TaskObject<RoomTaskArgs> = {
     name: "createHarvestGroup",

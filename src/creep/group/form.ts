@@ -138,4 +138,51 @@ export class creepGroupForm {
             }
         );
     }
+
+    public static deleteCreep(): string {
+        const commitFunctionName = "CreepGroup.deleteCreep";
+        return createForm(
+            commitFunctionName + String(Game.time),
+            [
+                {
+                    name: "creepGroupName",
+                    label: "creep组名称",
+                    type: "select",
+                    options: Object.keys(Memory.creepGroups).map(value => {
+                        return { value, label: value };
+                    })
+                },
+                { name: "creepName", label: "creep名称", type: "input", placeholder: "creep名称" }
+            ],
+            {
+                content: "提交",
+                command: `(args) => ${commitFunctionName}(args)`,
+                type: "button",
+                name: "button" + String(Game.time) + commitFunctionName
+            }
+        );
+    }
+
+    public static deleteCreepGroup(): string {
+        const commitFunctionName = "CreepGroup.deleteCreepGroup";
+        return createForm(
+            commitFunctionName + String(Game.time),
+            [
+                {
+                    name: "creepGroupName",
+                    label: "creep组名称",
+                    type: "select",
+                    options: Object.keys(Memory.creepGroups).map(value => {
+                        return { value, label: value };
+                    })
+                }
+            ],
+            {
+                content: "提交",
+                command: `(args) => ${commitFunctionName}(args)`,
+                type: "button",
+                name: "button" + String(Game.time) + commitFunctionName
+            }
+        );
+    }
 }

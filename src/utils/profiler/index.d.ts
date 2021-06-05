@@ -62,7 +62,7 @@ export function registerObject<T extends { [name in string]: (...args: any[]) =>
  */
 export function registerFN<T extends (...args: any[]) => any>(
     fn: T,
-    functionName: string
+    functionName: string | symbol
 ): T & { profilerWrapped: boolean; toString(): string };
 /**
  * 注册类到调试模块。
@@ -81,3 +81,14 @@ export function registerClass<T extends { [name in string]: (...args: any[]) => 
 ): {
     [P in keyof T]: T[P] & { profilerWrapped: boolean; toString(): string };
 };
+
+declare global {
+    namespace NodeJS {
+        interface Global {
+            enabled: boolean;
+            usedOnStart: number;
+            depth: number;
+            parentFn: string;
+        }
+    }
+}

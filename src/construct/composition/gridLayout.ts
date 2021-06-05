@@ -188,46 +188,46 @@ export function getGridLayout(room: Room): void {
     const fullBuildingExpand = new Set<string>(buildingExpand.keys());
     const fullRoadExpand = new Set<string>(roadExpand.keys());
     // 寻找通往其他房间的路径（如果有的话）
-    const directionList = [FIND_EXIT_TOP, FIND_EXIT_RIGHT, FIND_EXIT_BOTTOM, FIND_EXIT_LEFT];
-    const outwardsRoadPosSet = new Set<string>();
-    for (const direction of directionList) {
-        const targetRoomPositionList = room.find(direction);
-        const pos =
-            Game.spawns[room.memory.construct.firstSpawnName.name].pos.findClosestByPath(targetRoomPositionList);
-        if (pos) {
-            const ret = PathFinder.search(Game.spawns[room.memory.construct.firstSpawnName.name].pos, pos, {
-                // 我们需要把默认的移动成本设置的更高一点
-                // 这样我们就可以在 roomCallback 里把道路移动成本设置的更低
-                plainCost: 2,
-                swampCost: 10,
+    // const directionList = [FIND_EXIT_TOP, FIND_EXIT_RIGHT, FIND_EXIT_BOTTOM, FIND_EXIT_LEFT];
+    // const outwardsRoadPosSet = new Set<string>();
+    // for (const direction of directionList) {
+    //     const targetRoomPositionList = room.find(direction);
+    //     const pos =
+    //         Game.spawns[room.memory.construct.firstSpawnName.name].pos.findClosestByPath(targetRoomPositionList);
+    //     if (pos) {
+    //         const ret = PathFinder.search(Game.spawns[room.memory.construct.firstSpawnName.name].pos, pos, {
+    //             // 我们需要把默认的移动成本设置的更高一点
+    //             // 这样我们就可以在 roomCallback 里把道路移动成本设置的更低
+    //             plainCost: 2,
+    //             swampCost: 10,
 
-                roomCallback(roomName) {
-                    const roomSearch = Game.rooms[roomName];
-                    // 在这个示例中，`room` 始终存在
-                    // 但是由于 PathFinder 支持跨多房间检索
-                    // 所以你要更加小心！
-                    if (!roomSearch) return false;
-                    const costs = new PathFinder.CostMatrix();
+    //             roomCallback(roomName) {
+    //                 const roomSearch = Game.rooms[roomName];
+    //                 // 在这个示例中，`room` 始终存在
+    //                 // 但是由于 PathFinder 支持跨多房间检索
+    //                 // 所以你要更加小心！
+    //                 if (!roomSearch) return false;
+    //                 const costs = new PathFinder.CostMatrix();
 
-                    // 在这里遍历所有建筑，并将cost设置为最高
-                    buildingExpand.forEach(posStr => {
-                        const coord = PosStr.parseCoord(posStr);
-                        costs.set(coord.x, coord.y, 0xff);
-                    });
-                    // 在这里遍历所有路，并将cost设置为1
-                    roadExpand.forEach(posStr => {
-                        const coord = PosStr.parseCoord(posStr);
-                        costs.set(coord.x, coord.y, 1);
-                    });
+    //                 // 在这里遍历所有建筑，并将cost设置为最高
+    //                 buildingExpand.forEach(posStr => {
+    //                     const coord = PosStr.parseCoord(posStr);
+    //                     costs.set(coord.x, coord.y, 0xff);
+    //                 });
+    //                 // 在这里遍历所有路，并将cost设置为1
+    //                 roadExpand.forEach(posStr => {
+    //                     const coord = PosStr.parseCoord(posStr);
+    //                     costs.set(coord.x, coord.y, 1);
+    //                 });
 
-                    return costs;
-                }
-            });
-            ret.path.forEach(pos1 => {
-                outwardsRoadPosSet.add(PosStr.setPosToStr(pos1));
-            });
-        }
-    }
+    //                 return costs;
+    //             }
+    //         });
+    //         ret.path.forEach(pos1 => {
+    //             outwardsRoadPosSet.add(PosStr.setPosToStr(pos1));
+    //         });
+    //     }
+    // }
     // 寻找source,controller,minerals的路径，同时确定link和container的位置，使用path.finder进行寻找。
     // 这里不需要处理多种道路重叠的情况。
 
@@ -458,6 +458,16 @@ export function getGridLayout(room: Room): void {
     });
 
     // 判断lab的位置（斜着4x5，占12个building空位,20格road空位）
+    const labLayoutTemplate = `
+    🍱:一般建筑 🥖:路 🍘:Lab
+
+    🍱🥖🍱🥖🍱🥖🍱🥖🍱
+    🥖🍱🥖🍘🍘🍱🥖🍱🥖
+    🍱🥖🍘🥖🍘🍘🍱🥖🍱
+    🥖🍱🍘🍘🥖🍘🥖🍱🥖
+    🍱🥖🍱🍘🍘🥖🍱🥖🍱
+    🥖🍱🥖🍱🥖🍱🥖🍱🥖
+    `;
     let buildingExpandWithoutAbove = buildingExpandWithoutSpawnAndCenter;
     buildingExpandWithoutAbove = PosStr.reverseSet(buildingExpandWithoutAbove);
     let m = 0;
@@ -528,6 +538,17 @@ export function getGridLayout(room: Room): void {
     } else {
         console.log("未找到lab布局");
     }
+    // freeSpacePosSet
+    const freeSpacePosSet = new Set<string>();
+    buildingExpand.forEach(posStr => {
+        if (freeSpacePosSet.size < 8) {
+            buildingExpand.delete(posStr);
+            freeSpacePosSet.add(posStr);
+        }
+    });
+    if (freeSpacePosSet.size < 60) {
+        console.log("freeSpace位置不足，现在数量为" + freeSpacePosSet.size.toString());
+    }
     // sourceContainerPosSet
     const wallAndRampartPosSet = getMinCut(
         true,
@@ -539,13 +560,14 @@ export function getGridLayout(room: Room): void {
     const rampartPosSet = new Set<string>();
 
     let anyRoadSet = new Set<string>(); // anyRoadSet只用作显示。
-    const anyRoadSetList = [roadExpand, sourceAndControllerRoadPosSet, mineralRoadPosSet, outwardsRoadPosSet];
+    const anyRoadSetList = [roadExpand, sourceAndControllerRoadPosSet, mineralRoadPosSet];
     for (const set of anyRoadSetList) {
         anyRoadSet = PosStr.mergeSet(anyRoadSet, set);
     }
+    const rampartAroundController = PosStr.getSquarePosStr(PosStr.setPosToStr(room.controller?.pos as RoomPosition));
     wallAndRampartPosSet.forEach(posStr => {
-        if (anyRoadSet.has(posStr)) {
-            // 判断是否有路在pos下
+        if (anyRoadSet.has(posStr) || rampartAroundController.has(posStr)) {
+            // 判断是否有路在pos下或pos在controller旁边
             rampartPosSet.add(posStr);
             anyRoadSet.delete(posStr);
         } else {
@@ -570,6 +592,7 @@ export function getGridLayout(room: Room): void {
         name: room.memory.construct.firstSpawnName.name,
         pos: PosStr.setPosToStr(Game.spawns[room.memory.construct.firstSpawnName.name].pos)
     };
+    room.memory.construct.freeSpacePosList = Array.from(freeSpacePosSet.keys());
     room.memory.construct.layout = {
         road: {
             baseRoad: { posStrList: Array.from(fullRoadExpand.keys()), levelToBuild: 8 },
@@ -580,10 +603,6 @@ export function getGridLayout(room: Room): void {
             mineralRoad: {
                 posStrList: Array.from(mineralRoadPosSet.keys()),
                 levelToBuild: 8
-            },
-            outwardsRoad: {
-                posStrList: Array.from(outwardsRoadPosSet.keys()),
-                levelToBuild: 4
             }
         },
         extension: {
@@ -829,10 +848,11 @@ function getMinCut(
     //         rectArray.push({ x1, y1, x2, y2 });
     //     }
     // }
+    const controllerPadding = 1;
     if (colony.controller) {
         const { x, y } = colony.controller.pos;
-        const [x1, y1] = [Math.max(x - 4, 4), Math.max(y - 4, 4)];
-        const [x2, y2] = [Math.min(x + 4, 45), Math.min(y + 4, 45)];
+        const [x1, y1] = [Math.max(x - controllerPadding, 4), Math.max(y - controllerPadding, 4)];
+        const [x2, y2] = [Math.min(x + controllerPadding, 45), Math.min(y + controllerPadding, 45)];
         if (x < 4 || x > 45 || y < 4 || y > 45) {
             console.log("bad controller pos");
         } else rectArray.push({ x1, y1, x2, y2 });

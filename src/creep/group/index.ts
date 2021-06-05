@@ -170,7 +170,27 @@ export class CreepGroup {
     public static deleteCreepGroup(args: { creepGroupName: string }): string {
         const { creepGroupName } = args;
         // console.log(creepGroupName);
-        delete Memory.routes[creepGroupName];
+        delete Memory.creepGroups[creepGroupName];
         return style(`删除creep组 ${creepGroupName} 设置完成`, "log");
+    }
+
+    /**
+     * 从creep组删除creep。
+     *
+     * @static
+     * @param {{ creepGroupName: string }} args
+     * @returns {string}
+     * @memberof creepGroup
+     */
+    public static deleteCreep(args: { creepGroupName: string; creepName: string }): string {
+        const { creepGroupName, creepName } = args;
+        // console.log(creepGroupName);
+        const index = Memory.creepGroups[creepGroupName].creepNameList.findIndex(name => name === creepName);
+        if (index !== -1) {
+            Memory.creepGroups[creepGroupName].creepNameList.splice(index, 1);
+            return style(`删除creep组 ${creepGroupName} 设置完成`, "log");
+        } else {
+            return style(`在creep组${creepGroupName}中不存在creep${creepName}`, "error");
+        }
     }
 }

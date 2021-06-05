@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    <script src="https://cdn.bootcdn.net/ajax/libs/mermaid/8.9.2/mermaid.min.js"></script>
+    <script src="https://cdn.bootcss.com/mermaid/8.0.0-rc.8/mermaid.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-base64@3.6.0/base64.min.js"></script>
     <head>
         <meta charset="UTF-8" />
@@ -12,7 +12,7 @@
         <div id="graphDiv" style="max-width: 100%; max-height: 100% !important"></div>
         <script>
             mermaid.initialize({
-                startOnLoad: false
+                startOnLoad: true
             });
             function addSvg(data) {
                 var insertSvg = function (svgCode, bindFunctions) {
@@ -23,8 +23,6 @@
                 console.log(graphDefinition);
                 var graph = mermaid.mermaidAPI.render("graphDiv", graphDefinition, insertSvg);
             }
-            // 监听游戏传入进来的 graphDiv 数据并进行渲染
-            if (window.opener) window.opener.postMessage("ready", "*");
             window.addEventListener("message", ({ source, data }) => {
                 try {
                     addSvg(data);
@@ -34,6 +32,8 @@
                     console.error(data);
                 }
             });
+            // 监听游戏传入进来的 graphDiv 数据并进行渲染
+            if (window.opener) window.opener.postMessage("ready", "*");
         </script>
     </body>
 </html>

@@ -44,14 +44,16 @@ export function runLayout(room: Room, layoutName: string, layoutFunc: (room: Roo
                 console.log(`[build] ${specifiedName} posStrList不存在,跳过`);
                 continue;
             }
-            totalSitesNum += putConstructionSites(
-                room,
-                posStrList,
-                specifiedName,
-                constructionName as BuildableStructureConstant,
-                buildNumberLimit,
-                totalSitesNum
-            );
+            if (buildNumberLimit > 0) {
+                totalSitesNum += putConstructionSites(
+                    room,
+                    posStrList,
+                    specifiedName,
+                    constructionName as BuildableStructureConstant,
+                    buildNumberLimit,
+                    totalSitesNum
+                );
+            }
             if (totalSitesNum >= 100) {
                 break;
             }
@@ -79,11 +81,11 @@ function initConstructionMemory(room: Room, name: string, structureType: Buildab
     }
 }
 
-function putConstructionSites(
+function putConstructionSites<T extends BuildableStructureConstant>(
     room: Room,
     posStrList: string[],
     name: string,
-    structureType: BuildableStructureConstant,
+    structureType: T,
     buildNumberLimit: number,
     totalSitesNum: number
 ): number {
@@ -99,24 +101,30 @@ function putConstructionSites(
         posList.push(PosStr.getPosFromStr(posStr));
     });
     initConstructionMemory(room, name, structureType);
+    const constructionTypeMemory = room.memory.construct.construction[structureType] as {
+        [name: string]: constructionSiteInf<typeof structureType>;
+    };
+    let structures: {
+        structureType: string;
+        pos: RoomPosition;
+        destroy?: () => number;
+        remove?: () => number;
+    }[] = room.find(FIND_STRUCTURES, {
+        filter: structure => {
+            return structure.structureType === structureType;
+        }
+    });
+    const constructionSites = room.find(FIND_CONSTRUCTION_SITES, {
+        filter: constructionSite => {
+            return constructionSite.structureType === structureType;
+        }
+    });
+
+    structures = structures.concat(constructionSites);
+    if (posList.length > 0) console.log(`[build] 放置工地 ${name}`);
     for (let i = 0; i < posList.length; i++) {
-        const countX = [0, 0];
-        let structures: {
-            structureType: string;
-            pos: RoomPosition;
-            destroy?: () => number;
-            remove?: () => number;
-        }[] = room.find(FIND_STRUCTURES, {
-            filter: structure => {
-                return structure.structureType === structureType;
-            }
-        });
-        const constructionSites = room.find(FIND_CONSTRUCTION_SITES, {
-            filter: constructionSite => {
-                return constructionSite.structureType === structureType;
-            }
-        });
-        structures = structures.concat(constructionSites);
+        const conditionFlagList = [false, false];
+
         for (const structure of structures) {
             if (structure.pos.isEqualTo(posList[i])) {
                 for (const id in room.memory.construct.construction[structureType]?.[name].memory) {
@@ -124,80 +132,39 @@ function putConstructionSites(
                         room.memory.construct.construction[structureType]?.[name].memory[id].pos as string
                     );
                     if (pos.isEqualTo(posList[i])) {
-                        countX[1] = 1;
+                        conditionFlagList[1] = false;
                         break;
                     }
                 }
-                if (countX[1] === 1) {
-                    break;
-                }
-                (
-                    room.memory.construct.construction[structureType] as {
-                        [name: string]: constructionSiteInf<typeof structureType>;
-                    }
-                )[name].num++;
-                const sitePosSet = new Set<string>(
-                    (
-                        room.memory.construct.construction[structureType] as {
-                            [name: string]: constructionSiteInf<typeof structureType>;
-                        }
-                    )[name].sitePosList
-                );
-                sitePosSet.add(PosStr.setPosToStr(posList[i]));
-                (
-                    room.memory.construct.construction[structureType] as {
-                        [name: string]: constructionSiteInf<typeof structureType>;
-                    }
-                )[name].sitePosList = Array.from(sitePosSet);
-                countX[0] = 1;
-                break;
+                // console.log(`[build] 检索到已建成建筑,已添加`);
+                conditionFlagList[1] = true;
             }
         }
-        if (countX[0] === 0) {
+        if (conditionFlagList[1] === true) {
+            constructionTypeMemory[name].num++;
+            const sitePosSet = new Set<string>(constructionTypeMemory[name].sitePosList);
+            sitePosSet.add(PosStr.setPosToStr(posList[i]));
+            constructionTypeMemory[name].sitePosList = Array.from(sitePosSet);
+            conditionFlagList[0] = true;
+        }
+        if (conditionFlagList[0] === false) {
+            console.log(`[build] 未检索到已建成建筑或工地,尝试放置工地 ${PosStr.setPosToStr(posList[i])}`);
             listC[i] = room.createConstructionSite(posList[i], structureType);
             if (listC[i] === OK) {
                 totalSitesNum++;
-                (
-                    room.memory.construct.construction[structureType] as {
-                        [name: string]: constructionSiteInf<typeof structureType>;
-                    }
-                )[name].num++;
-                const sitePosSet = new Set<string>(
-                    (
-                        room.memory.construct.construction[structureType] as {
-                            [name: string]: constructionSiteInf<typeof structureType>;
-                        }
-                    )[name].sitePosList
-                );
+                constructionTypeMemory[name].num++;
+                const sitePosSet = new Set<string>(constructionTypeMemory[name].sitePosList);
                 sitePosSet.add(PosStr.setPosToStr(posList[i]));
-                (
-                    room.memory.construct.construction[structureType] as {
-                        [name: string]: constructionSiteInf<typeof structureType>;
-                    }
-                )[name].sitePosList = Array.from(sitePosSet);
+                constructionTypeMemory[name].sitePosList = Array.from(sitePosSet);
                 if (totalSitesNum >= 100) {
                     return totalSitesNum;
                 }
             }
         }
     }
-    if (
-        (
-            room.memory.construct.construction[structureType] as {
-                [name: string]: constructionSiteInf<typeof structureType>;
-            }
-        )[name].num === posList.length ||
-        (
-            room.memory.construct.construction[structureType] as {
-                [name: string]: constructionSiteInf<typeof structureType>;
-            }
-        )[name].num === buildNumberLimit
-    ) {
-        (
-            room.memory.construct.construction[structureType] as {
-                [name: string]: constructionSiteInf<typeof structureType>;
-            }
-        )[name].hasPutSites = true;
+    if (constructionTypeMemory[name].num === posList.length || constructionTypeMemory[name].num === buildNumberLimit) {
+        constructionTypeMemory[name].hasPutSites = true;
     }
+    console.log(`[build] ${name} 检索完成，现在总工地数为${totalSitesNum}`);
     return totalSitesNum;
 }

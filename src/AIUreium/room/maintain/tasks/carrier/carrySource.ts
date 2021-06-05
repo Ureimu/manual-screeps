@@ -2,9 +2,10 @@ import { CreepGroup } from "creep/group";
 import { RoutePlan } from "creep/routePlan";
 import { FlagMaintainer } from "flagMaintainer";
 import { FlagTools } from "flagMaintainer/tools";
+import { SpawnPool } from "spawn/spawnPool";
 import { TaskObject } from "utils/ProjectRunner";
 import { PosStr } from "utils/RoomPositionToStr";
-import { RoomTaskArgs } from "../taskRelation";
+import { RoomTaskArgs } from "../../taskRelation";
 
 export const carrySource: TaskObject<RoomTaskArgs> = {
     name: "carrySource",
@@ -23,6 +24,13 @@ export const carrySource: TaskObject<RoomTaskArgs> = {
         const creepGroupName = `${room.name}c`;
         const storageFlagName = FlagTools.getName(room.name, "storage", 0);
 
+        Memory.creepGroups[creepGroupName].creepNameList.forEach((creepName, index) => {
+            if (index > 0) {
+                CreepGroup.deleteCreep({ creepName, creepGroupName });
+                SpawnPool.deleteCreep({ creepName, roomName: room.name });
+            }
+        }); // 只留一个creep
+
         RoutePlan.create({ routeName, ifLoop: "true" });
         for (let index = 0; index < sources.length; index++) {
             const sourceFlagName = FlagTools.getName(room.name, "source", index);
@@ -39,13 +47,14 @@ export const carrySource: TaskObject<RoomTaskArgs> = {
                 routeName,
                 condition: "store",
                 jumpTo: 2,
-                conditionArgs: `${PosStr.setPosToStr(Game.flags[containerFlagName].pos)},${RESOURCE_ENERGY},<=,500`
+                conditionArgs: `${PosStr.setPosToStr(Game.flags[containerFlagName].pos)},${RESOURCE_ENERGY},<=,700`
             });
             RoutePlan.addMidpoint({
                 routeName,
                 pathMidpointPos: containerFlagName,
                 range: 1,
-                doWhenArrive: "withdrawEnergy"
+                doWhenArrive: "withdrawEnergy",
+                actionArgs: "true"
             });
             CreepGroup.setCreepGroupProperties({ creepGroupName, routeName });
             if (index === sources.length - 1) {

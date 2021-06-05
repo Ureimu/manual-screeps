@@ -4,13 +4,13 @@ import { FlagMaintainer } from "flagMaintainer";
 import { FlagTools } from "flagMaintainer/tools";
 import { TaskObject } from "utils/ProjectRunner";
 import { PosStr } from "utils/RoomPositionToStr";
-import { RoomTaskArgs } from "../taskRelation";
+import { RoomTaskArgs } from "../../taskRelation";
 
-export const upgradeBySource: TaskObject<RoomTaskArgs> = {
-    name: "upgradeBySource",
-    description: "upgradeBySource",
+export const buildStructureBySource: TaskObject<RoomTaskArgs> = {
+    name: "buildStructureBySource",
+    description: "buildStructureBySource",
     start(room) {
-        if (Game.time % 15 === 0) {
+        if (Game.time % 5 === 0) {
             FlagMaintainer.refresh({
                 roomName: room.name,
                 typeList: FlagMaintainer.getTypeList(["container", "containerConstructionSite", "source"])
@@ -28,8 +28,8 @@ export const upgradeBySource: TaskObject<RoomTaskArgs> = {
             typeList: FlagMaintainer.getTypeList(["container", "source", "controller"])
         });
 
-        const routeName = `${room.name}upgradeBySource`;
-        const creepGroupName = `${room.name}up`;
+        const routeName = `${room.name}buildStructureBySource`;
+        const creepGroupName = `${room.name}build`;
         const controllerFlagName = FlagTools.getName(room.name, "controller", 0);
 
         RoutePlan.create({ routeName, ifLoop: "true" });
@@ -58,6 +58,30 @@ export const upgradeBySource: TaskObject<RoomTaskArgs> = {
             });
             CreepGroup.setCreepGroupProperties({ creepGroupName, routeName });
             if (index === sources.length - 1) {
+                RoutePlan.addMidpoint({
+                    routeName,
+                    pathMidpointPos: controllerFlagName,
+                    range: 50,
+                    doWhenArrive: "build"
+                });
+                RoutePlan.addCondition({
+                    routeName,
+                    condition: "creepStore",
+                    jumpTo: 2,
+                    conditionArgs: `empty`
+                });
+                RoutePlan.addMidpoint({
+                    routeName,
+                    pathMidpointPos: controllerFlagName,
+                    range: 50,
+                    doWhenArrive: "repair"
+                });
+                RoutePlan.addCondition({
+                    routeName,
+                    condition: "creepStore",
+                    jumpTo: 2,
+                    conditionArgs: `empty`
+                });
                 RoutePlan.addMidpoint({
                     routeName,
                     pathMidpointPos: controllerFlagName,

@@ -45,8 +45,14 @@ export function autoConstruction(room: Room): void {
     }
     const constructionSites = room.find(FIND_CONSTRUCTION_SITES);
 
-    if (constructionSites.length !== room.memory.construct.roomControlStatus[3] || Game.time % 100 === 0)
+    let refreshTime = 400;
+    if (Game.time - room.memory.construct.startTime <= 300) refreshTime = 50;
+    if (
+        constructionSites.length !== room.memory.construct.roomControlStatus[3] ||
+        (Game.time - room.memory.construct.startTime) % refreshTime === 0
+    ) {
         updateConstruction(room);
+    }
     room.memory.construct.roomControlStatus[0] = room.controller?.level as number;
     room.memory.construct.roomControlStatus[1] = room.controller?.progress as number;
     room.memory.construct.roomControlStatus[2] = room.controller?.progressTotal as number;
@@ -99,6 +105,9 @@ function buildingName<T extends BuildableStructureConstant>(myStructure: Concret
                         ) !== -1
                     ) {
                         return kindName;
+                    }
+                    for (const id in structureData.memory) {
+                        if (PosStr.setPosToStr(myStructure.pos) === structureData.memory[id].pos) return kindName;
                     }
                 } else {
                     const memory = structureList[kindName].memory;

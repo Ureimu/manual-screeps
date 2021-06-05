@@ -1,6 +1,8 @@
+import { profile } from "utils/profiler/decorator";
 import { runTask } from "./runTask";
 import { AcrossTickMemory, AcrossTickReturnCode } from "./type";
 
+@profile
 export class AcrossTick {
     public task: AcrossTickMemory;
     public constructor() {
@@ -24,8 +26,8 @@ export class AcrossTick {
         this.task.executeTick = Game.time;
     }
 
-    public mountTaskFunction(
-        task: AcrossTickMemory,
+    public static mountTaskFunction(
+        task: { taskName: string },
         taskFunction: (task: AcrossTickMemory) => AcrossTickReturnCode
     ): void {
         if (!global.AcrossTickTaskFunction) {
@@ -46,7 +48,7 @@ export function newAcrossTickTask(
 ): void {
     const acrossTickTask = new AcrossTick();
     if (taskFunction) {
-        acrossTickTask.mountTaskFunction(task, taskFunction);
+        AcrossTick.mountTaskFunction(task, taskFunction);
     }
     acrossTickTask.runAfterTicks(task);
     acrossTickTask.finish();
