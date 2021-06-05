@@ -9,7 +9,7 @@
         <title>Document</title>
     </head>
     <body>
-        <div id="graphDiv" style="max-width: 1500px; max-height: 1500px !important"></div>
+        <div id="graphDiv" style="max-width: 300px !important"></div>
         <script>
             function addSvg(data) {
                 var insertSvg = function (svgCode, bindFunctions) {
@@ -18,14 +18,11 @@
                 var graphDefinition = Base64.decode(data);
                 console.log("start render");
                 console.log(graphDefinition);
-                var graph = mermaid.mermaidAPI.render("graphDiv", graphDefinition, insertSvg);
+                var graph = mermaid.render("graphDiv", graphDefinition, insertSvg);
             }
             window.addEventListener("message", ({ source, data }) => {
                 try {
                     addSvg(data);
-                    mermaid.initialize({
-                        startOnLoad: true
-                    });
                 } catch (e) {
                     alert("代码错误,请联系 Ureium" + "\n");
                     console.error(e);
