@@ -11,6 +11,8 @@
     <body>
         <div id="graphDiv" style="max-width: 300px !important"></div>
         <script>
+            mermaid.initialize({ startOnLoad: false });
+            mermaid.mermaidAPI.initialize();
             function addSvg(data) {
                 var insertSvg = function (svgCode, bindFunctions) {
                     document.querySelector("#graphDiv").innerHTML = svgCode;
