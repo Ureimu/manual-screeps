@@ -11,9 +11,6 @@
     <body>
         <div id="graphDiv" style="max-width: 100%; max-height: 100% !important"></div>
         <script>
-            mermaid.initialize({
-                startOnLoad: true
-            });
             function addSvg(data) {
                 var insertSvg = function (svgCode, bindFunctions) {
                     document.querySelector("#graphDiv").innerHTML = svgCode;
@@ -26,6 +23,9 @@
             window.addEventListener("message", ({ source, data }) => {
                 try {
                     addSvg(data);
+                    mermaid.initialize({
+                        startOnLoad: true
+                    });
                 } catch (e) {
                     alert("代码错误,请联系 Ureium" + "\n");
                     console.error(e);
