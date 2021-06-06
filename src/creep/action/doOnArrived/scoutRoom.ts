@@ -15,6 +15,7 @@ function run(creep: Creep): state {
     if (scoutRoomName) {
         if (creep.room.name !== scoutRoomName) {
             creep.moveTo(new RoomPosition(25, 25, scoutRoomName));
+            return "arrived";
         }
     }
     return "moving";

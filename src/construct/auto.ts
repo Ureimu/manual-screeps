@@ -45,8 +45,8 @@ export function autoConstruction(room: Room): void {
     }
     const constructionSites = room.find(FIND_CONSTRUCTION_SITES);
 
-    let refreshTime = 400;
-    if (Game.time - room.memory.construct.startTime <= 300) refreshTime = 50;
+    let refreshTime = 1500;
+    if (Game.time - room.memory.construct.startTime <= 200) refreshTime = 150;
     if (
         constructionSites.length !== room.memory.construct.roomControlStatus[3] ||
         (Game.time - room.memory.construct.startTime) % refreshTime === 0
@@ -57,7 +57,8 @@ export function autoConstruction(room: Room): void {
     room.memory.construct.roomControlStatus[1] = room.controller?.progress as number;
     room.memory.construct.roomControlStatus[2] = room.controller?.progressTotal as number;
     room.memory.construct.roomControlStatus[3] = constructionSites.length;
-    if ((Game.time - room.memory.construct.startTime) % 30 === 30 - 1) runLayout(room, "gridLayout", getGridLayout);
+    if ((Game.time - room.memory.construct.startTime) % refreshTime === refreshTime - 1)
+        runLayout(room, "gridLayout", getGridLayout);
 }
 
 function updateConstruction(room: Room): void {

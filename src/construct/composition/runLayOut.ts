@@ -150,6 +150,10 @@ function putConstructionSites<T extends BuildableStructureConstant>(
         if (conditionFlagList[0] === false) {
             console.log(`[build] 未检索到已建成建筑或工地,尝试放置工地 ${PosStr.setPosToStr(posList[i])}`);
             listC[i] = room.createConstructionSite(posList[i], structureType);
+            if (listC[i] === ERR_FULL || listC[i] === ERR_RCL_NOT_ENOUGH) {
+                console.log(`[build] ${name}放置数量已经达到上限。`);
+                break;
+            }
             if (listC[i] === OK) {
                 totalSitesNum++;
                 constructionTypeMemory[name].num++;

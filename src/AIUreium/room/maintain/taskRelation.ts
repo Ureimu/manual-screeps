@@ -76,7 +76,10 @@ export const taskCollection = {
 
 export function runTasks(room: Room): void {
     const diagram = new ProjectNetworkDiagram(memoryAddress(room));
-    if (Game.time % 300 === 0) diagram.downloadDiagram();
+    if (Game.time % 300 === 0) {
+        // diagram.downloadDiagram();
+        console.log(diagram.printDiagram());
+    }
     if (diagram.nodeNum <= 1) {
         ProjectRunner.initTaskDiagram(taskRelation, diagram);
     }

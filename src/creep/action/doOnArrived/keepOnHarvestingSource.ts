@@ -16,6 +16,17 @@ function run(creep: Creep, actionArgs?: string[]): state {
         );
         creep.moveTo(pos);
     }
+    if (Game.time % 20 === 0) {
+        if (creep.store.energy > 0) {
+            const container = creep.pos
+                .lookFor(LOOK_STRUCTURES)
+                .filter(i => i.structureType === STRUCTURE_CONTAINER && i.hits < 5e4)[0];
+            if (container) {
+                creep.repair(container);
+                return "arrived";
+            }
+        }
+    }
 
     const source = PosStr.getPosFromStr(actionArgs[0]).lookFor(LOOK_SOURCES)[0];
     creep.harvest(source);

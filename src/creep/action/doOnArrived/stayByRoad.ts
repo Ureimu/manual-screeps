@@ -5,6 +5,17 @@ import { state } from "..";
 import { getMidpointObjects } from "./utils/getMidpointObjects";
 
 function run(creep: Creep): state {
+    if (!global.roomMemory?.[creep.room.name]?.freeSpacePosList) {
+        if (!global.roomMemory) global.roomMemory = {};
+        const posList = creep.room.memory.construct.freeSpacePosList as string[];
+        global.roomMemory[creep.room.name] = {
+            freeSpacePosList: []
+        };
+        posList.forEach(posStr => {
+            global.roomMemory[creep.room.name].freeSpacePosList.push({ posStr, creepName: "undefined" });
+        });
+    }
+
     const freeSpacePosList = global.roomMemory[creep.room.name].freeSpacePosList;
 
     if (!global.creepMemory[creep.name].parkingSpot) {
