@@ -12,13 +12,8 @@
         <div id="graphDiv"></div>
         <script>
             mermaid.initialize({
-                startOnLoad: false,
-                securityLevel: "loose",
-                flowchart: {
-                    htmlLabels: true
-                }
+                startOnLoad: false
             });
-            mermaid.mermaidAPI.initialize();
             function addSvg(data) {
                 var insertSvg = function (svgCode, bindFunctions) {
                     document.querySelector("#graphDiv").innerHTML = svgCode;
@@ -27,6 +22,7 @@
                 console.log("start render");
                 console.log(graphDefinition);
                 var graph = mermaid.render("graphDiv", graphDefinition, insertSvg);
+                console.log(graph);
             }
             window.addEventListener("message", ({ source, data }) => {
                 try {
