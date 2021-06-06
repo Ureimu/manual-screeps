@@ -9,9 +9,15 @@
         <title>Document</title>
     </head>
     <body>
-        <div id="graphDiv" style="max-width: 300px !important"></div>
+        <div class="mermaid" id="graphDiv"></div>
         <script>
-            mermaid.initialize({ startOnLoad: false });
+            mermaid.initialize({
+                startOnLoad: false,
+                securityLevel: "loose",
+                flowchart: {
+                    htmlLabels: true
+                }
+            });
             mermaid.mermaidAPI.initialize();
             function addSvg(data) {
                 var insertSvg = function (svgCode, bindFunctions) {
