@@ -9,14 +9,23 @@
         <title>Document</title>
     </head>
     <body>
-        <div id="graphDiv"></div>
+        <style>
+            .mermaid2 {
+                display: none;
+            }
+            .mermaid svg {
+                font-size: 18px !important;
+            }
+        </style>
+        <div id="graphDiv" class="mermaid"></div>
+        <div id="res" class=""></div>
         <script>
             mermaid.initialize({
                 startOnLoad: false
             });
             function addSvg(data) {
                 var insertSvg = function (svgCode, bindFunctions) {
-                    document.querySelector("#graphDiv").innerHTML = svgCode;
+                    document.querySelector("#res").innerHTML = svgCode;
                 };
                 var graphDefinition = Base64.decode(data);
                 console.log(graphDefinition);
