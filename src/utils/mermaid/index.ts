@@ -1,5 +1,4 @@
 /* eslint-disable no-useless-escape */
-import { Colors, colors } from "utils/console/colorful";
 import {
     BoxStyle,
     BoxStyleCorrespond,
@@ -9,6 +8,17 @@ import {
     DiagramDirectionCorrespond
 } from "./type";
 import { Base64 } from "js-base64";
+
+type Colors = "red" | "green" | "yellow" | "blue";
+/**
+ * 在绘制信息时使用的颜色
+ */
+const colors: { [name in Colors]: string } = {
+    red: "#ff9a9a",
+    green: "#abc915",
+    yellow: "#dcdc1c",
+    blue: "#8dc5e3"
+};
 
 export class mermaid {
     public mermaidContentList: string[];

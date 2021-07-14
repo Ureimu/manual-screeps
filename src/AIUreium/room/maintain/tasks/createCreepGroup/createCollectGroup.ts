@@ -11,7 +11,7 @@ export const createCollectGroup: TaskObject<RoomTaskArgs> = {
     },
     working(room) {
         const creepGroupName = `${room.name}col`;
-        CreepGroup.create({ creepGroupName });
+        CreepGroup.create({ creepGroupName, mode: "route" });
         for (let index = 0; index < 1; index++) {
             createCreepGroup(room, creepGroupName, index);
         }

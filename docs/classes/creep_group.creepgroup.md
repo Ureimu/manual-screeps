@@ -14,6 +14,7 @@
 
 - [addCreep](creep_group.creepgroup.md#addcreep)
 - [create](creep_group.creepgroup.md#create)
+- [deleteCreep](creep_group.creepgroup.md#deletecreep)
 - [deleteCreepGroup](creep_group.creepgroup.md#deletecreepgroup)
 - [moveCreep](creep_group.creepgroup.md#movecreep)
 - [setCreepGroupProperties](creep_group.creepgroup.md#setcreepgroupproperties)
@@ -49,13 +50,13 @@
 
 **Returns:** *string*
 
-Defined in: creep/group/index.ts:48
+Defined in: creep/group/index.ts:43
 
 ___
 
 ### create
 
-▸ `Static` **create**(`args`: { `creepGroupName`: *string* ; `routeName`: *string*  }): *string*
+▸ `Static` **create**(`args`: { `creepGroupName`: *string* ; `mode`: [*CreepGroupMode*](../modules/creep_group_type.md#creepgroupmode)  }): *string*
 
 创建creep组。
 
@@ -65,15 +66,39 @@ ___
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `args` | *object* |  |
-| `args.creepGroupName` | *string* | - |
-| `args.routeName` | *string* | 路径名称 |
+| Name | Type |
+| :------ | :------ |
+| `args` | *object* |
+| `args.creepGroupName` | *string* |
+| `args.mode` | [*CreepGroupMode*](../modules/creep_group_type.md#creepgroupmode) |
 
 **Returns:** *string*
 
-Defined in: creep/group/index.ts:17
+Defined in: creep/group/index.ts:19
+
+___
+
+### deleteCreep
+
+▸ `Static` **deleteCreep**(`args`: { `creepGroupName`: *string* ; `creepName`: *string*  }): *string*
+
+从creep组删除creep。
+
+**`static`**
+
+**`memberof`** creepGroup
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `args` | *object* |
+| `args.creepGroupName` | *string* |
+| `args.creepName` | *string* |
+
+**Returns:** *string*
+
+Defined in: creep/group/index.ts:250
 
 ___
 
@@ -96,7 +121,7 @@ ___
 
 **Returns:** *string*
 
-Defined in: creep/group/index.ts:175
+Defined in: creep/group/index.ts:235
 
 ___
 
@@ -121,13 +146,13 @@ ___
 
 **Returns:** *string*
 
-Defined in: creep/group/index.ts:81
+Defined in: creep/group/index.ts:85
 
 ___
 
 ### setCreepGroupProperties
 
-▸ `Static` **setCreepGroupProperties**(`args`: { `creepGroupName`: *string* ; `routeName`: *string*  }): *string*
+▸ `Static` **setCreepGroupProperties**(`args`: { `creepGroupName`: *string* ; `mode?`: *string* ; `roleName?`: *string* ; `routeName?`: *string*  }): *string*
 
 设定creep组参数。
 
@@ -141,11 +166,13 @@ ___
 | :------ | :------ | :------ |
 | `args` | *object* |  |
 | `args.creepGroupName` | *string* | - |
-| `args.routeName` | *string* | 路径名称 |
+| `args.mode?` | *string* | - |
+| `args.roleName?` | *string* | - |
+| `args.routeName?` | *string* | 路径名称 |
 
 **Returns:** *string*
 
-Defined in: creep/group/index.ts:119
+Defined in: creep/group/index.ts:132
 
 ___
 
@@ -170,4 +197,4 @@ ___
 
 **Returns:** *string*
 
-Defined in: creep/group/index.ts:144
+Defined in: creep/group/index.ts:191

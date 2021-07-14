@@ -17,6 +17,7 @@ export interface AcrossTickMemory {
     executeTick: number;
     taskCreateTick?: number;
     intervalTick: number;
+    log: boolean;
 }
 
 export type AcrossTickReturnCode = "finish" | "emptyTask" | "runAgain";

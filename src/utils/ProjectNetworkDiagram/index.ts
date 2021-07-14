@@ -133,15 +133,21 @@ export class ProjectNetworkDiagram {
         return returnObject as Record<T, string[]>;
     }
 
+    public resetDiagram(): void {
+        this.memoryPath.diagram = { startNode: this.startNode };
+        this.diagram = this.memoryPath.diagram;
+    }
+
     private getNodeContent(nodeName: string): string {
         const nodeContentList: string[] = [];
         const node = this.diagram[nodeName];
-        nodeContentList.push(`${nodeName}(${node.state})`);
+        nodeContentList.push(`${nodeName}`);
+        nodeContentList.push(`state:${node.state}`);
         if (node.time.start !== -1) nodeContentList.push(`start:${node.time.start}`);
         if (node.time.end !== -1) nodeContentList.push(`end:${node.time.end}`);
         if (node.time.start !== -1 && node.time.end !== -1)
             nodeContentList.push(`time of duration:${node.time.end - node.time.start}`);
-        return nodeContentList.join("<br/>");
+        return nodeContentList.join("<br/>"); // mermaid的换行符
     }
 
     private getDiagramCode(markdown: boolean): string {

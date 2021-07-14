@@ -9,7 +9,7 @@ export function moveCreepBetweenGroup(
 ): string {
     const { creepBody, creepGroupName, priority, roomName, readyCondition, creepNameList } = args;
     const logList: string[] = [];
-    CreepGroup.create({ routeName: creepGroupName, creepGroupName });
+    CreepGroup.create({ creepGroupName, mode: "route" });
     creepNameList.forEach(creepName => {
         logList.push(
             SpawnPool.addCreep({

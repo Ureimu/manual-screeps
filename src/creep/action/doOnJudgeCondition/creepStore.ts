@@ -10,6 +10,10 @@ function run(creep: Creep, conditionArgs?: string[]): [state, conditionState] {
         flag = creep.store.getFreeCapacity() === 0;
     } else if (sign === "empty") {
         flag = creep.store.getUsedCapacity() === 0;
+    } else if (sign === "notFull") {
+        flag = creep.store.getFreeCapacity() !== 0;
+    } else if (sign === "notEmpty") {
+        flag = creep.store.getUsedCapacity() !== 0;
     } else {
         throw new Error("错误使用creepStore:只接受full和empty作为符号参数");
     }

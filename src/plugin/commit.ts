@@ -14,7 +14,8 @@ export const pluginCommit = {
                 taskName: "loadPlugin",
                 executeTick: Game.time + 1,
                 intervalTick: 1,
-                args: [segmentName]
+                args: [segmentName],
+                log: true
             },
             task => {
                 loadPlugin(RawMemory.segments[Number(task.args[0])]);

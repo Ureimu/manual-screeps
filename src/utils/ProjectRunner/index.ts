@@ -28,6 +28,14 @@ export class ProjectRunner {
             taskDiagram.addNode(taskNodeName, taskNodeCollection[taskNodeName]);
         }
     }
+
+    public static resetTaskDiagram(
+        taskNodeCollection: { [name: string]: string[] },
+        taskDiagram: ProjectNetworkDiagram
+    ): void {
+        taskDiagram.resetDiagram();
+        this.initTaskDiagram(taskNodeCollection, taskDiagram);
+    }
 }
 
 export interface TaskObject<T extends unknown[]> {

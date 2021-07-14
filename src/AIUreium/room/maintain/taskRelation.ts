@@ -46,7 +46,7 @@ export const taskRelation = {
     [fillSpawn.name]: [createFillSpawnGroup.name],
     [carrySource.name]: [createFillSpawnGroup.name],
     [buildStructureByStorage.name]: [storageHasBuilt.name],
-    [upgradeByStorage.name]: [storageHasBuilt.name],
+    [upgradeByStorage.name]: [storageHasBuilt.name, upgradeBySource.name],
     [createScoutGroup.name]: [storageHasBuilt.name]
 };
 
@@ -78,7 +78,7 @@ export function runTasks(room: Room): void {
     const diagram = new ProjectNetworkDiagram(memoryAddress(room));
     if (Game.time % 300 === 0) {
         // diagram.downloadDiagram();
-        console.log(diagram.printDiagram());
+        // console.log(diagram.printDiagram());
     }
     if (diagram.nodeNum <= 1) {
         ProjectRunner.initTaskDiagram(taskRelation, diagram);
@@ -94,3 +94,10 @@ export function callOnStart(room: Room): void {
 }
 
 export type RoomTaskArgs = [Room];
+
+export function resetMaintainTaskProject(room: Room): void {
+    if (memoryAddress(room)) {
+        const diagram = new ProjectNetworkDiagram(memoryAddress(room));
+        ProjectRunner.resetTaskDiagram(taskRelation, diagram);
+    }
+}

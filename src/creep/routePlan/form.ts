@@ -1,4 +1,4 @@
-import { actionIndexedList } from "creep/action/doOnArrived";
+import { creepAct } from "creep/action/doOnArrived";
 import { createForm } from "utils/console";
 
 export function callOnStart(): void {
@@ -41,7 +41,7 @@ export class routePlanForm {
                     name: "doWhenArrive",
                     label: "到达时的执行动作",
                     type: "select",
-                    options: Object.entries(actionIndexedList).map(value => {
+                    options: Object.entries(creepAct).map(value => {
                         const [name, CreepAction] = value;
                         return { value: name, label: CreepAction.description };
                     })

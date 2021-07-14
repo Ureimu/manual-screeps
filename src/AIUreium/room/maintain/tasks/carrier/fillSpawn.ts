@@ -4,6 +4,7 @@ import { FlagMaintainer } from "flagMaintainer";
 import { FlagTools } from "flagMaintainer/tools";
 import { SpawnPool } from "spawn/spawnPool";
 import { TaskObject } from "utils/ProjectRunner";
+import { PosStr } from "utils/RoomPositionToStr";
 import { RoomTaskArgs } from "../../taskRelation";
 
 export const fillSpawn: TaskObject<RoomTaskArgs> = {
@@ -20,7 +21,7 @@ export const fillSpawn: TaskObject<RoomTaskArgs> = {
         const routeName = `${room.name}fillSpawn`;
         const creepGroupName = `${room.name}fs`;
         const storageFlagName = FlagTools.getName(room.name, "storage", 0);
-
+        const storagePosStr = PosStr.setPosToStr(Game.flags[storageFlagName].pos);
         Memory.creepGroups[creepGroupName].creepNameList.forEach(creepName => {
             SpawnPool.setCreepProperties({ creepName, roomName: room.name, priority: "13" });
         }); // 提高该creep的优先级
@@ -34,17 +35,47 @@ export const fillSpawn: TaskObject<RoomTaskArgs> = {
             jumpTo: 3,
             conditionArgs: `<=,20`
         });
+        RoutePlan.addCondition({
+            routeName,
+            condition: "creepStore",
+            jumpTo: 2,
+            conditionArgs: `full`
+        });
         RoutePlan.addMidpoint({
             routeName,
             pathMidpointPos: storageFlagName,
             range: 1,
             doWhenArrive: "withdrawEnergy"
         });
+        RoutePlan.addCondition({
+            routeName,
+            condition: "spawnEnergy",
+            jumpTo: 2,
+            conditionArgs: `full`
+        });
         RoutePlan.addMidpoint({
             routeName,
             pathMidpointPos: storageFlagName,
             range: 1,
             doWhenArrive: "fillSpawnAndExtension"
+        });
+        RoutePlan.addCondition({
+            routeName,
+            condition: "store",
+            jumpTo: 3,
+            conditionArgs: `${storagePosStr},energy,>=,2000`
+        });
+        RoutePlan.addCondition({
+            routeName,
+            condition: "creepStore",
+            jumpTo: 2,
+            conditionArgs: `notFull`
+        });
+        RoutePlan.addMidpoint({
+            routeName,
+            pathMidpointPos: storageFlagName,
+            range: 50,
+            doWhenArrive: "stayByRoad"
         });
         RoutePlan.addCondition({
             routeName,

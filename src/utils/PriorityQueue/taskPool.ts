@@ -58,9 +58,11 @@ export class TaskPool<T extends PriorityQueue.node> {
     /**
      * 将c++队列对象保存到Memory.
      *
-     * @param {PriorityQueue<BaseTaskInf>} queue 要保存的队列
-     * @param {TaskQueue} taskPoolMemory 存储路径
-     * @param {string} TaskQueueName 队列名称
+     * @param {PriorityQueue<T>} queue
+     * @param {string} TaskQueueName
+     * @param {taskPool<T>} taskPoolMemory
+     * @returns {T[]}
+     * @memberof TaskPool
      */
     public setQueue(queue: PriorityQueue<T>, TaskQueueName: string, taskPoolMemory: taskPool<T>): T[] {
         taskPoolMemory[TaskQueueName].splice(0); // 清空数组，不能直接赋空数组(=[]),因为这里的函数参数是引用,重新赋值会覆盖引用.

@@ -1,11 +1,7 @@
 declare global {
     interface Memory {
         creepGroups: {
-            [creepGroupName: string]: {
-                creepNameList: string[];
-                routeName?: string;
-                ifShow: boolean;
-            };
+            [creepGroupName: string]: CreepGroupMemory<CreepGroupMode>;
         };
     }
 
@@ -21,4 +17,26 @@ declare global {
  */
 export interface creepGroupDetail {
     creepNameList: string[];
+}
+
+export type CreepGroupMemory<T extends CreepGroupMode> = T extends "route"
+    ? {
+          mode: "route";
+          creepNameList: string[];
+          routeName?: string;
+          ifShow: boolean;
+      }
+    : T extends "role"
+    ? {
+          mode: "role";
+          creepNameList: string[];
+          roleName?: string;
+          ifShow: boolean;
+      }
+    : never;
+
+export type CreepGroupMode = "route" | "role";
+
+export function creepGroupModeIsRoute(memory: CreepGroupMemory<CreepGroupMode>): memory is CreepGroupMemory<"route"> {
+    return memory.mode === "route";
 }

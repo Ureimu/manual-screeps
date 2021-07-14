@@ -25,7 +25,7 @@ export const buildStructureByStorage: TaskObject<RoomTaskArgs> = {
         const sources = room.find(FIND_SOURCES);
         FlagMaintainer.refresh({
             roomName: room.name,
-            typeList: FlagMaintainer.getTypeList(["container", "source", "controller"])
+            typeList: FlagMaintainer.getTypeList(["container", "source", "controller", "storage"])
         });
 
         const routeName = `${room.name}buildStructureByStorage`;
@@ -45,7 +45,7 @@ export const buildStructureByStorage: TaskObject<RoomTaskArgs> = {
             routeName,
             condition: "store",
             jumpTo: 2,
-            conditionArgs: `${PosStr.setPosToStr(Game.flags[storageFlagName].pos)},${RESOURCE_ENERGY},>=,1e4`
+            conditionArgs: `${PosStr.setPosToStr(Game.flags[storageFlagName].pos)},${RESOURCE_ENERGY},>=,${1e4}`
         });
         RoutePlan.addMidpoint({
             routeName,
@@ -57,7 +57,7 @@ export const buildStructureByStorage: TaskObject<RoomTaskArgs> = {
             routeName,
             condition: "store",
             jumpTo: 2,
-            conditionArgs: `${PosStr.setPosToStr(Game.flags[storageFlagName].pos)},${RESOURCE_ENERGY},<=,1e4`
+            conditionArgs: `${PosStr.setPosToStr(Game.flags[storageFlagName].pos)},${RESOURCE_ENERGY},<=,${1e4}`
         });
         RoutePlan.addMidpoint({
             routeName,

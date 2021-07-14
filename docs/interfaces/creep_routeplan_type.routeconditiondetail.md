@@ -16,9 +16,9 @@
 
 ### condition
 
-• **condition**: *string*
+• **condition**: ``"store"`` \| ``"creepStore"`` \| ``"creepTimeToLive"`` \| ``"alwaysJump"`` \| ``"spawnEnergy"``
 
-Defined in: creep/routePlan/type.ts:55
+Defined in: creep/routePlan/type.ts:56
 
 ___
 
@@ -26,12 +26,12 @@ ___
 
 • `Optional` **conditionArgs**: *string*
 
-Defined in: creep/routePlan/type.ts:57
+Defined in: creep/routePlan/type.ts:58
 
 ___
 
 ### jumpTo
 
-• **jumpTo**: *number*
+• **jumpTo**: *number* \| ``"front"`` \| ``"end"``
 
-Defined in: creep/routePlan/type.ts:56
+Defined in: creep/routePlan/type.ts:57

@@ -1,5 +1,5 @@
-import lodash from 'lodash';
+import lodash from "lodash";
 
 declare global {
-    const _: typeof lodash
+    const _: typeof lodash;
 }

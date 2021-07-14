@@ -1,3 +1,4 @@
+import { resetMaintainTaskProject } from "AIUreium/room/maintain/taskRelation";
 import { clearCreepRouteMemory } from "creep/action";
 import { newAcrossTickTask } from "utils/AcrossTick";
 import bodypartsGenerator from "utils/bodypartsGenerator";
@@ -7,12 +8,13 @@ import { createForm } from "utils/console/form";
 declare global {
     namespace NodeJS {
         interface Global {
-            microFunction: {
+            mf: {
                 clearRoutes: () => void;
                 createTestCreep: () => void;
                 clearAll: () => void;
                 testConsole: () => string;
                 testConsoleCommit: (args: { uploadedFile: string }) => string;
+                resetAllMaintainTaskProject: () => void;
                 id: string;
             };
         }
@@ -21,7 +23,15 @@ declare global {
 
 // 挂载全局拓展
 export default function mountGlobalMicroFunction(): void {
-    global.microFunction = { clearRoutes, createTestCreep, clearAll, testConsole, testConsoleCommit, id: "" };
+    global.mf = {
+        clearRoutes,
+        createTestCreep,
+        clearAll,
+        testConsole,
+        testConsoleCommit,
+        id: "",
+        resetAllMaintainTaskProject
+    };
 }
 
 function clearRoutes(): void {
@@ -35,7 +45,8 @@ function createTestCreep(): void {
             taskName: "spawnTestCreep",
             args: [0],
             executeTick: Game.time + 1,
-            intervalTick: 5
+            intervalTick: 5,
+            log: true
         },
         task => {
             const [index] = task.args as string[];
@@ -64,7 +75,7 @@ function clearAll(): void {
 
 function testConsole(): string {
     const commitFunctionName = "microFunction.testConsoleCommit";
-    global.microFunction.id = "uploadedFile" + String(Date.now());
+    global.mf.id = "uploadedFile" + String(Date.now());
     return createForm(
         commitFunctionName + String(Game.time),
         [
@@ -72,7 +83,7 @@ function testConsole(): string {
                 name: "uploadedFile",
                 label: "上传配置文件",
                 type: "upload",
-                id: global.microFunction.id
+                id: global.mf.id
             }
         ],
         {
@@ -87,7 +98,7 @@ function testConsole(): string {
 function testConsoleCommit(args: { uploadedFile: string }): string {
     const loadScript = `
 <script>
-var element = document.getElementById('${global.microFunction.id}');
+var element = document.getElementById('${global.mf.id}');
 global.test=element.form.id
 </script>
     `
@@ -95,4 +106,10 @@ global.test=element.form.id
         .map(s => s.trim())
         .join("");
     return loadScript + args.uploadedFile;
+}
+
+function resetAllMaintainTaskProject(): void {
+    for (const room in Game.rooms) {
+        resetMaintainTaskProject(Game.rooms[room]);
+    }
 }

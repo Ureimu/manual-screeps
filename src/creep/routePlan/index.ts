@@ -140,6 +140,7 @@ export class RoutePlan {
         } else {
             clearCreepRouteMemory(creepMemory);
         }
+        creepMemory.mode = "route";
         creepMemory.route.name = routeName;
         return style(`为creep ${creepName} 选择路径 ${routeName} 完成`, "log");
     }
@@ -208,7 +209,8 @@ export class RoutePlan {
                     taskName: "routePlan.showRoutes", // 任务名称
                     args: [roomName, routeName], // 传递的参数，要能够放在memory的类型
                     executeTick: Game.time + 1,
-                    intervalTick: 1 // 在多久后执行
+                    intervalTick: 1, // 在多久后执行
+                    log: true
                 },
                 task => {
                     const [roomNameArg, routeNameArg] = task.args as string[];

@@ -76,3 +76,10 @@ export const repair: CreepAction = {
     description: "修复建筑",
     type: "move"
 };
+
+declare global {
+    interface GlobalCreepMemory {
+        lastRenovate?: string;
+        lastRenovateHit?: number;
+    }
+}

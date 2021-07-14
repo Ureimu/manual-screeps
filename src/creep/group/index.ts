@@ -1,7 +1,9 @@
 import { consoleStyle } from "console/style";
+import { setRoleForCreep } from "creep/action/runCreepByRole";
 import { RoutePlan } from "creep/routePlan";
 import { newAcrossTickTask } from "utils/AcrossTick";
 import { showCreepGroups } from "./show";
+import { CreepGroupMemory, CreepGroupMode, creepGroupModeIsRoute } from "./type";
 
 const style = consoleStyle("CreepGroup");
 
@@ -14,12 +16,17 @@ export class CreepGroup {
      * @returns {string}
      * @memberof creepGroup
      */
-    public static create(args: { creepGroupName: string }): string {
+    public static create(args: { creepGroupName: string; mode: CreepGroupMode }): string {
         const { creepGroupName } = args;
+        const { mode } = args;
         if (creepGroupName === "") {
             return style(`creep组名称不可以为空`, "error");
         }
+        if (mode !== "route" && mode !== "role") {
+            throw new Error("mode输入错误，请检查");
+        }
         Memory.creepGroups[creepGroupName] = {
+            mode,
             creepNameList: [],
             ifShow: false
         };
@@ -46,8 +53,17 @@ export class CreepGroup {
         if (!Memory.creeps[creepName]) {
             (Memory.creeps[creepName] as Partial<CreepMemory>) = {};
         }
-        const routeName = Memory.creepGroups[creepGroupName].routeName;
-        if (routeName && routeName !== "") RoutePlan.chooseRouteForCreep({ creepName, routeName });
+        const creepGroupMemory = Memory.creepGroups[creepGroupName];
+        if (creepGroupModeIsRoute(creepGroupMemory)) {
+            const routeName = creepGroupMemory.routeName;
+            if (routeName && routeName !== "") RoutePlan.chooseRouteForCreep({ creepName, routeName });
+        } else {
+            const roleName = creepGroupMemory.roleName;
+            if (roleName && roleName !== "") {
+                setRoleForCreep({ roleName, creepName });
+            }
+        }
+
         Memory.creeps[creepName].groupName = creepGroupName;
         return style(
             `为creep组 ${creepGroupName} 添加creep ${creepName} 成功，现在有 ${Memory.creepGroups[creepGroupName].creepNameList.length} 个creep`,
@@ -86,8 +102,17 @@ export class CreepGroup {
         if (!Memory.creeps[creepName]) {
             (Memory.creeps[creepName] as Partial<CreepMemory>) = {};
         }
-        const routeName = Memory.creepGroups[newCreepGroupName].routeName;
-        if (routeName) RoutePlan.chooseRouteForCreep({ creepName, routeName });
+
+        const newCreepGroupMemory = Memory.creepGroups[newCreepGroupName];
+        if (creepGroupModeIsRoute(newCreepGroupMemory)) {
+            const routeName = newCreepGroupMemory.routeName;
+            if (routeName && routeName !== "") RoutePlan.chooseRouteForCreep({ creepName, routeName });
+        } else {
+            const roleName = newCreepGroupMemory.roleName;
+            if (roleName && roleName !== "") {
+                setRoleForCreep({ roleName, creepName });
+            }
+        }
         Memory.creeps[creepName].groupName = newCreepGroupName;
         return style(
             `为creep组 ${currentCreepGroupName} 删除creep ${creepName} 成功，${currentCreepGroupName} 现在有 ${Memory.creepGroups[currentCreepGroupName].creepNameList.length} 个creep;` +
@@ -106,20 +131,56 @@ export class CreepGroup {
      */
     public static setCreepGroupProperties(args: {
         creepGroupName: string;
+        mode?: CreepGroupMode;
+        roleName?: string;
         /**
          * 路径名称
          *
          * @type {string}
          */
-        routeName: string;
+        routeName?: string;
     }): string {
-        const { creepGroupName, routeName } = args;
+        const { creepGroupName, routeName, roleName } = args;
         // console.log(creepGroupName, routeName);
-        Memory.creepGroups[creepGroupName].routeName = routeName;
-        Memory.creepGroups[creepGroupName].creepNameList.forEach(creepName => {
-            RoutePlan.chooseRouteForCreep({ creepName, routeName });
-        });
-        return style(`将creep组 ${creepGroupName} 的路径修改为 ${routeName} 设置完成`, "log");
+        const creepGroupMemory = Memory.creepGroups[creepGroupName];
+        const { mode = creepGroupMemory.mode } = args;
+        console.log(`设定${creepGroupName}`);
+        if (mode === creepGroupMemory.mode) {
+            if (creepGroupModeIsRoute(creepGroupMemory)) {
+                if (!routeName) throw new Error("没有给定路径名称");
+                creepGroupMemory.routeName = routeName;
+                creepGroupMemory.creepNameList.forEach(creepName => {
+                    RoutePlan.chooseRouteForCreep({ creepName, routeName });
+                });
+                return style(`将creep组 ${creepGroupName} 的路径修改为 ${routeName} 设置完成`, "log");
+            } else {
+                if (!roleName) throw new Error("没有给定角色名称");
+                creepGroupMemory.roleName = roleName;
+                creepGroupMemory.creepNameList.forEach(creepName => {
+                    {
+                        setRoleForCreep({ roleName, creepName });
+                    }
+                });
+                console.log(style(`将creep组 ${creepGroupName} 的角色修改为 ${roleName} 设置完成`, "log"));
+                return style(`将creep组 ${creepGroupName} 的角色修改为 ${roleName} 设置完成`, "log");
+            }
+        } else {
+            if (creepGroupModeIsRoute(creepGroupMemory)) {
+                if (!roleName) throw new Error("没有给定角色名称");
+                creepGroupMemory.routeName = undefined;
+                Memory.creepGroups[creepGroupName].mode = "role";
+                const newCreepGroupMemory = Memory.creepGroups[creepGroupName] as CreepGroupMemory<"role">;
+                newCreepGroupMemory.roleName = roleName;
+                return style(`更改mode为role并将creep组 ${creepGroupName} 的角色修改为 ${roleName} 设置完成`, "log");
+            } else {
+                if (!routeName) throw new Error("没有给定路径名称");
+                creepGroupMemory.roleName = undefined;
+                Memory.creepGroups[creepGroupName].mode = "route";
+                const newCreepGroupMemory = Memory.creepGroups[creepGroupName] as CreepGroupMemory<"route">;
+                newCreepGroupMemory.routeName = routeName;
+                return style(`更改mode为route并将creep组 ${creepGroupName} 的路径修改为 ${routeName} 设置完成`, "log");
+            }
+        }
     }
     /**
      * 在房间中显示creep组。
@@ -134,28 +195,34 @@ export class CreepGroup {
         // console.log(creepGroupName, roomName);
         const booleanIfRun = ifRun === "true" ? true : false;
         Memory.creepGroups[creepGroupName].ifShow = booleanIfRun;
-        const routeName = Memory.creepGroups[creepGroupName].routeName;
-        if (!routeName || routeName === "") {
-            return style(`路径名称不可以为空`, "error");
-        }
-        if (booleanIfRun) {
-            newAcrossTickTask(
-                {
-                    taskName: "routePlan.showCreepGroups", // 任务名称
-                    args: [roomName, creepGroupName], // 传递的参数，要能够放在memory的类型
-                    executeTick: Game.time + 1,
-                    intervalTick: 1 // 在多久后执行
-                },
-                task => {
-                    const [roomNameArg, creepGroupNameArg] = task.args as string[];
-                    if (Memory.creepGroups[creepGroupNameArg].ifShow) {
-                        showCreepGroups(creepGroupNameArg, roomNameArg);
-                        return "runAgain";
-                    } else {
-                        return "finish";
+        const creepGroupMemory = Memory.creepGroups[creepGroupName];
+        if (creepGroupModeIsRoute(creepGroupMemory)) {
+            const routeName = creepGroupMemory.routeName;
+            if (!routeName || routeName === "") {
+                return style(`路径名称不可以为空`, "error");
+            }
+            if (booleanIfRun) {
+                newAcrossTickTask(
+                    {
+                        taskName: "routePlan.showCreepGroups", // 任务名称
+                        args: [roomName, creepGroupName], // 传递的参数，要能够放在memory的类型
+                        executeTick: Game.time + 1,
+                        intervalTick: 1, // 在多久后执行,
+                        log: true
+                    },
+                    task => {
+                        const [roomNameArg, creepGroupNameArg] = task.args as string[];
+                        if (Memory.creepGroups[creepGroupNameArg].ifShow) {
+                            showCreepGroups(creepGroupNameArg, roomNameArg);
+                            return "runAgain";
+                        } else {
+                            return "finish";
+                        }
                     }
-                }
-            );
+                );
+            }
+        } else {
+            throw new Error("showCreepGroups暂时不支持mode为role的可视化。");
         }
         return style(`执行可视化 ${creepGroupName} : ${roomName} : ${ifRun}`, "log");
     }

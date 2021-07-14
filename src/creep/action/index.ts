@@ -1,10 +1,12 @@
+import { CreepGroupMode } from "creep/group/type";
 import { isRouteMidpointDetail } from "creep/routePlan/type";
 import * as profiler from "../../utils/profiler";
-import { actionIndexedList } from "./doOnArrived";
+import { creepAct } from "./doOnArrived";
 import { doStuff } from "./onArrived";
 import { judgeCondition } from "./onJudgeCondition";
 import { moveCreep } from "./onMoving";
 import { emptyRouteCacheDetail } from "./routeCache";
+import { runCreepByRole } from "./runCreepByRole";
 
 export function clearCreepRouteMemory(creepMemory: CreepMemory): void {
     creepMemory.route = {
@@ -16,7 +18,10 @@ export function clearCreepRouteMemory(creepMemory: CreepMemory): void {
 
 export function callOnCreepBirth(creep: Creep): void {
     if (!global.creepMemory) global.creepMemory = {};
-    if (!global.creepMemory[creep.name]) global.creepMemory[creep.name] = emptyRouteCacheDetail;
+    if (!global.creepMemory[creep.name]) {
+        global.creepMemory[creep.name] = {};
+        global.creepMemory[creep.name].routeCacheDetail = emptyRouteCacheDetail;
+    }
 }
 
 export function callOnStart(): void {
@@ -35,6 +40,8 @@ export interface CreepMemoryRouteDetail {
 declare global {
     interface CreepMemory {
         route: CreepMemoryRouteDetail;
+        mode?: CreepGroupMode;
+        role: string;
     }
 }
 
@@ -43,10 +50,15 @@ export type conditionState = "jump" | "notJump";
 
 export default profiler.registerFN(runCreepAction, "runCreepAction");
 function runCreepAction(creep: Creep): void {
+    if (creep.memory.mode === "role") {
+        runCreepByRole(creep);
+        return;
+    }
     if (creep.memory.route && creep.memory.route.name !== "") {
         const creepRoute = creep.memory.route;
         const switchCounter = { count: 0 };
         runRecursiveCreepAction(creep, creepRoute, switchCounter);
+        return;
     }
 }
 
@@ -76,7 +88,7 @@ function runRecursiveCreepAction(
                 }
                 break;
             case "arrived": {
-                const type = actionIndexedList[routeDetail.doWhenArrive].type;
+                const type = creepAct[routeDetail.doWhenArrive].type;
                 creepRoute.state = doStuff(creep, routeDetail);
                 const nextMidpoint = Memory.routes[creep.memory.route.name].routeDetailArray[creep.memory.route.index];
                 if (creepRoute.state === "moving") {

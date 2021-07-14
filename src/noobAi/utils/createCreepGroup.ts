@@ -10,7 +10,7 @@ export function createCreepGroup(
 ): string {
     const { creepBody, creepGroupName, priority, roomName, readyCondition, creepNameList, routeName } = args;
     const logList: string[] = [];
-    CreepGroup.create({ routeName, creepGroupName });
+    CreepGroup.create({ creepGroupName, mode: "route" });
     creepNameList.forEach(creepName => {
         logList.push(
             ...[

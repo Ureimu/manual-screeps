@@ -3,6 +3,7 @@ import { conditionState, state } from "..";
 import { alwaysJump } from "./alwaysJump";
 import { creepStore } from "./creepStore";
 import { creepTimeToLive } from "./creepTimeToLive";
+import { spawnEnergy } from "./spawnEnergy";
 import { store } from "./store";
 
 export interface CreepCondition {
@@ -11,7 +12,7 @@ export interface CreepCondition {
     description: string;
 }
 
-export const conditionIndexedList = { store, creepStore, creepTimeToLive, alwaysJump };
+export const conditionIndexedList = { store, creepStore, creepTimeToLive, alwaysJump, spawnEnergy };
 
 export function switchDoWhenCondition(routeDetail: RouteConditionDetail, creep: Creep): state {
     if (conditionIndexedList[routeDetail.condition]) {

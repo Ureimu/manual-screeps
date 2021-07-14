@@ -1,6 +1,7 @@
 import { tower } from "./structure/tower";
 import { maintainRoom } from "./room/maintain";
 import { CreepBody } from "creep/body";
+import { manageScoutTask } from "./roles/maintain/scouter";
 
 export function runAi(): void {
     if (!Memory.creepBodyConfig.overalls) {
@@ -10,6 +11,6 @@ export function runAi(): void {
     _.forEach(Game.rooms, room => {
         tower.run(room.name);
     });
-
+    manageScoutTask();
     if (Game.time % 5 === 0) maintainRoom();
 }

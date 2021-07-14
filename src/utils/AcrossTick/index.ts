@@ -12,7 +12,8 @@ export class AcrossTick {
             args: [],
             executeTick: Game.time,
             taskCreateTick: Game.time,
-            intervalTick: 1
+            intervalTick: 1,
+            log: false
         };
     }
 
@@ -93,17 +94,17 @@ function runSpecifiedTickTask(tick: number): void {
 export function runAfterTask(returnCode: AcrossTickReturnCode, task: AcrossTickMemory): AcrossTickReturnCode {
     switch (returnCode) {
         case "finish": {
-            console.log(`Running TickTask finished: ${task.taskName}`);
+            if (task.log) console.log(`Running TickTask finished: ${task.taskName}`);
             // Memory.AcrossTick[task.executeTick].splice(Memory.AcrossTick[task.executeTick].indexOf(task), 1);
             return "finish";
         }
         case "emptyTask": {
-            console.log(`Running emptyTask finished: ${task.taskName}`);
+            if (task.log) console.log(`Running emptyTask finished: ${task.taskName}`);
             return "emptyTask";
         }
         case "runAgain": {
             newAcrossTickTask(task);
-            // console.log(`Running TickTask finished: ${task.taskName}, this task will run again at ${task.executeTick}`);
+            // if (task.log) console.log(`Running TickTask finished: ${task.taskName}, this task will run again at ${task.executeTick}`);
             return "runAgain";
         }
         default:

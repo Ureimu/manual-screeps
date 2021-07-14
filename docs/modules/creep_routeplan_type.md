@@ -23,7 +23,7 @@
 
 Ƭ **RouteSingleDetail**: [*RouteMidpointDetail*](../interfaces/creep_routeplan_type.routemidpointdetail.md) \| [*RouteConditionDetail*](../interfaces/creep_routeplan_type.routeconditiondetail.md)
 
-Defined in: creep/routePlan/type.ts:15
+Defined in: creep/routePlan/type.ts:16
 
 ## Functions
 
@@ -43,4 +43,4 @@ Defined in: creep/routePlan/type.ts:15
 
 **Returns:** detail is RouteMidpointDetail
 
-Defined in: creep/routePlan/type.ts:67
+Defined in: creep/routePlan/type.ts:68

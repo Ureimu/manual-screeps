@@ -21,7 +21,7 @@
 
 • **creepBody**: *string*
 
-Defined in: spawn/spawnPool/type.ts:18
+Defined in: spawn/spawnPool/type.ts:21
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 • **creepName**: *string*
 
-Defined in: spawn/spawnPool/type.ts:17
+Defined in: spawn/spawnPool/type.ts:20
 
 ___
 
@@ -37,7 +37,7 @@ ___
 
 • **priority**: *number*
 
-Defined in: spawn/spawnPool/type.ts:19
+Defined in: spawn/spawnPool/type.ts:22
 
 ___
 
@@ -45,7 +45,7 @@ ___
 
 • **readyCondition**: keyof ReadyCondition
 
-Defined in: spawn/spawnPool/type.ts:20
+Defined in: spawn/spawnPool/type.ts:23
 
 ___
 
@@ -53,7 +53,7 @@ ___
 
 • `Optional` **spawnName**: *string*
 
-Defined in: spawn/spawnPool/type.ts:22
+Defined in: spawn/spawnPool/type.ts:25
 
 ___
 
@@ -61,4 +61,4 @@ ___
 
 • **state**: [*runningState*](../modules/spawn_spawnpool_type.md#runningstate)
 
-Defined in: spawn/spawnPool/type.ts:21
+Defined in: spawn/spawnPool/type.ts:24

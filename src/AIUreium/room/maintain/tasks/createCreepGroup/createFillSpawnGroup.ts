@@ -11,7 +11,7 @@ export const createFillSpawnGroup: TaskObject<RoomTaskArgs> = {
     },
     working(room) {
         const creepGroupName = `${room.name}fs`;
-        CreepGroup.create({ creepGroupName });
+        CreepGroup.create({ creepGroupName, mode: "route" });
         for (let index = 0; index < 2; index++) {
             createCreepGroup(room, creepGroupName, index);
         }

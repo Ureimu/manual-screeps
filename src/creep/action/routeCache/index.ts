@@ -1,6 +1,6 @@
 import { isRouteMidpointDetail, RouteMidpointDetail } from "creep/routePlan/type";
 import { PosStr } from "utils/RoomPositionToStr";
-import { actionIndexedList } from "../doOnArrived";
+import { creepAct } from "../doOnArrived";
 import { CostMatrixOpts } from "./getCostMatrix";
 
 declare global {
@@ -9,18 +9,10 @@ declare global {
             routeCache: {
                 [origin: string]: { [destination: string]: routeCacheDetail };
             };
-            creepMemory: {
-                [creepName: string]: {
-                    count?: number;
-                    gameTime?: number;
-                    lastRenovate?: string;
-                    lastRenovateHit?: number;
-                    collectPos?: string;
-                    scoutRoomName?: string;
-                    parkingSpot?: string;
-                } & Partial<routeCacheDetail>;
-            };
         }
+    }
+    interface GlobalCreepMemory {
+        routeCacheDetail?: Partial<routeCacheDetail>;
     }
 }
 
@@ -43,7 +35,7 @@ export function createRouteCache(
     endRouteDetail: RouteMidpointDetail,
     creepPos: RoomPosition
 ): routeCacheDetail {
-    const type = actionIndexedList[startRouteDetail.doWhenArrive].type;
+    const type = creepAct[startRouteDetail.doWhenArrive].type;
     if (type === "stay" && isRouteMidpointDetail(endRouteDetail) && startRouteDetail.range !== 0) {
         // 进行路径缓存
         const startPointPosStr = PosStr.setPosToStr(creepPos);

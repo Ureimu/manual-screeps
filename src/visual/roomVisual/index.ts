@@ -1,14 +1,14 @@
 import { GUIfun } from "utils/roomVisualGUI";
 import { printMulText } from "utils/roomVisualGUI/utils";
-import { getCreepNum, getBpSumInSpawnQueue } from "./roomInf/creeps";
-import { getUpgradeSpeed } from "./roomInf/upgradeSpeed";
+import { getCreepNum, getBpSumInSpawnQueue } from "../roomInf/creeps";
+import { getUpgradeSpeed } from "../roomInf/upgradeSpeed";
 
 export function roomVisualize(room: Room): void {
     const upgradeSpeed = getUpgradeSpeed(room.name);
     room.memory.stats = {
-        upgradeSpeed: upgradeSpeed[0],
+        upgradeSpeed: upgradeSpeed[0].toFixed(4),
         creepNum: getCreepNum(room.name),
-        ticksToUpgrade: upgradeSpeed[1],
+        ticksToUpgrade: upgradeSpeed[1].toFixed(0),
         creepBodySizeInSpawnQueue: {}
     };
     for (const spawn of room.find(FIND_MY_SPAWNS)) {

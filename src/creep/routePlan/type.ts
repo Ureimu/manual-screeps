@@ -1,4 +1,4 @@
-import { actionIndexedList } from "creep/action/doOnArrived";
+import { creepAct } from "creep/action/doOnArrived";
 import { conditionIndexedList } from "creep/action/doOnJudgeCondition";
 
 declare global {
@@ -39,10 +39,10 @@ export interface RouteMidpointDetail {
     /**
      * 当到达位置时执行的动作。
      *
-     * @type {keyof typeof actionIndexedList}
+     * @type {keyof typeof creepAct}
      * @memberof RouteMidpointDetail
      */
-    doWhenArrive: keyof typeof actionIndexedList;
+    doWhenArrive: keyof typeof creepAct;
     /**
      * 动作参数。
      *

@@ -24,7 +24,8 @@ newAcrossTickTask(
         taskName: "routePlan.showRoutes", // 任务名称
         args: [visualExports, roomName, routeName], // 传递的参数，要能够放在memory的类型
         executeTick: Game.time + 1, // 在多久后执行
-        intervalTick: 1 // 运行间隔
+        intervalTick: 1, // 运行间隔
+        log: true // 运行完时是否在控制台输出
     },
     task => {
         const [visualExportsArg, roomNameArg, routeNameArg] = task.args as string[]; // 注意这边的参数不要和上面的args重名

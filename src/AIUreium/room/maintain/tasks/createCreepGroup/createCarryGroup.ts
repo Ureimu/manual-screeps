@@ -11,7 +11,7 @@ export const createCarryGroup: TaskObject<RoomTaskArgs> = {
     },
     working(room) {
         const creepGroupName = `${room.name}c`;
-        CreepGroup.create({ creepGroupName });
+        CreepGroup.create({ creepGroupName, mode: "route" });
         for (let index = 0; index < 2; index++) {
             createCreepGroup(room, creepGroupName, index);
         }

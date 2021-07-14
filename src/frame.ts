@@ -2,6 +2,7 @@ import { autoConstruction } from "construct";
 import runCreepAction from "creep/action";
 import { mountAll } from "mount";
 import { runSpawnPool, runSpawnQueue } from "spawn/spawning";
+import { mapVisualForRoom } from "visual/mapVisual";
 import { roomVisualize } from "visual/roomVisual";
 
 export function runFrame(): void {
@@ -12,6 +13,7 @@ export function runFrame(): void {
             autoConstruction(room);
             runSpawnPool(room);
             roomVisualize(room);
+            mapVisualForRoom(room);
         }
     });
 

@@ -16,6 +16,7 @@ declare global {
                 [roomName: string]: {
                     upgradeSpeed: number[];
                     level: number;
+                    time: number;
                 };
             };
         }

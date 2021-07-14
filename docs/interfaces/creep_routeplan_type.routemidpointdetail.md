@@ -29,19 +29,19 @@
 
 **`memberof`** RouteMidpointDetail
 
-Defined in: creep/routePlan/type.ts:51
+Defined in: creep/routePlan/type.ts:52
 
 ___
 
 ### doWhenArrive
 
-• **doWhenArrive**: ``"goTo"`` \| ``"harvestSource"`` \| ``"upgradeController"`` \| ``"signController"`` \| ``"transferEnergy"`` \| ``"withdrawEnergy"`` \| ``"build"`` \| ``"keepOnHarvestingSource"`` \| ``"buildInRange"`` \| ``"fillSpawnAndExtension"`` \| ``"fillTower"``
+• **doWhenArrive**: ``"goTo"`` \| ``"harvestSource"`` \| ``"upgradeController"`` \| ``"signController"`` \| ``"transferEnergy"`` \| ``"withdrawEnergy"`` \| ``"build"`` \| ``"keepOnHarvestingSource"`` \| ``"buildInRange"`` \| ``"fillSpawnAndExtension"`` \| ``"fillTower"`` \| ``"pause"`` \| ``"repair"`` \| ``"scoutRoom"`` \| ``"stayByRoad"``
 
 当到达位置时执行的动作。
 
 **`memberof`** RouteMidpointDetail
 
-Defined in: creep/routePlan/type.ts:44
+Defined in: creep/routePlan/type.ts:45
 
 ___
 
@@ -53,7 +53,7 @@ ___
 
 **`memberof`** RouteMidpointDetail
 
-Defined in: creep/routePlan/type.ts:30
+Defined in: creep/routePlan/type.ts:31
 
 ___
 
@@ -65,4 +65,4 @@ ___
 
 **`memberof`** RouteMidpointDetail
 
-Defined in: creep/routePlan/type.ts:37
+Defined in: creep/routePlan/type.ts:38

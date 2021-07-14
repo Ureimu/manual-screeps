@@ -142,7 +142,7 @@ ___
 
 **Returns:** *string*
 
-Defined in: creep/routePlan/index.ts:231
+Defined in: creep/routePlan/index.ts:237
 
 ___
 
@@ -165,7 +165,7 @@ ___
 
 **Returns:** *string*
 
-Defined in: creep/routePlan/index.ts:252
+Defined in: creep/routePlan/index.ts:258
 
 ___
 
@@ -189,7 +189,7 @@ ___
 
 **Returns:** *string*
 
-Defined in: creep/routePlan/index.ts:154
+Defined in: creep/routePlan/index.ts:155
 
 ___
 
@@ -214,4 +214,4 @@ ___
 
 **Returns:** *string*
 
-Defined in: creep/routePlan/index.ts:181
+Defined in: creep/routePlan/index.ts:182

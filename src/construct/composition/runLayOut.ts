@@ -123,31 +123,36 @@ function putConstructionSites<T extends BuildableStructureConstant>(
     structures = structures.concat(constructionSites);
     if (posList.length > 0) console.log(`[build] 放置工地 ${name}`);
     for (let i = 0; i < posList.length; i++) {
-        const conditionFlagList = [false, false];
-
+        const conditionFlagList = {
+            isInMemoryPosList: false,
+            isExistUnregisteredStructure: false
+        };
+        //
         for (const structure of structures) {
             if (structure.pos.isEqualTo(posList[i])) {
+                conditionFlagList.isExistUnregisteredStructure = true;
                 for (const id in room.memory.construct.construction[structureType]?.[name].memory) {
                     const pos = PosStr.getPosFromStr(
                         room.memory.construct.construction[structureType]?.[name].memory[id].pos as string
                     );
                     if (pos.isEqualTo(posList[i])) {
-                        conditionFlagList[1] = false;
+                        conditionFlagList.isExistUnregisteredStructure = false;
                         break;
                     }
                 }
-                // console.log(`[build] 检索到已建成建筑,已添加`);
-                conditionFlagList[1] = true;
+                if (!conditionFlagList.isExistUnregisteredStructure) {
+                    // console.log(`[build] 检索到已建成建筑,已添加`);
+                }
             }
         }
-        if (conditionFlagList[1] === true) {
+        if (conditionFlagList.isExistUnregisteredStructure === true) {
             constructionTypeMemory[name].num++;
             const sitePosSet = new Set<string>(constructionTypeMemory[name].sitePosList);
             sitePosSet.add(PosStr.setPosToStr(posList[i]));
             constructionTypeMemory[name].sitePosList = Array.from(sitePosSet);
-            conditionFlagList[0] = true;
+            conditionFlagList.isInMemoryPosList = true;
         }
-        if (conditionFlagList[0] === false) {
+        if (conditionFlagList.isInMemoryPosList === false) {
             console.log(`[build] 未检索到已建成建筑或工地,尝试放置工地 ${PosStr.setPosToStr(posList[i])}`);
             listC[i] = room.createConstructionSite(posList[i], structureType);
             if (listC[i] === ERR_FULL || listC[i] === ERR_RCL_NOT_ENOUGH) {
@@ -166,7 +171,7 @@ function putConstructionSites<T extends BuildableStructureConstant>(
             }
         }
     }
-    if (constructionTypeMemory[name].num === posList.length || constructionTypeMemory[name].num === buildNumberLimit) {
+    if (constructionTypeMemory[name].num === posList.length || constructionTypeMemory[name].num >= buildNumberLimit) {
         constructionTypeMemory[name].hasPutSites = true;
     }
     console.log(`[build] ${name} 检索完成，现在总工地数为${totalSitesNum}`);

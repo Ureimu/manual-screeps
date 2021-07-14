@@ -46,10 +46,10 @@ for (const name in unwrappedActionIndexedList) {
         `creepAction:${name}`
     );
 }
-export const actionIndexedList = unwrappedActionIndexedList;
+export const creepAct = unwrappedActionIndexedList;
 export function switchDoWhenArrive(routeDetail: RouteMidpointDetail, creep: Creep): state {
-    if (actionIndexedList[routeDetail.doWhenArrive]) {
-        return actionIndexedList[routeDetail.doWhenArrive].run(
+    if (creepAct[routeDetail.doWhenArrive]) {
+        return creepAct[routeDetail.doWhenArrive].run(
             creep,
             routeDetail.actionArgs ? routeDetail.actionArgs.split(",") : undefined
         );

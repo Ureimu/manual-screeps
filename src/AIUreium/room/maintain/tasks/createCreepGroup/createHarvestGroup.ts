@@ -22,7 +22,7 @@ export const createHarvestGroup: TaskObject<RoomTaskArgs> = {
                 roomName: room.name,
                 readyCondition: "loop"
             });
-            CreepGroup.create({ creepGroupName });
+            CreepGroup.create({ creepGroupName, mode: "route" });
             CreepGroup.addCreep({ creepName, creepGroupName });
         }
         return "end";

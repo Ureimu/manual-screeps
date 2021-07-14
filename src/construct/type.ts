@@ -48,5 +48,5 @@ export type SpecifiedStructureNameList<T extends BuildableStructureConstant> = T
     : T extends "link"
     ? "sourceLink" | "controllerLink" | "centerLink"
     : T extends "road"
-    ? "baseRoad" | "sourceAndControllerRoad" | "mineralRoad"
+    ? "baseRoad" | "sourceAndControllerRoad" | "mineralRoad" | "aroundSpawnRoad"
     : T;

@@ -42,7 +42,8 @@ function run(creep: Creep): state {
         }
         return "arrived";
     } else {
-        return runningCounter(creep);
+        if (runningCounter(creep, "fillSpawnAndExtension") % 2 === 1) return "moving";
+        return "arrived";
     }
 }
 

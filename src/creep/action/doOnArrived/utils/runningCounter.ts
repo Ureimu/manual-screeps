@@ -1,14 +1,22 @@
 import { state } from "creep/action";
 import { initGlobalCreepMemory } from "./initGlobalCreepMemory";
 
-export function runningCounter(creep: Creep): state {
+export function runningCounter(creep: Creep, name: string): number {
     initGlobalCreepMemory(creep);
-    if (!global.creepMemory[creep.name].count) global.creepMemory[creep.name].count = 0;
-    if (global.creepMemory[creep.name].gameTime !== Game.time) {
-        global.creepMemory[creep.name].gameTime = Game.time;
-        global.creepMemory[creep.name].count = 0;
+    const creepGlobalMemory = global.creepMemory[creep.name];
+    if (!creepGlobalMemory.count) creepGlobalMemory.count = {};
+    if (creepGlobalMemory.gameTime !== Game.time) {
+        creepGlobalMemory.gameTime = Game.time;
+        creepGlobalMemory.count[name] = 0;
     }
-    (global.creepMemory[creep.name].count as number)++;
-    if ((global.creepMemory[creep.name].count as number) % 2 === 1) return "moving";
-    return "arrived";
+    creepGlobalMemory.count[name]++;
+    return creepGlobalMemory.count[name];
+}
+declare global {
+    interface GlobalCreepMemory {
+        count?: {
+            [name: string]: number;
+        };
+        gameTime?: number;
+    }
 }

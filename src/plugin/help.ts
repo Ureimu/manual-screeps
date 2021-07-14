@@ -3,7 +3,7 @@ import { createFlattenHelp } from "utils/console/flattenHelp";
 
 const getButton = (funcName: string) => {
     return creators.button({
-        command: `() => functionClass.${funcName}()`,
+        command: `() => fc.${funcName}()`,
         content: `${funcName}`,
         type: "button",
         name: funcName

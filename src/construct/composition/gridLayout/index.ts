@@ -12,6 +12,7 @@ import { SetTools } from "utils/SetTools";
 const keepTime = 80; // 预览的持续时间
 const xUp = 0.25;
 export const gridLayoutBuildNumberLimit = _.cloneDeep(CONTROLLER_STRUCTURES);
+
 gridLayoutBuildNumberLimit.constructedWall = {
     0: 0,
     1: 0,
@@ -187,6 +188,170 @@ export function getGridLayout(room: Room): void {
     // 保留一份完整的buildSet和roadSet
     const fullBuildingExpand = new Set<string>(buildingExpand.keys());
     const fullRoadExpand = new Set<string>(roadExpand.keys());
+    const allRoadSet = new Set<string>(roadExpand.keys());
+
+    // 为所有建筑确定位置，并将分配结果存入room.memory.construct.layout中，方便建筑建造函数调用结果。
+    // 判断是否有中央布局的位置（四个构成斜正方形的building空位,会自动由内向外判断，尽量取离spawn最近的），如果没有则告知并提醒用户手动规划，有则转移给centerConstruction的memory.
+    let center = "";
+    let buildingExpandWithoutSpawn = buildingExpand;
+    buildingExpandWithoutSpawn.delete(PosStr.setPosToStr(Game.spawns[room.memory.construct.firstSpawnName.name].pos)); // 避免把spawn作为中心布局点
+    buildingExpandWithoutSpawn = PosStr.reverseSet(buildingExpandWithoutSpawn); // 一开始的集合元素遍历顺序是由外向内，这里把集合里的元素倒过来，变成由内向外。
+    buildingExpandWithoutSpawn.forEach(posStr0 => {
+        PosStr.getDiagPosStr(posStr0).forEach(posStr1 => {
+            let i5 = 0;
+            PosStr.getDiagPosStr(posStr1).forEach(posStr2 => {
+                if (buildingExpandWithoutSpawn.has(posStr2)) {
+                    i5++;
+                }
+            });
+            if (i5 === 4) {
+                center = posStr1;
+            }
+        });
+    });
+    PosStr.getDiagPosStr(center).forEach(posStr => {
+        buildingExpand.delete(posStr); // 从原集合中去除这四个位置
+        buildingExpandWithoutSpawn.delete(posStr); // 从原集合中去除这四个位置
+    });
+
+    // 判断powerSpawn,Nuker，ob,两个spawn的位置（尽量靠近storage）
+    const obSet = new Set<string>();
+    for (const posStr of buildingExpandWithoutSpawn) {
+        obSet.add(posStr);
+        buildingExpandWithoutSpawn.delete(posStr);
+        buildingExpand.delete(posStr);
+        break;
+    }
+    let buildingExpandPowerSpawn = buildingExpandWithoutSpawn;
+    buildingExpandPowerSpawn = PosStr.reverseSet(buildingExpandPowerSpawn);
+    const powerSpawnSet = new Set<string>();
+    const nukerSet = new Set<string>();
+    const spawnSet = new Set<string>();
+    spawnSet.add(PosStr.setPosToStr(Game.spawns[room.memory.construct.firstSpawnName.name].pos));
+    for (const posStr of buildingExpandPowerSpawn) {
+        powerSpawnSet.add(posStr);
+        buildingExpandPowerSpawn.delete(posStr);
+        buildingExpand.delete(posStr);
+        break;
+    }
+    for (const posStr of buildingExpandPowerSpawn) {
+        nukerSet.add(posStr);
+        buildingExpandPowerSpawn.delete(posStr);
+        buildingExpand.delete(posStr);
+        break;
+    }
+    let i3 = 0;
+    for (const posStr of buildingExpandPowerSpawn) {
+        i3++;
+        spawnSet.add(posStr);
+        buildingExpandPowerSpawn.delete(posStr);
+        buildingExpand.delete(posStr);
+        if (i3 > 1) {
+            break;
+        }
+    }
+    // 判断塔的位置（任意两个塔之间距离应大于等于3，并且尽量靠近storage）
+    const buildingExpandWithoutSpawnAndCenter = buildingExpandPowerSpawn;
+    const towerSet = new Set<string>();
+    buildingExpandWithoutSpawnAndCenter.forEach(posStr => {
+        let i2 = 0;
+        towerSet.forEach(towerPosStr => {
+            if (PosStr.getRangeToPosStr(posStr, towerPosStr) >= 3) {
+                i2++;
+            }
+        });
+        if (i2 === towerSet.size && towerSet.size <= 6) {
+            towerSet.add(posStr);
+            buildingExpand.delete(posStr); // 从原集合中去除这六个位置
+            buildingExpandWithoutSpawnAndCenter.delete(posStr);
+        }
+    });
+
+    // 判断lab的位置（斜着4x5，占12个building空位,20格road空位）
+    const labLayoutTemplate = `
+        🍱:一般建筑 🥖:路 🍘:Lab
+
+        🍱🥖🍱🥖🍱🥖🍱🥖🍱
+        🥖🍱🥖🍘🍘🍱🥖🍱🥖
+        🍱🥖🍘🥖🍘🍘🍱🥖🍱
+        🥖🍱🍘🍘🥖🍘🥖🍱🥖
+        🍱🥖🍱🍘🍘🥖🍱🥖🍱
+        🥖🍱🥖🍱🥖🍱🥖🍱🥖
+        `;
+    let buildingExpandWithoutAbove = buildingExpandWithoutSpawnAndCenter;
+    buildingExpandWithoutAbove = PosStr.reverseSet(buildingExpandWithoutAbove);
+    let m = 0;
+    const labSet = new Set<string>();
+    const square2Set = new Set<string>();
+    const square3Set = new Set<string>();
+    const coreLabPos: string[] = [];
+    let ifRun = true;
+    let cpu = Game.cpu.getUsed();
+    buildingExpandWithoutAbove.forEach(posStr0 => {
+        if (ifRun) {
+            m++;
+            let i1 = 0;
+            PosStr.getDiagPosStr(posStr0).forEach(posStr1 => {
+                PosStr.getDiagPosStr(posStr1).forEach(posStr2 => {
+                    square2Set.add(posStr2);
+                });
+            });
+            square2Set.forEach(posStr => {
+                if (buildingExpandWithoutAbove.has(posStr)) {
+                    i1++;
+                }
+            });
+            if (i1 === 9) {
+                PosStr.getQuadPosStr(posStr0).forEach(posStr1 => {
+                    if (ifRun) {
+                        let j = 0;
+                        PosStr.getDiagPosStr(posStr1).forEach(posStr2 => {
+                            PosStr.getDiagPosStr(posStr2).forEach(posStr3 => {
+                                square3Set.add(posStr3);
+                            });
+                        });
+                        square3Set.forEach(posStr => {
+                            if (buildingExpandWithoutAbove.has(posStr)) {
+                                j++;
+                            }
+                        });
+                        if (j === 9) {
+                            ifRun = false;
+                            coreLabPos.push(posStr0, posStr1);
+                        } else {
+                            square3Set.clear();
+                        }
+                    }
+                });
+            } else {
+                square2Set.clear();
+            }
+        }
+    });
+    cpu = Game.cpu.getUsed() - cpu;
+    if (square2Set.size === 9 && square3Set.size === 9 && coreLabPos.length === 2) {
+        // console.log(`在第${m}个位置检索后，找到了lab布局，消耗cpu为${cpu.toFixed(2)}`);
+        const snakeLabPosSetList = PosStr.get2SnakePosStr(new Set(coreLabPos));
+        snakeLabPosSetList[0].forEach(posStr => {
+            labSet.add(posStr);
+            buildingExpand.delete(posStr);
+            roadExpand.delete(posStr);
+            allRoadSet.delete(posStr);
+        });
+        snakeLabPosSetList[1].forEach(posStr => {
+            buildingExpand.delete(posStr);
+            roadExpand.add(posStr);
+            allRoadSet.add(posStr);
+        });
+        coreLabPos.forEach(posStr => {
+            buildingExpand.delete(posStr);
+            roadExpand.add(posStr);
+            allRoadSet.add(posStr);
+        });
+    } else {
+        console.log("未找到lab布局");
+    }
+
     // 寻找通往其他房间的路径（如果有的话）
     // const directionList = [FIND_EXIT_TOP, FIND_EXIT_RIGHT, FIND_EXIT_BOTTOM, FIND_EXIT_LEFT];
     // const outwardsRoadPosSet = new Set<string>();
@@ -274,7 +439,7 @@ export function getGridLayout(room: Room): void {
                     costs.set(coord.x, coord.y, 0xff);
                 });
                 // 在这里遍历所有路，并将cost设置为1
-                roadExpand.forEach(posStr => {
+                allRoadSet.forEach(posStr => {
                     const coord = PosStr.parseCoord(posStr);
                     costs.set(coord.x, coord.y, 1);
                 });
@@ -287,7 +452,9 @@ export function getGridLayout(room: Room): void {
             if (goal.name === "source") {
                 const pos = ret.path.pop() as RoomPosition;
                 ret.path.forEach(pos1 => {
-                    sourceAndControllerRoadPosSet.add(PosStr.setPosToStr(pos1));
+                    const pos1Str = PosStr.setPosToStr(pos1);
+                    sourceAndControllerRoadPosSet.add(pos1Str);
+                    allRoadSet.add(pos1Str);
                 });
                 sourceContainerPosSet.add(PosStr.setPosToStr(pos));
                 const posAround = PosStr.getSquarePosStr(PosStr.setPosToStr(pos));
@@ -301,7 +468,9 @@ export function getGridLayout(room: Room): void {
             } else if (goal.name === "controller") {
                 const pos = ret.path.pop() as RoomPosition;
                 ret.path.forEach(pos1 => {
-                    sourceAndControllerRoadPosSet.add(PosStr.setPosToStr(pos1));
+                    const pos1Str = PosStr.setPosToStr(pos1);
+                    sourceAndControllerRoadPosSet.add(pos1Str);
+                    allRoadSet.add(pos1Str);
                 });
                 controllerContainerPosSet.add(PosStr.setPosToStr(pos));
                 const posAround = PosStr.getSquarePosStr(PosStr.setPosToStr(pos));
@@ -321,6 +490,8 @@ export function getGridLayout(room: Room): void {
     });
     sourceAndControllerContainerPosSet = PosStr.mergeSet(controllerContainerPosSet, sourceContainerPosSet);
     sourceAndControllerLinkPosSet = PosStr.mergeSet(controllerLinkPosSet, sourceLinkPosSet);
+
+    const aroundSpawnRoadPosSet = PosStr.getDiagPosStr(room.memory.construct.firstSpawnName.pos);
 
     // 寻找mineral路径
     const mineralRoadPosSet = new Set<string>(); // 寻找source,controller的路径
@@ -355,7 +526,7 @@ export function getGridLayout(room: Room): void {
                     costs.set(coord.x, coord.y, 0xff);
                 });
                 // 在这里遍历所有路，并将cost设置为1
-                roadExpand.forEach(posStr => {
+                allRoadSet.forEach(posStr => {
                     const coord = PosStr.parseCoord(posStr);
                     costs.set(coord.x, coord.y, 1);
                 });
@@ -373,6 +544,7 @@ export function getGridLayout(room: Room): void {
         }
         ret.path.forEach(pos => {
             mineralRoadPosSet.add(PosStr.setPosToStr(pos));
+            allRoadSet.add(PosStr.setPosToStr(pos));
         });
         mineralRoadPosSet.forEach(posStr => {
             if (roadExpand.has(posStr)) {
@@ -380,164 +552,7 @@ export function getGridLayout(room: Room): void {
             }
         });
     }
-    // 为所有建筑确定位置，并将分配结果存入room.memory.construct.layout中，方便建筑建造函数调用结果。
-    // 判断是否有中央布局的位置（四个构成斜正方形的building空位,会自动由内向外判断，尽量取离spawn最近的），如果没有则告知并提醒用户手动规划，有则转移给centerConstruction的memory.
-    let center = "";
-    let buildingExpandWithoutSpawn = buildingExpand;
-    buildingExpandWithoutSpawn.delete(PosStr.setPosToStr(Game.spawns[room.memory.construct.firstSpawnName.name].pos)); // 避免把spawn作为中心布局点
-    buildingExpandWithoutSpawn = PosStr.reverseSet(buildingExpandWithoutSpawn); // 一开始的集合元素遍历顺序是由外向内，这里把集合里的元素倒过来，变成由内向外。
-    buildingExpandWithoutSpawn.forEach(posStr0 => {
-        PosStr.getDiagPosStr(posStr0).forEach(posStr1 => {
-            let i5 = 0;
-            PosStr.getDiagPosStr(posStr1).forEach(posStr2 => {
-                if (buildingExpandWithoutSpawn.has(posStr2)) {
-                    i5++;
-                }
-            });
-            if (i5 === 4) {
-                center = posStr1;
-            }
-        });
-    });
-    PosStr.getDiagPosStr(center).forEach(posStr => {
-        buildingExpand.delete(posStr); // 从原集合中去除这四个位置
-        buildingExpandWithoutSpawn.delete(posStr); // 从原集合中去除这四个位置
-    });
 
-    // 判断powerSpawn,Nuker，ob,两个spawn的位置（尽量靠近storage）
-    const obSet = new Set<string>();
-    for (const posStr of buildingExpandWithoutSpawn) {
-        obSet.add(posStr);
-        buildingExpandWithoutSpawn.delete(posStr);
-        buildingExpand.delete(posStr);
-        break;
-    }
-    let buildingExpandPowerSpawn = buildingExpandWithoutSpawn;
-    buildingExpandPowerSpawn = PosStr.reverseSet(buildingExpandPowerSpawn);
-    const powerSpawnSet = new Set<string>();
-    const nukerSet = new Set<string>();
-    const spawnSet = new Set<string>();
-    spawnSet.add(PosStr.setPosToStr(Game.spawns[room.memory.construct.firstSpawnName.name].pos));
-    for (const posStr of buildingExpandPowerSpawn) {
-        powerSpawnSet.add(posStr);
-        buildingExpandPowerSpawn.delete(posStr);
-        buildingExpand.delete(posStr);
-        break;
-    }
-    for (const posStr of buildingExpandPowerSpawn) {
-        nukerSet.add(posStr);
-        buildingExpandPowerSpawn.delete(posStr);
-        buildingExpand.delete(posStr);
-        break;
-    }
-    let i3 = 0;
-    for (const posStr of buildingExpandPowerSpawn) {
-        i3++;
-        spawnSet.add(posStr);
-        buildingExpandPowerSpawn.delete(posStr);
-        buildingExpand.delete(posStr);
-        if (i3 > 1) {
-            break;
-        }
-    }
-    // 判断塔的位置（任意两个塔之间距离应大于等于3，并且尽量靠近storage）
-    const buildingExpandWithoutSpawnAndCenter = buildingExpandPowerSpawn;
-    const towerSet = new Set<string>();
-    buildingExpandWithoutSpawnAndCenter.forEach(posStr => {
-        let i2 = 0;
-        towerSet.forEach(towerPosStr => {
-            if (PosStr.getRangeToPosStr(posStr, towerPosStr) >= 3) {
-                i2++;
-            }
-        });
-        if (i2 === towerSet.size && towerSet.size <= 6) {
-            towerSet.add(posStr);
-            buildingExpand.delete(posStr); // 从原集合中去除这六个位置
-            buildingExpandWithoutSpawnAndCenter.delete(posStr);
-        }
-    });
-
-    // 判断lab的位置（斜着4x5，占12个building空位,20格road空位）
-    const labLayoutTemplate = `
-    🍱:一般建筑 🥖:路 🍘:Lab
-
-    🍱🥖🍱🥖🍱🥖🍱🥖🍱
-    🥖🍱🥖🍘🍘🍱🥖🍱🥖
-    🍱🥖🍘🥖🍘🍘🍱🥖🍱
-    🥖🍱🍘🍘🥖🍘🥖🍱🥖
-    🍱🥖🍱🍘🍘🥖🍱🥖🍱
-    🥖🍱🥖🍱🥖🍱🥖🍱🥖
-    `;
-    let buildingExpandWithoutAbove = buildingExpandWithoutSpawnAndCenter;
-    buildingExpandWithoutAbove = PosStr.reverseSet(buildingExpandWithoutAbove);
-    let m = 0;
-    const labSet = new Set<string>();
-    const square2Set = new Set<string>();
-    const square3Set = new Set<string>();
-    const coreLabPos: string[] = [];
-    let ifRun = true;
-    let cpu = Game.cpu.getUsed();
-    buildingExpandWithoutAbove.forEach(posStr0 => {
-        if (ifRun) {
-            m++;
-            let i1 = 0;
-            PosStr.getDiagPosStr(posStr0).forEach(posStr1 => {
-                PosStr.getDiagPosStr(posStr1).forEach(posStr2 => {
-                    square2Set.add(posStr2);
-                });
-            });
-            square2Set.forEach(posStr => {
-                if (buildingExpandWithoutAbove.has(posStr)) {
-                    i1++;
-                }
-            });
-            if (i1 === 9) {
-                PosStr.getQuadPosStr(posStr0).forEach(posStr1 => {
-                    if (ifRun) {
-                        let j = 0;
-                        PosStr.getDiagPosStr(posStr1).forEach(posStr2 => {
-                            PosStr.getDiagPosStr(posStr2).forEach(posStr3 => {
-                                square3Set.add(posStr3);
-                            });
-                        });
-                        square3Set.forEach(posStr => {
-                            if (buildingExpandWithoutAbove.has(posStr)) {
-                                j++;
-                            }
-                        });
-                        if (j === 9) {
-                            ifRun = false;
-                            coreLabPos.push(posStr0, posStr1);
-                        } else {
-                            square3Set.clear();
-                        }
-                    }
-                });
-            } else {
-                square2Set.clear();
-            }
-        }
-    });
-    cpu = Game.cpu.getUsed() - cpu;
-    if (square2Set.size === 9 && square3Set.size === 9 && coreLabPos.length === 2) {
-        // console.log(`在第${m}个位置检索后，找到了lab布局，消耗cpu为${cpu.toFixed(2)}`);
-        const snakeLabPosSetList = PosStr.get2SnakePosStr(new Set(coreLabPos));
-        snakeLabPosSetList[0].forEach(posStr => {
-            labSet.add(posStr);
-            buildingExpand.delete(posStr);
-            roadExpand.delete(posStr);
-        });
-        snakeLabPosSetList[1].forEach(posStr => {
-            buildingExpand.delete(posStr);
-            roadExpand.add(posStr);
-        });
-        coreLabPos.forEach(posStr => {
-            buildingExpand.delete(posStr);
-            roadExpand.add(posStr);
-        });
-    } else {
-        console.log("未找到lab布局");
-    }
     // freeSpacePosSet
     const freeSpacePosSet = new Set<string>();
     buildingExpand.forEach(posStr => {
@@ -603,6 +618,10 @@ export function getGridLayout(room: Room): void {
             mineralRoad: {
                 posStrList: Array.from(mineralRoadPosSet.keys()),
                 levelToBuild: 8
+            },
+            aroundSpawnRoad: {
+                posStrList: Array.from(aroundSpawnRoadPosSet.keys()),
+                levelToBuild: 2
             }
         },
         extension: {
@@ -748,7 +767,8 @@ export function getGridLayout(room: Room): void {
             taskName: "gridLayout.showLayout", // 任务名称
             args: [visual0.export(), room.name, keepTime], // 传递的参数，要能够放在memory的类型
             executeTick: Game.time + 1, // 执行时间
-            intervalTick: 1 // 执行间隔
+            intervalTick: 1, // 执行间隔,
+            log: true
         },
         task => {
             // console.log(

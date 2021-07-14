@@ -1,6 +1,6 @@
 import { createForm } from "utils/console";
 
-export class posMaintainerForm {
+export class FlagMaintainerForm {
     public static refresh(): string {
         const commitFunctionName = "posMaintainerCommit.refresh";
         return createForm(

@@ -79,7 +79,7 @@ ___
 
 ### setCreepProperties
 
-▸ `Static` **setCreepProperties**(`args`: { `creepBody`: *string* ; `creepName`: *string* ; `priority`: *string* ; `readyCondition`: keyof ReadyCondition ; `roomName`: *string*  }): *string*
+▸ `Static` **setCreepProperties**(`args`: { `creepBody?`: *string* ; `creepName`: *string* ; `priority?`: *string* ; `readyCondition?`: keyof ReadyCondition ; `roomName`: *string*  }): *string*
 
 设置creep参数。
 
@@ -92,10 +92,10 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `args` | *object* |
-| `args.creepBody` | *string* |
+| `args.creepBody?` | *string* |
 | `args.creepName` | *string* |
-| `args.priority` | *string* |
-| `args.readyCondition` | keyof ReadyCondition |
+| `args.priority?` | *string* |
+| `args.readyCondition?` | keyof ReadyCondition |
 | `args.roomName` | *string* |
 
 **Returns:** *string*

@@ -20,4 +20,4 @@
 
 • **creepNameList**: *string*[]
 
-Defined in: creep/group/type.ts:23
+Defined in: creep/group/type.ts:19

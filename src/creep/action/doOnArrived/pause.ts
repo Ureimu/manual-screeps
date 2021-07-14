@@ -5,7 +5,8 @@ import { state } from "..";
 import { runningCounter } from "./utils/runningCounter";
 
 function run(creep: Creep): state {
-    return runningCounter(creep);
+    if (runningCounter(creep, "pause") % 2 === 1) return "moving";
+    return "arrived";
 }
 
 export const pause: CreepAction = {
