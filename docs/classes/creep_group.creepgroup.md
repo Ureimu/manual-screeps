@@ -98,7 +98,7 @@ ___
 
 **Returns:** *string*
 
-Defined in: creep/group/index.ts:250
+Defined in: creep/group/index.ts:252
 
 ___
 
@@ -121,7 +121,7 @@ ___
 
 **Returns:** *string*
 
-Defined in: creep/group/index.ts:235
+Defined in: creep/group/index.ts:237
 
 ___
 
@@ -152,7 +152,7 @@ ___
 
 ### setCreepGroupProperties
 
-▸ `Static` **setCreepGroupProperties**(`args`: { `creepGroupName`: *string* ; `mode?`: *string* ; `roleName?`: *string* ; `routeName?`: *string*  }): *string*
+▸ `Static` **setCreepGroupProperties**(`args`: { `creepGroupName`: *string* ; `mode?`: [*CreepGroupMode*](../modules/creep_group_type.md#creepgroupmode) ; `roleName?`: *string* ; `routeName?`: *string*  }): *string*
 
 设定creep组参数。
 
@@ -166,7 +166,7 @@ ___
 | :------ | :------ | :------ |
 | `args` | *object* |  |
 | `args.creepGroupName` | *string* | - |
-| `args.mode?` | *string* | - |
+| `args.mode?` | [*CreepGroupMode*](../modules/creep_group_type.md#creepgroupmode) | - |
 | `args.roleName?` | *string* | - |
 | `args.routeName?` | *string* | 路径名称 |
 
@@ -197,4 +197,4 @@ ___
 
 **Returns:** *string*
 
-Defined in: creep/group/index.ts:191
+Defined in: creep/group/index.ts:193

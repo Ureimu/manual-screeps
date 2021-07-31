@@ -252,4 +252,14 @@ export class routePlanForm {
             }
         );
     }
+
+    public static printConditionUsage(): string {
+        const commitFunctionName = "RoutePlan.printConditionUsage";
+        return createForm(commitFunctionName + String(Game.time), [], {
+            content: "获取条件式使用说明",
+            command: `(args) => ${commitFunctionName}(args)`,
+            type: "button",
+            name: "button" + String(Game.time) + commitFunctionName
+        });
+    }
 }

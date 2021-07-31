@@ -7,7 +7,7 @@ export function runAi(): void {
         setBodyConfig("overalls", ["m2w1c1", "m2w1c1*2"]);
     }
     _.forEach(Game.rooms, room => {
-        tower.run(room.name);
+        tower.run(room);
     });
 
     if (Game.time % 5 === 0) maintainRoom();

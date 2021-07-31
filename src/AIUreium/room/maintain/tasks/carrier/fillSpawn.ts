@@ -99,6 +99,12 @@ export const fillSpawn: TaskObject<RoomTaskArgs> = {
             routeName,
             pathMidpointPos: storageFlagName,
             range: 50,
+            doWhenArrive: "stayByRoad"
+        });
+        RoutePlan.addMidpoint({
+            routeName,
+            pathMidpointPos: storageFlagName,
+            range: 50,
             doWhenArrive: "pause"
         });
         RoutePlan.addCondition({

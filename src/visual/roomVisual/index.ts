@@ -1,9 +1,10 @@
+import { registerFN } from "profiler";
 import { GUIfun } from "utils/roomVisualGUI";
 import { printMulText } from "utils/roomVisualGUI/utils";
 import { getCreepNum, getBpSumInSpawnQueue } from "../roomInf/creeps";
 import { getUpgradeSpeed } from "../roomInf/upgradeSpeed";
 
-export function roomVisualize(room: Room): void {
+export const roomVisualize = registerFN((room: Room): void => {
     const upgradeSpeed = getUpgradeSpeed(room.name);
     room.memory.stats = {
         upgradeSpeed: upgradeSpeed[0].toFixed(4),
@@ -72,4 +73,4 @@ export function roomVisualize(room: Room): void {
             ])
         }
     ]);
-}
+}, "roomVisualize");

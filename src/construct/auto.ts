@@ -1,3 +1,4 @@
+import { registerFN } from "profiler";
 import { PosStr } from "utils/RoomPositionToStr";
 import { getGridLayout } from "./composition/gridLayout";
 import { runLayout } from "./composition/runLayOut";
@@ -33,20 +34,20 @@ function restartConstruction(room: Room): void {
     }
 }
 
-export function autoConstruction(room: Room): void {
+export const autoConstruction = registerFN((room: Room): void => {
     callOnStart(room);
     if (room.memory.construct.roomControlStatus[0] !== room.controller?.level) {
         restartConstruction(room);
         console.log("[build] 房间等级提升，重新检查建筑数量");
     }
-    if ((Game.time - room.memory.construct.startTime) % 20000 === 0) {
+    if ((Game.time - room.memory.construct.startTime) % 5000 === 0) {
         restartConstruction(room);
         console.log("[build] 定时检查建筑数量");
     }
     const constructionSites = room.find(FIND_CONSTRUCTION_SITES);
 
     let refreshTime = 1500;
-    if (Game.time - room.memory.construct.startTime <= 200) refreshTime = 150;
+    if (Game.time - room.memory.construct.startTime <= 200) refreshTime = 40;
     if (
         constructionSites.length !== room.memory.construct.roomControlStatus[3] ||
         (Game.time - room.memory.construct.startTime) % refreshTime === 0
@@ -59,7 +60,7 @@ export function autoConstruction(room: Room): void {
     room.memory.construct.roomControlStatus[3] = constructionSites.length;
     if ((Game.time - room.memory.construct.startTime) % refreshTime === refreshTime - 1)
         runLayout(room, "gridLayout", getGridLayout);
-}
+}, "autoConstruction");
 
 function updateConstruction(room: Room): void {
     const structures = room.find(FIND_STRUCTURES) as ConcreteStructure<BuildableStructureConstant>[];
@@ -74,11 +75,9 @@ function updateConstruction(room: Room): void {
                     built: true,
                     pos: PosStr.setPosToStr(myStructure.pos)
                 };
-                const posIndex = structureList[structureName].sitePosList.findIndex(
-                    posStr => posStr === PosStr.setPosToStr(myStructure.pos)
-                );
-                if (posIndex > -1) {
-                    structureList[structureName].sitePosList.splice(posIndex, 1);
+                const pos = structureList[structureName].sitePosList[PosStr.setPosToStr(myStructure.pos)];
+                if (pos) {
+                    delete structureList[structureName].sitePosList[PosStr.setPosToStr(myStructure.pos)];
                 }
             }
             if (
@@ -100,11 +99,7 @@ function buildingName<T extends BuildableStructureConstant>(myStructure: Concret
                 const structureData = structureList[kindName];
                 if (!structureData.hasBuilt) {
                     // console.log(structureData.sitePosList.length);
-                    if (
-                        structureData.sitePosList.findIndex(
-                            posStr => posStr === PosStr.setPosToStr(myStructure.pos)
-                        ) !== -1
-                    ) {
+                    if (structureData.sitePosList[PosStr.setPosToStr(myStructure.pos)]) {
                         return kindName;
                     }
                     for (const id in structureData.memory) {

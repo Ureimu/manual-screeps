@@ -4,6 +4,8 @@ import { PosStr } from "utils/RoomPositionToStr";
 import { showRoutes } from "./show";
 import { consoleStyle } from "console/style";
 import { RouteMidpointDetail, RouteConditionDetail, isRouteMidpointDetail } from "./type";
+import { conditionIndexedList } from "creep/action/doOnJudgeCondition";
+import colorful from "utils/console/colorful";
 
 const style = consoleStyle("routePlan");
 
@@ -269,12 +271,27 @@ export class RoutePlan {
         let index = 0;
         routeDetail.routeDetailArray.forEach(detail => {
             if (isRouteMidpointDetail(detail)) {
-                log = log.concat(`${index} ${detail.pathMidpointPos} ${detail.range} ${detail.doWhenArrive}` + "\n");
+                log = log.concat(
+                    `${index} midPoint ${detail.pathMidpointPos} ${detail.range} ${detail.doWhenArrive}` + "\n"
+                );
             } else {
-                log = log.concat(`${index} ${detail.condition} ${detail.jumpTo}` + "\n");
+                log = log.concat(
+                    `${index} condition ${detail.condition} ${detail.jumpTo} ${
+                        detail.conditionArgs ? detail.conditionArgs : ""
+                    }` + "\n"
+                );
             }
             index++;
         });
         return style(`${log}`, "log");
+    }
+
+    public static printConditionUsage(): string {
+        let log = "";
+        for (const conditionName in conditionIndexedList) {
+            const condition = conditionIndexedList[conditionName as keyof typeof conditionIndexedList];
+            log = log.concat(colorful(condition.name, "yellow") + "\n" + condition.description + "\n");
+        }
+        return log;
     }
 }

@@ -31,7 +31,7 @@ export type formedLayout = {
 export interface constructionSiteInf<T extends BuildableStructureConstant> {
     hasPutSites: boolean;
     hasBuilt: boolean;
-    sitePosList: string[];
+    sitePosList: { [name: string]: SiteState };
     type: T;
     num: number;
     memory: {
@@ -42,6 +42,8 @@ export interface constructionSiteInf<T extends BuildableStructureConstant> {
         };
     };
 }
+
+export type SiteState = "blank" | "site" | "structure";
 
 export type SpecifiedStructureNameList<T extends BuildableStructureConstant> = T extends "container"
     ? "sourceContainer" | "controllerContainer" | "mineralContainer"

@@ -6,39 +6,38 @@ import { TaskObject } from "utils/ProjectRunner";
 import { PosStr } from "utils/RoomPositionToStr";
 import { RoomTaskArgs } from "../../taskRelation";
 
-export const upgradeByStorage: TaskObject<RoomTaskArgs> = {
-    name: "upgradeByStorage",
-    description: "upgradeByStorage",
+export const upgradeByLink: TaskObject<RoomTaskArgs> = {
+    name: "upgradeByLink",
+    description: "upgradeByLink",
     start() {
         return "end";
     },
     working(room) {
         FlagMaintainer.refresh({
             roomName: room.name,
-            typeList: FlagMaintainer.getTypeList(["container", "source", "controller"])
+            typeList: FlagMaintainer.getTypeList(["link"])
         });
 
-        const routeName = `${room.name}upgradeByStorage`;
+        if (!room.memory.construct.layout) return "running";
+        const controllerContainerPosStr = room.memory.construct.layout.container.controllerContainer.posStrList[0];
+        const controllerContainerPos = PosStr.getPosFromStr(controllerContainerPosStr);
+        const controllerLinkFlag = controllerContainerPos
+            .findInRange(FIND_FLAGS, 1)
+            .filter(i => i.name.includes("link"))[0];
+        const routeName = `${room.name}upgradeByLink`;
         const creepGroupName = `${room.name}up`;
         const controllerFlagName = FlagTools.getName(room.name, "controller", 0);
-        const storageFlagName = FlagTools.getName(room.name, "storage", 0);
-
+        const linkFlagName = controllerLinkFlag.name;
         RoutePlan.create({ routeName, ifLoop: "true" });
         RoutePlan.addCondition({
             routeName,
             condition: "creepStore",
-            jumpTo: 3,
-            conditionArgs: `full`
-        });
-        RoutePlan.addCondition({
-            routeName,
-            condition: "store",
             jumpTo: 2,
-            conditionArgs: `${PosStr.setPosToStr(Game.flags[storageFlagName].pos)},${RESOURCE_ENERGY},<=,800`
+            conditionArgs: `full`
         });
         RoutePlan.addMidpoint({
             routeName,
-            pathMidpointPos: storageFlagName,
+            pathMidpointPos: linkFlagName,
             range: 1,
             doWhenArrive: "withdrawEnergy"
         });

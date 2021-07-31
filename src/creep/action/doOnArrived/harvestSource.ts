@@ -7,6 +7,9 @@ function run(creep: Creep): state {
 
     const ifHarvesting = creep.store.getFreeCapacity() !== 0;
     if (ifHarvesting) {
+        if (Game.time % 20 === 0) {
+            creep.moveTo(source, { range: 1 });
+        }
         creep.harvest(source);
         return "arrived";
     } else {

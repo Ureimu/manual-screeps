@@ -1,8 +1,8 @@
-import { getCutTiles } from "utils/mincut/minCut";
-import { GUIfun } from "utils/roomVisualGUI";
-import { newAcrossTickTask } from "utils/AcrossTick";
-import { PosStr } from "utils/RoomPositionToStr";
-import { SetTools } from "utils/SetTools";
+import { getCutTiles } from "../../../utils/mincut/minCut";
+import { GUIfun } from "../../../utils/roomVisualGUI";
+import { newAcrossTickTask } from "../../../utils/AcrossTick";
+import { PosStr } from "../../../utils/RoomPositionToStr";
+import { SetTools } from "../../../utils/SetTools";
 
 /** 网格建筑布局。
  * 该函数为静态函数，即只要输入相同，则输出必定相同，所以一个房间只需要执行一次。
@@ -868,14 +868,26 @@ function getMinCut(
     //         rectArray.push({ x1, y1, x2, y2 });
     //     }
     // }
-    const controllerPadding = 1;
+    let controllerPadding = 1;
     if (colony.controller) {
         const { x, y } = colony.controller.pos;
-        const [x1, y1] = [Math.max(x - controllerPadding, 4), Math.max(y - controllerPadding, 4)];
-        const [x2, y2] = [Math.min(x + controllerPadding, 45), Math.min(y + controllerPadding, 45)];
-        if (x < 4 || x > 45 || y < 4 || y > 45) {
-            console.log("bad controller pos");
-        } else rectArray.push({ x1, y1, x2, y2 });
+        if (
+            x < 0 + controllerPadding ||
+            x > 49 - controllerPadding ||
+            y < 0 + controllerPadding ||
+            y > 49 - controllerPadding
+        ) {
+            controllerPadding = 1;
+            const [x1, y1] = [Math.max(x - controllerPadding, 4), Math.max(y - controllerPadding, 4)];
+            const [x2, y2] = [Math.min(x + controllerPadding, 45), Math.min(y + controllerPadding, 45)];
+            rectArray.push({ x1, y1, x2, y2 });
+            console.log(`bad controller pos, too close to border,choose controllerPadding = ${controllerPadding}`);
+        } else {
+            const [x1, y1] = [Math.max(x - controllerPadding, 4), Math.max(y - controllerPadding, 4)];
+            const [x2, y2] = [Math.min(x + controllerPadding, 45), Math.min(y + controllerPadding, 45)];
+            rectArray.push({ x1, y1, x2, y2 });
+            console.log(`choose controllerPadding = ${controllerPadding}`);
+        }
     }
 
     // Get Min cut

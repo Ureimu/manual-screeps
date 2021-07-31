@@ -1,9 +1,12 @@
+/* eslint-disable no-useless-escape */
 import { resetMaintainTaskProject } from "AIUreium/room/maintain/taskRelation";
 import { clearCreepRouteMemory } from "creep/action";
+import { Base64 } from "js-base64";
 import { newAcrossTickTask } from "utils/AcrossTick";
 import bodypartsGenerator from "utils/bodypartsGenerator";
 import { createFlattenHelp } from "utils/console/flattenHelp";
 import { createForm } from "utils/console/form";
+import { stats } from "utils/ui";
 
 declare global {
     namespace NodeJS {
@@ -15,6 +18,7 @@ declare global {
                 testConsole: () => string;
                 testConsoleCommit: (args: { uploadedFile: string }) => string;
                 resetAllMaintainTaskProject: () => void;
+                stats: () => void;
                 id: string;
             };
         }
@@ -30,7 +34,8 @@ export default function mountGlobalMicroFunction(): void {
         testConsole,
         testConsoleCommit,
         id: "",
-        resetAllMaintainTaskProject
+        resetAllMaintainTaskProject,
+        stats
     };
 }
 

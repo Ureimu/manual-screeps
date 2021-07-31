@@ -1,13 +1,13 @@
 import { ControllerLevels } from "../type";
 import { bodyTools } from "../tools";
 
-export function chooseBefittingBody(args: { creepBodyConfigName: string; spawn: StructureSpawn }): string {
-    const { creepBodyConfigName, spawn } = args;
+export function chooseBefittingBody(args: { creepBodyConfigName: string; room: Room }): string {
+    const { creepBodyConfigName, room } = args;
     const fullConfig = Memory.creepBodyConfig[creepBodyConfigName];
-    const controllerLevel = spawn.room.controller?.level;
+    const controllerLevel = room.controller?.level;
     for (let index = Number(controllerLevel); index > 0; index--) {
         const config = fullConfig[String(index) as ControllerLevels];
-        if (config && bodyTools.getEnergyCost(config.body) <= spawn.room.energyAvailable) {
+        if (config && bodyTools.getEnergyCost(config.body) <= room.energyAvailable) {
             return config.body;
         }
     }

@@ -39,7 +39,8 @@ export class SpawnPool {
             creepBody: creepBodyConfigName,
             priority: Number(priority),
             readyCondition,
-            state: "ready"
+            state: "ready",
+            roomName
         };
         if (!Memory.creeps) {
             Memory.creeps = {};
@@ -95,7 +96,8 @@ export class SpawnPool {
             creepBody: creepBody || memCopy.creepBody,
             priority: Number(priority) || memCopy.priority,
             readyCondition: readyCondition || memCopy.readyCondition,
-            state: "ready"
+            state: "ready",
+            roomName
         };
         return style(`修改creepSpawn信息 ${creepName} 设置完成`, "log");
     }

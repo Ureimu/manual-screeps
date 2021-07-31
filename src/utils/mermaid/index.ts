@@ -69,6 +69,7 @@ export class mermaid {
         return "```mermaid\n" + this.mermaidContentList.join("\n") + "\n```";
     }
     public static showInBrowser(data: string): string {
+        // TODO模仿一套给UI用
         return `<script>
         const sendMemoryInfo = ({ source }) => {
             removeEventListener('message', sendMemoryInfo);

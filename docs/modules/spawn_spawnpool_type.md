@@ -19,7 +19,7 @@
 
 Ƭ **readyConditionKey**: keyof ReadyCondition
 
-Defined in: spawn/spawnPool/type.ts:29
+Defined in: spawn/spawnPool/type.ts:30
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 Ƭ **runningState**: ``"running"`` \| ``"ready"`` \| ``"notReady"``
 
-Defined in: spawn/spawnPool/type.ts:28
+Defined in: spawn/spawnPool/type.ts:29

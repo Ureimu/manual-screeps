@@ -1,6 +1,6 @@
 import { CreepGroupMode } from "creep/group/type";
 import { isRouteMidpointDetail } from "creep/routePlan/type";
-import * as profiler from "../../utils/profiler";
+import { registerFN } from "profiler";
 import { creepAct } from "./doOnArrived";
 import { doStuff } from "./onArrived";
 import { judgeCondition } from "./onJudgeCondition";
@@ -48,7 +48,7 @@ declare global {
 export type state = "moving" | "arrived" | "end" | "getState";
 export type conditionState = "jump" | "notJump";
 
-export default profiler.registerFN(runCreepAction, "runCreepAction");
+export default registerFN(runCreepAction, "runCreepAction");
 function runCreepAction(creep: Creep): void {
     if (creep.memory.mode === "role") {
         runCreepByRole(creep);

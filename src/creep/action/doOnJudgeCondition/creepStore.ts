@@ -24,5 +24,7 @@ function run(creep: Creep, conditionArgs?: string[]): [state, conditionState] {
 export const creepStore: CreepCondition = {
     run,
     name: "creepStore",
-    description: "拿出能量"
+    description: `拿出能量。
+参数：1."full"|"empty"|"notFull"|"notEmpty"
+表示creep的容量状态。`
 };

@@ -1,6 +1,7 @@
 import { chooseBefittingBody } from "creep/body/chooseCondition";
 import { bodyTools } from "creep/body/tools";
 import { CreepGroup } from "creep/group";
+import { registerFN } from "profiler";
 import { SpawnCreepDetail } from "spawn/spawnPool/type";
 import { TaskPool } from "utils/PriorityQueue/taskPool";
 import { SetTools } from "utils/SetTools";
@@ -40,7 +41,7 @@ function runSpawnTask(spawn: StructureSpawn): boolean {
     }
 }
 
-export function runSpawnQueue(spawn: StructureSpawn): void {
+export const runSpawnQueue = registerFN((spawn: StructureSpawn): void => {
     if (!runSpawnTask(spawn)) return;
     if (spawn.spawning) return;
     if (spawn.room.energyAvailable < BODYPART_COST.carry * 6) return;
@@ -54,7 +55,7 @@ export function runSpawnQueue(spawn: StructureSpawn): void {
         const spawnTask = spawnQueue.pop();
         if (spawnTask) {
             const creepBody = bodyTools.compile(
-                chooseBefittingBody({ creepBodyConfigName: spawnTask.creepBody, spawn })
+                chooseBefittingBody({ creepBodyConfigName: spawnTask.creepBody, room: spawn.room })
             );
             returnCode = spawn.spawnCreep(creepBody, spawnTask.creepName, {
                 dryRun: true
@@ -78,9 +79,9 @@ export function runSpawnQueue(spawn: StructureSpawn): void {
     } while (returnCode);
     failedList.forEach(task => spawnQueue.push(task));
     taskPool.setQueueFromTaskQueue(spawnQueue, spawn.memory.spawnQueue);
-}
+}, "runSpawnQueue");
 
-export function runSpawnPool(room: Room): void {
+export const runSpawnPool = registerFN((room: Room): void => {
     if (!room.memory.spawnPool) {
         room.memory.diedCreepList = [];
         room.memory.spawnPool = {};
@@ -149,7 +150,7 @@ export function runSpawnPool(room: Room): void {
         const spawnList = room.find(FIND_MY_SPAWNS);
         while (readyTaskList.length !== 0) {
             spawnList[i].memory.spawnQueue.push(readyTaskList.pop() as SpawnCreepDetail);
-            i = (i + 1) % 3;
+            i = (i + 1) % spawnList.length;
         }
     }
-}
+}, "runSpawnPool");

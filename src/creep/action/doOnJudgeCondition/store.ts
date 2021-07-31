@@ -43,7 +43,11 @@ function run(creep: Creep, conditionArgs?: string[]): [state, conditionState] {
 export const store: CreepCondition = {
     run,
     name: "store",
-    description: "拿出能量"
+    description: `建筑存储的资源情况。
+参数：1.string,格式为x0y0rW1N1(即x坐标，y坐标和房间名称),为建筑的坐标
+2.string,资源的类型对应字符串,如能量对应"energy"
+3.">="|"<="|"=="
+4.number`
 };
 
 function existStoredResource(storableObject: { store: Store<ResourceConstant, false> }, resourceType: string) {

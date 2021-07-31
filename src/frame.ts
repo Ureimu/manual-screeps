@@ -1,11 +1,12 @@
-import { autoConstruction } from "construct";
-import runCreepAction from "creep/action";
-import { mountAll } from "mount";
-import { runSpawnPool, runSpawnQueue } from "spawn/spawning";
-import { mapVisualForRoom } from "visual/mapVisual";
-import { roomVisualize } from "visual/roomVisual";
+import { registerFN } from "profiler";
+import { autoConstruction } from "./construct";
+import runCreepAction from "./creep/action";
+import { mountAll } from "./mount";
+import { runSpawnPool, runSpawnQueue } from "./spawn/spawning";
+import { mapVisualForRoom } from "./visual/mapVisual";
+import { roomVisualize } from "./visual/roomVisual";
 
-export function runFrame(): void {
+export const runFrame = registerFN((): void => {
     mountAll();
     if (Game.time % 100 === 0) console.log(`Current game tick is ${Game.time}`);
     Object.values(Game.rooms).forEach(room => {
@@ -24,4 +25,4 @@ export function runFrame(): void {
     Object.values(Game.creeps).forEach(creep => {
         runCreepAction(creep);
     });
-}
+}, "runFrame");

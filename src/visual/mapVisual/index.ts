@@ -1,5 +1,6 @@
+import { registerFN } from "profiler";
 import { roomInf } from "./roomInf";
 
-export function mapVisualForRoom(room: Room): void {
+export const mapVisualForRoom = registerFN((room: Room): void => {
     roomInf(room);
-}
+}, "mapVisualForRoom");

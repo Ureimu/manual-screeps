@@ -1,5 +1,5 @@
 import { RouteMidpointDetail } from "creep/routePlan/type";
-import * as profiler from "../../../utils/profiler";
+import { registerFN } from "profiler";
 import { state } from "..";
 import { build } from "./build";
 import { buildInRange } from "./buildInRange";
@@ -41,7 +41,7 @@ const unwrappedActionIndexedList = {
     stayByRoad
 };
 for (const name in unwrappedActionIndexedList) {
-    unwrappedActionIndexedList[name as keyof typeof unwrappedActionIndexedList].run = profiler.registerFN(
+    unwrappedActionIndexedList[name as keyof typeof unwrappedActionIndexedList].run = registerFN(
         unwrappedActionIndexedList[name as keyof typeof unwrappedActionIndexedList].run,
         `creepAction:${name}`
     );

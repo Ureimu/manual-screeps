@@ -73,7 +73,7 @@ ___
 
 **Returns:** *string*
 
-Defined in: spawn/spawnPool/index.ts:64
+Defined in: spawn/spawnPool/index.ts:65
 
 ___
 
@@ -100,4 +100,4 @@ ___
 
 **Returns:** *string*
 
-Defined in: spawn/spawnPool/index.ts:84
+Defined in: spawn/spawnPool/index.ts:85

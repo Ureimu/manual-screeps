@@ -1,4 +1,4 @@
-import * as profiler from "./profiler";
+import { registerObject } from "profiler";
 
 /**
  * 生成身体部件列表的简化输入类型，属性名代表部件名，属性值代表生成部件数量。repeat属性指定重复次数。
@@ -122,4 +122,4 @@ const bodypartsGenerator = {
     }
 };
 
-export default profiler.registerObject(bodypartsGenerator, "bodypartsGenerator");
+export default registerObject(bodypartsGenerator, "bodypartsGenerator");

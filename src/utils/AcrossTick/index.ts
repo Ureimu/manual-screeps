@@ -1,4 +1,5 @@
-import { profile } from "utils/profiler/decorator";
+import { registerFN } from "profiler";
+import { profile } from "profiler/decorator";
 import { runTask } from "./runTask";
 import { AcrossTickMemory, AcrossTickReturnCode } from "./type";
 
@@ -55,7 +56,7 @@ export function newAcrossTickTask(
     acrossTickTask.finish();
 }
 
-export function runAllAcrossTickTask(): void {
+export const runAllAcrossTickTask = registerFN((): void => {
     if (!Memory.AcrossTick) Memory.AcrossTick = {}; // 可以自己放在扩展挂载的地方
     if (!global.AcrossTickTaskFunction) {
         global.AcrossTickTaskFunction = {};
@@ -77,7 +78,7 @@ export function runAllAcrossTickTask(): void {
         };
     }
     runSpecifiedTickTask(Game.time);
-}
+}, "runAllAcrossTickTask");
 
 function runSpecifiedTickTask(tick: number): void {
     if (Memory.AcrossTick[tick]) {

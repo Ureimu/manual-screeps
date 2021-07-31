@@ -71,7 +71,7 @@ function initConstructionMemory(room: Room, name: string, structureType: Buildab
                 [name: string]: constructionSiteInf<typeof structureType>;
             }
         )[name] = {
-            sitePosList: [],
+            sitePosList: {},
             hasPutSites: false,
             hasBuilt: false,
             type: structureType,
@@ -104,7 +104,7 @@ function putConstructionSites<T extends BuildableStructureConstant>(
     const constructionTypeMemory = room.memory.construct.construction[structureType] as {
         [name: string]: constructionSiteInf<typeof structureType>;
     };
-    let structures: {
+    const structures: {
         structureType: string;
         pos: RoomPosition;
         destroy?: () => number;
@@ -120,23 +120,32 @@ function putConstructionSites<T extends BuildableStructureConstant>(
         }
     });
 
-    structures = structures.concat(constructionSites);
     if (posList.length > 0) console.log(`[build] 放置工地 ${name}`);
     for (let i = 0; i < posList.length; i++) {
         const conditionFlagList = {
             isInMemoryPosList: false,
-            isExistUnregisteredStructure: false
+            isExistUnregisteredStructure: false,
+            isExistUnregisteredConstructionSite: false
         };
         //
         for (const structure of structures) {
             if (structure.pos.isEqualTo(posList[i])) {
-                conditionFlagList.isExistUnregisteredStructure = true;
                 for (const id in room.memory.construct.construction[structureType]?.[name].memory) {
                     const pos = PosStr.getPosFromStr(
                         room.memory.construct.construction[structureType]?.[name].memory[id].pos as string
                     );
                     if (pos.isEqualTo(posList[i])) {
-                        conditionFlagList.isExistUnregisteredStructure = false;
+                        conditionFlagList.isExistUnregisteredStructure = true;
+                        break;
+                    }
+                }
+                for (const pos of (
+                    room.memory.construct.layout?.[structureType]?.[
+                        name as keyof typeof room.memory.construct.layout[typeof structureType]
+                    ] as unknown as { posStrList: string[] }
+                ).posStrList) {
+                    if (pos === PosStr.setPosToStr(structure.pos) && structureType === structure.structureType) {
+                        conditionFlagList.isExistUnregisteredConstructionSite = true;
                         break;
                     }
                 }
@@ -145,11 +154,42 @@ function putConstructionSites<T extends BuildableStructureConstant>(
                 }
             }
         }
+
+        for (const site of constructionSites) {
+            if (site.pos.isEqualTo(posList[i])) {
+                for (const id in room.memory.construct.construction[structureType]?.[name].memory) {
+                    const pos = PosStr.getPosFromStr(
+                        room.memory.construct.construction[structureType]?.[name].memory[id].pos as string
+                    );
+                    if (pos.isEqualTo(posList[i])) {
+                        conditionFlagList.isExistUnregisteredConstructionSite = true;
+                        break;
+                    }
+                }
+                const siteLayoutData = room.memory.construct.layout?.[structureType]?.[
+                    name as keyof typeof room.memory.construct.layout[typeof structureType]
+                ] as unknown as { posStrList: string[]; levelToBuild: number };
+                if (siteLayoutData.levelToBuild <= (room.controller?.level as number)) {
+                    for (const pos of siteLayoutData.posStrList) {
+                        if (pos === PosStr.setPosToStr(site.pos) && structureType === site.structureType) {
+                            conditionFlagList.isExistUnregisteredConstructionSite = true;
+                            break;
+                        }
+                    }
+                }
+                if (!conditionFlagList.isExistUnregisteredConstructionSite) {
+                    // console.log(`[build] 检索到已建成建筑,已添加`);
+                }
+            }
+        }
         if (conditionFlagList.isExistUnregisteredStructure === true) {
-            constructionTypeMemory[name].num++;
-            const sitePosSet = new Set<string>(constructionTypeMemory[name].sitePosList);
-            sitePosSet.add(PosStr.setPosToStr(posList[i]));
-            constructionTypeMemory[name].sitePosList = Array.from(sitePosSet);
+            constructionTypeMemory[name].sitePosList[PosStr.setPosToStr(posList[i])] = "structure";
+            constructionTypeMemory[name].num = Object.keys(constructionTypeMemory[name].sitePosList).length;
+            conditionFlagList.isInMemoryPosList = true;
+        }
+        if (conditionFlagList.isExistUnregisteredConstructionSite === true) {
+            constructionTypeMemory[name].sitePosList[PosStr.setPosToStr(posList[i])] = "site";
+            constructionTypeMemory[name].num = Object.keys(constructionTypeMemory[name].sitePosList).length;
             conditionFlagList.isInMemoryPosList = true;
         }
         if (conditionFlagList.isInMemoryPosList === false) {
@@ -161,10 +201,6 @@ function putConstructionSites<T extends BuildableStructureConstant>(
             }
             if (listC[i] === OK) {
                 totalSitesNum++;
-                constructionTypeMemory[name].num++;
-                const sitePosSet = new Set<string>(constructionTypeMemory[name].sitePosList);
-                sitePosSet.add(PosStr.setPosToStr(posList[i]));
-                constructionTypeMemory[name].sitePosList = Array.from(sitePosSet);
                 if (totalSitesNum >= 100) {
                     return totalSitesNum;
                 }

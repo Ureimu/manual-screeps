@@ -1,4 +1,5 @@
-import { RouteConditionDetail } from "creep/routePlan/type";
+import { RouteConditionDetail } from "../../routePlan/type";
+import { registerFN } from "profiler";
 import { conditionState, state } from "..";
 import { alwaysJump } from "./alwaysJump";
 import { creepStore } from "./creepStore";
@@ -12,8 +13,14 @@ export interface CreepCondition {
     description: string;
 }
 
-export const conditionIndexedList = { store, creepStore, creepTimeToLive, alwaysJump, spawnEnergy };
-
+const unWrappedConditionIndexedList = { store, creepStore, creepTimeToLive, alwaysJump, spawnEnergy };
+for (const name in unWrappedConditionIndexedList) {
+    unWrappedConditionIndexedList[name as keyof typeof unWrappedConditionIndexedList].run = registerFN(
+        unWrappedConditionIndexedList[name as keyof typeof unWrappedConditionIndexedList].run,
+        "CreepCondition:" + unWrappedConditionIndexedList[name as keyof typeof unWrappedConditionIndexedList].name
+    );
+}
+export const conditionIndexedList = unWrappedConditionIndexedList;
 export function switchDoWhenCondition(routeDetail: RouteConditionDetail, creep: Creep): state {
     if (conditionIndexedList[routeDetail.condition]) {
         const stateHere = conditionIndexedList[routeDetail.condition].run(

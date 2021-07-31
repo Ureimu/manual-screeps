@@ -32,5 +32,8 @@ function run(creep: Creep, conditionArgs?: string[]): [state, conditionState] {
 export const spawnEnergy: CreepCondition = {
     run,
     name: "spawnEnergy",
-    description: "spawn的能量值"
+    description: `spawn和extension的能量值。使用creep.room.energyAvailable获取。
+参数：1."full"|"empty"|"notFull"|"notEmpty"|">="|"<="|"=="
+2.number
+只需要在使用">="|"<="|"=="作为第一个参数时使用第二个参数。`
 };

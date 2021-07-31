@@ -17,6 +17,7 @@
 - [chooseRouteForCreep](creep_routeplan.routeplan.md#chooserouteforcreep)
 - [create](creep_routeplan.routeplan.md#create)
 - [deleteRoute](creep_routeplan.routeplan.md#deleteroute)
+- [printConditionUsage](creep_routeplan.routeplan.md#printconditionusage)
 - [printRouteDetail](creep_routeplan.routeplan.md#printroutedetail)
 - [setRouteProperties](creep_routeplan.routeplan.md#setrouteproperties)
 - [showRoutes](creep_routeplan.routeplan.md#showroutes)
@@ -49,7 +50,7 @@
 
 **Returns:** *string*
 
-Defined in: creep/routePlan/index.ts:93
+Defined in: creep/routePlan/index.ts:95
 
 ___
 
@@ -71,7 +72,7 @@ ___
 
 **Returns:** *string*
 
-Defined in: creep/routePlan/index.ts:50
+Defined in: creep/routePlan/index.ts:52
 
 ___
 
@@ -95,7 +96,7 @@ ___
 
 **Returns:** *string*
 
-Defined in: creep/routePlan/index.ts:120
+Defined in: creep/routePlan/index.ts:122
 
 ___
 
@@ -119,7 +120,7 @@ ___
 
 **Returns:** *string*
 
-Defined in: creep/routePlan/index.ts:19
+Defined in: creep/routePlan/index.ts:21
 
 ___
 
@@ -142,7 +143,17 @@ ___
 
 **Returns:** *string*
 
-Defined in: creep/routePlan/index.ts:237
+Defined in: creep/routePlan/index.ts:239
+
+___
+
+### printConditionUsage
+
+▸ `Static` **printConditionUsage**(): *string*
+
+**Returns:** *string*
+
+Defined in: creep/routePlan/index.ts:289
 
 ___
 
@@ -165,7 +176,7 @@ ___
 
 **Returns:** *string*
 
-Defined in: creep/routePlan/index.ts:258
+Defined in: creep/routePlan/index.ts:260
 
 ___
 
@@ -189,7 +200,7 @@ ___
 
 **Returns:** *string*
 
-Defined in: creep/routePlan/index.ts:155
+Defined in: creep/routePlan/index.ts:157
 
 ___
 
@@ -214,4 +225,4 @@ ___
 
 **Returns:** *string*
 
-Defined in: creep/routePlan/index.ts:182
+Defined in: creep/routePlan/index.ts:184

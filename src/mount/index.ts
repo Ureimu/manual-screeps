@@ -1,5 +1,5 @@
 import { versionCheck } from "version";
-import * as profiler from "../utils/profiler";
+import { enable } from "profiler";
 import mountCallOnStart from "./mountCallOnStart";
 import mountCommit from "./mountCommit";
 import mountGlobalMicroFunction from "./mountGlobalFunction";
@@ -16,7 +16,7 @@ export function mountAll(): void {
         mountCallOnStart();
         mountCommit();
         global.reset = true;
-        profiler.enable(); // 挂载完所有原型后再启用profiler
+        enable(); // 挂载完所有原型后再启用profiler
         versionCheck();
         console.log("[mount] 挂载扩展");
     }

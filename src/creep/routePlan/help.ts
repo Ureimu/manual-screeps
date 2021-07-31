@@ -67,6 +67,12 @@ export default [
                             describe: "打印路径详细信息",
                             functionName: getButton("routePlanForm.printRouteDetail"),
                             commandType: true
+                        },
+                        {
+                            title: "获取条件式使用说明",
+                            describe: "获取条件式使用说明",
+                            functionName: getButton("routePlanForm.printConditionUsage"),
+                            commandType: true
                         }
                     ]
                 })

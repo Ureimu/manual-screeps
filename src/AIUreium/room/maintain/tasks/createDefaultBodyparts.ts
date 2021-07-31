@@ -33,6 +33,9 @@ export const createDefaultBodyparts: TaskObject<RoomTaskArgs> = {
             },
             scouter: {
                 "1": { body: "m1" }
+            },
+            centerCarrier: {
+                "4": { body: "m2c16" }
             }
         };
 

@@ -150,7 +150,7 @@ export class ProjectNetworkDiagram {
         return nodeContentList.join("<br/>"); // mermaid的换行符
     }
 
-    private getDiagramCode(markdown: boolean): string {
+    public getDiagramCode(markdown: boolean): string {
         const mermaidDiagram = new mermaid();
         mermaidDiagram.chooseDirection("top bottom");
         for (const nodeName in this.diagram) {

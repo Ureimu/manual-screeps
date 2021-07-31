@@ -23,6 +23,7 @@ export interface SpawnCreepDetail {
     readyCondition: readyConditionKey;
     state: runningState;
     spawnName?: string;
+    roomName: string;
 }
 
 export type runningState = "running" | "ready" | "notReady";

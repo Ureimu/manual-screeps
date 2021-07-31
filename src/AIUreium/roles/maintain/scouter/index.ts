@@ -1,4 +1,6 @@
+import { stayByRoad } from "creep/action/doOnArrived/stayByRoad";
 import { getAvailableNearbyRooms } from "utils/roomTools";
+import { checkArray } from "utils/typeCheck";
 import { recordRoomData } from "./recordRoomData";
 
 export function scouter(creep: Creep): void {
@@ -17,6 +19,10 @@ export function scouter(creep: Creep): void {
 
         if (creep.room.name !== scoutRoomName) {
             creep.moveTo(new RoomPosition(25, 25, scoutRoomName));
+        }
+    } else {
+        if (creep.room.controller?.my && checkArray(creep.room.memory.construct.freeSpacePosList)) {
+            stayByRoad.run(creep);
         }
     }
 }

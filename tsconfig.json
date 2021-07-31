@@ -15,7 +15,7 @@
         "noImplicitReturns": true,
         "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
-        "allowUnreachableCode": false
+        "allowUnreachableCode": false,
     },
     "exclude": [
         "node_modules"

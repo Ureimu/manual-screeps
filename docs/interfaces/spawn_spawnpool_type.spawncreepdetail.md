@@ -12,6 +12,7 @@
 - [creepName](spawn_spawnpool_type.spawncreepdetail.md#creepname)
 - [priority](spawn_spawnpool_type.spawncreepdetail.md#priority)
 - [readyCondition](spawn_spawnpool_type.spawncreepdetail.md#readycondition)
+- [roomName](spawn_spawnpool_type.spawncreepdetail.md#roomname)
 - [spawnName](spawn_spawnpool_type.spawncreepdetail.md#spawnname)
 - [state](spawn_spawnpool_type.spawncreepdetail.md#state)
 
@@ -46,6 +47,14 @@ ___
 • **readyCondition**: keyof ReadyCondition
 
 Defined in: spawn/spawnPool/type.ts:23
+
+___
+
+### roomName
+
+• **roomName**: *string*
+
+Defined in: spawn/spawnPool/type.ts:26
 
 ___
 

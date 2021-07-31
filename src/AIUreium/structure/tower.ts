@@ -1,16 +1,19 @@
-export const tower = {
-    run(roomName: string): void {
-        defend(roomName);
-        repair(roomName, 3300);
+import { registerFN } from "profiler";
+const unwrappedTower = {
+    run: (room: Room): void => {
+        defend(room);
+        repair(room, 3300);
     }
 };
+unwrappedTower.run = registerFN(unwrappedTower.run, "structure.tower.run");
+export const tower = unwrappedTower;
 
-function defend(roomName: string) {
-    const hostiles = Game.rooms[roomName].find(FIND_HOSTILE_CREEPS);
+function defend(room: Room) {
+    const hostiles = room.find(FIND_HOSTILE_CREEPS);
     if (hostiles.length > 0) {
         const username = hostiles[0].owner.username;
-        Game.notify(`User ${username} spotted in room ${roomName}`);
-        const towers = Game.rooms[roomName].find(FIND_MY_STRUCTURES, {
+        Game.notify(`User ${username} spotted in room ${room.name}`);
+        const towers = room.find(FIND_MY_STRUCTURES, {
             filter: {
                 structureType: STRUCTURE_TOWER
             }
@@ -19,13 +22,13 @@ function defend(roomName: string) {
     }
 }
 
-function repair(roomName: string, hitsMin: number) {
-    const towers = Game.rooms[roomName].find(FIND_MY_STRUCTURES, {
+function repair(room: Room, hitsMin: number) {
+    const towers = room.find(FIND_MY_STRUCTURES, {
         filter: {
             structureType: STRUCTURE_TOWER
         }
     }) as StructureTower[];
-    const targets = Game.rooms[roomName].find(FIND_STRUCTURES, {
+    const targets = room.find(FIND_STRUCTURES, {
         filter: object => object.hits < object.hitsMax && object.hits < hitsMin
     });
     targets.sort((a, b) => a.hits - b.hits);

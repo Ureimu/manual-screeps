@@ -69,6 +69,12 @@ export default [
                             describe: "插件管理",
                             functionName: getButton("plugin"),
                             commandType: true
+                        },
+                        {
+                            title: "stats",
+                            describe: "查看统计数据",
+                            functionName: getButton("mf.stats()"),
+                            commandType: true
                         }
                     ]
                 })
