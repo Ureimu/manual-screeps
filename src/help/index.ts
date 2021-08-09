@@ -6,6 +6,7 @@ import creepBodyAlias from "../creep/body/help";
 import spawnQueueAlias from "../spawn/spawnPool/help";
 import posMaintainerAlias from "../flagMaintainer/help";
 import pluginAlias from "../plugin/help";
+import uiAlias from "../utils/ui/help";
 
 export default _.flatten([
     GlobalAlias,
@@ -15,5 +16,6 @@ export default _.flatten([
     creepBodyAlias,
     spawnQueueAlias,
     posMaintainerAlias,
-    pluginAlias
+    pluginAlias,
+    uiAlias
 ]);

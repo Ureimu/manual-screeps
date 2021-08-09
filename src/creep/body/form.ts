@@ -7,7 +7,7 @@ export function callOnStart(): void {
 
 export class creepBodyForm {
     public static createConfig(): string {
-        const commitFunctionName = "creepBody.createConfig";
+        const commitFunctionName = "CreepBody.createConfig";
         return createForm(
             commitFunctionName + String(Game.time),
             [
@@ -28,7 +28,7 @@ export class creepBodyForm {
     }
 
     public static setConfig(): string {
-        const commitFunctionName = "creepBody.setConfig";
+        const commitFunctionName = "CreepBody.setConfig";
         return createForm(
             commitFunctionName + String(Game.time),
             [
@@ -65,7 +65,7 @@ export class creepBodyForm {
     }
 
     public static deleteConfig(): string {
-        const commitFunctionName = "creepBody.deleteConfig";
+        const commitFunctionName = "CreepBody.deleteConfig";
         return createForm(
             commitFunctionName + String(Game.time),
             [

@@ -8,7 +8,7 @@ import { roomVisualize } from "./visual/roomVisual";
 
 export const runFrame = registerFN((): void => {
     mountAll();
-    if (Game.time % 100 === 0) console.log(`Current game tick is ${Game.time}`);
+    if (Game.time % 1500 === 0) clearUnusedCreepMemory();
     Object.values(Game.rooms).forEach(room => {
         if (room.controller?.my && room.find(FIND_MY_SPAWNS).length !== 0) {
             autoConstruction(room);
@@ -26,3 +26,18 @@ export const runFrame = registerFN((): void => {
         runCreepAction(creep);
     });
 }, "runFrame");
+
+function clearUnusedCreepMemory(): void {
+    const usingCreepSet = new Set<string>();
+    Object.values(Game.rooms).forEach(room => {
+        if (room.controller?.my && room.find(FIND_MY_SPAWNS).length !== 0) {
+            Object.keys(room.memory.spawnPool).forEach(creepName => usingCreepSet.add(creepName));
+        }
+    });
+    Object.keys(Game.creeps).forEach(creepName => usingCreepSet.add(creepName));
+    Object.keys(Memory.creeps).forEach(creepName => {
+        if (!usingCreepSet.has(creepName)) {
+            delete Memory.creeps[creepName];
+        }
+    });
+}

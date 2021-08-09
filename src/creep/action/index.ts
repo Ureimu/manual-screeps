@@ -79,7 +79,8 @@ function runRecursiveCreepAction(
     if (!route) throw Error(`creep ${creep.name} 从属的路径 ${routeInfo.name} 尚未定义，请先定义该路径`);
     if (!route.routeDetailArray) return;
     const routeDetail = route.routeDetailArray[routeInfo.index];
-    if (isRouteMidpointDetail(routeDetail)) {
+    if (!routeDetail) return;
+    if (routeDetail && isRouteMidpointDetail(routeDetail)) {
         switch (creepRoute.state) {
             case "moving":
                 creepRoute.state = moveCreep(creep, routeDetail);

@@ -50,7 +50,7 @@
 
 **Returns:** *string*
 
-Defined in: creep/routePlan/index.ts:95
+Defined in: creep/routePlan/index.ts:100
 
 ___
 
@@ -96,7 +96,7 @@ ___
 
 **Returns:** *string*
 
-Defined in: creep/routePlan/index.ts:122
+Defined in: creep/routePlan/index.ts:127
 
 ___
 
@@ -143,7 +143,7 @@ ___
 
 **Returns:** *string*
 
-Defined in: creep/routePlan/index.ts:239
+Defined in: creep/routePlan/index.ts:244
 
 ___
 
@@ -153,7 +153,7 @@ ___
 
 **Returns:** *string*
 
-Defined in: creep/routePlan/index.ts:289
+Defined in: creep/routePlan/index.ts:294
 
 ___
 
@@ -176,7 +176,7 @@ ___
 
 **Returns:** *string*
 
-Defined in: creep/routePlan/index.ts:260
+Defined in: creep/routePlan/index.ts:265
 
 ___
 
@@ -200,7 +200,7 @@ ___
 
 **Returns:** *string*
 
-Defined in: creep/routePlan/index.ts:157
+Defined in: creep/routePlan/index.ts:162
 
 ___
 
@@ -225,4 +225,4 @@ ___
 
 **Returns:** *string*
 
-Defined in: creep/routePlan/index.ts:184
+Defined in: creep/routePlan/index.ts:189

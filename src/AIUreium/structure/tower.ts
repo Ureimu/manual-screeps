@@ -19,6 +19,24 @@ function defend(room: Room) {
             }
         }) as StructureTower[];
         towers.forEach(singleTower => singleTower.attack(hostiles[0]));
+
+        if (
+            hostiles.some(
+                creep =>
+                    creep.owner.username !== "Invader" &&
+                    creep.body.some(
+                        body =>
+                            body.type === "attack" ||
+                            body.type === "work" ||
+                            body.type === "carry" ||
+                            body.type === "ranged_attack" ||
+                            body.type === "heal" ||
+                            body.type === "claim"
+                    )
+            )
+        ) {
+            room.controller?.activateSafeMode();
+        }
     }
 }
 

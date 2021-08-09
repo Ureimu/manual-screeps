@@ -1,5 +1,5 @@
 /* eslint-disable no-useless-escape */
-import { resetMaintainTaskProject } from "AIUreium/room/maintain/taskRelation";
+import { getMaintainRoomProject } from "AIUreium/room/maintain/taskRelation";
 import { clearCreepRouteMemory } from "creep/action";
 import { Base64 } from "js-base64";
 import { newAcrossTickTask } from "utils/AcrossTick";
@@ -114,7 +114,7 @@ global.test=element.form.id
 }
 
 function resetAllMaintainTaskProject(): void {
-    for (const room in Game.rooms) {
-        resetMaintainTaskProject(Game.rooms[room]);
+    for (const roomName in Game.rooms) {
+        getMaintainRoomProject(roomName).reset();
     }
 }

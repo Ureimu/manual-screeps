@@ -1,3 +1,4 @@
+import { getCostMatrix } from "construct/composition/gridLayout/costMatrix";
 import { FlagMaintainer } from "flagMaintainer";
 import { FlagTools } from "flagMaintainer/tools";
 
@@ -22,7 +23,7 @@ export function recordRoomData(room: Room): void {
                     .filter(anyFlag => anyFlag.name.includes(`${room.name}source`))[0];
                 const sourceFlagName = flag.name;
                 const spawnName = originRoom.memory.construct.firstSpawnName.name;
-                if (roomSourcesMemory?.[sourceFlagName]?.[originRoom.name]?.length) {
+                if (roomSourcesMemory?.[sourceFlagName]?.[originRoom.name]?.pathLength) {
                     return;
                 }
 
@@ -33,11 +34,17 @@ export function recordRoomData(room: Room): void {
                 const ret = PathFinder.search(
                     Game.spawns[spawnName].pos,
                     { pos: source.pos, range: 1 },
-                    { maxOps: 1000 * 50 }
+                    { maxOps: 1000 * 50, roomCallback: getCostMatrix }
                 );
                 if (!ret.incomplete) {
                     console.log(`记录路径`);
-                    roomSourcesMemory[sourceFlagName][originRoom.name] = { length: ret.path.length, inUse: false };
+                    roomSourcesMemory[sourceFlagName][originRoom.name] = {
+                        sourceRoomName: room.name,
+                        sourceName: sourceFlagName,
+                        originRoomName: originRoom.name,
+                        pathLength: ret.path.length,
+                        inUse: false
+                    };
                 }
                 console.log(
                     `路径${spawnName}-->${sourceFlagName} complete:${ret.incomplete ? "false" : "true"} pathLength:${
@@ -53,8 +60,16 @@ declare global {
     interface RoomMemory {
         sources?: {
             [sourceFlagName: string]: {
-                [originRoomName: string]: { length: number; inUse: boolean };
+                [originRoomName: string]: OutwardsSourceData;
             };
         };
     }
+}
+
+export interface OutwardsSourceData {
+    sourceRoomName: string;
+    sourceName: string;
+    originRoomName: string;
+    pathLength: number;
+    inUse: boolean;
 }

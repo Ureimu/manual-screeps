@@ -17,6 +17,12 @@ export function moveCreep(creep: Creep, routeDetail: RouteMidpointDetail): state
     //             `creep ${creep.name} moving by path from ${routeCache.origin} to ${routeCache.dest} with error ${moveByPathReturnCode}`
     //         );
     // } else
-    creep.moveTo(destination, { range: routeDetail.range, ignoreCreeps: false });
+
+    const code = creep.moveTo(destination, { range: routeDetail.range, ignoreCreeps: false });
+    if (Game.time % 5 === 0 && creep.name === "W33N21SourceKeeper0") {
+        console.log(
+            `"moving!" + ${code} + ${routeDetail.range} + ${typeof routeDetail.range} + ${routeDetail.pathMidpointPos}`
+        );
+    }
     return "moving";
 }

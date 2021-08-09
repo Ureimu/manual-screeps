@@ -1,14 +1,15 @@
 import { CreepGroup } from "creep/group";
-import { TaskObject } from "utils/ProjectRunner";
-import { RoomTaskArgs } from "../../taskRelation";
+import { TaskObject } from "utils/Project";
+import { maintainRoomTaskArgs } from "../../taskRelation";
 
-export const scoutRoom: TaskObject<RoomTaskArgs> = {
+export const scoutRoom: TaskObject<maintainRoomTaskArgs> = {
     name: "scoutRoom",
     description: "scoutRoom",
     start() {
         return "end";
     },
-    working(room) {
+    working(roomName) {
+        const room = Game.rooms[roomName];
         const creepGroupName = `${room.name}s`;
         return "end";
     },

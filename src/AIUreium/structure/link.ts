@@ -5,8 +5,8 @@ import { PosStr } from "utils/RoomPositionToStr";
 
 export const getLink = registerFN((room: Room, linkName: SpecifiedStructureNameList<"link">): StructureLink[] => {
     if (!room.memory.construct.layout) return [];
-    const linkPosStrList = room.memory.construct.layout.link[linkName].posStrList;
-    if (!linkPosStrList || !room.memory.construct.construction.link?.[linkName].hasBuilt) return [];
+    const linkPosStrList = room.memory.construct.layout.link?.[linkName]?.posStrList;
+    if (!linkPosStrList || !room.memory.construct.construction.link?.[linkName]?.hasBuilt) return [];
     const linkList = [];
     for (const linkPosStr of linkPosStrList) {
         const linkPos = PosStr.getPosFromStr(linkPosStr);

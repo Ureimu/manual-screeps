@@ -2,24 +2,26 @@ import { CreepGroup } from "creep/group";
 import { RoutePlan } from "creep/routePlan";
 import { FlagMaintainer } from "flagMaintainer";
 import { FlagTools } from "flagMaintainer/tools";
-import { TaskObject } from "utils/ProjectRunner";
+import { TaskObject } from "utils/Project";
 import { PosStr } from "utils/RoomPositionToStr";
-import { RoomTaskArgs } from "../../taskRelation";
+import { maintainRoomTaskArgs } from "../../taskRelation";
 
-export const upgradeByLink: TaskObject<RoomTaskArgs> = {
+export const upgradeByLink: TaskObject<maintainRoomTaskArgs> = {
     name: "upgradeByLink",
     description: "upgradeByLink",
     start() {
         return "end";
     },
-    working(room) {
+    working(roomName) {
+        const room = Game.rooms[roomName];
         FlagMaintainer.refresh({
             roomName: room.name,
             typeList: FlagMaintainer.getTypeList(["link"])
         });
 
         if (!room.memory.construct.layout) return "running";
-        const controllerContainerPosStr = room.memory.construct.layout.container.controllerContainer.posStrList[0];
+        const controllerContainerPosStr = room.memory.construct.layout.container?.controllerContainer?.posStrList[0];
+        if (!controllerContainerPosStr) throw Error(`${room.name}的controllerContainerPosStr不存在！`);
         const controllerContainerPos = PosStr.getPosFromStr(controllerContainerPosStr);
         const controllerLinkFlag = controllerContainerPos
             .findInRange(FIND_FLAGS, 1)

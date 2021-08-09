@@ -1,7 +1,7 @@
 import { registerFN } from "profiler";
 import { PosStr } from "utils/RoomPositionToStr";
 import { getGridLayout } from "./composition/gridLayout";
-import { runLayout } from "./composition/runLayOut";
+import { runLayout } from "./runLayOut";
 
 export function callOnStart(room: Room): void {
     const controller = room.controller as StructureController;
@@ -29,7 +29,10 @@ function restartConstruction(room: Room): void {
         const constructMemory =
             room.memory.construct.construction[m as keyof typeof room.memory.construct.construction];
         for (const n in constructMemory) {
-            constructMemory[n as keyof typeof constructMemory].hasPutSites = false;
+            const structureData = constructMemory[n as keyof typeof constructMemory];
+            if (structureData) {
+                structureData.hasPutSites = false;
+            }
         }
     }
 }
@@ -70,22 +73,24 @@ function updateConstruction(room: Room): void {
             if (structureName === "") continue;
             // console.log(structureName);
             const structureList = myStructure.room.memory.construct.construction[myStructure.structureType];
-            if (structureList && !structureList[structureName].memory[myStructure.id]) {
-                structureList[structureName].memory[myStructure.id] = {
+            const structureData = structureList?.[structureName];
+            if (structureList && structureData && !structureData.memory[myStructure.id]) {
+                structureData.memory[myStructure.id] = {
                     built: true,
                     pos: PosStr.setPosToStr(myStructure.pos)
                 };
-                const pos = structureList[structureName].sitePosList[PosStr.setPosToStr(myStructure.pos)];
+                const pos = structureData.sitePosList[PosStr.setPosToStr(myStructure.pos)];
                 if (pos) {
-                    delete structureList[structureName].sitePosList[PosStr.setPosToStr(myStructure.pos)];
+                    delete structureData.sitePosList[PosStr.setPosToStr(myStructure.pos)];
                 }
             }
             if (
                 structureList &&
-                structureList[structureName].hasPutSites &&
-                Object.keys(structureList[structureName].memory).length === structureList[structureName].num
+                structureData &&
+                structureData.hasPutSites &&
+                Object.keys(structureData.memory).length === structureData.num
             ) {
-                structureList[structureName].hasBuilt = true;
+                structureData.hasBuilt = true;
             }
         }
     }
@@ -97,6 +102,7 @@ function buildingName<T extends BuildableStructureConstant>(myStructure: Concret
             const structureList = myStructure.room.memory.construct.construction[name];
             for (const kindName in structureList) {
                 const structureData = structureList[kindName];
+                if (!structureData) continue;
                 if (!structureData.hasBuilt) {
                     // console.log(structureData.sitePosList.length);
                     if (structureData.sitePosList[PosStr.setPosToStr(myStructure.pos)]) {
@@ -106,7 +112,7 @@ function buildingName<T extends BuildableStructureConstant>(myStructure: Concret
                         if (PosStr.setPosToStr(myStructure.pos) === structureData.memory[id].pos) return kindName;
                     }
                 } else {
-                    const memory = structureList[kindName].memory;
+                    const memory = structureData.memory;
                     for (const id in memory) {
                         if (memory[id].built) {
                             if (memory[id].pos === PosStr.setPosToStr(myStructure.pos)) {

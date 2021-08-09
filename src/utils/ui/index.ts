@@ -1,6 +1,6 @@
 /* eslint-disable no-useless-escape */
 import { Base64 } from "js-base64";
-import { ProjectNetworkDiagram } from "utils/ProjectNetworkDiagram";
+import { ProjectNetworkDiagram } from "utils/Project/storage";
 import { getUpgradeSpeed } from "visual/roomInf/upgradeSpeed";
 import { ScreepsData } from "./type";
 
@@ -18,12 +18,33 @@ export function stats(): string {
         timeData: {
             tick: Game.time,
             time: Date.now()
+        },
+        globalData: {
+            creepBodyConfig: Memory.creepBodyConfig,
+            creepGroups: Memory.creepGroups
         }
     };
     _.forEach(Game.rooms, room => {
         if (room.controller?.my && room.find(FIND_MY_SPAWNS).length !== 0) {
             const upgradeSpeed = getUpgradeSpeed(room.name);
             const diagram = new ProjectNetworkDiagram(room.memory?.AIUreium?.maintainRoom);
+            const outwardsSourceDiagram: {
+                [sourceName: string]: {
+                    name: string;
+                    diagram: string;
+                };
+            } = {};
+            _.flatten(
+                Object.values(room.memory?.AIUreium.outwardsSource).map(value => {
+                    return Object.entries(value);
+                })
+            ).map(
+                diagramMemory =>
+                    (outwardsSourceDiagram[diagramMemory[0]] = {
+                        diagram: Base64.encode(new ProjectNetworkDiagram(diagramMemory[1]).getDiagramCode(false)),
+                        name: diagramMemory[0]
+                    })
+            );
             data.roomData[room.name] = {
                 controller: {
                     progress: room.controller.progress,
@@ -33,13 +54,14 @@ export function stats(): string {
                     level: room.controller.level
                 },
                 creep: {
-                    num: 999
+                    num: Object.keys(room.memory.spawnPool).length
                 },
                 projectDiagram: {
                     maintenance: Base64.encode(diagram.getDiagramCode(false)),
-                    outwardsSource: {}
+                    outwardsSource: outwardsSourceDiagram
                 },
-                name: room.name
+                name: room.name,
+                spawnPool: room.memory.spawnPool
             };
         }
     });

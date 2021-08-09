@@ -1,15 +1,16 @@
 import { CreepGroup } from "creep/group";
 import { SpawnPool } from "spawn/spawnPool";
-import { TaskObject } from "utils/ProjectRunner";
-import { RoomTaskArgs } from "../../taskRelation";
+import { TaskObject } from "utils/Project";
+import { maintainRoomTaskArgs } from "../../taskRelation";
 
-export const createScoutGroup: TaskObject<RoomTaskArgs> = {
+export const createScoutGroup: TaskObject<maintainRoomTaskArgs> = {
     name: "createScoutGroup",
     description: "createScoutGroup",
     start() {
         return "end";
     },
-    working(room) {
+    working(roomName) {
+        const room = Game.rooms[roomName];
         const creepGroupName = `${room.name}s`;
         CreepGroup.create({ creepGroupName, mode: "role" });
         for (let index = 0; index < 2; index++) {

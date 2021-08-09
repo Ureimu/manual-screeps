@@ -5,7 +5,7 @@ import { plugin } from "plugin";
 import { FlagMaintainerForm } from "flagMaintainer/form";
 import { spawnPoolForm } from "spawn/spawnPool/form";
 import { creators } from "utils/console/form";
-import { mermaid } from "utils/mermaid";
+import { mermaid } from "utils/Project/mermaid";
 
 declare global {
     namespace NodeJS {

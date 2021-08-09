@@ -35,7 +35,7 @@ ___
 
 ### doWhenArrive
 
-• **doWhenArrive**: ``"goTo"`` \| ``"harvestSource"`` \| ``"upgradeController"`` \| ``"signController"`` \| ``"transferEnergy"`` \| ``"withdrawEnergy"`` \| ``"build"`` \| ``"keepOnHarvestingSource"`` \| ``"buildInRange"`` \| ``"fillSpawnAndExtension"`` \| ``"fillTower"`` \| ``"pause"`` \| ``"repair"`` \| ``"scoutRoom"`` \| ``"stayByRoad"``
+• **doWhenArrive**: ``"goTo"`` \| ``"harvestSource"`` \| ``"upgradeController"`` \| ``"signController"`` \| ``"transferEnergy"`` \| ``"withdrawEnergy"`` \| ``"build"`` \| ``"keepOnHarvestingSource"`` \| ``"buildInRange"`` \| ``"fillSpawnAndExtension"`` \| ``"fillTower"`` \| ``"pause"`` \| ``"repair"`` \| ``"scoutRoom"`` \| ``"stayByRoad"`` \| ``"attackAll"``
 
 当到达位置时执行的动作。
 

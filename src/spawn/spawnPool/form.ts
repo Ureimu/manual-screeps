@@ -15,7 +15,7 @@ export function callOnStart(): void {
 
 export class spawnPoolForm {
     public static addCreep(): string {
-        const commitFunctionName = "spawnPool.addCreep";
+        const commitFunctionName = "SpawnPool.addCreep";
         return createForm(
             commitFunctionName + String(Game.time),
             [
@@ -36,11 +36,13 @@ export class spawnPoolForm {
                 { name: "priority", label: "优先级", type: "input", placeholder: "priority（数字）" },
                 {
                     name: "roomName",
-                    label: "spawn名称",
+                    label: "spawn的room名称",
                     type: "select",
-                    options: Object.keys(Game.spawns).map(value => {
-                        return { value, label: value };
-                    })
+                    options: Object.values(Game.rooms)
+                        .filter(room => room.controller?.my)
+                        .map(room => {
+                            return { value: room.name, label: room.name };
+                        })
                 },
                 {
                     name: "readyCondition",
@@ -61,7 +63,7 @@ export class spawnPoolForm {
     }
 
     public static deleteCreep(): string {
-        const commitFunctionName = "spawnPool.deleteCreep";
+        const commitFunctionName = "SpawnPool.deleteCreep";
         return createForm(
             commitFunctionName + String(Game.time),
             [
@@ -73,11 +75,13 @@ export class spawnPoolForm {
                 },
                 {
                     name: "roomName",
-                    label: "spawn名称",
+                    label: "room名称",
                     type: "select",
-                    options: Object.keys(Game.spawns).map(value => {
-                        return { value, label: value };
-                    })
+                    options: Object.values(Game.rooms)
+                        .filter(room => room.controller?.my)
+                        .map(room => {
+                            return { value: room.name, label: room.name };
+                        })
                 }
             ],
             {
@@ -90,7 +94,7 @@ export class spawnPoolForm {
     }
 
     public static setCreepProperties(): string {
-        const commitFunctionName = "spawnPool.setCreepProperties";
+        const commitFunctionName = "SpawnPool.setCreepProperties";
         return createForm(
             commitFunctionName + String(Game.time),
             [

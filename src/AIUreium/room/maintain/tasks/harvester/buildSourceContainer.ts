@@ -3,13 +3,14 @@ import { RoutePlan } from "creep/routePlan";
 import { FlagMaintainer } from "flagMaintainer";
 import { FlagTools } from "flagMaintainer/tools";
 import { SpawnPool } from "spawn/spawnPool";
-import { TaskObject } from "utils/ProjectRunner";
-import { RoomTaskArgs } from "../../taskRelation";
+import { TaskObject } from "utils/Project";
+import { maintainRoomTaskArgs } from "../../taskRelation";
 
-export const buildSourceContainer: TaskObject<RoomTaskArgs> = {
+export const buildSourceContainer: TaskObject<maintainRoomTaskArgs> = {
     name: "buildSourceContainer",
     description: "buildSourceContainer",
-    start(room) {
+    start(roomName) {
+        const room = Game.rooms[roomName];
         FlagMaintainer.refresh({
             roomName: room.name,
             typeList: FlagMaintainer.getTypeList(["container", "containerConstructionSite", "source"])
@@ -19,7 +20,8 @@ export const buildSourceContainer: TaskObject<RoomTaskArgs> = {
         }
         return "running";
     },
-    working(room) {
+    working(roomName) {
+        const room = Game.rooms[roomName];
         if (room.memory.construct.construction.container?.sourceContainer?.hasBuilt) {
             return "end";
         }

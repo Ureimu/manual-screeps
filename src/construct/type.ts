@@ -9,7 +9,7 @@ export interface constructMemory {
     roomControlStatus: number[]; // 用来与上一次建造时做比较，在每次升级时会重新建造一次
     construction: {
         [structureName in BuildableStructureConstant]?: {
-            [name: string]: constructionSiteInf<structureName>;
+            [name: string]: constructionSiteInf<structureName> | undefined;
         };
     };
     firstSpawnName: {
@@ -23,8 +23,11 @@ export interface constructMemory {
 }
 
 export type formedLayout = {
-    [structureName in BuildableStructureConstant]: {
-        [specifiedName in SpecifiedStructureNameList<structureName>]: { posStrList: string[]; levelToBuild?: number };
+    [structureName in BuildableStructureConstant]?: {
+        [specifiedName in SpecifiedStructureNameList<structureName>]?: {
+            posStrList: string[];
+            levelToBuild?: number;
+        };
     };
 };
 
@@ -50,5 +53,5 @@ export type SpecifiedStructureNameList<T extends BuildableStructureConstant> = T
     : T extends "link"
     ? "sourceLink" | "controllerLink" | "centerLink"
     : T extends "road"
-    ? "baseRoad" | "sourceAndControllerRoad" | "mineralRoad" | "aroundSpawnRoad"
+    ? "baseRoad" | "sourceAndControllerRoad" | "mineralRoad" | "aroundSpawnRoad" | "outwardsSourceRoad" | "passerbyRoad"
     : T;

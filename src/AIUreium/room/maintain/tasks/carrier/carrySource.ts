@@ -3,21 +3,23 @@ import { RoutePlan } from "creep/routePlan";
 import { FlagMaintainer } from "flagMaintainer";
 import { FlagTools } from "flagMaintainer/tools";
 import { SpawnPool } from "spawn/spawnPool";
-import { TaskObject } from "utils/ProjectRunner";
+import { TaskObject } from "utils/Project";
 import { PosStr } from "utils/RoomPositionToStr";
-import { RoomTaskArgs } from "../../taskRelation";
+import { maintainRoomTaskArgs } from "../../taskRelation";
 
-export const carrySource: TaskObject<RoomTaskArgs> = {
+export const carrySource: TaskObject<maintainRoomTaskArgs> = {
     name: "carrySource",
     description: "carrySource",
-    start(room) {
+    start(roomName) {
+        const room = Game.rooms[roomName];
         FlagMaintainer.refresh({
             roomName: room.name,
             typeList: FlagMaintainer.getTypeList(["storage", "container"])
         });
         return "end";
     },
-    working(room) {
+    working(roomName) {
+        const room = Game.rooms[roomName];
         const sources = room.find(FIND_SOURCES);
 
         const routeName = `${room.name}carrySource`;

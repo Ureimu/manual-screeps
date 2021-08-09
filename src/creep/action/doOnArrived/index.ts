@@ -1,6 +1,7 @@
 import { RouteMidpointDetail } from "creep/routePlan/type";
 import { registerFN } from "profiler";
 import { state } from "..";
+import { attackAll } from "./attackAll";
 import { build } from "./build";
 import { buildInRange } from "./buildInRange";
 import { fillSpawnAndExtension } from "./fillSpawnAndExtension";
@@ -38,7 +39,8 @@ const unwrappedActionIndexedList = {
     pause,
     repair,
     scoutRoom,
-    stayByRoad
+    stayByRoad,
+    attackAll
 };
 for (const name in unwrappedActionIndexedList) {
     unwrappedActionIndexedList[name as keyof typeof unwrappedActionIndexedList].run = registerFN(

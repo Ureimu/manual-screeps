@@ -3,14 +3,15 @@ import { RoutePlan } from "creep/routePlan";
 import { FlagMaintainer } from "flagMaintainer";
 import { FlagTools } from "flagMaintainer/tools";
 import { SpawnPool } from "spawn/spawnPool";
-import { TaskObject } from "utils/ProjectRunner";
+import { TaskObject } from "utils/Project";
 import { PosStr } from "utils/RoomPositionToStr";
-import { RoomTaskArgs } from "../../taskRelation";
+import { maintainRoomTaskArgs } from "../../taskRelation";
 
-export const keepHarvesting: TaskObject<RoomTaskArgs> = {
+export const keepHarvesting: TaskObject<maintainRoomTaskArgs> = {
     name: "keepHarvesting",
     description: "keepHarvesting",
-    start(room) {
+    start(roomName) {
+        const room = Game.rooms[roomName];
         if (Game.time % 5 === 0) {
             FlagMaintainer.refresh({
                 roomName: room.name,
@@ -22,7 +23,8 @@ export const keepHarvesting: TaskObject<RoomTaskArgs> = {
         }
         return "running";
     },
-    working(room) {
+    working(roomName) {
+        const room = Game.rooms[roomName];
         const sources = room.find(FIND_SOURCES);
         FlagMaintainer.refresh({
             roomName: room.name,

@@ -1,5 +1,5 @@
 import { newAcrossTickTask } from "utils/AcrossTick";
-import loader from "utils/loader";
+import loader from "utils/Project/loader";
 import { loadPlugin } from "./tools/loader";
 import { consoleStyle } from "console/style";
 

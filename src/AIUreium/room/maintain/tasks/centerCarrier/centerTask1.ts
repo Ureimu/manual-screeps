@@ -4,9 +4,9 @@ import { RoutePlan } from "creep/routePlan";
 import { FlagMaintainer } from "flagMaintainer";
 import { FlagTools } from "flagMaintainer/tools";
 import { newAcrossTickTask } from "utils/AcrossTick";
-import { TaskObject } from "utils/ProjectRunner";
+import { TaskObject } from "utils/Project";
 import { PosStr } from "utils/RoomPositionToStr";
-import { RoomTaskArgs } from "../../taskRelation";
+import { maintainRoomTaskArgs } from "../../taskRelation";
 import { maxEnergyLimit, minEnergyLimit } from "./constant";
 
 export function callOnStart(): void {
@@ -31,17 +31,19 @@ export function callOnStart(): void {
     };
 }
 
-export const centerTask1: TaskObject<RoomTaskArgs> = {
+export const centerTask1: TaskObject<maintainRoomTaskArgs> = {
     name: "centerTask1",
     description: "center creep carry source from storage to link",
-    start(room) {
+    start(roomName) {
+        const room = Game.rooms[roomName];
         FlagMaintainer.refresh({
             roomName: room.name,
             typeList: FlagMaintainer.getTypeList(["storage", "link"])
         });
         return "end";
     },
-    working(room) {
+    working(roomName) {
+        const room = Game.rooms[roomName];
         if (!room.memory.construct.centerPos) throw new Error("没有centerPos!");
         const centerPos = PosStr.getPosFromStr(room.memory.construct.centerPos);
 

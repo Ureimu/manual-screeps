@@ -19,7 +19,7 @@ export class routePlanForm {
                         return { value, label: value };
                     })
                 },
-                { name: "flagPos", label: "路径点位置(flag)", type: "input", placeholder: "flag名称" },
+                { name: "pathMidpointPos", label: "路径点位置(flag)", type: "input", placeholder: "flag名称" },
                 // {
                 //     name: "objectPos",
                 //     label: "路径点位置(object)",

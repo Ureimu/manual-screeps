@@ -2,14 +2,15 @@ import { CreepGroup } from "creep/group";
 import { RoutePlan } from "creep/routePlan";
 import { FlagMaintainer } from "flagMaintainer";
 import { FlagTools } from "flagMaintainer/tools";
-import { TaskObject } from "utils/ProjectRunner";
+import { TaskObject } from "utils/Project";
 import { PosStr } from "utils/RoomPositionToStr";
-import { RoomTaskArgs } from "../../taskRelation";
+import { maintainRoomTaskArgs } from "../../taskRelation";
 
-export const carrySourceAndFill: TaskObject<RoomTaskArgs> = {
+export const carrySourceAndFill: TaskObject<maintainRoomTaskArgs> = {
     name: "carrySourceAndFill",
     description: "carrySourceAndFill",
-    start(room) {
+    start(roomName) {
+        const room = Game.rooms[roomName];
         if (Game.time % 5 === 0) {
             FlagMaintainer.refresh({
                 roomName: room.name,
@@ -21,7 +22,8 @@ export const carrySourceAndFill: TaskObject<RoomTaskArgs> = {
         }
         return "running";
     },
-    working(room) {
+    working(roomName) {
+        const room = Game.rooms[roomName];
         const sources = room.find(FIND_SOURCES);
         FlagMaintainer.refresh({
             roomName: room.name,

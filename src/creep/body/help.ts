@@ -9,6 +9,7 @@ const getButton = (funcName: string) => {
         name: funcName
     });
 };
+const formName = "creepBodyForm";
 
 export default [
     {
@@ -22,19 +23,19 @@ export default [
                         {
                             title: "创建一条creep身体部件配置",
                             describe: "创建一条creep身体部件配置。",
-                            functionName: getButton("creepBody.createConfig"),
+                            functionName: getButton(`${formName}.createConfig`),
                             commandType: true
                         },
                         {
                             title: "设置creep身体部件配置项",
                             describe: "设置creep身体部件配置项",
-                            functionName: getButton("creepBody.setConfig"),
+                            functionName: getButton(`${formName}.setConfig`),
                             commandType: true
                         },
                         {
                             title: "删除creep身体部件配置项",
                             describe: "删除creep身体部件配置项",
-                            functionName: getButton("creepBody.deleteConfig"),
+                            functionName: getButton(`${formName}.deleteConfig`),
                             commandType: true
                         }
                     ]

@@ -2,20 +2,22 @@ import { CreepGroup } from "creep/group";
 import { RoutePlan } from "creep/routePlan";
 import { FlagMaintainer } from "flagMaintainer";
 import { FlagTools } from "flagMaintainer/tools";
-import { TaskObject } from "utils/ProjectRunner";
-import { RoomTaskArgs } from "../../taskRelation";
+import { TaskObject } from "utils/Project";
+import { maintainRoomTaskArgs } from "../../taskRelation";
 
-export const harvestToLink: TaskObject<RoomTaskArgs> = {
+export const harvestToLink: TaskObject<maintainRoomTaskArgs> = {
     name: "harvestToLink",
     description: "harvestToLink",
-    start(room) {
+    start(roomName) {
+        const room = Game.rooms[roomName];
         FlagMaintainer.refresh({
             roomName: room.name,
             typeList: FlagMaintainer.getTypeList(["link"])
         });
         return "end";
     },
-    working(room) {
+    working(roomName) {
+        const room = Game.rooms[roomName];
         const sources = room.find(FIND_SOURCES);
 
         for (let index = 0; index < sources.length; index++) {

@@ -2,17 +2,18 @@ import { CreepGroup } from "creep/group";
 import { RoutePlan } from "creep/routePlan";
 import { FlagMaintainer } from "flagMaintainer";
 import { FlagTools } from "flagMaintainer/tools";
-import { TaskObject } from "utils/ProjectRunner";
+import { TaskObject } from "utils/Project";
 import { PosStr } from "utils/RoomPositionToStr";
-import { RoomTaskArgs } from "../../taskRelation";
+import { maintainRoomTaskArgs } from "../../taskRelation";
 
-export const upgradeByStorage: TaskObject<RoomTaskArgs> = {
+export const upgradeByStorage: TaskObject<maintainRoomTaskArgs> = {
     name: "upgradeByStorage",
     description: "upgradeByStorage",
     start() {
         return "end";
     },
-    working(room) {
+    working(roomName) {
+        const room = Game.rooms[roomName];
         FlagMaintainer.refresh({
             roomName: room.name,
             typeList: FlagMaintainer.getTypeList(["container", "source", "controller"])

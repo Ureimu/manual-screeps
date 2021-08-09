@@ -1,76 +1,57 @@
-import { ProjectNetworkDiagram } from "utils/ProjectNetworkDiagram";
-import { ProjectRunner, TaskObject } from "utils/ProjectRunner";
-import { registerFN } from "profiler";
-import { DiagramMemory } from "utils/ProjectNetworkDiagram/type";
-
-// taskProjectName用于计算cpu消耗
-const taskProjectName = "taskProjectExample";
-
-declare global {
-    // Types defined in a global block are available globally
-    namespace NodeJS {
-        interface Global {
-            example: DiagramMemory;
-        }
-    }
-}
+import { DiagramMemory, TaskCollection, TaskRelation } from "utils/Project/type";
+import { createOHarvestGroup } from "./tasks/createOHarvestGroup";
+import { createOBodyParts } from "./tasks/createOBodyParts";
+import { ProjectNetworkDiagram } from "utils/Project/storage";
+import { Project } from "utils/Project";
 
 // 设置Project的存储位置
-const memoryAddress = (originRoom: Room, sourceRoomName: string) => global.example;
-export type outwardsSourceTaskArgs = [Room, string];
-// task的示例
-const taskExample: TaskObject<outwardsSourceTaskArgs> = {
-    name: "taskExample",
-    description: "taskExample",
-    start() {
-        return "end";
-    },
-    working() {
-        return "end";
-    },
-    justFinished() {
-        return "end";
-    }
-};
-const taskExampleCopy = taskExample;
 
 export const taskRelation = {
-    [taskExample.name]: [ProjectNetworkDiagram.startNodeName],
-    [taskExampleCopy.name]: [ProjectNetworkDiagram.startNodeName, taskExample.name]
+    [createOBodyParts.name]: [ProjectNetworkDiagram.startNodeName],
+    [createOHarvestGroup.name]: [createOBodyParts.name]
 };
-const unwrappedTaskCollection = {
-    taskExample
+const taskCollection = {
+    createOBodyParts,
+    createOHarvestGroup
 };
-for (const name in unwrappedTaskCollection) {
-    const task = unwrappedTaskCollection[name as keyof typeof unwrappedTaskCollection];
-    task.start = registerFN(task.start, `${taskProjectName}:${task.name}:start`);
-    task.working = registerFN(task.working, `${taskProjectName}:${task.name}:working`);
-    task.justFinished = registerFN(task.justFinished, `${taskProjectName}:${task.name}:justFinished`);
-}
-const taskCollection = unwrappedTaskCollection;
-
-export function runTasks(originRoom: Room, sourceRoomName: string): void {
-    const diagram = new ProjectNetworkDiagram(memoryAddress(originRoom, sourceRoomName));
-    if (Game.time % 300 === 0) {
-        // diagram.downloadDiagram();
-        console.log(diagram.printDiagram());
+export type outwardsSourceTaskArgs = [originRoomName: string, sourceRoomName: string, sourceName: string];
+class outwardsHarvestProject extends Project<outwardsSourceTaskArgs, outwardsSourceTaskArgs> {
+    public constructor(taskArgs: outwardsSourceTaskArgs, memoryAddressArgs: outwardsSourceTaskArgs, ifWrap: boolean) {
+        super(taskArgs, memoryAddressArgs);
+        this.wrapTaskCollection(); // 注册所有task到profiler模块，可选
     }
-    if (diagram.nodeNum <= 1) {
-        ProjectRunner.initTaskDiagram(taskRelation, diagram);
-    }
-    ProjectRunner.run<outwardsSourceTaskArgs>(taskCollection, diagram, [originRoom, sourceRoomName]);
-}
-
-export function callOnStart(originRoom: Room, sourceRoomName: string): void {
-    if (memoryAddress(originRoom, sourceRoomName)) {
-        const diagram = new ProjectNetworkDiagram(memoryAddress(originRoom, sourceRoomName));
-        ProjectRunner.initTaskDiagram(taskRelation, diagram);
+    public name = "outwardsHarvestProject";
+    public taskRelation: TaskRelation = taskRelation;
+    public taskCollection: TaskCollection<outwardsSourceTaskArgs> = taskCollection;
+    public getMemory(): DiagramMemory {
+        const [originRoomName, sourceRoomName, sourceName] = this.taskArgs;
+        if (!Memory.rooms[originRoomName].AIUreium.outwardsSource[sourceRoomName]) {
+            Memory.rooms[originRoomName].AIUreium.outwardsSource[sourceRoomName] = {};
+        }
+        if (!Memory.rooms[originRoomName].AIUreium.outwardsSource[sourceRoomName][sourceName]) {
+            Memory.rooms[originRoomName].AIUreium.outwardsSource[sourceRoomName][sourceName] = {};
+        }
+        return Memory.rooms[originRoomName].AIUreium.outwardsSource[sourceRoomName][sourceName];
     }
 }
 
-export function resetTaskProject(originRoom: Room, sourceRoomName: string): void {
-    if (memoryAddress(originRoom, sourceRoomName)) {
-        const diagram = new ProjectNetworkDiagram(memoryAddress(originRoom, sourceRoomName));
-        ProjectRunner.resetTaskDiagram(taskRelation, diagram);
+export const outwardsHarvestProjectCollection: {
+    [originRoomName: string]: { [sourceRoomName: string]: { [sourceName: string]: outwardsHarvestProject } };
+} = {};
+export function getOutwardsHarvestProject(...args: outwardsSourceTaskArgs): outwardsHarvestProject {
+    const [originRoomName, sourceRoomName, sourceName] = args;
+    if (!(originRoomName in outwardsHarvestProjectCollection)) {
+        outwardsHarvestProjectCollection[originRoomName] = {};
     }
+    if (!(sourceRoomName in outwardsHarvestProjectCollection[originRoomName])) {
+        outwardsHarvestProjectCollection[originRoomName][sourceRoomName] = {};
+    }
+    if (!(sourceName in outwardsHarvestProjectCollection[originRoomName][sourceRoomName])) {
+        outwardsHarvestProjectCollection[originRoomName][sourceRoomName][sourceName] = new outwardsHarvestProject(
+            args,
+            args,
+            true
+        );
+    }
+    return outwardsHarvestProjectCollection[originRoomName][sourceRoomName][sourceName];
 }

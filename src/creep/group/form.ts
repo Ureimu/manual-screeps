@@ -9,7 +9,17 @@ export class creepGroupForm {
         const commitFunctionName = "CreepGroup.create";
         return createForm(
             commitFunctionName + String(Game.time),
-            [{ name: "creepGroupName", label: "creep组名称", type: "input", placeholder: "creep组名称" }],
+            [
+                { name: "creepGroupName", label: "creep组名称", type: "input", placeholder: "creep组名称" },
+                {
+                    name: "mode",
+                    label: "creep组模式",
+                    type: "select",
+                    options: ["route", "role"].map(value => {
+                        return { value, label: value };
+                    })
+                }
+            ],
             {
                 content: "提交",
                 command: `(args) => ${commitFunctionName}(args)`,

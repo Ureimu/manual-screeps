@@ -1,6 +1,6 @@
-import { ProjectNetworkDiagram } from "utils/ProjectNetworkDiagram";
-import { DiagramMemory } from "utils/ProjectNetworkDiagram/type";
-import { runTasks } from "./taskRelation";
+import { chooseSource } from "AIUreium/mainControl/outwardsSource";
+import { DiagramMemory } from "utils/Project/type";
+import { getOutwardsHarvestProject } from "./taskRelation";
 
 export function maintainOutwardsSource(): void {
     _.forEach(Game.rooms, room => {
@@ -8,8 +8,16 @@ export function maintainOutwardsSource(): void {
             if (!room.memory.AIUreium || !room.memory.AIUreium.maintainRoom) {
                 room.memory.AIUreium = { maintainRoom: {}, outwardsSource: {} };
             }
-
-            runTasks(room);
+            if (room.memory.AIUreium.outwardsSourceData) {
+                if ((Game.time - room.memory.AIUreium.outwardsSourceData.startTime) % 1500 === 0) {
+                    chooseSource(room);
+                }
+            }
+            for (const sourceRoomName in room.memory.AIUreium.outwardsSource) {
+                for (const sourceName in room.memory.AIUreium.outwardsSource[sourceRoomName]) {
+                    getOutwardsHarvestProject(room.name, sourceRoomName, sourceName).runTasks();
+                }
+            }
         }
     });
 }
@@ -17,6 +25,6 @@ export function maintainOutwardsSource(): void {
 declare global {
     // Types defined in a global block are available globally
     interface AIUreiumRoomMemory {
-        outwardsSource: DiagramMemory;
+        outwardsSource: { [sourceRoomName: string]: { [sourceName: string]: DiagramMemory } };
     }
 }

@@ -1,13 +1,14 @@
-import { ProjectNetworkDiagram } from "utils/ProjectNetworkDiagram";
-import { DiagramMemory } from "utils/ProjectNetworkDiagram/type";
-import { runTasks } from "./taskRelation";
+import { DiagramMemory } from "utils/Project/type";
+import { getMaintainRoomProject } from "./taskRelation";
 
 export function maintainRoom(): void {
     _.forEach(Game.rooms, room => {
         if (room.controller?.my && room.find(FIND_MY_SPAWNS).length !== 0) {
             if (!room.memory.AIUreium || !room.memory.AIUreium.maintainRoom)
                 room.memory.AIUreium = { maintainRoom: {}, outwardsSource: {} };
-            runTasks(room);
+            const maintainRoomProject = getMaintainRoomProject(room.name);
+            maintainRoomProject.runTasks();
+            console.log(room.name, JSON.stringify(maintainRoomProject.stats));
         }
     });
 }

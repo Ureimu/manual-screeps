@@ -1,4 +1,4 @@
-import { TaskObject } from "utils/ProjectRunner";
+import { TaskObject } from "utils/Project";
 import { outwardsSourceTaskArgs } from "../taskRelation";
 
 const start: TaskObject<outwardsSourceTaskArgs> = {

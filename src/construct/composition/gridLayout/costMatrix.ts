@@ -1,7 +1,6 @@
 import { PosStr } from "utils/RoomPositionToStr";
 
 export function getCostMatrix(roomName: string): CostMatrix {
-    const roomSearch = Game.rooms[roomName];
     // 在这个示例中，`room` 始终存在
     // 但是由于 PathFinder 支持跨多房间检索
     // 所以你要更加小心！
@@ -35,21 +34,22 @@ export function getCostMatrix(roomName: string): CostMatrix {
         "nuker",
         "factory"
     ];
-    setStructureCost(roomSearch, notWalkableBuildingExpandList, 0xff, costs);
+
+    setStructureCost(roomName, notWalkableBuildingExpandList, 0xff, costs);
 
     const roadExpandList: BuildableStructureConstant[] = ["road"];
-    setStructureCost(roomSearch, roadExpandList, 1, costs);
+    setStructureCost(roomName, roadExpandList, 1, costs);
 
     return costs;
 }
 
 function setStructureCost(
-    room: Room,
+    roomName: string,
     structureList: BuildableStructureConstant[],
     cost: number,
     costMatrix: CostMatrix
 ) {
-    const layout = room.memory?.construct?.layout;
+    const layout = Memory.rooms?.[roomName]?.construct?.layout;
     if (!layout) return;
     structureList.forEach(name => {
         const specifiedList = layout[name];

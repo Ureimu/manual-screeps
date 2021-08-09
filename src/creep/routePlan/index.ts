@@ -59,7 +59,12 @@ export class RoutePlan {
             routeName: string;
         } & RouteMidpointDetail
     ): string {
-        const { routeName, range = 1, pathMidpointPos, doWhenArrive, actionArgs } = args;
+        const { routeName, pathMidpointPos, doWhenArrive, actionArgs } = args;
+        let { range = 1 } = args;
+        range = Number(range);
+        if (range < 0) {
+            return style(`range不应小于0，`, "error");
+        }
         const flag = Game.flags[pathMidpointPos];
         if (!flag) {
             return style(`路径点位置 ${pathMidpointPos} 旗帜不存在，请先创建该路径旗帜`, "error");

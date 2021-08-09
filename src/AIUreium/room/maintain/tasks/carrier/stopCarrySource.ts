@@ -1,20 +1,22 @@
 import { CreepGroup } from "creep/group";
 import { FlagMaintainer } from "flagMaintainer";
 import { SpawnPool } from "spawn/spawnPool";
-import { TaskObject } from "utils/ProjectRunner";
-import { RoomTaskArgs } from "../../taskRelation";
+import { TaskObject } from "utils/Project";
+import { maintainRoomTaskArgs } from "../../taskRelation";
 
-export const stopCarrySource: TaskObject<RoomTaskArgs> = {
+export const stopCarrySource: TaskObject<maintainRoomTaskArgs> = {
     name: "stopCarrySource",
     description: "stopCarrySource",
-    start(room) {
+    start(roomName) {
+        const room = Game.rooms[roomName];
         FlagMaintainer.refresh({
             roomName: room.name,
             typeList: FlagMaintainer.getTypeList(["storage", "container"])
         });
         return "end";
     },
-    working(room) {
+    working(roomName) {
+        const room = Game.rooms[roomName];
         const creepGroupName = `${room.name}c`;
 
         Memory.creepGroups[creepGroupName].creepNameList.forEach((creepName, index) => {

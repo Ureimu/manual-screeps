@@ -17,7 +17,8 @@ function run(creep: Creep): state {
                     range: 3,
                     visualizePathStyle: {
                         stroke: "#ffffff"
-                    }
+                    },
+                    ignoreCreeps: false
                 });
             } else {
                 creep.build(closestTarget);

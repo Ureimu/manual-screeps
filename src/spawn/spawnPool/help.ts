@@ -22,19 +22,19 @@ export default [
                         {
                             title: "增加creep",
                             describe: "增加creep。",
-                            functionName: getButton("spawnPool.addCreep"),
+                            functionName: getButton("spawnPoolForm.addCreep"),
                             commandType: true
                         },
                         {
                             title: "删除creep",
                             describe: "删除creep",
-                            functionName: getButton("spawnPool.deleteCreep"),
+                            functionName: getButton("spawnPoolForm.deleteCreep"),
                             commandType: true
                         },
                         {
                             title: "对creep进行设置",
                             describe: "对creep进行设置",
-                            functionName: getButton("spawnPool.setCreepProperties"),
+                            functionName: getButton("spawnPoolForm.setCreepProperties"),
                             commandType: true
                         }
                     ]

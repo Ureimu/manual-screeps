@@ -3,21 +3,23 @@ import { RoutePlan } from "creep/routePlan";
 import { FlagMaintainer } from "flagMaintainer";
 import { FlagTools } from "flagMaintainer/tools";
 import { SpawnPool } from "spawn/spawnPool";
-import { TaskObject } from "utils/ProjectRunner";
+import { TaskObject } from "utils/Project";
 import { PosStr } from "utils/RoomPositionToStr";
-import { RoomTaskArgs } from "../../taskRelation";
+import { maintainRoomTaskArgs } from "../../taskRelation";
 
-export const fillSpawn: TaskObject<RoomTaskArgs> = {
+export const fillSpawn: TaskObject<maintainRoomTaskArgs> = {
     name: "fillSpawn",
     description: "fillSpawn",
-    start(room) {
+    start(roomName) {
+        const room = Game.rooms[roomName];
         FlagMaintainer.refresh({
             roomName: room.name,
             typeList: FlagMaintainer.getTypeList(["storage"])
         });
         return "end";
     },
-    working(room) {
+    working(roomName) {
+        const room = Game.rooms[roomName];
         const routeName = `${room.name}fillSpawn`;
         const creepGroupName = `${room.name}fs`;
         const storageFlagName = FlagTools.getName(room.name, "storage", 0);

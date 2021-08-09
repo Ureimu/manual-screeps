@@ -1,6 +1,3 @@
-import { ProjectNetworkDiagram } from "utils/ProjectNetworkDiagram";
-import { ProjectRunner } from "utils/ProjectRunner";
-import { registerFN } from "profiler";
 import { buildSourceContainer } from "./tasks/harvester/buildSourceContainer";
 import { buildStructureBySource } from "./tasks/builder/buildStructureBySource";
 import { buildStructureByStorage } from "./tasks/builder/buildStructureByStorage";
@@ -23,8 +20,9 @@ import { centerTask1 } from "./tasks/centerCarrier/centerTask1";
 import { upgradeByLink } from "./tasks/upgrader/upgradeByLink";
 import { harvestToLink } from "./tasks/harvester/harvestToLink";
 import { stopCarrySource } from "./tasks/carrier/stopCarrySource";
-
-const memoryAddress = (room: Room) => room.memory?.AIUreium?.maintainRoom;
+import { startOutwardsSource } from "./tasks/startOutwardsSource";
+import { Project, startNodeName } from "utils/Project";
+import { TaskRelation, TaskCollection, DiagramMemory } from "utils/Project/type";
 
 const centerLinkHasBuilt = structureHasBuilt("link", "centerLink", 1);
 const sourceLinkHasBuilt = structureHasBuilt("link", "sourceLink", 2);
@@ -35,7 +33,7 @@ const factoryHasBuilt = structureHasBuilt("factory", "factory", 1);
 const observerHasBuilt = structureHasBuilt("observer", "observer", 1);
 
 const taskRelation = {
-    [createDefaultBodyparts.name]: [ProjectNetworkDiagram.startNodeName],
+    [createDefaultBodyparts.name]: [startNodeName],
     [createHarvestGroup.name]: [createDefaultBodyparts.name],
     [buildSourceContainer.name]: [createHarvestGroup.name],
     [keepHarvesting.name]: [buildSourceContainer.name],
@@ -62,9 +60,10 @@ const taskRelation = {
     [factoryHasBuilt.name]: [buildStructureBySource.name],
     [observerHasBuilt.name]: [buildStructureBySource.name],
     [harvestToLink.name]: [sourceLinkHasBuilt.name, centerTask1.name],
-    [stopCarrySource.name]: [harvestToLink.name, carrySource.name]
+    [stopCarrySource.name]: [harvestToLink.name, carrySource.name],
+    [startOutwardsSource.name]: [createScoutGroup.name]
 };
-const unwrappedTaskCollection = {
+const taskCollection = {
     createDefaultBodyparts,
     createHarvestGroup,
     createCarryGroup,
@@ -92,36 +91,40 @@ const unwrappedTaskCollection = {
     factoryHasBuilt,
     observerHasBuilt,
     harvestToLink,
-    stopCarrySource
+    stopCarrySource,
+    startOutwardsSource
 };
-for (const name in unwrappedTaskCollection) {
-    const task = unwrappedTaskCollection[name as keyof typeof unwrappedTaskCollection];
-    task.start = registerFN(task.start, "maintainRoom:" + task.name + ":start");
-    task.working = registerFN(task.working, "maintainRoom:" + task.name + ":working");
-    task.justFinished = registerFN(task.justFinished, "maintainRoom:" + task.name + ":justFinished");
-}
-const taskCollection = unwrappedTaskCollection;
-
-export function runTasks(room: Room): void {
-    const diagram = new ProjectNetworkDiagram(memoryAddress(room));
-    if (diagram.nodeNum <= 1) {
-        ProjectRunner.initTaskDiagram(taskRelation, diagram);
+export type maintainRoomTaskArgs = [roomName: string];
+export class maintainRoomProject extends Project<maintainRoomTaskArgs, maintainRoomTaskArgs> {
+    public constructor(taskArgs: maintainRoomTaskArgs, memoryAddressArgs: maintainRoomTaskArgs) {
+        super(taskArgs, memoryAddressArgs);
+        this.wrapTaskCollection(); // 注册所有task到profiler模块，可选
     }
-    ProjectRunner.run<RoomTaskArgs>(taskCollection, diagram, [room]);
-}
-
-export function callOnStart(room: Room): void {
-    if (memoryAddress(room)) {
-        const diagram = new ProjectNetworkDiagram(memoryAddress(room));
-        ProjectRunner.initTaskDiagram(taskRelation, diagram);
+    public name = "maintainRoomProject";
+    public taskRelation: TaskRelation = taskRelation;
+    public taskCollection: TaskCollection<maintainRoomTaskArgs> = taskCollection;
+    public getMemory(): DiagramMemory {
+        if (!Memory.rooms) Memory.rooms = {};
+        if (!Memory.rooms[this.taskArgs[0]]) {
+            (Memory.rooms[this.taskArgs[0]] as Partial<RoomMemory>) = {};
+        }
+        if (!Memory.rooms[this.taskArgs[0]].AIUreium) {
+            Memory.rooms[this.taskArgs[0]].AIUreium = {
+                maintainRoom: {},
+                outwardsSource: {}
+            };
+        }
+        return Memory.rooms?.[this.taskArgs[0]]?.AIUreium?.maintainRoom;
     }
 }
 
-export type RoomTaskArgs = [Room];
-
-export function resetMaintainTaskProject(room: Room): void {
-    if (memoryAddress(room)) {
-        const diagram = new ProjectNetworkDiagram(memoryAddress(room));
-        ProjectRunner.resetTaskDiagram(taskRelation, diagram);
+export const maintainRoomProjectCollection: {
+    [roomName: string]: maintainRoomProject;
+} = {};
+export function getMaintainRoomProject(...args: maintainRoomTaskArgs): maintainRoomProject {
+    const [roomName] = args;
+    if (!(roomName in maintainRoomProjectCollection)) {
+        maintainRoomProjectCollection[roomName] = new maintainRoomProject(args, args);
     }
+    return maintainRoomProjectCollection[roomName];
 }

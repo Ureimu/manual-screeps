@@ -4,6 +4,7 @@ import { CreepBody } from "creep/body";
 import { manageScoutTask } from "./roles/maintain/scouter";
 import { link } from "./structure/link";
 import { registerFN } from "profiler";
+import { maintainOutwardsSource } from "./room/outwardsSource";
 export const runAi = registerFN((): void => {
     if (!Memory.creepBodyConfig.overalls) {
         CreepBody.createConfig({ creepBodyConfigName: "all" });
@@ -18,5 +19,8 @@ export const runAi = registerFN((): void => {
     });
 
     manageScoutTask();
-    if (Game.time % 5 === 0) maintainRoom();
+    if (Game.time % 5 === 0) {
+        maintainRoom();
+        maintainOutwardsSource();
+    }
 }, "runAi");

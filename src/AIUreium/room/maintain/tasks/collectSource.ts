@@ -3,17 +3,19 @@ import { RoutePlan } from "creep/routePlan";
 import { FlagMaintainer } from "flagMaintainer";
 import { FlagTools } from "flagMaintainer/tools";
 import { SpawnPool } from "spawn/spawnPool";
-import { TaskObject } from "utils/ProjectRunner";
+import { TaskObject } from "utils/Project";
 import { PosStr } from "utils/RoomPositionToStr";
-import { RoomTaskArgs } from "../taskRelation";
+import { maintainRoomTaskArgs } from "../taskRelation";
 
-export const collectSource: TaskObject<RoomTaskArgs> = {
+export const collectSource: TaskObject<maintainRoomTaskArgs> = {
     name: "collectSource",
     description: "collectSource",
-    start(room) {
+    start(roomName) {
+        const room = Game.rooms[roomName];
         return "end";
     },
-    working(room) {
+    working(roomName) {
+        const room = Game.rooms[roomName];
         const routeName = `${room.name}collectSource`;
         const creepGroupName = `${room.name}col`;
         const controllerFlagName = FlagTools.getName(room.name, "controller", 0);
