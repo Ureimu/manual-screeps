@@ -1,7 +1,7 @@
 /* eslint-disable no-useless-escape */
 import { Base64 } from "js-base64";
 import { ProjectNetworkDiagram } from "utils/Project/storage";
-import { getUpgradeSpeed } from "visual/roomInf/upgradeSpeed";
+import { getUpgradeSpeed } from "frame/visual/roomInf/upgradeSpeed";
 import { ScreepsData } from "./type";
 
 export function stats(): string {

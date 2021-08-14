@@ -1,6 +1,5 @@
-import { registerFN } from "profiler";
 import { DiagramMemory, TaskCollection, TaskObject, TaskRelation } from "./type";
-import { ProjectRunner } from "./engine";
+import { ProjectEngine } from "./engine";
 import { ProjectNetworkDiagram } from "./storage";
 
 export abstract class Project<TaskArgs extends unknown[], MemoryAddressArgs extends unknown[]> {
@@ -19,6 +18,19 @@ export abstract class Project<TaskArgs extends unknown[], MemoryAddressArgs exte
      * @memberof Project
      */
     public abstract name: string;
+    private engineCache?: ProjectEngine<TaskArgs>;
+    /**
+     * 项目运行的引擎代码。所有节点的状态变化在这里进行
+     *
+     * @readonly
+     * @type {ProjectEngine<TaskArgs>}
+     * @memberof Project
+     */
+    public get engine(): ProjectEngine<TaskArgs> {
+        if (!this.engineCache)
+            this.engineCache = new ProjectEngine(this.taskCollection, this.taskRelation, this.diagram, this.taskArgs);
+        return this.engineCache;
+    }
     /**
      * 统计数据
      *
@@ -72,16 +84,11 @@ export abstract class Project<TaskArgs extends unknown[], MemoryAddressArgs exte
      * @memberof Project
      */
     public abstract getMemory(): DiagramMemory;
-    private run(): void {
-        ProjectRunner.run<TaskArgs>(this.taskCollection, this.diagram, this.taskArgs);
-        this.getMemory().diagram = this.diagram.diagramDict;
-        this.stats.runNum++;
-    }
     private init(): void {
         if (this.stats.initTime === 0) {
             this.stats.initTime = Game.time;
         }
-        ProjectRunner.initTaskDiagram(this.taskRelation, this.diagram);
+        this.engine.initTaskDiagram();
         this.getMemory().diagram = this.diagram.diagramDict;
     }
     /**
@@ -89,21 +96,13 @@ export abstract class Project<TaskArgs extends unknown[], MemoryAddressArgs exte
      *
      * @memberof Project
      */
-    public runTasks(): void {
+    public run(): void {
         if (this.stats.runNum <= 1) {
             this.init();
         }
-        this.run();
-    }
-    /**
-     * 在初始化时调用
-     *
-     * @memberof Project
-     */
-    public callOnStart(): void {
-        if (this.getMemory()) {
-            this.init();
-        }
+        this.engine.run();
+        this.getMemory().diagram = this.diagram.diagramDict;
+        this.stats.runNum++;
     }
     /**
      * 重置项目
@@ -112,31 +111,8 @@ export abstract class Project<TaskArgs extends unknown[], MemoryAddressArgs exte
      */
     public reset(): void {
         if (this.getMemory()) {
-            ProjectRunner.resetTaskDiagram(this.taskRelation, this.diagram);
+            this.engine.resetTaskDiagram();
             this.getMemory().diagram = this.diagram.diagramDict;
-        }
-    }
-    /**
-     * 包装任务集合以方便获取性能数据
-     *
-     * @memberof Project
-     */
-    public wrapTaskCollection(): void {
-        const stateList = ["start", "working", "justFinished"] as (keyof Pick<
-            TaskObject<TaskArgs>,
-            "start" | "working" | "justFinished"
-        >)[];
-        if (!this.stats.hasWrapped && this.taskCollection) {
-            Object.entries(this.taskCollection).forEach(taskEntity => {
-                const task = taskEntity[1];
-                stateList.forEach(state => {
-                    const stateFunction = task[state];
-                    if (stateFunction && !(stateFunction as { profilerWrapped?: boolean }).profilerWrapped) {
-                        task[state] = registerFN(stateFunction, `${this.name}:${task.name}:${state}`);
-                    }
-                });
-            });
-            this.stats.hasWrapped = true;
         }
     }
 }

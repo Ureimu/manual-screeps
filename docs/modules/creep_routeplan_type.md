@@ -1,4 +1,4 @@
-[manual-screeps](../README.md) / [Modules](../modules.md) / creep/routePlan/type
+[manual-screeps](../README.md) / [Exports](../modules.md) / creep/routePlan/type
 
 # Module: creep/routePlan/type
 
@@ -23,7 +23,7 @@
 
 Ƭ **RouteSingleDetail**: [*RouteMidpointDetail*](../interfaces/creep_routeplan_type.routemidpointdetail.md) \| [*RouteConditionDetail*](../interfaces/creep_routeplan_type.routeconditiondetail.md)
 
-Defined in: creep/routePlan/type.ts:16
+Defined in: src/frame/creep/routePlan/type.ts:16
 
 ## Functions
 
@@ -43,4 +43,4 @@ Defined in: creep/routePlan/type.ts:16
 
 **Returns:** detail is RouteMidpointDetail
 
-Defined in: creep/routePlan/type.ts:68
+Defined in: src/frame/creep/routePlan/type.ts:68

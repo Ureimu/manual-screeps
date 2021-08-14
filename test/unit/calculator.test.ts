@@ -1,11 +1,10 @@
 import { assert } from "chai";
-import { bodyTools } from "creep/body/tools";
+import { bodyTools } from "frame/creep/body/tools";
 import { SeparateHarvestAndCarryModel, sourceCalculator } from "screeps-calculator";
 import { PathInput } from "screeps-calculator/dist/src/sourceCalculator/inits/path";
 import { mockConstants } from "./mock";
 
 import { mkdirSync, writeFileSync } from "fs";
-import { isUndefined } from "lodash";
 
 const DIST = "./test/data/";
 const storagePath = `${DIST}/pathLength/`;

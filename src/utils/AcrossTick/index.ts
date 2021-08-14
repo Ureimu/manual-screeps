@@ -1,5 +1,5 @@
-import { registerFN } from "profiler";
-import { profile } from "profiler/decorator";
+import { registerFN } from "utils/profiler";
+import { profile } from "utils/profiler/decorator";
 import { runTask } from "./runTask";
 import { AcrossTickMemory, AcrossTickReturnCode } from "./type";
 

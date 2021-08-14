@@ -1,4 +1,4 @@
-[manual-screeps](../README.md) / [Modules](../modules.md) / [spawn/spawnPool](../modules/spawn_spawnpool.md) / SpawnPool
+[manual-screeps](../README.md) / [Exports](../modules.md) / [spawn/spawnPool](../modules/spawn_spawnpool.md) / SpawnPool
 
 # Class: SpawnPool
 
@@ -28,7 +28,7 @@
 
 ### addCreep
 
-▸ `Static` **addCreep**(`args`: { `creepBody`: *string* ; `creepName`: *string* ; `priority`: *string* ; `readyCondition`: keyof ReadyCondition ; `roomName`: *string*  }): *string*
+▸ `Static` **addCreep**(`args`: { `creepBody`: *string* ; `creepName`: *string* ; `priority`: *string* ; `readyCondition`: keyof [*ReadyCondition*](../interfaces/spawn_spawning_readycondition.readycondition.md) ; `roomName`: *string*  }): *string*
 
 添加creep。
 
@@ -44,12 +44,12 @@
 | `args.creepBody` | *string* |
 | `args.creepName` | *string* |
 | `args.priority` | *string* |
-| `args.readyCondition` | keyof ReadyCondition |
+| `args.readyCondition` | keyof [*ReadyCondition*](../interfaces/spawn_spawning_readycondition.readycondition.md) |
 | `args.roomName` | *string* |
 
 **Returns:** *string*
 
-Defined in: spawn/spawnPool/index.ts:22
+Defined in: src/frame/spawn/spawnPool/index.ts:22
 
 ___
 
@@ -73,13 +73,13 @@ ___
 
 **Returns:** *string*
 
-Defined in: spawn/spawnPool/index.ts:65
+Defined in: src/frame/spawn/spawnPool/index.ts:65
 
 ___
 
 ### setCreepProperties
 
-▸ `Static` **setCreepProperties**(`args`: { `creepBody?`: *string* ; `creepName`: *string* ; `priority?`: *string* ; `readyCondition?`: keyof ReadyCondition ; `roomName`: *string*  }): *string*
+▸ `Static` **setCreepProperties**(`args`: { `creepBody?`: *string* ; `creepName`: *string* ; `priority?`: *string* ; `readyCondition?`: keyof [*ReadyCondition*](../interfaces/spawn_spawning_readycondition.readycondition.md) ; `roomName`: *string*  }): *string*
 
 设置creep参数。
 
@@ -95,9 +95,9 @@ ___
 | `args.creepBody?` | *string* |
 | `args.creepName` | *string* |
 | `args.priority?` | *string* |
-| `args.readyCondition?` | keyof ReadyCondition |
+| `args.readyCondition?` | keyof [*ReadyCondition*](../interfaces/spawn_spawning_readycondition.readycondition.md) |
 | `args.roomName` | *string* |
 
 **Returns:** *string*
 
-Defined in: spawn/spawnPool/index.ts:85
+Defined in: src/frame/spawn/spawnPool/index.ts:85

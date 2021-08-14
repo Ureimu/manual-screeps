@@ -1,4 +1,4 @@
-[manual-screeps](../README.md) / [Modules](../modules.md) / spawn/spawnPool/type
+[manual-screeps](../README.md) / [Exports](../modules.md) / spawn/spawnPool/type
 
 # Module: spawn/spawnPool/type
 
@@ -17,9 +17,9 @@
 
 ### readyConditionKey
 
-Ƭ **readyConditionKey**: keyof ReadyCondition
+Ƭ **readyConditionKey**: keyof [*ReadyCondition*](../interfaces/spawn_spawning_readycondition.readycondition.md)
 
-Defined in: spawn/spawnPool/type.ts:30
+Defined in: src/frame/spawn/spawnPool/type.ts:30
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 Ƭ **runningState**: ``"running"`` \| ``"ready"`` \| ``"notReady"``
 
-Defined in: spawn/spawnPool/type.ts:29
+Defined in: src/frame/spawn/spawnPool/type.ts:29

@@ -1,4 +1,4 @@
-[manual-screeps](../README.md) / [Modules](../modules.md) / [creep/group/type](../modules/creep_group_type.md) / creepGroupDetail
+[manual-screeps](../README.md) / [Exports](../modules.md) / [creep/group/type](../modules/creep_group_type.md) / creepGroupDetail
 
 # Interface: creepGroupDetail
 
@@ -20,4 +20,4 @@
 
 • **creepNameList**: *string*[]
 
-Defined in: creep/group/type.ts:19
+Defined in: src/frame/creep/group/type.ts:19

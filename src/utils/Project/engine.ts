@@ -1,44 +1,82 @@
+import { profile } from "utils/profiler/decorator";
 import { ProjectNetworkDiagram } from "./storage";
-import { TaskObject } from "./type";
+import { NodeState, TaskCollection, TaskRelation } from "./type";
+export interface NodeUpdateData {
+    [nodeName: string]: { stateList: NodeState[] };
+}
+export interface ProjectEngineStats {
+    initTime: number;
+    runNum: number;
+}
 
-export class ProjectRunner {
-    public static run<T extends unknown[]>(
-        taskCollection: { [name: string]: TaskObject<T> },
+export class ProjectEngine<T extends unknown[]> {
+    public taskCollection: TaskCollection<T>;
+    public taskDiagram: ProjectNetworkDiagram;
+    public taskRelation: TaskRelation;
+    public taskArgs: T;
+    public stats: ProjectEngineStats = { initTime: Game.time, runNum: 0 };
+    private stateList: ["start", "working", "justFinished"] = ["start", "working", "justFinished"];
+
+    public constructor(
+        taskCollection: TaskCollection<T>,
+        taskRelation: TaskRelation,
         taskDiagram: ProjectNetworkDiagram,
-        args: T
-    ): void {
-        const stateList: ("start" | "working" | "justFinished")[] = ["start", "working", "justFinished"];
-        const stateNodeGroup = taskDiagram.getStateNode(["start", "working", "justFinished"]);
-        stateList.forEach(stateName => {
+        taskArgs: T
+    ) {
+        this.taskArgs = taskArgs;
+        this.taskDiagram = taskDiagram;
+        this.taskRelation = taskRelation;
+        this.taskCollection = taskCollection;
+    }
+
+    public run(): NodeUpdateData {
+        const nodeUpdateData: NodeUpdateData = {};
+
+        while (this.runOnce(nodeUpdateData)) {
+            this.stats.runNum++;
+        }
+        return nodeUpdateData;
+    }
+
+    private runOnce(nodeUpdateData: NodeUpdateData): boolean {
+        const stateNodeGroup = this.taskDiagram.getStateNode(this.stateList);
+        let ifRunOnceMore = false;
+        this.stateList.forEach(stateName => {
             stateNodeGroup[stateName].forEach(nodeName => {
-                if (!taskCollection[nodeName]) throw new Error(`${nodeName}不存在于taskCollection内`);
-                const taskFunction = taskCollection[nodeName][stateName];
+                if (!this.taskCollection[nodeName]) throw new Error(`${nodeName}不存在于taskCollection内`);
+                const taskFunction = this.taskCollection[nodeName][stateName];
                 if (taskFunction) {
-                    const returnCode = taskFunction(...args);
-                    if (returnCode === "end") {
-                        taskDiagram.updateNodeState(nodeName, taskDiagram.nextState(stateName));
+                    const returnTaskStateCode = taskFunction(...this.taskArgs);
+                    if (returnTaskStateCode === "end") {
+                        if (!nodeUpdateData[nodeName]) {
+                            nodeUpdateData[nodeName] = {
+                                stateList: [
+                                    this.taskDiagram.diagramDict[nodeName].state,
+                                    this.taskDiagram.updateNodeState(nodeName)
+                                ]
+                            };
+                        } else {
+                            nodeUpdateData[nodeName].stateList.push(this.taskDiagram.updateNodeState(nodeName));
+                        }
+                        ifRunOnceMore = true;
                     }
                 } else {
-                    taskDiagram.updateNodeState(nodeName, taskDiagram.nextState(stateName));
+                    this.taskDiagram.updateNodeState(nodeName);
+                    ifRunOnceMore = true;
                 }
             });
         });
+        return ifRunOnceMore;
     }
 
-    public static initTaskDiagram(
-        taskNodeCollection: { [name: string]: string[] },
-        taskDiagram: ProjectNetworkDiagram
-    ): void {
-        for (const taskNodeName in taskNodeCollection) {
-            taskDiagram.addNode(taskNodeName, taskNodeCollection[taskNodeName]);
+    public initTaskDiagram(): void {
+        for (const taskNodeName in this.taskRelation) {
+            this.taskDiagram.addNode(taskNodeName, this.taskRelation[taskNodeName]);
         }
     }
 
-    public static resetTaskDiagram(
-        taskNodeCollection: { [name: string]: string[] },
-        taskDiagram: ProjectNetworkDiagram
-    ): void {
-        taskDiagram.resetDiagram();
-        this.initTaskDiagram(taskNodeCollection, taskDiagram);
+    public resetTaskDiagram(): void {
+        this.taskDiagram.resetDiagram();
+        this.initTaskDiagram();
     }
 }

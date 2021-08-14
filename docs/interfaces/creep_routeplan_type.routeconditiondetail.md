@@ -1,4 +1,4 @@
-[manual-screeps](../README.md) / [Modules](../modules.md) / [creep/routePlan/type](../modules/creep_routeplan_type.md) / RouteConditionDetail
+[manual-screeps](../README.md) / [Exports](../modules.md) / [creep/routePlan/type](../modules/creep_routeplan_type.md) / RouteConditionDetail
 
 # Interface: RouteConditionDetail
 
@@ -18,7 +18,7 @@
 
 • **condition**: ``"store"`` \| ``"creepStore"`` \| ``"creepTimeToLive"`` \| ``"alwaysJump"`` \| ``"spawnEnergy"``
 
-Defined in: creep/routePlan/type.ts:56
+Defined in: src/frame/creep/routePlan/type.ts:56
 
 ___
 
@@ -26,12 +26,12 @@ ___
 
 • `Optional` **conditionArgs**: *string*
 
-Defined in: creep/routePlan/type.ts:58
+Defined in: src/frame/creep/routePlan/type.ts:58
 
 ___
 
 ### jumpTo
 
-• **jumpTo**: *number* \| ``"front"`` \| ``"end"``
+• **jumpTo**: *number* \| ``"end"`` \| ``"front"``
 
-Defined in: creep/routePlan/type.ts:57
+Defined in: src/frame/creep/routePlan/type.ts:57

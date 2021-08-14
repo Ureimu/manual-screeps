@@ -1,4 +1,4 @@
-[manual-screeps](../README.md) / [Modules](../modules.md) / [creep/group](../modules/creep_group.md) / CreepGroup
+[manual-screeps](../README.md) / [Exports](../modules.md) / [creep/group](../modules/creep_group.md) / CreepGroup
 
 # Class: CreepGroup
 
@@ -50,7 +50,7 @@
 
 **Returns:** *string*
 
-Defined in: creep/group/index.ts:43
+Defined in: src/frame/creep/group/index.ts:43
 
 ___
 
@@ -74,7 +74,7 @@ ___
 
 **Returns:** *string*
 
-Defined in: creep/group/index.ts:19
+Defined in: src/frame/creep/group/index.ts:19
 
 ___
 
@@ -98,7 +98,7 @@ ___
 
 **Returns:** *string*
 
-Defined in: creep/group/index.ts:252
+Defined in: src/frame/creep/group/index.ts:252
 
 ___
 
@@ -121,7 +121,7 @@ ___
 
 **Returns:** *string*
 
-Defined in: creep/group/index.ts:237
+Defined in: src/frame/creep/group/index.ts:237
 
 ___
 
@@ -146,7 +146,7 @@ ___
 
 **Returns:** *string*
 
-Defined in: creep/group/index.ts:85
+Defined in: src/frame/creep/group/index.ts:85
 
 ___
 
@@ -172,7 +172,7 @@ ___
 
 **Returns:** *string*
 
-Defined in: creep/group/index.ts:132
+Defined in: src/frame/creep/group/index.ts:132
 
 ___
 
@@ -197,4 +197,4 @@ ___
 
 **Returns:** *string*
 
-Defined in: creep/group/index.ts:193
+Defined in: src/frame/creep/group/index.ts:193

@@ -1,4 +1,4 @@
-[manual-screeps](../README.md) / [Modules](../modules.md) / [creep/routePlan/type](../modules/creep_routeplan_type.md) / RouteMidpointDetail
+[manual-screeps](../README.md) / [Exports](../modules.md) / [creep/routePlan/type](../modules/creep_routeplan_type.md) / RouteMidpointDetail
 
 # Interface: RouteMidpointDetail
 
@@ -29,7 +29,7 @@
 
 **`memberof`** RouteMidpointDetail
 
-Defined in: creep/routePlan/type.ts:52
+Defined in: src/frame/creep/routePlan/type.ts:52
 
 ___
 
@@ -41,7 +41,7 @@ ___
 
 **`memberof`** RouteMidpointDetail
 
-Defined in: creep/routePlan/type.ts:45
+Defined in: src/frame/creep/routePlan/type.ts:45
 
 ___
 
@@ -53,7 +53,7 @@ ___
 
 **`memberof`** RouteMidpointDetail
 
-Defined in: creep/routePlan/type.ts:31
+Defined in: src/frame/creep/routePlan/type.ts:31
 
 ___
 
@@ -65,4 +65,4 @@ ___
 
 **`memberof`** RouteMidpointDetail
 
-Defined in: creep/routePlan/type.ts:38
+Defined in: src/frame/creep/routePlan/type.ts:38

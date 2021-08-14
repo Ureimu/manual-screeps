@@ -1,5 +1,3 @@
-import { registerFN } from "profiler";
-
 /**
  * 判断给定的房间是否可以进入，并且在可以进入的时候将该房间名放入返回的列表。
  *

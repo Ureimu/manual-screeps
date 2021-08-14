@@ -1,4 +1,4 @@
-[manual-screeps](../README.md) / [Modules](../modules.md) / creep/routePlan
+[manual-screeps](../README.md) / [Exports](../modules.md) / creep/routePlan
 
 # Module: creep/routePlan
 

@@ -1,4 +1,4 @@
-[manual-screeps](../README.md) / [Modules](../modules.md) / spawn/spawnPool
+[manual-screeps](../README.md) / [Exports](../modules.md) / spawn/spawnPool
 
 # Module: spawn/spawnPool
 

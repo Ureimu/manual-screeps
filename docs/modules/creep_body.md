@@ -1,4 +1,4 @@
-[manual-screeps](../README.md) / [Modules](../modules.md) / creep/body
+[manual-screeps](../README.md) / [Exports](../modules.md) / creep/body
 
 # Module: creep/body
 

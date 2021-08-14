@@ -1,4 +1,4 @@
-[manual-screeps](../README.md) / [Modules](../modules.md) / creep/group/type
+[manual-screeps](../README.md) / [Exports](../modules.md) / creep/group/type
 
 # Module: creep/group/type
 
@@ -29,7 +29,7 @@
 | :------ | :------ |
 | `T` | [*CreepGroupMode*](creep_group_type.md#creepgroupmode) |
 
-Defined in: creep/group/type.ts:22
+Defined in: src/frame/creep/group/type.ts:22
 
 ___
 
@@ -37,7 +37,7 @@ ___
 
 Ƭ **CreepGroupMode**: ``"route"`` \| ``"role"``
 
-Defined in: creep/group/type.ts:38
+Defined in: src/frame/creep/group/type.ts:38
 
 ## Functions
 
@@ -53,4 +53,4 @@ Defined in: creep/group/type.ts:38
 
 **Returns:** memory is object
 
-Defined in: creep/group/type.ts:40
+Defined in: src/frame/creep/group/type.ts:40

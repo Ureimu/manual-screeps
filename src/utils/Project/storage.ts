@@ -31,16 +31,18 @@ export class ProjectNetworkDiagram {
             end: -1
         }
     };
-    private startNode: Node = {
-        in: [],
-        out: [],
-        name: ProjectNetworkDiagram.startNodeName,
-        state: "end",
-        time: {
-            start: Game.time,
-            end: Game.time
-        }
-    };
+    private get startNode() {
+        return {
+            in: [],
+            out: [],
+            name: ProjectNetworkDiagram.startNodeName,
+            state: "end",
+            time: {
+                start: Game.time,
+                end: Game.time
+            }
+        } as Node;
+    }
     private readonly Regex = /(?<=\s)([a-zA-Z0-9]+)(?=\s)/g;
 
     public constructor(memoryPath: DiagramMemory) {
@@ -92,18 +94,24 @@ export class ProjectNetworkDiagram {
     }
 
     /**
-     * 更新节点状态。unplayed=>start的状态由该函数处理，而其他状态转换由使用者使用该函数自行实现。
+     * 更新节点状态。unplayed=>start的状态在该函数内部自动触发，不应主动更改节点状态，而其他状态转换直接调用该函数即可触发。
+     * 每次调用会自动转换到下一个状态并返回这个状态的字符串。
      * 当该节点的所有前置节点都进入end状态后，该节点状态会由unplayed=>start。
      *
      * @param {string} nodeName
      * @param {NodeState} state
      * @memberof ProjectNetworkDiagram
      */
-    public updateNodeState(nodeName: string, state: NodeState): void {
-        this.changeNodeState(nodeName, state);
+    public updateNodeState(nodeName: string): NodeState {
+        const nodeState = this.diagramDict[nodeName].state;
+        const newState = this.nextState(nodeState);
+        if (newState === "start" && nodeState === "unplayed") {
+            throw new Error(`${nodeName} 状态更新错误：${nodeState}-->${newState}不应手动更新`);
+        }
+        return this.changeNodeState(nodeName, newState);
     }
 
-    private changeNodeState(nodeName: string, state: NodeState): void {
+    private changeNodeState(nodeName: string, state: NodeState): NodeState {
         this.diagramDict[nodeName].state = state;
         switch (state) {
             case "start":
@@ -112,16 +120,19 @@ export class ProjectNetworkDiagram {
             case "end":
                 if (this.diagramDict[nodeName].time.end === -1) this.diagramDict[nodeName].time.end = Game.time;
                 this.diagramDict[nodeName].out.forEach(outNodeName => {
-                    return this.diagramDict[outNodeName].in.every(
-                        inNodeName => this.diagramDict[inNodeName].state === "end"
-                    )
-                        ? this.changeNodeState(outNodeName, "start")
-                        : undefined;
+                    if (
+                        this.diagramDict[outNodeName].in.every(
+                            inNodeName => this.diagramDict[inNodeName].state === "end"
+                        )
+                    ) {
+                        this.changeNodeState(outNodeName, "start");
+                    }
                 });
                 break;
             default:
                 break;
         }
+        return state;
     }
 
     public getStateNode<T extends NodeState>(requireStateList: T[]): Record<T, string[]> {
@@ -150,7 +161,7 @@ export class ProjectNetworkDiagram {
         if (node.time.end !== -1) nodeContentList.push(`end:${node.time.end}`);
         if (node.time.start !== -1 && node.time.end !== -1)
             nodeContentList.push(`time of duration:${node.time.end - node.time.start}`);
-        return nodeContentList.join("<br/>"); // mermaid的换行符
+        return nodeContentList.join("<br/>"); // mermaid需要使用html换行符
     }
 
     public getDiagramCode(markdown: boolean): string {

@@ -24,7 +24,7 @@ export default {
         format: "cjs",
         sourcemap: true,
     },
-    external: ['priority_queue.wasm','profiler'],
+    external: ['priority_queue.wasm'/*,'profiler'*/],
 
     plugins: [
         clear({ targets: ["dist"] }),
@@ -35,7 +35,7 @@ export default {
             targets: [
                 { src: "./src/utils/PriorityQueue/priority_queue.wasm", dest: "./dist/" },
                 { src: "./src/utils/moveOptimize/moveOptimize.js", dest: "./dist/" },
-                { src: "./src/profiler/index.js", dest:"./dist/", rename:"profiler.js" }
+                // { src: "./src/profiler/index.js", dest:"./dist/", rename:"profiler.js" }
             ]
         }),
         html({

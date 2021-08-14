@@ -1,8 +1,9 @@
-import { runAi } from "./AIUreium";
-import { runFrame } from "./frame";
-import { runAllAcrossTickTask } from "./utils/AcrossTick";
-import { ErrorMapper } from "./utils/ErrorMapper";
-import { enable, wrap } from "profiler";
+import { runAi } from "AI/AIUreium";
+import { runFrame } from "frame/main";
+import { enable, wrap } from "utils/profiler";
+import { runAllAcrossTickTask } from "utils/AcrossTick";
+import { ErrorMapper } from "utils/ErrorMapper";
+
 require("moveOptimize");
 global.version = "0.1.1";
 enable();

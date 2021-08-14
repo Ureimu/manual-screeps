@@ -23,13 +23,6 @@ export interface DiagramDict {
 export interface DiagramMemory {
     diagram?: DiagramDict;
 }
-declare global {
-    namespace NodeJS {
-        interface Global {
-            cliEnv: boolean;
-        }
-    }
-}
 
 /**
  * 任务对象

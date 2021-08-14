@@ -1,4 +1,4 @@
-[manual-screeps](../README.md) / [Modules](../modules.md) / [creep/body](../modules/creep_body.md) / CreepBody
+[manual-screeps](../README.md) / [Exports](../modules.md) / [creep/body](../modules/creep_body.md) / CreepBody
 
 # Class: CreepBody
 
@@ -47,7 +47,7 @@
 
 一段文字说明
 
-Defined in: creep/body/index.ts:16
+Defined in: src/frame/creep/body/index.ts:16
 
 ___
 
@@ -70,7 +70,7 @@ ___
 
 **Returns:** *string*
 
-Defined in: creep/body/index.ts:60
+Defined in: src/frame/creep/body/index.ts:60
 
 ___
 
@@ -95,4 +95,4 @@ ___
 
 **Returns:** *string*
 
-Defined in: creep/body/index.ts:36
+Defined in: src/frame/creep/body/index.ts:36

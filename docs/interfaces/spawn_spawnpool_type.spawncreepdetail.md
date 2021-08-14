@@ -1,4 +1,4 @@
-[manual-screeps](../README.md) / [Modules](../modules.md) / [spawn/spawnPool/type](../modules/spawn_spawnpool_type.md) / SpawnCreepDetail
+[manual-screeps](../README.md) / [Exports](../modules.md) / [spawn/spawnPool/type](../modules/spawn_spawnpool_type.md) / SpawnCreepDetail
 
 # Interface: SpawnCreepDetail
 
@@ -22,7 +22,7 @@
 
 • **creepBody**: *string*
 
-Defined in: spawn/spawnPool/type.ts:21
+Defined in: src/frame/spawn/spawnPool/type.ts:21
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 • **creepName**: *string*
 
-Defined in: spawn/spawnPool/type.ts:20
+Defined in: src/frame/spawn/spawnPool/type.ts:20
 
 ___
 
@@ -38,15 +38,15 @@ ___
 
 • **priority**: *number*
 
-Defined in: spawn/spawnPool/type.ts:22
+Defined in: src/frame/spawn/spawnPool/type.ts:22
 
 ___
 
 ### readyCondition
 
-• **readyCondition**: keyof ReadyCondition
+• **readyCondition**: keyof [*ReadyCondition*](spawn_spawning_readycondition.readycondition.md)
 
-Defined in: spawn/spawnPool/type.ts:23
+Defined in: src/frame/spawn/spawnPool/type.ts:23
 
 ___
 
@@ -54,7 +54,7 @@ ___
 
 • **roomName**: *string*
 
-Defined in: spawn/spawnPool/type.ts:26
+Defined in: src/frame/spawn/spawnPool/type.ts:26
 
 ___
 
@@ -62,7 +62,7 @@ ___
 
 • `Optional` **spawnName**: *string*
 
-Defined in: spawn/spawnPool/type.ts:25
+Defined in: src/frame/spawn/spawnPool/type.ts:25
 
 ___
 
@@ -70,4 +70,4 @@ ___
 
 • **state**: [*runningState*](../modules/spawn_spawnpool_type.md#runningstate)
 
-Defined in: spawn/spawnPool/type.ts:24
+Defined in: src/frame/spawn/spawnPool/type.ts:24

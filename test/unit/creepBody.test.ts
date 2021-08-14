@@ -1,5 +1,5 @@
 import { assert } from "chai";
-import { bodyTools } from "creep/body/tools";
+import { bodyTools } from "frame/creep/body/tools";
 import { mockConstants } from "./mock";
 mockConstants();
 describe("compileCreepBody", () => {

@@ -2,15 +2,6 @@ import { Project } from "./project";
 import { DiagramMemory, TaskCollection, TaskObject, TaskRelation } from "./type";
 import { ProjectNetworkDiagram } from "./storage";
 
-declare global {
-    // Types defined in a global block are available globally
-    namespace NodeJS {
-        interface Global {
-            example: DiagramMemory;
-        }
-    }
-}
-
 // 设置Project的存储位置
 type memoryAddressArgs = Parameters<(roomName: string) => void>;
 type exampleTaskArgs = Parameters<(roomName: string) => void>;
@@ -29,19 +20,35 @@ const taskExample: TaskObject<exampleTaskArgs> = {
         return "end";
     }
 };
-const taskExampleCopy = taskExample;
+const anotherTaskExample: TaskObject<exampleTaskArgs> = {
+    name: "anotherTaskExample",
+    description: "anotherTaskExample"
+};
 
 const taskRelation = {
     [taskExample.name]: [ProjectNetworkDiagram.startNodeName],
-    [taskExampleCopy.name]: [ProjectNetworkDiagram.startNodeName, taskExample.name]
+    [anotherTaskExample.name]: [ProjectNetworkDiagram.startNodeName, taskExample.name]
 };
-const unwrappedTaskCollection = {
-    taskExample
+const taskCollection = {
+    taskExample,
+    anotherTaskExample
 };
+export function getSampleData(): {
+    name: string;
+    taskRelation: TaskRelation;
+    taskCollection: TaskCollection<exampleTaskArgs>;
+} {
+    return {
+        name: "sample",
+        taskRelation,
+        taskCollection
+    };
+}
+export const sampleDiagramMemory: DiagramMemory = {};
 export class SampleProject extends Project<exampleTaskArgs, memoryAddressArgs> {
     public name = "sample";
     public taskRelation: TaskRelation = taskRelation;
-    public taskCollection: TaskCollection<exampleTaskArgs> = unwrappedTaskCollection;
+    public taskCollection: TaskCollection<exampleTaskArgs> = taskCollection;
     /**
      *  设置Project的存储位置
      *
@@ -49,9 +56,6 @@ export class SampleProject extends Project<exampleTaskArgs, memoryAddressArgs> {
      * @memberof SampleProject
      */
     public getMemory(): DiagramMemory {
-        return global.example;
+        return sampleDiagramMemory;
     }
 }
-
-export const projects = ["E24N56", "E22N55"].map(roomName => new SampleProject([roomName], [roomName]));
-projects.forEach(project => project.runTasks());
