@@ -1,5 +1,6 @@
 import { CreepGroupMode } from "frame/creep/group/type";
 import { isRouteMidpointDetail } from "frame/creep/routePlan/type";
+import { ErrorMapper } from "utils/ErrorMapper";
 import { registerFN } from "utils/profiler";
 import { creepAct } from "./doOnArrived";
 import { doStuff } from "./onArrived";
@@ -50,15 +51,20 @@ export type conditionState = "jump" | "notJump";
 
 export default registerFN(runCreepAction, "runCreepAction");
 function runCreepAction(creep: Creep): void {
-    if (creep.memory.mode === "role") {
-        runCreepByRole(creep);
-        return;
-    }
-    if (creep.memory.route && creep.memory.route.name !== "") {
-        const creepRoute = creep.memory.route;
-        const switchCounter = { count: 0 };
-        runRecursiveCreepAction(creep, creepRoute, switchCounter);
-        return;
+    try {
+        // if (Game.time % 10 === 0) throw new Error("test Error");
+        if (creep.memory.mode === "role") {
+            runCreepByRole(creep);
+            return;
+        }
+        if (creep.memory.route && creep.memory.route.name !== "") {
+            const creepRoute = creep.memory.route;
+            const switchCounter = { count: 0 };
+            runRecursiveCreepAction(creep, creepRoute, switchCounter);
+            return;
+        }
+    } catch (e) {
+        ErrorMapper.handleError(e);
     }
 }
 

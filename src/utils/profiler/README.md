@@ -4,6 +4,22 @@ The Screeps Profiler is a library that helps to understand where your CPU is bei
 
 It works by monkey patching functions on the Global game object prototypes, with a function that record how long each function takes. The primary benefit of using this profiler is that you can get a clear picture of where your CPU is being used over time, and optimize some of the heavier functions. While it works best for players that heavily employ prototypes in their code, it should work to some degree for all players.
 
+## 附录
+
+文中提到的 callgrind 软件在群文件里有。
+该版本可以记录 memory 读取消耗，但是每个 tick 都会自动读取 memory 一次。
+类型定义由 Ureium 完成。
+
+目前新增功能有：
+
+1.支持 ts 的装饰器。
+
+2.支持计算 Memory 初始化消耗。
+
+3.新增函数 registerObjectDeep: 递归注册对象中的函数到 profiler。
+
+4.已将 js 原版 改为 ts 版本。
+
 ## Setup
 
 ### Installation
@@ -15,7 +31,8 @@ You have two options for installing this script. You can either use npm and a co
 Your main.js will will need to be configured like so.
 
 ```javascript
-// Any modules that you use that modify the game's prototypes should be require'd
+// Any modules that you use that modify the game's prototypes
+// should be required
 // before you require the profiler.
 const profiler = require("screeps-profiler");
 
@@ -33,19 +50,19 @@ module.exports.loop = function () {
 You can make use of the profiler via the Screeps console.
 
 ```javascript
-Game.profiler.profile(ticks, [functionFilter]);
-Game.profiler.stream(ticks, [functionFilter]);
-Game.profiler.email(ticks, [functionFilter]);
-Game.profiler.background([functionFilter]);
+profiler.profile(ticks, [functionFilter]);
+profiler.stream(ticks, [functionFilter]);
+profiler.email(ticks, [functionFilter]);
+profiler.background([functionFilter]);
 
 // Output current profile data.
-Game.profiler.output([lineCount]);
-Game.profiler.callgrind();
+profiler.output([lineCount]);
+profiler.callgrind();
 
 // Reset the profiler, disabling any profiling in the process.
-Game.profiler.reset();
+profiler.reset();
 
-Game.profiler.restart();
+profiler.restart();
 ```
 
 **Note:** It can take up to 30 ticks if you're using `module.exports.loop` for these commands to work without issue.
@@ -126,7 +143,7 @@ Avg: 13.54 Total: 2707.90 Ticks: 200 Est. Bucket (20 limit): 1774
 
 **Note:** Each function recorded here was part of a call stack with `Spawn.work` at the root.
 
-## Example callgrind visualisation
+## Example callgrind visualization
 
 ![KCachegrind screenshot](callgrind.jpg)
 
@@ -178,19 +195,3 @@ getAllScouts = profiler.registerFN(getAllScouts, "mySemiOptionalName");
 ## Potential Overhead
 
 There is some work to setting up the functions for profiling. While this work is kept to a minimum when the profiler is not in use, it may be beneficial to comment out or remove the `profiler.enable()` call when you know you aren't going to be using it. This will revert the monkey patched functions to their original functions.
-
-## 附录
-
-上面提到的 callgrind 软件在群文件里有。
-该版本可以记录 memory 读取消耗，但是每个 tick 都会自动读取 memory 一次。
-类型定义由 Ureium 完成。
-
-目前新增功能有：
-
-1.支持 ts 的装饰器。
-
-2.支持计算 Memory 初始化消耗。
-
-3.新增递归注册对象中的函数到 profiler。
-
-4.已将 js 原版 改为 ts 版本。

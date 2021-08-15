@@ -1,18 +1,18 @@
-import { profilerFunc } from "..";
+import { ProfilerConsole } from "../console";
 
 export class FuncPath {
-    public static get path(): ProfilerFunc {
+    public static get path(): typeof ProfilerConsole {
         return global.profiler;
     }
-    public static set path(profilerFunctionCollection: ProfilerFunc) {
+    public static set path(profilerFunctionCollection: typeof ProfilerConsole) {
         global.profiler = profilerFunctionCollection;
     }
 }
-export type ProfilerFunc = typeof profilerFunc;
+
 declare global {
     namespace NodeJS {
         interface Global {
-            profiler: ProfilerFunc;
+            profiler: typeof ProfilerConsole;
         }
     }
 }

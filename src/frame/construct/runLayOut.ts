@@ -2,10 +2,10 @@ import { constructionSiteInf, formedLayout } from "frame/construct/type";
 import { PosStr } from "utils/RoomPositionToStr";
 import { gridLayoutBuildNumberLimit } from "./composition/gridLayout";
 
-export function runLayout(room: Room, layoutName: string, layoutFunc: (room: Room) => void): void {
+export function runLayout(room: Room, layoutFunc?: (room: Room) => void): void {
     if (!room.memory.construct.firstSpawnName) return;
     const layout = room.memory.construct.layout;
-    if (!layout) {
+    if (!layout && layoutFunc) {
         layoutFunc(room);
     }
     if (!layout) return;
@@ -15,23 +15,14 @@ export function runLayout(room: Room, layoutName: string, layoutFunc: (room: Roo
         const construction = entry[1];
         for (const specifiedName in construction) {
             let levelToBuild = 0;
-            if (
-                typeof (
-                    construction[specifiedName as keyof typeof construction] as {
-                        levelToBuild?: number;
-                    }
-                ).levelToBuild !== "undefined"
-            ) {
-                levelToBuild = (
-                    construction[specifiedName as keyof typeof construction] as {
-                        levelToBuild?: number;
-                    }
-                ).levelToBuild as number;
+            const specifiedConstruction = construction[specifiedName as keyof typeof construction] as {
+                levelToBuild?: number;
+            };
+            if (typeof specifiedConstruction.levelToBuild !== "undefined") {
+                levelToBuild = specifiedConstruction.levelToBuild;
             }
-            const buildNumberLimit =
-                levelToBuild <= (room.controller as StructureController).level
-                    ? gridLayoutBuildNumberLimit[constructionName][(room.controller as StructureController).level]
-                    : 0;
+            const level = room.controller?.level ?? 0;
+            const buildNumberLimit = levelToBuild <= level ? gridLayoutBuildNumberLimit[constructionName][level] : 0;
             const posStrList = (
                 construction[specifiedName as keyof typeof construction] as {
                     posStrList?: string[];
@@ -59,15 +50,15 @@ export function runLayout(room: Room, layoutName: string, layoutFunc: (room: Roo
 }
 
 function initConstructionMemory(room: Room, name: string, structureType: BuildableStructureConstant): void {
-    if (!room.memory.construct.construction[structureType]) {
-        room.memory.construct.construction[structureType] = {};
+    const construction = room.memory.construct.construction;
+    if (!construction[structureType]) {
+        construction[structureType] = {};
     }
-    if (!room.memory.construct.construction[structureType]?.[name]) {
-        (
-            room.memory.construct.construction[structureType] as {
-                [name: string]: constructionSiteInf<typeof structureType>;
-            }
-        )[name] = {
+    const specifiedConstruction = construction[structureType] as {
+        [name: string]: constructionSiteInf<typeof structureType>;
+    };
+    if (!specifiedConstruction[name]) {
+        specifiedConstruction[name] = {
             sitePosList: {},
             hasPutSites: false,
             hasBuilt: false,
@@ -86,7 +77,9 @@ function putConstructionSites<T extends BuildableStructureConstant>(
     buildNumberLimit: number,
     totalSitesNum: number
 ): number {
-    if (room.memory.construct.construction[structureType]?.[name]?.hasPutSites === true) return 0;
+    const construction = room.memory.construct.construction;
+    const specifiedConstruction = construction[structureType];
+    if (specifiedConstruction?.[name]?.hasPutSites === true) return 0;
     if (buildNumberLimit === 0) return 0;
     const listC = [];
     const posList: RoomPosition[] = [];
@@ -98,7 +91,7 @@ function putConstructionSites<T extends BuildableStructureConstant>(
         posList.push(PosStr.getPosFromStr(posStr));
     });
     initConstructionMemory(room, name, structureType);
-    const constructionTypeMemory = room.memory.construct.construction[structureType] as {
+    const constructionTypeMemory = specifiedConstruction as {
         [name: string]: constructionSiteInf<typeof structureType>;
     };
     const structures: {
@@ -116,7 +109,7 @@ function putConstructionSites<T extends BuildableStructureConstant>(
             return constructionSite.structureType === structureType;
         }
     });
-    const constructionData = room.memory.construct.construction[structureType]?.[name];
+    const constructionData = specifiedConstruction?.[name];
 
     if (posList.length > 0) console.log(`[build] 放置工地 ${name}`);
     for (let i = 0; i < posList.length; i++) {

@@ -3,13 +3,17 @@ import { Base64 } from "js-base64";
 import { ProjectNetworkDiagram } from "utils/Project/storage";
 import { getUpgradeSpeed } from "frame/visual/roomInf/upgradeSpeed";
 import { ScreepsData } from "./type";
+import { AcrossTick, newAcrossTickTask } from "utils/AcrossTick";
+import { ErrorMapper } from "utils/ErrorMapper";
+import { AcrossTickMemory, AcrossTickReturnCode } from "utils/AcrossTick/type";
 
-export function stats(): string {
+function getStats(task: AcrossTickMemory): AcrossTickReturnCode {
     const data: ScreepsData = {
         userData: {
             name: Object.values(Game.spawns)[0].owner.username,
             gcl: Game.gcl,
-            gpl: Game.gpl
+            gpl: Game.gpl,
+            error: ErrorMapper.getErrorSegmentMemory()
         },
         shardData: {
             shardName: Game.shard.name
@@ -34,16 +38,14 @@ export function stats(): string {
                     diagram: string;
                 };
             } = {};
-            _.flatten(
-                Object.values(room.memory?.AIUreium.outwardsSource).map(value => {
-                    return Object.entries(value);
+
+            Object.values(room.memory?.AIUreium.outwardsSource).forEach(sourceRoomMemory =>
+                Object.entries(sourceRoomMemory).forEach(sourceMemory => {
+                    outwardsSourceDiagram[sourceMemory[0]] = {
+                        diagram: Base64.encode(new ProjectNetworkDiagram(sourceMemory[1]).getDiagramCode(false)),
+                        name: sourceMemory[0]
+                    };
                 })
-            ).map(
-                diagramMemory =>
-                    (outwardsSourceDiagram[diagramMemory[0]] = {
-                        diagram: Base64.encode(new ProjectNetworkDiagram(diagramMemory[1]).getDiagramCode(false)),
-                        name: diagramMemory[0]
-                    })
             );
             data.roomData[room.name] = {
                 controller: {
@@ -65,7 +67,8 @@ export function stats(): string {
             };
         }
     });
-    return `<script>
+    console.log(
+        `<script>
         const sendMemoryInfo = ({ source }) => {
             removeEventListener('message', sendMemoryInfo);
             source.postMessage("${Base64.encodeURI(JSON.stringify(data))}", '*')
@@ -76,5 +79,15 @@ export function stats(): string {
         setTimeout(function () {
             $(".console-controls .md-button:eq(1)").trigger('click');
         });
-    <\/script>`.replace(/((\s\s)|\n)/g, "");
+    <\/script>`.replace(/((\s\s)|\n)/g, "")
+    );
+    return "finish";
+}
+
+export function stats(): void {
+    ErrorMapper.setErrorSegmentActive();
+    if (!global.AcrossTickTaskFunction.getStats) {
+        AcrossTick.mountTaskFunction({ taskName: "getStats" }, getStats);
+    }
+    newAcrossTickTask({ taskName: "getStats", args: [], executeTick: Game.time + 1, intervalTick: 1, log: true });
 }

@@ -1,19 +1,72 @@
-import { constructMemory } from "frame/construct/type";
+import { constructMemory, formedLayout, SpecifiedOutwardsStructureNameList } from "frame/construct/type";
 import { PosStr } from "utils/RoomPositionToStr";
-import { LayoutInputData } from "./type";
+import { SetTools } from "utils/SetTools";
+import { LayoutInputData, SpecifiedLayoutInputData } from "./type";
 
-export function baseLayout(data: LayoutInputData): void {
-    const layoutRoomMemory = checkLayoutMemory(data.layoutRoomName);
-    const layout = layoutRoomMemory.construct.layout;
-    if (!layout) return;
-    if (data.structureType === "road") {
+const baseLayoutFunction: {
+    [Name in SpecifiedOutwardsStructureNameList<BuildableStructureConstant>]: (
+        data: SpecifiedLayoutInputData<Name>,
+        layout: formedLayout
+    ) => void;
+} = {
+    sourceContainer: (data, layout) => {
+        if (!layout.container?.sourceContainer) {
+            layout.container = {
+                sourceContainer: {
+                    posStrList: data.pos
+                }
+            };
+        } else {
+            const sourceContainerLayout = layout.container.sourceContainer;
+            sourceContainerLayout.posStrList = SetTools.mergeUniqueList(sourceContainerLayout.posStrList, data.pos);
+        }
+        return;
+    },
+    mineralContainer: (data, layout) => {
+        if (!layout.container?.mineralContainer) {
+            layout.container = {
+                mineralContainer: {
+                    posStrList: data.pos
+                }
+            };
+        } else {
+            const mineralContainerLayout = layout.container.mineralContainer;
+            mineralContainerLayout.posStrList = SetTools.mergeUniqueList(mineralContainerLayout.posStrList, data.pos);
+        }
+        return;
+    },
+    outwardsSourceRoad: (data, layout) => {
         layout.road = {
             outwardsSourceRoad: {
-                posStrList: data.path.map(pos => PosStr.setPosToStr(pos))
+                posStrList: data.path
+            }
+        };
+    },
+    passerbyRoad: (data, layout) => {
+        layout.road = {
+            passerbyRoad: {
+                posStrList: data.path
+            }
+        };
+    },
+    outwardsMineralRoad: (data, layout) => {
+        layout.road = {
+            outwardsMineralRoad: {
+                posStrList: data.path
             }
         };
     }
-    return;
+};
+
+export function baseOutwardsLayout<T extends LayoutInputData["type"]>(data: SpecifiedLayoutInputData<T>): void {
+    const layoutRoomMemory = checkLayoutMemory(data.layoutRoomName);
+    const layout = layoutRoomMemory.construct.layout;
+    if (!layout) return;
+    const layoutFunction = baseLayoutFunction[data.type] as (
+        data: SpecifiedLayoutInputData<T>,
+        layout: formedLayout
+    ) => void;
+    layoutFunction(data, layout);
 }
 
 function checkLayoutMemory(checkRoomName: string): RoomMemory {

@@ -4,17 +4,20 @@ import { createOBodyParts } from "./tasks/createOBodyParts";
 import { ProjectNetworkDiagram } from "utils/Project/storage";
 import { Project } from "utils/Project";
 import { registerObjectDeep } from "utils/profiler";
+import { oBuildSourceContainer } from "./tasks/OHarvester/oBuildSourceContainer";
 
 // 设置Project的存储位置
 
 export const taskRelation = {
     [createOBodyParts.name]: [ProjectNetworkDiagram.startNodeName],
-    [createOHarvestGroup.name]: [createOBodyParts.name]
+    [createOHarvestGroup.name]: [createOBodyParts.name],
+    [oBuildSourceContainer.name]: [createOHarvestGroup.name]
 };
 const taskCollection = registerObjectDeep(
     {
         createOBodyParts,
-        createOHarvestGroup
+        createOHarvestGroup,
+        oBuildSourceContainer
     },
     "outwardsHarvestTaskCollection"
 );

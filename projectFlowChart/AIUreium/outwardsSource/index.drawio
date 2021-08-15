@@ -1,0 +1,128 @@
+<mxfile host="65bd71144e">
+    <diagram id="hFQ6iRf3MblQb4BNwlUu" name="第 1 页">
+        <mxGraphModel dx="883" dy="617" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="2" target="4" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="2" value="开始" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="354" y="30" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="dk9F_phrL0NwIipVMg8x-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="4" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="290" y="200" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="4" value="&lt;a href=&quot;data:page/id,qkmtS9fIgHfUW1AjHDxz&quot;&gt;编写外矿任务项目&lt;/a&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="354" y="170" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="dk9F_phrL0NwIipVMg8x-6" value="编写外矿任务停止项目" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="170" y="170" width="120" height="60" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="qkmtS9fIgHfUW1AjHDxz" name="外矿任务项目">
+        <mxGraphModel dx="883" dy="617" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="mVQjU-tE0XE8f2baZfev-0"/>
+                <mxCell id="mVQjU-tE0XE8f2baZfev-1" parent="mVQjU-tE0XE8f2baZfev-0"/>
+                <mxCell id="zpFdO-WHfXRH4XgVbHrp-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="mVQjU-tE0XE8f2baZfev-1" source="zpFdO-WHfXRH4XgVbHrp-0" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="414" y="130" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="zpFdO-WHfXRH4XgVbHrp-0" value="开始" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="mVQjU-tE0XE8f2baZfev-1" vertex="1">
+                    <mxGeometry x="354" y="10" width="120" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="zpFdO-WHfXRH4XgVbHrp-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="mVQjU-tE0XE8f2baZfev-1" source="zpFdO-WHfXRH4XgVbHrp-2" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="414" y="240" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="zpFdO-WHfXRH4XgVbHrp-2" value="生成基础身体配置项" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="mVQjU-tE0XE8f2baZfev-1" vertex="1">
+                    <mxGeometry x="354" y="130" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="zpFdO-WHfXRH4XgVbHrp-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="mVQjU-tE0XE8f2baZfev-1" source="zpFdO-WHfXRH4XgVbHrp-4" target="zpFdO-WHfXRH4XgVbHrp-9" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="zpFdO-WHfXRH4XgVbHrp-4" value="生成OHarvester" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="mVQjU-tE0XE8f2baZfev-1" vertex="1">
+                    <mxGeometry x="354" y="240" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="zpFdO-WHfXRH4XgVbHrp-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="mVQjU-tE0XE8f2baZfev-1" source="zpFdO-WHfXRH4XgVbHrp-5" target="zpFdO-WHfXRH4XgVbHrp-7" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="zpFdO-WHfXRH4XgVbHrp-5" value="生成OCarrier" style="rounded=0;whiteSpace=wrap;html=1;" parent="mVQjU-tE0XE8f2baZfev-1" vertex="1">
+                    <mxGeometry x="354" y="490" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="zpFdO-WHfXRH4XgVbHrp-19" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="mVQjU-tE0XE8f2baZfev-1" source="zpFdO-WHfXRH4XgVbHrp-7" target="zpFdO-WHfXRH4XgVbHrp-18" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="zpFdO-WHfXRH4XgVbHrp-23" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="mVQjU-tE0XE8f2baZfev-1" source="zpFdO-WHfXRH4XgVbHrp-7" target="zpFdO-WHfXRH4XgVbHrp-22" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="hmGO21uQjPPBUvjxzZQK-1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="mVQjU-tE0XE8f2baZfev-1" source="zpFdO-WHfXRH4XgVbHrp-7" target="hmGO21uQjPPBUvjxzZQK-0" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="zpFdO-WHfXRH4XgVbHrp-7" value="OCarrier搬能量回Storage同时建路" style="rounded=0;whiteSpace=wrap;html=1;" parent="mVQjU-tE0XE8f2baZfev-1" vertex="1">
+                    <mxGeometry x="354" y="600" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="zpFdO-WHfXRH4XgVbHrp-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="mVQjU-tE0XE8f2baZfev-1" source="zpFdO-WHfXRH4XgVbHrp-9" target="zpFdO-WHfXRH4XgVbHrp-5" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="zpFdO-WHfXRH4XgVbHrp-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="mVQjU-tE0XE8f2baZfev-1" source="zpFdO-WHfXRH4XgVbHrp-9" target="zpFdO-WHfXRH4XgVbHrp-14" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="zpFdO-WHfXRH4XgVbHrp-9" value="OHarvester建container" style="rounded=0;whiteSpace=wrap;html=1;" parent="mVQjU-tE0XE8f2baZfev-1" vertex="1">
+                    <mxGeometry x="354" y="350" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="zpFdO-WHfXRH4XgVbHrp-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="mVQjU-tE0XE8f2baZfev-1" source="zpFdO-WHfXRH4XgVbHrp-14" target="zpFdO-WHfXRH4XgVbHrp-22" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="zpFdO-WHfXRH4XgVbHrp-14" value="&lt;span&gt;如果container建好了&lt;br&gt;OHarvester一边挖矿一边修container&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="mVQjU-tE0XE8f2baZfev-1" vertex="1">
+                    <mxGeometry x="154" y="490" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="hmGO21uQjPPBUvjxzZQK-6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="mVQjU-tE0XE8f2baZfev-1" source="zpFdO-WHfXRH4XgVbHrp-18" target="hmGO21uQjPPBUvjxzZQK-5" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="zpFdO-WHfXRH4XgVbHrp-18" value="生成ODefender，检测有敌人或InvaderCore时出生" style="whiteSpace=wrap;html=1;rounded=0;" parent="mVQjU-tE0XE8f2baZfev-1" vertex="1">
+                    <mxGeometry x="354" y="740" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="zpFdO-WHfXRH4XgVbHrp-22" value="检查房间是否需要生成OReserver，若需要则生成" style="whiteSpace=wrap;html=1;rounded=0;" parent="mVQjU-tE0XE8f2baZfev-1" vertex="1">
+                    <mxGeometry x="154" y="600" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="hmGO21uQjPPBUvjxzZQK-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="mVQjU-tE0XE8f2baZfev-1" source="hmGO21uQjPPBUvjxzZQK-0" target="hmGO21uQjPPBUvjxzZQK-2" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="hmGO21uQjPPBUvjxzZQK-0" value="如果路建好了" style="whiteSpace=wrap;html=1;rounded=0;" parent="mVQjU-tE0XE8f2baZfev-1" vertex="1">
+                    <mxGeometry x="554" y="600" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="hmGO21uQjPPBUvjxzZQK-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="mVQjU-tE0XE8f2baZfev-1" source="hmGO21uQjPPBUvjxzZQK-2" target="hmGO21uQjPPBUvjxzZQK-5" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="hmGO21uQjPPBUvjxzZQK-2" value="&lt;span&gt;调整body，OCarrier搬能量回Storage同时修路&lt;/span&gt;" style="whiteSpace=wrap;html=1;rounded=0;" parent="mVQjU-tE0XE8f2baZfev-1" vertex="1">
+                    <mxGeometry x="554" y="740" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="hmGO21uQjPPBUvjxzZQK-8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="mVQjU-tE0XE8f2baZfev-1" source="hmGO21uQjPPBUvjxzZQK-5" target="hmGO21uQjPPBUvjxzZQK-7" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="hmGO21uQjPPBUvjxzZQK-5" value="检测主房有没有多余的link或者已经分配到该路口的link" style="whiteSpace=wrap;html=1;rounded=0;" parent="mVQjU-tE0XE8f2baZfev-1" vertex="1">
+                    <mxGeometry x="354" y="890" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="hmGO21uQjPPBUvjxzZQK-7" value="&lt;span&gt;OCarrier搬能量回Link同时修路&lt;/span&gt;" style="whiteSpace=wrap;html=1;rounded=0;" parent="mVQjU-tE0XE8f2baZfev-1" vertex="1">
+                    <mxGeometry x="354" y="1030" width="120" height="60" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="SM7pahlqJ9XS0-QMjl3f" name="外矿任务停止项目">
+        <mxGraphModel dx="883" dy="617" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="e6LYxn8sryoX7eUC3EID-0"/>
+                <mxCell id="e6LYxn8sryoX7eUC3EID-1" parent="e6LYxn8sryoX7eUC3EID-0"/>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

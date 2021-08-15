@@ -2,7 +2,9 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/ban-types */
 
-import { registerClass, registerFN, enabled } from ".";
+import { profilerCache } from "./constants";
+import { profileFunction } from "./wrap/function";
+import { profileObjectFunctions } from "./wrap/object";
 
 export function profile(target: Function): void;
 export function profile(target: object, key: string | symbol, _descriptor: TypedPropertyDescriptor<Function>): void;
@@ -11,14 +13,14 @@ export function profile(
     key?: string | symbol,
     _descriptor?: TypedPropertyDescriptor<Function>
 ): void {
-    if (!enabled) {
+    if (!profilerCache.enabled) {
         return;
     }
 
     if (key && typeof key === "string") {
         if (typeof target === "function") {
             // case of method decorator
-            registerFN(target as (...args: any[]) => any, key);
+            profileFunction(target as (...args: any[]) => any, key);
             return;
         }
     }
@@ -34,6 +36,6 @@ export function profile(
     if (typeof classCopy === "function") {
         return;
     } else {
-        registerClass(classCopy, className as string);
+        profileObjectFunctions(classCopy, className as string);
     }
 }

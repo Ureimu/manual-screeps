@@ -1,15 +1,29 @@
+import { runLayout } from "frame/construct";
+import { baseOutwardsLayout } from "frame/construct/outwardsComposition/baseLayout";
 import { CreepGroup } from "frame/creep/group";
 import { RoutePlan } from "frame/creep/routePlan";
 import { FlagMaintainer } from "frame/flagMaintainer";
 import { FlagTools } from "frame/flagMaintainer/tools";
 import { TaskObject } from "utils/Project";
+import { PosStr } from "utils/RoomPositionToStr";
 import { outwardsSourceTaskArgs } from "../../taskRelation";
 
 export const oBuildSourceContainer: TaskObject<outwardsSourceTaskArgs> = {
     name: "oBuildSourceContainer",
     description: "oBuildSourceContainer",
-    start(roomName) {
+    start(roomName, sourceRoomName, sourceName) {
         const room = Game.rooms[roomName];
+        const sourceRoomMemory = Memory.rooms[sourceRoomName];
+        const sourceRoom = Game.rooms[sourceRoomName];
+        if (!sourceRoom) return "running";
+        baseOutwardsLayout({
+            type: "sourceContainer",
+            structureType: "container",
+            sourceName,
+            pos: [PosStr.setPosToStr(Game.flags[sourceName].pos)],
+            layoutRoomName: sourceRoomName
+        });
+        runLayout(sourceRoom);
         FlagMaintainer.refresh({
             roomName: room.name,
             typeList: FlagMaintainer.getTypeList(["container", "containerConstructionSite", "source"])

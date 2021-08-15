@@ -1,3 +1,4 @@
+import { runAllAcrossTickTask } from "utils/AcrossTick";
 import { registerFN } from "utils/profiler";
 import { autoConstruction } from "./construct";
 import runCreepAction from "./creep/action";
@@ -7,6 +8,7 @@ import { mapVisualForRoom } from "./visual/mapVisual";
 import { roomVisualize } from "./visual/roomVisual";
 
 export const runFrame = registerFN((): void => {
+    runAllAcrossTickTask();
     mountAll();
     if (Game.time % 1500 === 0) clearUnusedCreepMemory();
     Object.values(Game.rooms).forEach(room => {

@@ -61,8 +61,7 @@ export const autoConstruction = registerFN((room: Room): void => {
     room.memory.construct.roomControlStatus[1] = room.controller?.progress as number;
     room.memory.construct.roomControlStatus[2] = room.controller?.progressTotal as number;
     room.memory.construct.roomControlStatus[3] = constructionSites.length;
-    if ((Game.time - room.memory.construct.startTime) % refreshTime === refreshTime - 1)
-        runLayout(room, "gridLayout", getGridLayout);
+    if ((Game.time - room.memory.construct.startTime) % refreshTime === refreshTime - 1) runLayout(room, getGridLayout);
 }, "autoConstruction");
 
 function updateConstruction(room: Room): void {

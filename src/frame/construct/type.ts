@@ -49,9 +49,15 @@ export interface constructionSiteInf<T extends BuildableStructureConstant> {
 export type SiteState = "blank" | "site" | "structure";
 
 export type SpecifiedStructureNameList<T extends BuildableStructureConstant> = T extends "container"
-    ? "sourceContainer" | "controllerContainer" | "mineralContainer"
+    ? "sourceContainer" | "controllerContainer" | "mineralContainer" | SpecifiedOutwardsStructureNameList<T>
     : T extends "link"
-    ? "sourceLink" | "controllerLink" | "centerLink"
+    ? "sourceLink" | "controllerLink" | "centerLink" | SpecifiedOutwardsStructureNameList<T>
     : T extends "road"
-    ? "baseRoad" | "sourceAndControllerRoad" | "mineralRoad" | "aroundSpawnRoad" | "outwardsSourceRoad" | "passerbyRoad"
+    ? "baseRoad" | "sourceAndControllerRoad" | "mineralRoad" | "aroundSpawnRoad" | SpecifiedOutwardsStructureNameList<T>
     : T;
+
+export type SpecifiedOutwardsStructureNameList<T extends BuildableStructureConstant> = T extends "container"
+    ? "sourceContainer" | "mineralContainer"
+    : T extends "road"
+    ? "outwardsSourceRoad" | "passerbyRoad" | "outwardsMineralRoad"
+    : never;

@@ -1,4 +1,9 @@
 export class SetTools {
+    public static mergeUniqueList<T>(...lists: T[][]): T[] {
+        const a = new Set<T>();
+        lists.forEach(list => list.forEach(t => a.add(t)));
+        return Array.from(a.values());
+    }
     public static reverseSet<T>(set: Set<T>): Set<T> {
         const mList: T[] = [];
         set.forEach(posStr => {

@@ -44,7 +44,7 @@ export class CreepGroup {
         const { creepName, creepGroupName } = args;
         // console.log(creepName, creepGroupName);
         if (!Memory.creepGroups[creepGroupName]) {
-            return style(`creep组 ${creepGroupName} 不存在，请先创建该路径`, "error");
+            return style(`creep组 ${creepGroupName} 不存在，请先创建该creep组`, "error");
         } else {
             const creepNameSet = new Set<string>(Memory.creepGroups[creepGroupName].creepNameList);
             creepNameSet.add(creepName);

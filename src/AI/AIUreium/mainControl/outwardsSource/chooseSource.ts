@@ -1,4 +1,5 @@
 import { OutwardsSourceData } from "AI/AIUreium/roles/maintain/scouter/recordRoomData";
+import { stopOutwardsSource } from "AI/AIUreium/room/outwardsSource/stop";
 
 export function chooseSource(mainRoom: Room): void {
     let sourceNum = 2;
@@ -41,6 +42,6 @@ export function chooseSource(mainRoom: Room): void {
         if (!mainRoom.memory.AIUreium.outwardsSource[sourceData.sourceRoomName]) {
             mainRoom.memory.AIUreium.outwardsSource[sourceData.sourceRoomName] = {};
         }
-        delete mainRoom.memory.AIUreium.outwardsSource[sourceData.sourceRoomName][sourceData.sourceName];
+        stopOutwardsSource(sourceData.originRoomName, sourceData.sourceRoomName, sourceData.sourceName);
     }
 }

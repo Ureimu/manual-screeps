@@ -36,7 +36,7 @@ export abstract class Project<TaskArgs extends unknown[], MemoryAddressArgs exte
      *
      * @memberof Project
      */
-    public stats = { initTime: 0, runNum: 0, hasWrapped: false };
+    public stats = { initTime: 0, runNum: 0 };
     /**
      * 项目网络图数据
      *

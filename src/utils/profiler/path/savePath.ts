@@ -1,4 +1,4 @@
-import { profilerFunc, ProfilerMemory } from "..";
+import { ProfilerMemory } from "../type";
 
 export class SavePath {
     public static get path(): ProfilerMemory | undefined {
@@ -8,7 +8,7 @@ export class SavePath {
         Memory.profiler = profilerMemory;
     }
 }
-export type ProfilerFunc = typeof profilerFunc;
+
 declare global {
     interface Memory {
         profiler?: ProfilerMemory;

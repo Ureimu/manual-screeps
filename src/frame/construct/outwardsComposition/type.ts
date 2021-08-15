@@ -1,21 +1,21 @@
-import { SpecifiedStructureNameList } from "frame/construct/type";
+import { SpecifiedOutwardsStructureNameList } from "frame/construct/type";
 
 interface baseLayoutInputData {
-    type: string;
+    type: SpecifiedOutwardsStructureNameList<"road" | "container">;
     layoutRoomName: string;
-    structureType: string;
+    structureType: "road" | "container";
 }
 
 interface baseRoadInputData extends baseLayoutInputData {
     structureType: "road";
-    type: SpecifiedStructureNameList<"road">;
-    path: RoomPosition[];
+    type: SpecifiedOutwardsStructureNameList<"road">;
+    path: string[];
 }
 
 interface baseContainerInputData extends baseLayoutInputData {
     structureType: "container";
-    type: SpecifiedStructureNameList<"container">;
-    pos: RoomPosition;
+    type: SpecifiedOutwardsStructureNameList<"container">;
+    pos: string[];
 }
 
 export interface sourceRoadLayoutData extends baseRoadInputData {
@@ -27,9 +27,37 @@ export interface sourceContainerLayoutData extends baseContainerInputData {
     sourceName: string;
 }
 
+export interface mineralContainerLayoutData extends baseContainerInputData {
+    type: "mineralContainer";
+    sourceName: string;
+}
+
 export interface passerbyRoadLayoutData extends baseRoadInputData {
     type: "passerbyRoad";
     layoutRoomName: string;
 }
 
-export type LayoutInputData = sourceRoadLayoutData | passerbyRoadLayoutData | sourceContainerLayoutData;
+export interface outwardsMineralRoadLayoutData extends baseRoadInputData {
+    type: "outwardsMineralRoad";
+    layoutRoomName: string;
+}
+
+export type LayoutInputData =
+    | sourceRoadLayoutData
+    | passerbyRoadLayoutData
+    | sourceContainerLayoutData
+    | outwardsMineralRoadLayoutData
+    | mineralContainerLayoutData;
+
+export type SpecifiedLayoutInputData<T extends SpecifiedOutwardsStructureNameList<BuildableStructureConstant>> =
+    T extends "outwardsSourceRoad"
+        ? sourceRoadLayoutData
+        : T extends "sourceContainer"
+        ? sourceContainerLayoutData
+        : T extends "passerbyRoad"
+        ? passerbyRoadLayoutData
+        : T extends "outwardsMineralRoad"
+        ? outwardsMineralRoadLayoutData
+        : T extends "mineralContainer"
+        ? mineralContainerLayoutData
+        : never;
