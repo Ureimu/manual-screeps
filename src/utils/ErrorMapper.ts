@@ -188,7 +188,11 @@ export class ErrorMapper {
 
     public static getErrorSegmentMemory(): ErrorSegmentMemory {
         const segment = RawMemory.segments[this.segmentId];
-        const errorMemory = JSON.parse(segment) as ErrorSegmentMemory;
-        return errorMemory;
+        if (segment) {
+            const errorMemory = JSON.parse(segment) as ErrorSegmentMemory;
+            return errorMemory;
+        } else {
+            return { cache: {}, isFull: false, uncaughtErrorNum: 0 };
+        }
     }
 }

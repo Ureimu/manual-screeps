@@ -77,6 +77,12 @@ export const runAllAcrossTickTask = registerFN((): void => {
             return "finish";
         };
     }
+    Object.keys(Memory.AcrossTick)
+        .filter(time => Number(time) < Game.time)
+        .forEach(time => {
+            console.log(`delete out-of-date TickTask: ${time}`);
+            delete Memory.AcrossTick[time];
+        });
     runSpecifiedTickTask(Game.time);
 }, "runAllAcrossTickTask");
 

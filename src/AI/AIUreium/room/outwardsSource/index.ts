@@ -8,8 +8,9 @@ export function maintainOutwardsSource(): void {
             if (!room.memory.AIUreium || !room.memory.AIUreium.maintainRoom) {
                 room.memory.AIUreium = { maintainRoom: {}, outwardsSource: {} };
             }
-            if (room.memory.AIUreium.outwardsSourceData) {
-                if ((Game.time - room.memory.AIUreium.outwardsSourceData.startTime) % 1500 === 0) {
+            const sourceData = room.memory.AIUreium.outwardsSourceData;
+            if (sourceData) {
+                if ((Game.time - sourceData.startTime) % 750 === 0) {
                     chooseSource(room);
                 }
             }

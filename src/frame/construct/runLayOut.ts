@@ -3,7 +3,7 @@ import { PosStr } from "utils/RoomPositionToStr";
 import { gridLayoutBuildNumberLimit } from "./composition/gridLayout";
 
 export function runLayout(room: Room, layoutFunc?: (room: Room) => void): void {
-    if (!room.memory.construct.firstSpawnName) return;
+    if (layoutFunc && !room.memory.construct.firstSpawnName) return;
     const layout = room.memory.construct.layout;
     if (!layout && layoutFunc) {
         layoutFunc(room);

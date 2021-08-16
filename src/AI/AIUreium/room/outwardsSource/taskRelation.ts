@@ -6,6 +6,7 @@ import { Project } from "utils/Project";
 import { registerObjectDeep } from "utils/profiler";
 import { oBuildSourceContainer } from "./tasks/OHarvester/oBuildSourceContainer";
 import { oMoveToSource } from "./tasks/OHarvester/oMoveToSource";
+import { oKeepHarvesting } from "./tasks/OHarvester/oKeepHarvesting";
 
 // 设置Project的存储位置
 
@@ -13,14 +14,16 @@ export const taskRelation = {
     [createOBodyParts.name]: [ProjectNetworkDiagram.startNodeName],
     [createOHarvestGroup.name]: [createOBodyParts.name],
     [oMoveToSource.name]: [createOHarvestGroup.name],
-    [oBuildSourceContainer.name]: [oMoveToSource.name]
+    [oBuildSourceContainer.name]: [oMoveToSource.name],
+    [oKeepHarvesting.name]: [oBuildSourceContainer.name]
 };
 const taskCollection = registerObjectDeep(
     {
         createOBodyParts,
         createOHarvestGroup,
         oMoveToSource,
-        oBuildSourceContainer
+        oBuildSourceContainer,
+        oKeepHarvesting
     },
     "outwardsHarvestTaskCollection"
 );

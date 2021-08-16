@@ -50,7 +50,13 @@ export const autoConstruction = registerFN((room: Room): void => {
     const constructionSites = room.find(FIND_CONSTRUCTION_SITES);
 
     let refreshTime = 1500;
-    if (Game.time - room.memory.construct.startTime <= 200) refreshTime = 40;
+    if (Game.time - room.memory.construct.startTime <= 60) {
+        if (Game.cpu.bucket > 1e3) {
+            refreshTime = 5;
+        } else {
+            refreshTime = 15;
+        }
+    }
     if (
         constructionSites.length !== room.memory.construct.roomControlStatus[3] ||
         (Game.time - room.memory.construct.startTime) % refreshTime === 0

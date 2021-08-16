@@ -37,7 +37,7 @@
                 <mxCell id="zpFdO-WHfXRH4XgVbHrp-0" value="开始" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="mVQjU-tE0XE8f2baZfev-1" vertex="1">
                     <mxGeometry x="354" y="10" width="120" height="80" as="geometry"/>
                 </mxCell>
-                <mxCell id="zpFdO-WHfXRH4XgVbHrp-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="mVQjU-tE0XE8f2baZfev-1" source="zpFdO-WHfXRH4XgVbHrp-2" edge="1" target="zpFdO-WHfXRH4XgVbHrp-4">
+                <mxCell id="zpFdO-WHfXRH4XgVbHrp-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="mVQjU-tE0XE8f2baZfev-1" source="zpFdO-WHfXRH4XgVbHrp-2" target="zpFdO-WHfXRH4XgVbHrp-4" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="414" y="240" as="targetPoint"/>
                     </mxGeometry>
@@ -45,7 +45,7 @@
                 <mxCell id="zpFdO-WHfXRH4XgVbHrp-2" value="生成基础身体配置项" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="mVQjU-tE0XE8f2baZfev-1" vertex="1">
                     <mxGeometry x="354" y="130" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="OzXm4PnOGKkfiLM4azjG-1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="mVQjU-tE0XE8f2baZfev-1" source="zpFdO-WHfXRH4XgVbHrp-4" target="OzXm4PnOGKkfiLM4azjG-0">
+                <mxCell id="OzXm4PnOGKkfiLM4azjG-1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="mVQjU-tE0XE8f2baZfev-1" source="zpFdO-WHfXRH4XgVbHrp-4" target="OzXm4PnOGKkfiLM4azjG-0" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="zpFdO-WHfXRH4XgVbHrp-4" value="生成OHarvester" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="mVQjU-tE0XE8f2baZfev-1" vertex="1">
@@ -75,13 +75,13 @@
                 <mxCell id="zpFdO-WHfXRH4XgVbHrp-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="mVQjU-tE0XE8f2baZfev-1" source="zpFdO-WHfXRH4XgVbHrp-9" target="zpFdO-WHfXRH4XgVbHrp-14" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="zpFdO-WHfXRH4XgVbHrp-9" value="OHarvester建container" style="rounded=0;whiteSpace=wrap;html=1;" parent="mVQjU-tE0XE8f2baZfev-1" vertex="1">
+                <mxCell id="zpFdO-WHfXRH4XgVbHrp-9" value="OHarvester建container" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="mVQjU-tE0XE8f2baZfev-1" vertex="1">
                     <mxGeometry x="354" y="440" width="120" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="zpFdO-WHfXRH4XgVbHrp-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="mVQjU-tE0XE8f2baZfev-1" source="zpFdO-WHfXRH4XgVbHrp-14" target="zpFdO-WHfXRH4XgVbHrp-22" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="zpFdO-WHfXRH4XgVbHrp-14" value="&lt;span&gt;如果container建好了&lt;br&gt;OHarvester一边挖矿一边修container&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="mVQjU-tE0XE8f2baZfev-1" vertex="1">
+                <mxCell id="zpFdO-WHfXRH4XgVbHrp-14" value="&lt;span&gt;如果container建好了&lt;br&gt;OHarvester一边挖矿一边修container&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="mVQjU-tE0XE8f2baZfev-1" vertex="1">
                     <mxGeometry x="154" y="550" width="120" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="hmGO21uQjPPBUvjxzZQK-6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="mVQjU-tE0XE8f2baZfev-1" source="zpFdO-WHfXRH4XgVbHrp-18" target="hmGO21uQjPPBUvjxzZQK-5" edge="1">
@@ -89,6 +89,9 @@
                 </mxCell>
                 <mxCell id="zpFdO-WHfXRH4XgVbHrp-18" value="生成ODefender，检测有敌人或InvaderCore时出生" style="whiteSpace=wrap;html=1;rounded=0;" parent="mVQjU-tE0XE8f2baZfev-1" vertex="1">
                     <mxGeometry x="354" y="800" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="QKaVHmwgwSxl8sceOsQo-1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="mVQjU-tE0XE8f2baZfev-1" source="zpFdO-WHfXRH4XgVbHrp-22" target="QKaVHmwgwSxl8sceOsQo-0">
+                    <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="zpFdO-WHfXRH4XgVbHrp-22" value="检查房间是否需要生成OReserver，若需要则生成" style="whiteSpace=wrap;html=1;rounded=0;" parent="mVQjU-tE0XE8f2baZfev-1" vertex="1">
                     <mxGeometry x="154" y="660" width="120" height="60" as="geometry"/>
@@ -114,11 +117,14 @@
                 <mxCell id="hmGO21uQjPPBUvjxzZQK-7" value="&lt;span&gt;OCarrier搬能量回Link同时修路&lt;/span&gt;" style="whiteSpace=wrap;html=1;rounded=0;" parent="mVQjU-tE0XE8f2baZfev-1" vertex="1">
                     <mxGeometry x="354" y="1090" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="OzXm4PnOGKkfiLM4azjG-2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="mVQjU-tE0XE8f2baZfev-1" source="OzXm4PnOGKkfiLM4azjG-0" target="zpFdO-WHfXRH4XgVbHrp-9">
+                <mxCell id="OzXm4PnOGKkfiLM4azjG-2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="mVQjU-tE0XE8f2baZfev-1" source="OzXm4PnOGKkfiLM4azjG-0" target="zpFdO-WHfXRH4XgVbHrp-9" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="OzXm4PnOGKkfiLM4azjG-0" value="&lt;span&gt;OHarvester移动至source前&lt;/span&gt;" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="mVQjU-tE0XE8f2baZfev-1">
+                <mxCell id="OzXm4PnOGKkfiLM4azjG-0" value="&lt;span&gt;OHarvester移动至source前&lt;/span&gt;" style="whiteSpace=wrap;html=1;rounded=0;fillColor=#f8cecc;strokeColor=#b85450;" parent="mVQjU-tE0XE8f2baZfev-1" vertex="1">
                     <mxGeometry x="354" y="330" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="QKaVHmwgwSxl8sceOsQo-0" value="OReserver去reserve" style="whiteSpace=wrap;html=1;rounded=0;" vertex="1" parent="mVQjU-tE0XE8f2baZfev-1">
+                    <mxGeometry x="154" y="800" width="120" height="60" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>

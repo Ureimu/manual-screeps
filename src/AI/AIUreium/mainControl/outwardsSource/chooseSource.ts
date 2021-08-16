@@ -1,5 +1,7 @@
 import { OutwardsSourceData } from "AI/AIUreium/roles/maintain/scouter/recordRoomData";
 import { stopOutwardsSource } from "AI/AIUreium/room/outwardsSource/stop";
+import { getCostMatrix } from "frame/construct/composition/gridLayout/costMatrix";
+import { PosStr } from "utils/RoomPositionToStr";
 
 export function chooseSource(mainRoom: Room): void {
     let sourceNum = 2;
@@ -32,12 +34,20 @@ export function chooseSource(mainRoom: Room): void {
         }
         mainRoom.memory.AIUreium.outwardsSource[sourceData.sourceRoomName][sourceData.sourceName] = {};
         index++;
+        const spawnName = mainRoom.memory.construct.firstSpawnName.name;
+        const ret = PathFinder.search(
+            Game.spawns[spawnName].pos,
+            { pos: Game.flags[sourceData.sourceName].pos, range: 1 },
+            { maxOps: 1000 * 50, roomCallback: getCostMatrix }
+        );
+        sourceData.path = ret.path.map(pos => PosStr.setPosToStr(pos));
     }
 
     index = sourceNum;
     while (index < sortedSourceDataList.length) {
         const sourceData = sortedSourceDataList[index];
         sourceData.inUse = false;
+        delete sourceData.path;
         if (!mainRoom.memory.AIUreium.outwardsSource[sourceData.sourceRoomName]) {
             mainRoom.memory.AIUreium.outwardsSource[sourceData.sourceRoomName] = {};
         }

@@ -8,7 +8,7 @@ export function maintainRoom(): void {
                 room.memory.AIUreium = { maintainRoom: {}, outwardsSource: {} };
             const maintainRoomProject = getMaintainRoomProject(room.name);
             maintainRoomProject.run();
-            console.log(room.name, JSON.stringify(maintainRoomProject.stats));
+            // console.log(room.name, JSON.stringify(maintainRoomProject.stats));
         }
     });
 }

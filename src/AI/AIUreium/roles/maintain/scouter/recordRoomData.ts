@@ -1,6 +1,7 @@
 import { getCostMatrix } from "frame/construct/composition/gridLayout/costMatrix";
 import { FlagMaintainer } from "frame/flagMaintainer";
 import { FlagTools } from "frame/flagMaintainer/tools";
+import { PosStr } from "utils/RoomPositionToStr";
 
 export function recordRoomData(room: Room): void {
     FlagMaintainer.refresh({ roomName: room.name, typeList: FlagMaintainer.getTypeList(["source", "controller"]) });
@@ -71,5 +72,6 @@ export interface OutwardsSourceData {
     sourceName: string;
     originRoomName: string;
     pathLength: number;
+    path?: string[];
     inUse: boolean;
 }
