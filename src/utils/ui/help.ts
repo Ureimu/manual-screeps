@@ -3,7 +3,7 @@ import { stats } from ".";
 export default [
     {
         alias: "ui",
-        exec(): string {
+        exec(): void {
             return stats();
         }
     }

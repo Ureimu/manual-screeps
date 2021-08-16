@@ -25,23 +25,23 @@ export function chooseSource(mainRoom: Room): void {
     const sortedSourceDataList = Object.values(chosenSourceDataList).sort((a, b) => a.pathLength - b.pathLength);
     let index = 0;
     while (index < sourceNum) {
-        index++;
         const sourceData = sortedSourceDataList[index];
         sourceData.inUse = true;
         if (!mainRoom.memory.AIUreium.outwardsSource[sourceData.sourceRoomName]) {
             mainRoom.memory.AIUreium.outwardsSource[sourceData.sourceRoomName] = {};
         }
         mainRoom.memory.AIUreium.outwardsSource[sourceData.sourceRoomName][sourceData.sourceName] = {};
+        index++;
     }
 
     index = sourceNum;
     while (index < sortedSourceDataList.length) {
-        index++;
         const sourceData = sortedSourceDataList[index];
         sourceData.inUse = false;
         if (!mainRoom.memory.AIUreium.outwardsSource[sourceData.sourceRoomName]) {
             mainRoom.memory.AIUreium.outwardsSource[sourceData.sourceRoomName] = {};
         }
         stopOutwardsSource(sourceData.originRoomName, sourceData.sourceRoomName, sourceData.sourceName);
+        index++;
     }
 }
