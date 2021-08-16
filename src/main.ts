@@ -8,7 +8,7 @@ global.version = "0.1.1";
 enable();
 export const loop = ErrorMapper.wrapLoop(() => {
     wrap(function () {
-        if (Game.time % 1000 === 0) throw new Error("test Error");
+        // if (Game.time % 1000 === 0) throw new Error("test Error");
         runFrame();
         runAi();
     });

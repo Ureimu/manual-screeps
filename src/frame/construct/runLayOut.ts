@@ -77,6 +77,7 @@ function putConstructionSites<T extends BuildableStructureConstant>(
     buildNumberLimit: number,
     totalSitesNum: number
 ): number {
+    initConstructionMemory(room, name, structureType);
     const construction = room.memory.construct.construction;
     const specifiedConstruction = construction[structureType];
     if (specifiedConstruction?.[name]?.hasPutSites === true) return 0;
@@ -90,10 +91,11 @@ function putConstructionSites<T extends BuildableStructureConstant>(
         }
         posList.push(PosStr.getPosFromStr(posStr));
     });
-    initConstructionMemory(room, name, structureType);
+
     const constructionTypeMemory = specifiedConstruction as {
         [name: string]: constructionSiteInf<typeof structureType>;
     };
+    console.log(JSON.stringify(constructionTypeMemory));
     const structures: {
         structureType: string;
         pos: RoomPosition;
