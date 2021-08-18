@@ -1,7 +1,7 @@
-import { minEnergyLimit } from "AI/AIUreium/room/maintain/tasks/centerCarrier/constant";
 import { SpecifiedStructureNameList } from "frame/construct/type";
 import { registerFN } from "utils/profiler";
 import { PosStr } from "utils/RoomPositionToStr";
+import { resourceLimit } from "../mainControl/constants/roomResource";
 
 export const getLink = registerFN((room: Room, linkName: SpecifiedStructureNameList<"link">): StructureLink[] => {
     if (!room.memory.construct.layout) return [];
@@ -29,7 +29,7 @@ const unwrappedLink = {
             }
         });
         if (room.storage) {
-            if (room.storage.store.energy > minEnergyLimit) {
+            if (room.storage.store.energy > resourceLimit.storage.energy.min) {
                 centerLinkToControllerLinkList.forEach(linkList => {
                     if (linkList[0].store.energy > 400 && linkList[1].store.energy < 400) {
                         linkList[0].transferEnergy(linkList[1]);

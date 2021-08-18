@@ -7,20 +7,20 @@
         onclick="(() => {
             // 获取表单数据
             const form = document.forms['{formName}'];
-            let formDatas = {};
+            let formData = {};
             [{elementNames}].map(eleName => {
                 // 如果是复选框的话需要特殊处理下
                 if (form[eleName] instanceof RadioNodeList && form[eleName][0].type === 'checkbox') {
-                    formDatas[eleName] = []
-                    form[eleName].forEach(el => el.checked && formDatas[eleName].push(el.value))
+                    formData[eleName] = []
+                    form[eleName].forEach(el => el.checked && formData[eleName].push(el.value))
                 }
-                else formDatas[eleName] = form[eleName].value;
+                else formData[eleName] = form[eleName].value;
             });
 
             // 将表单数据格式化为 JSON 对象在控制台发给指定的命令
             // @see https://screeps.slack.com/files/U5GS01HT8/FJGTY8VQE/console_button.php
             angular.element(document.body).injector().get('Console').sendCommand(
-                `({command})(${JSON.stringify(formDatas)})`
+                `({command})(${JSON.stringify(formData)})`
             , 1);
         })()"
     >{buttonLabel}</button>

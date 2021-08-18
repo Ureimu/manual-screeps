@@ -3,19 +3,23 @@ import { registerFN } from "utils/profiler";
 import { state } from "..";
 import { attackAll } from "./attackAll";
 import { build } from "./build";
+import { buildAndRepairOneStructure } from "./buildAndRepair";
 import { buildInRange } from "./buildInRange";
 import { fillSpawnAndExtension } from "./fillSpawnAndExtension";
 import { fillTower } from "./fillTower";
 import { goTo } from "./goTo";
 import { harvestSource } from "./harvestSource";
+import { keepOnHarvestingMineral } from "./keepOnHarvestingMineral";
 import { keepOnHarvestingSource } from "./keepOnHarvestingSource";
 import { pause } from "./pause";
 import { repair } from "./repair";
 import { scoutRoom } from "./scoutRoom";
 import { signController } from "./signController";
 import { stayByRoad } from "./stayByRoad";
+import { transfer } from "./transfer";
 import { transferEnergy } from "./transferEnergy";
 import { upgradeController } from "./upgradeController";
+import { withdraw } from "./withdraw";
 import { withdrawEnergy } from "./withdrawEnergy";
 
 export interface CreepAction {
@@ -40,7 +44,11 @@ const unwrappedActionIndexedList = {
     repair,
     scoutRoom,
     stayByRoad,
-    attackAll
+    attackAll,
+    buildAndRepairOneStructure,
+    keepOnHarvestingMineral,
+    transfer,
+    withdraw
 };
 for (const name in unwrappedActionIndexedList) {
     unwrappedActionIndexedList[name as keyof typeof unwrappedActionIndexedList].run = registerFN(

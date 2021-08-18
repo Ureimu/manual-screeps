@@ -7,6 +7,7 @@ function run(creep: Creep, conditionArgs?: string[]): [state, conditionState] {
     const [structurePosStr, resourceType, sign, amount] = conditionArgs;
     const pos = PosStr.getPosFromStr(structurePosStr);
     let resourceNumber = 0;
+    if (!Game.rooms[pos.roomName]) return ["moving", "notJump"]; // 如果不存在视野则总是跳过
     const structure = pos.lookFor(LOOK_STRUCTURES)[0] as AnyStoreStructure;
     if (existStoredResource(structure, resourceType)) {
         resourceNumber = structure.store[resourceType as ResourceConstant];

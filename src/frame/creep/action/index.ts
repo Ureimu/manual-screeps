@@ -60,7 +60,13 @@ function runCreepAction(creep: Creep): void {
         if (creep.memory.route && creep.memory.route.name !== "") {
             const creepRoute = creep.memory.route;
             const switchCounter = { count: 0 };
-            runRecursiveCreepAction(creep, creepRoute, switchCounter);
+            const startCpu = Game.cpu.getUsed();
+            const switchCache = runRecursiveCreepAction(creep, creepRoute, switchCounter);
+            // console.log(
+            //     `${creep.name}: cpu cost: ${(Game.cpu.getUsed() - startCpu).toFixed(
+            //         4
+            //     )}  switch:${switchCache.toString()}`
+            // );
             return;
         }
     } catch (e) {
@@ -71,27 +77,29 @@ function runCreepAction(creep: Creep): void {
 function runRecursiveCreepAction(
     creep: Creep,
     creepRoute: CreepMemoryRouteDetail,
-    switchCounter: { count: number }
-): void {
-    if (creep.spawning) return;
+    switchCounter: { count: number },
+    switchCache: number[] = []
+): number[] {
+    switchCache.push(creepRoute.index);
+    if (creep.spawning) return switchCache;
     switchCounter.count++;
     const maxCount = 100;
     if (switchCounter.count > maxCount) {
         console.log(`${creep.name} 在 ${Game.time} 发生了 ${maxCount} 次状态转换，已经强制终止`);
-        return;
+        return switchCache;
     }
     const routeInfo = creep.memory.route;
     const route = Memory.routes[routeInfo.name];
     if (!route) throw Error(`creep ${creep.name} 从属的路径 ${routeInfo.name} 尚未定义，请先定义该路径`);
-    if (!route.routeDetailArray) return;
+    if (!route.routeDetailArray) return switchCache;
     const routeDetail = route.routeDetailArray[routeInfo.index];
-    if (!routeDetail) return;
+    if (!routeDetail) return switchCache;
     if (routeDetail && isRouteMidpointDetail(routeDetail)) {
         switch (creepRoute.state) {
             case "moving":
                 creepRoute.state = moveCreep(creep, routeDetail);
                 if (creepRoute.state === "arrived") {
-                    runRecursiveCreepAction(creep, creepRoute, switchCounter);
+                    runRecursiveCreepAction(creep, creepRoute, switchCounter, switchCache);
                 }
                 break;
             case "arrived": {
@@ -104,7 +112,7 @@ function runRecursiveCreepAction(
                     // } else {
                     //     global.creepMemory[creep.name] = emptyRouteCacheDetail;
                     // }
-                    runRecursiveCreepAction(creep, creepRoute, switchCounter);
+                    runRecursiveCreepAction(creep, creepRoute, switchCounter, switchCache);
                 }
                 break;
             }
@@ -121,11 +129,12 @@ function runRecursiveCreepAction(
             case "getState":
                 creepRoute.state = judgeCondition(creep, routeDetail);
                 if (creepRoute.state === "moving") {
-                    runRecursiveCreepAction(creep, creepRoute, switchCounter);
+                    runRecursiveCreepAction(creep, creepRoute, switchCounter, switchCache);
                 }
                 break;
             default:
                 break;
         }
     }
+    return switchCache;
 }

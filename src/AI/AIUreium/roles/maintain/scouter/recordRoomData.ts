@@ -12,10 +12,10 @@ export function recordRoomData(room: Room): void {
     _.forEach(Game.rooms, originRoom => {
         const linearDistance = Game.map.getRoomLinearDistance(originRoom.name, room.name);
         if (linearDistance > 3) {
-            console.log(`${originRoom.name} ${room.name} ${linearDistance}`);
+            // console.log(`${originRoom.name} ${room.name} ${linearDistance}`);
             return;
         } else {
-            console.log(`${originRoom.name} ${room.name} ${linearDistance}`);
+            // console.log(`${originRoom.name} ${room.name} ${linearDistance}`);
         }
         if (originRoom.controller?.my && originRoom.find(FIND_MY_SPAWNS).length !== 0) {
             sources.forEach(source => {
@@ -24,22 +24,22 @@ export function recordRoomData(room: Room): void {
                     .filter(anyFlag => anyFlag.name.includes(`${room.name}source`))[0];
                 const sourceFlagName = flag.name;
                 const spawnName = originRoom.memory.construct.firstSpawnName.name;
-                if (roomSourcesMemory?.[sourceFlagName]?.[originRoom.name]?.pathLength) {
+                if (roomSourcesMemory?.[sourceFlagName]?.roomData?.[originRoom.name]?.pathLength) {
                     return;
                 }
 
                 if (!roomSourcesMemory[sourceFlagName]) {
-                    roomSourcesMemory[sourceFlagName] = {};
+                    roomSourcesMemory[sourceFlagName] = { inUse: false, roomData: {} };
                 }
-                console.log(`正在搜索路径：${spawnName} --> ${sourceFlagName}`);
+                // console.log(`正在搜索路径：${spawnName} --> ${sourceFlagName}`);
                 const ret = PathFinder.search(
                     Game.spawns[spawnName].pos,
                     { pos: source.pos, range: 1 },
                     { maxOps: 1000 * 50, roomCallback: getCostMatrix }
                 );
                 if (!ret.incomplete) {
-                    console.log(`记录路径`);
-                    roomSourcesMemory[sourceFlagName][originRoom.name] = {
+                    // console.log(`记录路径`);
+                    roomSourcesMemory[sourceFlagName].roomData[originRoom.name] = {
                         sourceRoomName: room.name,
                         sourceName: sourceFlagName,
                         originRoomName: originRoom.name,
@@ -47,11 +47,11 @@ export function recordRoomData(room: Room): void {
                         inUse: false
                     };
                 }
-                console.log(
-                    `路径${spawnName}-->${sourceFlagName} complete:${ret.incomplete ? "false" : "true"} pathLength:${
-                        ret.path.length
-                    }`
-                );
+                // console.log(
+                //     `路径${spawnName}-->${sourceFlagName} complete:${ret.incomplete ? "false" : "true"} pathLength:${
+                //         ret.path.length
+                //     }`
+                // );
             });
         }
     });
@@ -61,7 +61,9 @@ declare global {
     interface RoomMemory {
         sources?: {
             [sourceFlagName: string]: {
-                [originRoomName: string]: OutwardsSourceData;
+                roomData: { [originRoomName: string]: OutwardsSourceData };
+                inUse: boolean;
+                originRoomName?: string;
             };
         };
     }

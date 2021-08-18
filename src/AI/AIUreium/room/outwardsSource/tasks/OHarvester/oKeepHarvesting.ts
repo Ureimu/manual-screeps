@@ -4,7 +4,7 @@ import { FlagMaintainer } from "frame/flagMaintainer";
 import { TaskObject } from "utils/Project";
 import { PosStr } from "utils/RoomPositionToStr";
 import { outwardsSourceTaskArgs } from "../../taskRelation";
-import { OHarvestGroupCreepName } from "../createOHarvestGroup";
+import { OHarvestGroupCreepName } from "../createCreepGroup/createOHarvestGroup";
 
 export const oKeepHarvesting: TaskObject<outwardsSourceTaskArgs> = {
     name: "oKeepHarvesting",
@@ -41,15 +41,35 @@ export const oKeepHarvesting: TaskObject<outwardsSourceTaskArgs> = {
         const sourceFlagName = sourceName;
         const containerFlagName = Game.flags[sourceFlagName].pos.findInRange(FIND_FLAGS, 1, {
             filter: i => i.name.indexOf("container") !== -1 && i.name.indexOf("ConstructionSite") === -1
-        })[0].name;
+        })[0]?.name;
+        if (!containerFlagName) return "running";
 
         RoutePlan.create({ routeName, ifLoop: "true" });
         RoutePlan.addMidpoint({
             routeName,
+            pathMidpointPos: sourceFlagName,
+            range: 1,
+            doWhenArrive: "harvestSource",
+            actionArgs: `${PosStr.setPosToStr(Game.flags[containerFlagName].pos)},true`
+        });
+        RoutePlan.addCondition({
+            routeName,
+            condition: "creepStore",
+            jumpTo: 2,
+            conditionArgs: `notFull`
+        });
+        RoutePlan.addMidpoint({
+            routeName,
             pathMidpointPos: containerFlagName,
-            range: 0,
-            doWhenArrive: "keepOnHarvestingSource",
-            actionArgs: PosStr.setPosToStr(Game.flags[sourceFlagName].pos)
+            range: 50,
+            doWhenArrive: "buildAndRepairOneStructure",
+            actionArgs: `${PosStr.setPosToStr(Game.flags[containerFlagName].pos)},${STRUCTURE_CONTAINER}`
+        });
+        RoutePlan.addMidpoint({
+            routeName,
+            pathMidpointPos: containerFlagName,
+            range: 1,
+            doWhenArrive: "pause"
         });
         CreepGroup.setCreepGroupProperties({ creepGroupName, routeName });
 

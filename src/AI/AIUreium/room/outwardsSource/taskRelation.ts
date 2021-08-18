@@ -1,5 +1,5 @@
 import { DiagramMemory, TaskCollection, TaskRelation } from "utils/Project/type";
-import { createOHarvestGroup } from "./tasks/createOHarvestGroup";
+import { createOHarvestGroup } from "./tasks/createCreepGroup/createOHarvestGroup";
 import { createOBodyParts } from "./tasks/createOBodyParts";
 import { ProjectNetworkDiagram } from "utils/Project/storage";
 import { Project } from "utils/Project";
@@ -7,6 +7,8 @@ import { registerObjectDeep } from "utils/profiler";
 import { oBuildSourceContainer } from "./tasks/OHarvester/oBuildSourceContainer";
 import { oMoveToSource } from "./tasks/OHarvester/oMoveToSource";
 import { oKeepHarvesting } from "./tasks/OHarvester/oKeepHarvesting";
+import { createOCarryGroup } from "./tasks/createCreepGroup/createOCarryGroup";
+import { oCarrySourceToStorage } from "./tasks/OCarrier/oCarrySourceToStorage";
 
 // 设置Project的存储位置
 
@@ -15,7 +17,9 @@ export const taskRelation = {
     [createOHarvestGroup.name]: [createOBodyParts.name],
     [oMoveToSource.name]: [createOHarvestGroup.name],
     [oBuildSourceContainer.name]: [oMoveToSource.name],
-    [oKeepHarvesting.name]: [oBuildSourceContainer.name]
+    [oKeepHarvesting.name]: [oBuildSourceContainer.name],
+    [createOCarryGroup.name]: [oKeepHarvesting.name],
+    [oCarrySourceToStorage.name]: [createOCarryGroup.name]
 };
 const taskCollection = registerObjectDeep(
     {
@@ -23,7 +27,9 @@ const taskCollection = registerObjectDeep(
         createOHarvestGroup,
         oMoveToSource,
         oBuildSourceContainer,
-        oKeepHarvesting
+        oKeepHarvesting,
+        createOCarryGroup,
+        oCarrySourceToStorage
     },
     "outwardsHarvestTaskCollection"
 );

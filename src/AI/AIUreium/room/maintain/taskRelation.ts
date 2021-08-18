@@ -24,6 +24,10 @@ import { startOutwardsSource } from "./tasks/startOutwardsSource";
 import { Project, startNodeName } from "utils/Project";
 import { TaskRelation, TaskCollection, DiagramMemory } from "utils/Project/type";
 import { registerObjectDeep } from "utils/profiler";
+import { createMineGroup } from "./tasks/createCreepGroup/createMineGroup";
+import { keepMining } from "./tasks/miner/keepMining";
+import { startCarryMineral } from "./tasks/carrier/startCarryMineral";
+import { centerTask2 } from "./tasks/centerCarrier/centerTask2";
 
 const centerLinkHasBuilt = structureHasBuilt("link", "centerLink", 1);
 const sourceLinkHasBuilt = structureHasBuilt("link", "sourceLink", 2);
@@ -32,6 +36,8 @@ const storageHasBuilt = structureHasBuilt("storage", "storage", 1);
 const terminalHasBuilt = structureHasBuilt("terminal", "terminal", 1);
 const factoryHasBuilt = structureHasBuilt("factory", "factory", 1);
 const observerHasBuilt = structureHasBuilt("observer", "observer", 1);
+const mineralContainerHasBuilt = structureHasBuilt("container", "mineralContainer", 1);
+const extractorHasBuilt = structureHasBuilt("extractor", "extractor", 1);
 
 const taskRelation = {
     [createDefaultBodyparts.name]: [startNodeName],
@@ -62,7 +68,13 @@ const taskRelation = {
     [observerHasBuilt.name]: [buildStructureBySource.name],
     [harvestToLink.name]: [sourceLinkHasBuilt.name, centerTask1.name],
     [stopCarrySource.name]: [harvestToLink.name, carrySource.name],
-    [startOutwardsSource.name]: [createScoutGroup.name]
+    [startOutwardsSource.name]: [createScoutGroup.name],
+    [extractorHasBuilt.name]: [storageHasBuilt.name],
+    [mineralContainerHasBuilt.name]: [extractorHasBuilt.name],
+    [createMineGroup.name]: [mineralContainerHasBuilt.name],
+    [keepMining.name]: [createMineGroup.name],
+    [startCarryMineral.name]: [keepMining.name, stopCarrySource.name],
+    [centerTask2.name]: [centerTask1.name, terminalHasBuilt.name]
 };
 const taskCollection = registerObjectDeep(
     {
@@ -94,7 +106,13 @@ const taskCollection = registerObjectDeep(
         observerHasBuilt,
         harvestToLink,
         stopCarrySource,
-        startOutwardsSource
+        startOutwardsSource,
+        mineralContainerHasBuilt,
+        extractorHasBuilt,
+        createMineGroup,
+        keepMining,
+        startCarryMineral,
+        centerTask2
     },
     "maintainRoomProjectTaskCollection"
 );

@@ -2,7 +2,7 @@ import { CreepGroup } from "frame/creep/group";
 import { RoutePlan } from "frame/creep/routePlan";
 import { TaskObject } from "utils/Project";
 import { outwardsSourceTaskArgs } from "../../taskRelation";
-import { OHarvestGroupCreepName } from "../createOHarvestGroup";
+import { OHarvestGroupCreepName } from "../createCreepGroup/createOHarvestGroup";
 
 export const oMoveToSource: TaskObject<outwardsSourceTaskArgs> = {
     name: "oMoveToSource",

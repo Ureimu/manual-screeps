@@ -55,7 +55,7 @@ export const roomVisualize = registerFN((room: Room): void => {
                     type: "Progress",
                     layout: {
                         width: 10,
-                        value: (room.memory.construct.roomControlStatus[3] / 100) * 100,
+                        value: (room.memory.construct?.roomControlStatus[3] / 100) * 100,
                         x: 3,
                         y: 2.215
                     }
@@ -63,7 +63,7 @@ export const roomVisualize = registerFN((room: Room): void => {
                 {
                     type: "Text",
                     layout: {
-                        content: `${room.memory.construct.roomControlStatus[3]}/${100}`,
+                        content: `${room.memory.construct?.roomControlStatus[3]}/${100}`,
                         x: 5 + 3,
                         y: 2,
                         align: "center",

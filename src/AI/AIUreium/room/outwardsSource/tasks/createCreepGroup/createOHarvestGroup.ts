@@ -1,7 +1,7 @@
 import { CreepGroup } from "frame/creep/group";
 import { SpawnPool } from "frame/spawn/spawnPool";
 import { TaskObject } from "utils/Project";
-import { outwardsSourceTaskArgs } from "../taskRelation";
+import { outwardsSourceTaskArgs } from "../../taskRelation";
 export const OHarvestGroupCreepName = (roomName: string, sourceName: string): string => `${roomName}oh${sourceName}`;
 export const createOHarvestGroup: TaskObject<outwardsSourceTaskArgs> = {
     name: "createOHarvestGroup",

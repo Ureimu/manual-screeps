@@ -19,10 +19,9 @@ export const stopCarrySource: TaskObject<maintainRoomTaskArgs> = {
         const room = Game.rooms[roomName];
         const creepGroupName = `${room.name}c`;
 
-        Memory.creepGroups[creepGroupName].creepNameList.forEach((creepName, index) => {
-            CreepGroup.deleteCreep({ creepName, creepGroupName });
-            SpawnPool.deleteCreep({ creepName, roomName: room.name });
-        }); // 删除所有creep
+        Memory.creepGroups[creepGroupName].creepNameList.forEach(creepName => {
+            SpawnPool.setCreepProperties({ creepName, roomName, readyCondition: "notLoop" });
+        }); // 暂停所有CarrySource creep
 
         return "end";
     },

@@ -1,22 +1,15 @@
-import { CreepGroup } from "frame/creep/group";
-import { RoutePlan } from "frame/creep/routePlan";
-import { FlagMaintainer } from "frame/flagMaintainer";
-import { FlagTools } from "frame/flagMaintainer/tools";
-import { SpawnPool } from "frame/spawn/spawnPool";
+import { SpecifiedStructureNameList } from "frame/construct/type";
 import { TaskObject } from "utils/Project";
 import { maintainRoomTaskArgs } from "../../taskRelation";
 
-export function structureHasBuilt(
-    structureType: BuildableStructureConstant,
-    structureKind: string,
+export function structureHasBuilt<T extends BuildableStructureConstant>(
+    structureType: T,
+    structureKind: SpecifiedStructureNameList<T>,
     num: number
 ): TaskObject<maintainRoomTaskArgs> {
     return {
         name: `${structureKind}HasBuilt`,
         description: `${structureKind}HasBuilt`,
-        start() {
-            return "end";
-        },
         working(roomName) {
             const room = Game.rooms[roomName];
             if (
@@ -27,9 +20,6 @@ export function structureHasBuilt(
                 return "end";
             }
             return "running";
-        },
-        justFinished() {
-            return "end";
         }
     };
 }

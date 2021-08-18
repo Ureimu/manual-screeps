@@ -20,6 +20,7 @@ declare global {
                 resetAllMaintainTaskProject: () => void;
                 stats: () => void;
                 id: string;
+                hasClearAll: boolean;
             };
         }
     }
@@ -35,7 +36,8 @@ export default function mountGlobalMicroFunction(): void {
         testConsoleCommit,
         id: "",
         resetAllMaintainTaskProject,
-        stats
+        stats,
+        hasClearAll: false
     };
 }
 
@@ -75,6 +77,7 @@ function clearAll(): void {
     for (const spawn in Game.spawns) {
         Game.spawns[spawn].spawning?.cancel();
     }
+    global.mf.hasClearAll = true;
     // Game.cpu.halt(); 自己手动执行
 }
 

@@ -8,18 +8,18 @@
  * @param {(stateNum: number, description: string) => void} onStateChange
  * @returns {number}
  */
-export function stateCut(
+export function stateCut<T>(
     stateMemory: (number | string)[],
     condition: Record<
         number | string,
         {
-            run: (...args: any[]) => string | number;
+            run: (...args: T[]) => string | number;
             description: string;
             name: string;
         }
     >,
 
-    conditionArgs: any[],
+    conditionArgs: T[],
     stateIndex: number,
     onStateChange: (name: string, state: string | number, description: string) => void
 ): number | string {

@@ -77,6 +77,9 @@ export class ProjectNetworkDiagram {
         const newNode = _.cloneDeep(this.emptyNode); // 一定要clone
         newNode.name = nodeName;
         preNodeNameList.forEach(name => {
+            if (name === nodeName) {
+                throw Error(`节点： ${nodeName} 的前置节点 ${name} 重名`);
+            }
             if (!this.diagramDict[name])
                 throw Error(`节点： ${nodeName} 的前置节点 ${name} 不存在，请先初始化该前置节点`);
             const outSet = new Set<string>(this.diagramDict[name].out);

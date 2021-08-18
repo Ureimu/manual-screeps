@@ -10,7 +10,7 @@ export function scouter(creep: Creep): void {
         const targetRoom = Game.rooms[scoutRoomName];
 
         if (typeof targetRoom !== "undefined") {
-            console.log(`进入room${targetRoom.name}`);
+            // console.log(`进入room${targetRoom.name}`);
             // getNewSource(targetRoom);
             // getScoutInfo(targetRoom);
             // manageOutwardsSourceMaintain(targetRoom);
@@ -63,7 +63,7 @@ export function manageScoutTask(): void {
                     roomScoutMemory.roomOwner = room.controller?.owner?.username;
                     roomScoutMemory.isInScoutProgress = false;
                     scoutRoomSet.delete(roomName);
-                    console.log(`${roomName}侦察完成，roomOwner:${String(roomScoutMemory.roomOwner)}`);
+                    // console.log(`${roomName}侦察完成，roomOwner:${String(roomScoutMemory.roomOwner)}`);
                 }
             }
         } else {

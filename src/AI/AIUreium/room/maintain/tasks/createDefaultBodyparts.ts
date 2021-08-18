@@ -36,6 +36,9 @@ export const createDefaultBodyparts: TaskObject<maintainRoomTaskArgs> = {
             },
             centerCarrier: {
                 "4": { body: "m2c16" }
+            },
+            miner: {
+                "5": { body: "m3w12" }
             }
         };
 

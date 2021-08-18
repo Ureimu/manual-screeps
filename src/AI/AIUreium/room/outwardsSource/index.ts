@@ -10,7 +10,7 @@ export function maintainOutwardsSource(): void {
             }
             const sourceData = room.memory.AIUreium.outwardsSourceData;
             if (sourceData) {
-                if ((Game.time - sourceData.startTime) % 750 === 0) {
+                if ((Game.time - sourceData.startTime) % 250 === 0) {
                     chooseSource(room);
                 }
             }

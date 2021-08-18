@@ -39,7 +39,20 @@ function restartConstruction(room: Room): void {
 
 export const autoConstruction = registerFN((room: Room): void => {
     callOnStart(room);
-    if (room.memory.construct.roomControlStatus[0] !== room.controller?.level) {
+    const constructionSites = room.find(FIND_CONSTRUCTION_SITES);
+    if (!room.memory.construct.roomControlStatus) room.memory.construct.roomControlStatus = [];
+    if (room.controller?.my) {
+        room.memory.construct.roomControlStatus[0] = room.controller?.level;
+        room.memory.construct.roomControlStatus[1] = room.controller?.progress;
+        room.memory.construct.roomControlStatus[2] = room.controller?.progressTotal;
+        room.memory.construct.roomControlStatus[3] = constructionSites.length;
+    } else {
+        room.memory.construct.roomControlStatus[0] = 0;
+        room.memory.construct.roomControlStatus[1] = 0;
+        room.memory.construct.roomControlStatus[2] = 0;
+        room.memory.construct.roomControlStatus[3] = constructionSites.length;
+    }
+    if (room.controller?.my && room.memory.construct.roomControlStatus[0] !== room.controller?.level) {
         restartConstruction(room);
         console.log("[build] 房间等级提升，重新检查建筑数量");
     }
@@ -47,7 +60,6 @@ export const autoConstruction = registerFN((room: Room): void => {
         restartConstruction(room);
         console.log("[build] 定时检查建筑数量");
     }
-    const constructionSites = room.find(FIND_CONSTRUCTION_SITES);
 
     let refreshTime = 1500;
     if (Game.time - room.memory.construct.startTime <= 60) {
@@ -63,10 +75,7 @@ export const autoConstruction = registerFN((room: Room): void => {
     ) {
         updateConstruction(room);
     }
-    room.memory.construct.roomControlStatus[0] = room.controller?.level as number;
-    room.memory.construct.roomControlStatus[1] = room.controller?.progress as number;
-    room.memory.construct.roomControlStatus[2] = room.controller?.progressTotal as number;
-    room.memory.construct.roomControlStatus[3] = constructionSites.length;
+
     if ((Game.time - room.memory.construct.startTime) % refreshTime === refreshTime - 1) runLayout(room, getGridLayout);
 }, "autoConstruction");
 

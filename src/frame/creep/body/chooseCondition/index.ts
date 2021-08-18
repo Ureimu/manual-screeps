@@ -5,7 +5,7 @@ export function chooseBefittingBody(args: { creepBodyConfigName: string; room: R
     const { creepBodyConfigName, room } = args;
     const fullConfig = Memory.creepBodyConfig[creepBodyConfigName];
     const controllerLevel = room.controller?.level;
-    for (let index = Number(controllerLevel); index > 0; index--) {
+    for (let index = Number(controllerLevel); index >= 0; index--) {
         const config = fullConfig[String(index) as ControllerLevels];
         if (config && bodyTools.getEnergyCost(config.body) <= room.energyAvailable) {
             return config.body;

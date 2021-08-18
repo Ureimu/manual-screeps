@@ -1,3 +1,4 @@
+import { resourceLimit } from "AI/AIUreium/mainControl/constants/roomResource";
 import { getLink } from "AI/AIUreium/structure/link";
 import { CreepGroup } from "frame/creep/group";
 import { RoutePlan } from "frame/creep/routePlan";
@@ -7,7 +8,6 @@ import { newAcrossTickTask } from "utils/AcrossTick";
 import { TaskObject } from "utils/Project";
 import { PosStr } from "utils/RoomPositionToStr";
 import { maintainRoomTaskArgs } from "../../taskRelation";
-import { maxEnergyLimit, minEnergyLimit } from "./constant";
 
 export function callOnStart(): void {
     global.AcrossTickTaskFunction.centerTask1 = task => {
@@ -20,9 +20,15 @@ export function callOnStart(): void {
                 CreepGroup.setCreepGroupProperties({ creepGroupName: creepGroupNameArg, routeName: route2NameArg });
             }
 
-            if (roomArg.storage.store.energy > maxEnergyLimit && creepGroupMemory.routeName !== route1NameArg) {
+            if (
+                roomArg.storage.store.energy > resourceLimit.storage.energy.max &&
+                creepGroupMemory.routeName !== route1NameArg
+            ) {
                 CreepGroup.setCreepGroupProperties({ creepGroupName: creepGroupNameArg, routeName: route1NameArg });
-            } else if (roomArg.storage.store.energy < minEnergyLimit && creepGroupMemory.routeName !== route2NameArg) {
+            } else if (
+                roomArg.storage.store.energy < resourceLimit.storage.energy.min &&
+                creepGroupMemory.routeName !== route2NameArg
+            ) {
                 CreepGroup.setCreepGroupProperties({ creepGroupName: creepGroupNameArg, routeName: route2NameArg });
             }
         }
@@ -66,9 +72,9 @@ export const centerTask1: TaskObject<maintainRoomTaskArgs> = {
             routeName: route1Name,
             condition: "store",
             jumpTo: 2,
-            conditionArgs: `${PosStr.setPosToStr(
-                Game.flags[storageFlagName].pos
-            )},${RESOURCE_ENERGY},<=,${minEnergyLimit}`
+            conditionArgs: `${PosStr.setPosToStr(Game.flags[storageFlagName].pos)},${RESOURCE_ENERGY},<=,${
+                resourceLimit.storage.energy.min
+            }`
         });
         sourceLinkFlagNameList.forEach(flagName => {
             RoutePlan.addCondition({

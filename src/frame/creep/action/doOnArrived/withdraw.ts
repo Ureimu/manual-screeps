@@ -8,13 +8,14 @@ function run(creep: Creep, actionArgs?: string[]): state {
         (Memory.routes[creep.memory.route.name].routeDetailArray[creep.memory.route.index] as RouteMidpointDetail)
             .pathMidpointPos
     );
+    if (!actionArgs) throw new Error("withdraw actionArgs 缺失");
+    const [resourceType, ifFill] = actionArgs as [ResourceConstant, "true" | "false"];
     let resourceNumber = 0;
-    const resourceType = "energy";
+
     let droppedResource: Resource<ResourceConstant> | undefined;
     let storableObject: Structure<StructureConstant> | Ruin | Tombstone | undefined;
     const structure = pos.lookFor(LOOK_STRUCTURES).filter(i => "store" in i)[0] as AnyStoreStructure;
-    const resourceNumberList: Record<string, number> = {};
-    // TODO 添加一个表来记录所有可能存能量的东西，并从这个表里选出能量最多的让creep去withdraw
+
     if (existStoredResource(structure, resourceType)) {
         storableObject = structure;
     } else {
@@ -30,15 +31,10 @@ function run(creep: Creep, actionArgs?: string[]): state {
         }
     }
     if (storableObject) {
-        if (actionArgs) {
-            const [ifFill] = actionArgs;
-            if (ifFill === "false" ? false : true) {
-                return fillCapacity(creep, storableObject);
-            } else {
-                return tryWithdraw(creep, storableObject);
-            }
+        if (ifFill === "false" ? false : true) {
+            return fillCapacity(creep, resourceType, storableObject);
         } else {
-            return fillCapacity(creep, storableObject);
+            return tryWithdraw(creep, resourceType, storableObject);
         }
     } else {
         if (droppedResource && resourceNumber) {
@@ -50,20 +46,28 @@ function run(creep: Creep, actionArgs?: string[]): state {
     }
 }
 
-function fillCapacity(creep: Creep, storableObject: Structure<StructureConstant> | Ruin | Tombstone): state {
+function fillCapacity(
+    creep: Creep,
+    resourceType: ResourceConstant,
+    storableObject: Structure<StructureConstant> | Ruin | Tombstone
+): state {
     const ifWithdrawing = creep.store.getFreeCapacity() !== 0;
 
     if (ifWithdrawing) {
-        creep.withdraw(storableObject, RESOURCE_ENERGY);
+        creep.withdraw(storableObject, resourceType);
         return "arrived";
     } else {
         return "moving";
     }
 }
 
-function tryWithdraw(creep: Creep, storableObject: Structure<StructureConstant> | Ruin | Tombstone): state {
+function tryWithdraw(
+    creep: Creep,
+    resourceType: ResourceConstant,
+    storableObject: Structure<StructureConstant> | Ruin | Tombstone
+): state {
     // console.log("tryWithdraw");
-    creep.withdraw(storableObject, RESOURCE_ENERGY);
+    creep.withdraw(storableObject, resourceType);
     return "moving";
 }
 
@@ -72,9 +76,9 @@ function existStoredResource(storableObject: { store: Store<ResourceConstant, fa
     else return false;
 }
 
-export const withdrawEnergy: CreepAction = {
+export const withdraw: CreepAction = {
     run,
-    name: "withdrawEnergy",
-    description: "拿出能量",
+    name: "withdraw",
+    description: "拿出",
     type: "stay"
 };

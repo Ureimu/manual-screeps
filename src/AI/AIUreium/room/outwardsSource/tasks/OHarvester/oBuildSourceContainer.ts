@@ -7,7 +7,7 @@ import { FlagTools } from "frame/flagMaintainer/tools";
 import { TaskObject } from "utils/Project";
 import { PosStr } from "utils/RoomPositionToStr";
 import { outwardsSourceTaskArgs } from "../../taskRelation";
-import { OHarvestGroupCreepName } from "../createOHarvestGroup";
+import { OHarvestGroupCreepName } from "../createCreepGroup/createOHarvestGroup";
 
 export const oBuildSourceContainer: TaskObject<outwardsSourceTaskArgs> = {
     name: "oBuildSourceContainer",
@@ -19,7 +19,7 @@ export const oBuildSourceContainer: TaskObject<outwardsSourceTaskArgs> = {
         const roomSourcesMemory = sourceRoomMemory.sources;
 
         if (!roomSourcesMemory) return "running";
-        const sourceData = roomSourcesMemory[sourceName][roomName];
+        const sourceData = roomSourcesMemory[sourceName].roomData[roomName];
         if (!sourceData.path) throw new Error("sourceData.path not exist");
         if (!sourceRoom) return "running";
         baseOutwardsLayout({
