@@ -6,7 +6,7 @@ import { PosStr } from "utils/RoomPositionToStr";
 export function recordRoomData(room: Room): void {
     FlagMaintainer.refresh({ roomName: room.name, typeList: FlagMaintainer.getTypeList(["source", "controller"]) });
     const sources = room.find(FIND_SOURCES);
-
+    room.memory.owner = room.controller?.owner?.username;
     if (!room.memory.sources) room.memory.sources = {};
     const roomSourcesMemory = room.memory.sources;
     _.forEach(Game.rooms, originRoom => {
@@ -29,8 +29,12 @@ export function recordRoomData(room: Room): void {
                 }
 
                 if (!roomSourcesMemory[sourceFlagName]) {
-                    roomSourcesMemory[sourceFlagName] = { inUse: false, roomData: {} };
+                    roomSourcesMemory[sourceFlagName] = {
+                        inUse: false,
+                        roomData: {}
+                    };
                 }
+
                 // console.log(`正在搜索路径：${spawnName} --> ${sourceFlagName}`);
                 const ret = PathFinder.search(
                     Game.spawns[spawnName].pos,
@@ -66,9 +70,9 @@ declare global {
                 originRoomName?: string;
             };
         };
+        owner?: string;
     }
 }
-
 export interface OutwardsSourceData {
     sourceRoomName: string;
     sourceName: string;

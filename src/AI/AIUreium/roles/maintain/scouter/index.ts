@@ -36,7 +36,9 @@ export function manageScoutTask(): void {
             const availableRoomNameSet = new Set(getAvailableNearbyRooms(room.name));
             let expandedRoomNameList: string[] = [];
             for (const roomName of availableRoomNameSet) {
-                if (Game.rooms[roomName]) {
+                const username = Game.rooms[roomName]?.controller?.owner?.username;
+                // 如果是已经被人占领了的房间，就不尝试继续从这个房间向其他房间侦察了（很容易被打，导致看不到后面的房间，最后导致没有外矿视野
+                if (Game.rooms[roomName] && !username) {
                     expandedRoomNameList = expandedRoomNameList.concat(getAvailableNearbyRooms(roomName));
                 }
             }

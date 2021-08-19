@@ -33,11 +33,11 @@ export function centerCarrierTask2(creep: Creep): void {
     if (!centerLink) throw new Error("没有centerLink");
 
     // 切换link工作状态
-    if (linkState && storage.store.energy > resourceLimit.storage.energy.max) {
-        linkState = false;
-    }
-    if (!linkState && storage.store.energy < resourceLimit.storage.energy.min) {
+    if (!linkState && storage.store.energy > resourceLimit.storage.energy.max) {
         linkState = true;
+    }
+    if (linkState && storage.store.energy < resourceLimit.storage.energy.min) {
+        linkState = false;
     }
 
     const creepUsedCapacity = creep.store.getUsedCapacity();
@@ -71,6 +71,15 @@ export function centerCarrierTask2(creep: Creep): void {
 
     // 平衡storage和terminal的物资数量
     if (!transferTask.isTransferring) {
+        if (creep.store.getUsedCapacity() > 0) {
+            creep.transfer(
+                storage,
+                Object.keys(creep.store).find(
+                    resourceType => creep.store[resourceType as ResourceConstant] > 0
+                ) as ResourceConstant
+            );
+            return;
+        }
         for (const resourceType of RESOURCES_ALL) {
             if (resourceTypeCache.has(resourceType)) continue;
 

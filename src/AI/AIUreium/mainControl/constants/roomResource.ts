@@ -1,18 +1,6 @@
-export interface RoomResourceLimit {
-    storage: StructureResourceLimit;
-    terminal: StructureResourceLimit;
-}
+import { RoomResourceLimit, StructureResourceLimit } from "./type";
 
-export interface StructureResourceLimit {
-    [name: string]: {
-        max: number;
-        min: number;
-    };
-    energy: {
-        max: number;
-        min: number;
-    };
-}
+export const energyCostPrice = 0.02;
 export const capacityRate = {
     terminalToStorage: TERMINAL_CAPACITY / STORAGE_CAPACITY
 };
@@ -26,7 +14,7 @@ const storageResourceLimit: StructureResourceLimit = {
         min: 20e3
     }
 };
-const terminalResourceLimit: StructureResourceLimit = storageResourceLimit;
+const terminalResourceLimit: StructureResourceLimit = _.cloneDeep(storageResourceLimit);
 Object.entries(storageResourceLimit).forEach(([resourceType, limit]) => {
     terminalResourceLimit[resourceType].max = Math.floor(limit.max * capacityRate.terminalToStorage);
     terminalResourceLimit[resourceType].min = Math.floor(limit.min * capacityRate.terminalToStorage);

@@ -1,3 +1,8 @@
-export const outwardsSource = {
-    sourceNum: 4
+export const Constant = {
+    market: {
+        sellRate: 150
+    },
+    outwardsSource: {
+        sourceNum: 4
+    }
 };

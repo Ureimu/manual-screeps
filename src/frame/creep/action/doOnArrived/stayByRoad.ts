@@ -41,7 +41,7 @@ function run(creep: Creep): state {
                 global.creepMemory[creep.name].parkingSpot = posStr;
                 const index = freeSpacePosList.findIndex(pos => pos.posStr === posStr);
                 freeSpacePosList[index].creepName = creep.name;
-                console.log(`[creep] ${creep.name} 选择了parkingSpot ${posStr}`);
+                // console.log(`[creep] ${creep.name} 选择了parkingSpot ${posStr}`);
             } else {
                 console.log(`[creep] ${creep.name} 找不到parkingSpot`);
             }
@@ -80,7 +80,7 @@ export function callOnStart(): void {
         const creep = Game.creeps[creepName];
         const parkingSpot = global.creepMemory[creepName].parkingSpot;
         if (!creep) {
-            console.log(`[creep] ${creepName} 由于不存在而放弃了parkingSpot`);
+            // console.log(`[creep] ${creepName} 由于不存在而放弃了parkingSpot`);
             global.creepMemory[creepName].checkPosOccupation = false;
             if (parkingSpot) {
                 return releaseParkingSpot(roomName, creepName, parkingSpot);
@@ -112,7 +112,7 @@ function releaseParkingSpot(roomName: string, creepName: string, parkingSpot: st
         const index = freeSpacePosList.findIndex(pos => pos.posStr === parkingSpot);
         if (index !== -1) {
             freeSpacePosList[index].creepName = "undefined";
-            console.log(`[creep] ${creepName} 放弃了parkingSpot ${parkingSpot}`);
+            // console.log(`[creep] ${creepName} 放弃了parkingSpot ${parkingSpot}`);
             global.creepMemory[creepName].parkingSpot = undefined;
         }
         global.creepMemory[creepName].checkPosOccupation = false;
