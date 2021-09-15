@@ -15,9 +15,17 @@ export const buildSourceContainer: TaskObject<maintainRoomTaskArgs> = {
             roomName: room.name,
             typeList: FlagMaintainer.getTypeList(["container", "containerConstructionSite", "source"])
         });
-        if (room.memory.construct.construction.container?.sourceContainer?.hasPutSites) {
+        const sourceFlagName = FlagTools.getName(room.name, "source", 1);
+        const containerSiteFlagName = Game.flags[sourceFlagName].pos.findInRange(FIND_FLAGS, 1, {
+            filter: i => i.name.indexOf("containerConstructionSite") !== -1
+        })[0]?.name;
+        const containerFlagName = Game.flags[sourceFlagName].pos.findInRange(FIND_FLAGS, 1, {
+            filter: i => i.name.indexOf("container") !== -1
+        })[0]?.name;
+        if (room.memory.construct.construction.container?.sourceContainer?.hasPutSites&&(containerSiteFlagName||containerFlagName)) {
             return "end";
         }
+
         return "running";
     },
     working(roomName) {

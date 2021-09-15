@@ -1,0 +1,1 @@
+export { allocateNewRoom } from "./allocateNewRoom";

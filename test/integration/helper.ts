@@ -1,3 +1,4 @@
+/* eslint-disable  */
 const { readFileSync } = require("fs");
 const _ = require("lodash");
 const { ScreepsServer, stdHooks } = require("screeps-server-mockup");
@@ -12,15 +13,15 @@ class IntegrationTestHelper {
     private _server: any;
     private _player: any;
 
-    get server() {
+    public get server() {
         return this._server;
     }
 
-    get player() {
+    public get player() {
         return this._player;
     }
 
-    async beforeEach() {
+    public async beforeEach() {
         this._server = new ScreepsServer();
 
         // reset world but add invaders and source keepers bots
@@ -39,10 +40,11 @@ class IntegrationTestHelper {
         await this._server.start();
     }
 
-    async afterEach() {
+    public async afterEach() {
         await this._server.stop();
     }
 }
+export const helper = new IntegrationTestHelper();
 
 beforeEach(async () => {
     await helper.beforeEach();
@@ -55,5 +57,3 @@ afterEach(async () => {
 before(() => {
     stdHooks.hookWrite();
 });
-
-export const helper = new IntegrationTestHelper();

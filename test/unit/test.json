@@ -1,0 +1,7002 @@
+[
+    {
+        "total": 0,
+        "depth": 0,
+        "level": 0,
+        "sum": 0,
+        "sumDepth": 0
+    },
+    {
+        "total": 1000,
+        "depth": 10,
+        "level": 1,
+        "sum": 1000,
+        "sumDepth": 10
+    },
+    {
+        "total": 4000,
+        "depth": 12,
+        "level": 2,
+        "sum": 5000,
+        "sumDepth": 13
+    },
+    {
+        "total": 9000,
+        "depth": 14,
+        "level": 3,
+        "sum": 14000,
+        "sumDepth": 14
+    },
+    {
+        "total": 16000,
+        "depth": 14,
+        "level": 4,
+        "sum": 30000,
+        "sumDepth": 15
+    },
+    {
+        "total": 25000,
+        "depth": 15,
+        "level": 5,
+        "sum": 55000,
+        "sumDepth": 16
+    },
+    {
+        "total": 36000,
+        "depth": 16,
+        "level": 6,
+        "sum": 91000,
+        "sumDepth": 17
+    },
+    {
+        "total": 49000,
+        "depth": 16,
+        "level": 7,
+        "sum": 140000,
+        "sumDepth": 18
+    },
+    {
+        "total": 64000,
+        "depth": 16,
+        "level": 8,
+        "sum": 204000,
+        "sumDepth": 18
+    },
+    {
+        "total": 81000,
+        "depth": 17,
+        "level": 9,
+        "sum": 285000,
+        "sumDepth": 19
+    },
+    {
+        "total": 100000,
+        "depth": 17,
+        "level": 10,
+        "sum": 385000,
+        "sumDepth": 19
+    },
+    {
+        "total": 121000,
+        "depth": 17,
+        "level": 11,
+        "sum": 506000,
+        "sumDepth": 19
+    },
+    {
+        "total": 144000,
+        "depth": 18,
+        "level": 12,
+        "sum": 650000,
+        "sumDepth": 20
+    },
+    {
+        "total": 169000,
+        "depth": 18,
+        "level": 13,
+        "sum": 819000,
+        "sumDepth": 20
+    },
+    {
+        "total": 196000,
+        "depth": 18,
+        "level": 14,
+        "sum": 1015000,
+        "sumDepth": 20
+    },
+    {
+        "total": 225000,
+        "depth": 18,
+        "level": 15,
+        "sum": 1240000,
+        "sumDepth": 21
+    },
+    {
+        "total": 256000,
+        "depth": 18,
+        "level": 16,
+        "sum": 1496000,
+        "sumDepth": 21
+    },
+    {
+        "total": 289000,
+        "depth": 19,
+        "level": 17,
+        "sum": 1785000,
+        "sumDepth": 21
+    },
+    {
+        "total": 324000,
+        "depth": 19,
+        "level": 18,
+        "sum": 2109000,
+        "sumDepth": 22
+    },
+    {
+        "total": 361000,
+        "depth": 19,
+        "level": 19,
+        "sum": 2470000,
+        "sumDepth": 22
+    },
+    {
+        "total": 400000,
+        "depth": 19,
+        "level": 20,
+        "sum": 2870000,
+        "sumDepth": 22
+    },
+    {
+        "total": 441000,
+        "depth": 19,
+        "level": 21,
+        "sum": 3311000,
+        "sumDepth": 22
+    },
+    {
+        "total": 484000,
+        "depth": 19,
+        "level": 22,
+        "sum": 3795000,
+        "sumDepth": 22
+    },
+    {
+        "total": 529000,
+        "depth": 20,
+        "level": 23,
+        "sum": 4324000,
+        "sumDepth": 23
+    },
+    {
+        "total": 576000,
+        "depth": 20,
+        "level": 24,
+        "sum": 4900000,
+        "sumDepth": 23
+    },
+    {
+        "total": 625000,
+        "depth": 20,
+        "level": 25,
+        "sum": 5525000,
+        "sumDepth": 23
+    },
+    {
+        "total": 676000,
+        "depth": 20,
+        "level": 26,
+        "sum": 6201000,
+        "sumDepth": 23
+    },
+    {
+        "total": 729000,
+        "depth": 20,
+        "level": 27,
+        "sum": 6930000,
+        "sumDepth": 23
+    },
+    {
+        "total": 784000,
+        "depth": 20,
+        "level": 28,
+        "sum": 7714000,
+        "sumDepth": 23
+    },
+    {
+        "total": 841000,
+        "depth": 20,
+        "level": 29,
+        "sum": 8555000,
+        "sumDepth": 24
+    },
+    {
+        "total": 900000,
+        "depth": 20,
+        "level": 30,
+        "sum": 9455000,
+        "sumDepth": 24
+    },
+    {
+        "total": 961000,
+        "depth": 20,
+        "level": 31,
+        "sum": 10416000,
+        "sumDepth": 24
+    },
+    {
+        "total": 1024000,
+        "depth": 20,
+        "level": 32,
+        "sum": 11440000,
+        "sumDepth": 24
+    },
+    {
+        "total": 1089000,
+        "depth": 21,
+        "level": 33,
+        "sum": 12529000,
+        "sumDepth": 24
+    },
+    {
+        "total": 1156000,
+        "depth": 21,
+        "level": 34,
+        "sum": 13685000,
+        "sumDepth": 24
+    },
+    {
+        "total": 1225000,
+        "depth": 21,
+        "level": 35,
+        "sum": 14910000,
+        "sumDepth": 24
+    },
+    {
+        "total": 1296000,
+        "depth": 21,
+        "level": 36,
+        "sum": 16206000,
+        "sumDepth": 24
+    },
+    {
+        "total": 1369000,
+        "depth": 21,
+        "level": 37,
+        "sum": 17575000,
+        "sumDepth": 25
+    },
+    {
+        "total": 1444000,
+        "depth": 21,
+        "level": 38,
+        "sum": 19019000,
+        "sumDepth": 25
+    },
+    {
+        "total": 1521000,
+        "depth": 21,
+        "level": 39,
+        "sum": 20540000,
+        "sumDepth": 25
+    },
+    {
+        "total": 1600000,
+        "depth": 21,
+        "level": 40,
+        "sum": 22140000,
+        "sumDepth": 25
+    },
+    {
+        "total": 1681000,
+        "depth": 21,
+        "level": 41,
+        "sum": 23821000,
+        "sumDepth": 25
+    },
+    {
+        "total": 1764000,
+        "depth": 21,
+        "level": 42,
+        "sum": 25585000,
+        "sumDepth": 25
+    },
+    {
+        "total": 1849000,
+        "depth": 21,
+        "level": 43,
+        "sum": 27434000,
+        "sumDepth": 25
+    },
+    {
+        "total": 1936000,
+        "depth": 21,
+        "level": 44,
+        "sum": 29370000,
+        "sumDepth": 25
+    },
+    {
+        "total": 2025000,
+        "depth": 21,
+        "level": 45,
+        "sum": 31395000,
+        "sumDepth": 25
+    },
+    {
+        "total": 2116000,
+        "depth": 22,
+        "level": 46,
+        "sum": 33511000,
+        "sumDepth": 25
+    },
+    {
+        "total": 2209000,
+        "depth": 22,
+        "level": 47,
+        "sum": 35720000,
+        "sumDepth": 26
+    },
+    {
+        "total": 2304000,
+        "depth": 22,
+        "level": 48,
+        "sum": 38024000,
+        "sumDepth": 26
+    },
+    {
+        "total": 2401000,
+        "depth": 22,
+        "level": 49,
+        "sum": 40425000,
+        "sumDepth": 26
+    },
+    {
+        "total": 2500000,
+        "depth": 22,
+        "level": 50,
+        "sum": 42925000,
+        "sumDepth": 26
+    },
+    {
+        "total": 2601000,
+        "depth": 22,
+        "level": 51,
+        "sum": 45526000,
+        "sumDepth": 26
+    },
+    {
+        "total": 2704000,
+        "depth": 22,
+        "level": 52,
+        "sum": 48230000,
+        "sumDepth": 26
+    },
+    {
+        "total": 2809000,
+        "depth": 22,
+        "level": 53,
+        "sum": 51039000,
+        "sumDepth": 26
+    },
+    {
+        "total": 2916000,
+        "depth": 22,
+        "level": 54,
+        "sum": 53955000,
+        "sumDepth": 26
+    },
+    {
+        "total": 3025000,
+        "depth": 22,
+        "level": 55,
+        "sum": 56980000,
+        "sumDepth": 26
+    },
+    {
+        "total": 3136000,
+        "depth": 22,
+        "level": 56,
+        "sum": 60116000,
+        "sumDepth": 26
+    },
+    {
+        "total": 3249000,
+        "depth": 22,
+        "level": 57,
+        "sum": 63365000,
+        "sumDepth": 26
+    },
+    {
+        "total": 3364000,
+        "depth": 22,
+        "level": 58,
+        "sum": 66729000,
+        "sumDepth": 26
+    },
+    {
+        "total": 3481000,
+        "depth": 22,
+        "level": 59,
+        "sum": 70210000,
+        "sumDepth": 27
+    },
+    {
+        "total": 3600000,
+        "depth": 22,
+        "level": 60,
+        "sum": 73810000,
+        "sumDepth": 27
+    },
+    {
+        "total": 3721000,
+        "depth": 22,
+        "level": 61,
+        "sum": 77531000,
+        "sumDepth": 27
+    },
+    {
+        "total": 3844000,
+        "depth": 22,
+        "level": 62,
+        "sum": 81375000,
+        "sumDepth": 27
+    },
+    {
+        "total": 3969000,
+        "depth": 22,
+        "level": 63,
+        "sum": 85344000,
+        "sumDepth": 27
+    },
+    {
+        "total": 4096000,
+        "depth": 22,
+        "level": 64,
+        "sum": 89440000,
+        "sumDepth": 27
+    },
+    {
+        "total": 4225000,
+        "depth": 23,
+        "level": 65,
+        "sum": 93665000,
+        "sumDepth": 27
+    },
+    {
+        "total": 4356000,
+        "depth": 23,
+        "level": 66,
+        "sum": 98021000,
+        "sumDepth": 27
+    },
+    {
+        "total": 4489000,
+        "depth": 23,
+        "level": 67,
+        "sum": 102510000,
+        "sumDepth": 27
+    },
+    {
+        "total": 4624000,
+        "depth": 23,
+        "level": 68,
+        "sum": 107134000,
+        "sumDepth": 27
+    },
+    {
+        "total": 4761000,
+        "depth": 23,
+        "level": 69,
+        "sum": 111895000,
+        "sumDepth": 27
+    },
+    {
+        "total": 4900000,
+        "depth": 23,
+        "level": 70,
+        "sum": 116795000,
+        "sumDepth": 27
+    },
+    {
+        "total": 5041000,
+        "depth": 23,
+        "level": 71,
+        "sum": 121836000,
+        "sumDepth": 27
+    },
+    {
+        "total": 5184000,
+        "depth": 23,
+        "level": 72,
+        "sum": 127020000,
+        "sumDepth": 27
+    },
+    {
+        "total": 5329000,
+        "depth": 23,
+        "level": 73,
+        "sum": 132349000,
+        "sumDepth": 27
+    },
+    {
+        "total": 5476000,
+        "depth": 23,
+        "level": 74,
+        "sum": 137825000,
+        "sumDepth": 28
+    },
+    {
+        "total": 5625000,
+        "depth": 23,
+        "level": 75,
+        "sum": 143450000,
+        "sumDepth": 28
+    },
+    {
+        "total": 5776000,
+        "depth": 23,
+        "level": 76,
+        "sum": 149226000,
+        "sumDepth": 28
+    },
+    {
+        "total": 5929000,
+        "depth": 23,
+        "level": 77,
+        "sum": 155155000,
+        "sumDepth": 28
+    },
+    {
+        "total": 6084000,
+        "depth": 23,
+        "level": 78,
+        "sum": 161239000,
+        "sumDepth": 28
+    },
+    {
+        "total": 6241000,
+        "depth": 23,
+        "level": 79,
+        "sum": 167480000,
+        "sumDepth": 28
+    },
+    {
+        "total": 6400000,
+        "depth": 23,
+        "level": 80,
+        "sum": 173880000,
+        "sumDepth": 28
+    },
+    {
+        "total": 6561000,
+        "depth": 23,
+        "level": 81,
+        "sum": 180441000,
+        "sumDepth": 28
+    },
+    {
+        "total": 6724000,
+        "depth": 23,
+        "level": 82,
+        "sum": 187165000,
+        "sumDepth": 28
+    },
+    {
+        "total": 6889000,
+        "depth": 23,
+        "level": 83,
+        "sum": 194054000,
+        "sumDepth": 28
+    },
+    {
+        "total": 7056000,
+        "depth": 23,
+        "level": 84,
+        "sum": 201110000,
+        "sumDepth": 28
+    },
+    {
+        "total": 7225000,
+        "depth": 23,
+        "level": 85,
+        "sum": 208335000,
+        "sumDepth": 28
+    },
+    {
+        "total": 7396000,
+        "depth": 23,
+        "level": 86,
+        "sum": 215731000,
+        "sumDepth": 28
+    },
+    {
+        "total": 7569000,
+        "depth": 23,
+        "level": 87,
+        "sum": 223300000,
+        "sumDepth": 28
+    },
+    {
+        "total": 7744000,
+        "depth": 23,
+        "level": 88,
+        "sum": 231044000,
+        "sumDepth": 28
+    },
+    {
+        "total": 7921000,
+        "depth": 23,
+        "level": 89,
+        "sum": 238965000,
+        "sumDepth": 28
+    },
+    {
+        "total": 8100000,
+        "depth": 23,
+        "level": 90,
+        "sum": 247065000,
+        "sumDepth": 28
+    },
+    {
+        "total": 8281000,
+        "depth": 23,
+        "level": 91,
+        "sum": 255346000,
+        "sumDepth": 28
+    },
+    {
+        "total": 8464000,
+        "depth": 24,
+        "level": 92,
+        "sum": 263810000,
+        "sumDepth": 28
+    },
+    {
+        "total": 8649000,
+        "depth": 24,
+        "level": 93,
+        "sum": 272459000,
+        "sumDepth": 29
+    },
+    {
+        "total": 8836000,
+        "depth": 24,
+        "level": 94,
+        "sum": 281295000,
+        "sumDepth": 29
+    },
+    {
+        "total": 9025000,
+        "depth": 24,
+        "level": 95,
+        "sum": 290320000,
+        "sumDepth": 29
+    },
+    {
+        "total": 9216000,
+        "depth": 24,
+        "level": 96,
+        "sum": 299536000,
+        "sumDepth": 29
+    },
+    {
+        "total": 9409000,
+        "depth": 24,
+        "level": 97,
+        "sum": 308945000,
+        "sumDepth": 29
+    },
+    {
+        "total": 9604000,
+        "depth": 24,
+        "level": 98,
+        "sum": 318549000,
+        "sumDepth": 29
+    },
+    {
+        "total": 9801000,
+        "depth": 24,
+        "level": 99,
+        "sum": 328350000,
+        "sumDepth": 29
+    },
+    {
+        "total": 10000000,
+        "depth": 24,
+        "level": 100,
+        "sum": 338350000,
+        "sumDepth": 29
+    },
+    {
+        "total": 10201000,
+        "depth": 24,
+        "level": 101,
+        "sum": 348551000,
+        "sumDepth": 29
+    },
+    {
+        "total": 10404000,
+        "depth": 24,
+        "level": 102,
+        "sum": 358955000,
+        "sumDepth": 29
+    },
+    {
+        "total": 10609000,
+        "depth": 24,
+        "level": 103,
+        "sum": 369564000,
+        "sumDepth": 29
+    },
+    {
+        "total": 10816000,
+        "depth": 24,
+        "level": 104,
+        "sum": 380380000,
+        "sumDepth": 29
+    },
+    {
+        "total": 11025000,
+        "depth": 24,
+        "level": 105,
+        "sum": 391405000,
+        "sumDepth": 29
+    },
+    {
+        "total": 11236000,
+        "depth": 24,
+        "level": 106,
+        "sum": 402641000,
+        "sumDepth": 29
+    },
+    {
+        "total": 11449000,
+        "depth": 24,
+        "level": 107,
+        "sum": 414090000,
+        "sumDepth": 29
+    },
+    {
+        "total": 11664000,
+        "depth": 24,
+        "level": 108,
+        "sum": 425754000,
+        "sumDepth": 29
+    },
+    {
+        "total": 11881000,
+        "depth": 24,
+        "level": 109,
+        "sum": 437635000,
+        "sumDepth": 29
+    },
+    {
+        "total": 12100000,
+        "depth": 24,
+        "level": 110,
+        "sum": 449735000,
+        "sumDepth": 29
+    },
+    {
+        "total": 12321000,
+        "depth": 24,
+        "level": 111,
+        "sum": 462056000,
+        "sumDepth": 29
+    },
+    {
+        "total": 12544000,
+        "depth": 24,
+        "level": 112,
+        "sum": 474600000,
+        "sumDepth": 29
+    },
+    {
+        "total": 12769000,
+        "depth": 24,
+        "level": 113,
+        "sum": 487369000,
+        "sumDepth": 29
+    },
+    {
+        "total": 12996000,
+        "depth": 24,
+        "level": 114,
+        "sum": 500365000,
+        "sumDepth": 29
+    },
+    {
+        "total": 13225000,
+        "depth": 24,
+        "level": 115,
+        "sum": 513590000,
+        "sumDepth": 29
+    },
+    {
+        "total": 13456000,
+        "depth": 24,
+        "level": 116,
+        "sum": 527046000,
+        "sumDepth": 29
+    },
+    {
+        "total": 13689000,
+        "depth": 24,
+        "level": 117,
+        "sum": 540735000,
+        "sumDepth": 30
+    },
+    {
+        "total": 13924000,
+        "depth": 24,
+        "level": 118,
+        "sum": 554659000,
+        "sumDepth": 30
+    },
+    {
+        "total": 14161000,
+        "depth": 24,
+        "level": 119,
+        "sum": 568820000,
+        "sumDepth": 30
+    },
+    {
+        "total": 14400000,
+        "depth": 24,
+        "level": 120,
+        "sum": 583220000,
+        "sumDepth": 30
+    },
+    {
+        "total": 14641000,
+        "depth": 24,
+        "level": 121,
+        "sum": 597861000,
+        "sumDepth": 30
+    },
+    {
+        "total": 14884000,
+        "depth": 24,
+        "level": 122,
+        "sum": 612745000,
+        "sumDepth": 30
+    },
+    {
+        "total": 15129000,
+        "depth": 24,
+        "level": 123,
+        "sum": 627874000,
+        "sumDepth": 30
+    },
+    {
+        "total": 15376000,
+        "depth": 24,
+        "level": 124,
+        "sum": 643250000,
+        "sumDepth": 30
+    },
+    {
+        "total": 15625000,
+        "depth": 24,
+        "level": 125,
+        "sum": 658875000,
+        "sumDepth": 30
+    },
+    {
+        "total": 15876000,
+        "depth": 24,
+        "level": 126,
+        "sum": 674751000,
+        "sumDepth": 30
+    },
+    {
+        "total": 16129000,
+        "depth": 24,
+        "level": 127,
+        "sum": 690880000,
+        "sumDepth": 30
+    },
+    {
+        "total": 16384000,
+        "depth": 24,
+        "level": 128,
+        "sum": 707264000,
+        "sumDepth": 30
+    },
+    {
+        "total": 16641000,
+        "depth": 24,
+        "level": 129,
+        "sum": 723905000,
+        "sumDepth": 30
+    },
+    {
+        "total": 16900000,
+        "depth": 25,
+        "level": 130,
+        "sum": 740805000,
+        "sumDepth": 30
+    },
+    {
+        "total": 17161000,
+        "depth": 25,
+        "level": 131,
+        "sum": 757966000,
+        "sumDepth": 30
+    },
+    {
+        "total": 17424000,
+        "depth": 25,
+        "level": 132,
+        "sum": 775390000,
+        "sumDepth": 30
+    },
+    {
+        "total": 17689000,
+        "depth": 25,
+        "level": 133,
+        "sum": 793079000,
+        "sumDepth": 30
+    },
+    {
+        "total": 17956000,
+        "depth": 25,
+        "level": 134,
+        "sum": 811035000,
+        "sumDepth": 30
+    },
+    {
+        "total": 18225000,
+        "depth": 25,
+        "level": 135,
+        "sum": 829260000,
+        "sumDepth": 30
+    },
+    {
+        "total": 18496000,
+        "depth": 25,
+        "level": 136,
+        "sum": 847756000,
+        "sumDepth": 30
+    },
+    {
+        "total": 18769000,
+        "depth": 25,
+        "level": 137,
+        "sum": 866525000,
+        "sumDepth": 30
+    },
+    {
+        "total": 19044000,
+        "depth": 25,
+        "level": 138,
+        "sum": 885569000,
+        "sumDepth": 30
+    },
+    {
+        "total": 19321000,
+        "depth": 25,
+        "level": 139,
+        "sum": 904890000,
+        "sumDepth": 30
+    },
+    {
+        "total": 19600000,
+        "depth": 25,
+        "level": 140,
+        "sum": 924490000,
+        "sumDepth": 30
+    },
+    {
+        "total": 19881000,
+        "depth": 25,
+        "level": 141,
+        "sum": 944371000,
+        "sumDepth": 30
+    },
+    {
+        "total": 20164000,
+        "depth": 25,
+        "level": 142,
+        "sum": 964535000,
+        "sumDepth": 30
+    },
+    {
+        "total": 20449000,
+        "depth": 25,
+        "level": 143,
+        "sum": 984984000,
+        "sumDepth": 30
+    },
+    {
+        "total": 20736000,
+        "depth": 25,
+        "level": 144,
+        "sum": 1005720000,
+        "sumDepth": 30
+    },
+    {
+        "total": 21025000,
+        "depth": 25,
+        "level": 145,
+        "sum": 1026745000,
+        "sumDepth": 30
+    },
+    {
+        "total": 21316000,
+        "depth": 25,
+        "level": 146,
+        "sum": 1048061000,
+        "sumDepth": 30
+    },
+    {
+        "total": 21609000,
+        "depth": 25,
+        "level": 147,
+        "sum": 1069670000,
+        "sumDepth": 30
+    },
+    {
+        "total": 21904000,
+        "depth": 25,
+        "level": 148,
+        "sum": 1091574000,
+        "sumDepth": 31
+    },
+    {
+        "total": 22201000,
+        "depth": 25,
+        "level": 149,
+        "sum": 1113775000,
+        "sumDepth": 31
+    },
+    {
+        "total": 22500000,
+        "depth": 25,
+        "level": 150,
+        "sum": 1136275000,
+        "sumDepth": 31
+    },
+    {
+        "total": 22801000,
+        "depth": 25,
+        "level": 151,
+        "sum": 1159076000,
+        "sumDepth": 31
+    },
+    {
+        "total": 23104000,
+        "depth": 25,
+        "level": 152,
+        "sum": 1182180000,
+        "sumDepth": 31
+    },
+    {
+        "total": 23409000,
+        "depth": 25,
+        "level": 153,
+        "sum": 1205589000,
+        "sumDepth": 31
+    },
+    {
+        "total": 23716000,
+        "depth": 25,
+        "level": 154,
+        "sum": 1229305000,
+        "sumDepth": 31
+    },
+    {
+        "total": 24025000,
+        "depth": 25,
+        "level": 155,
+        "sum": 1253330000,
+        "sumDepth": 31
+    },
+    {
+        "total": 24336000,
+        "depth": 25,
+        "level": 156,
+        "sum": 1277666000,
+        "sumDepth": 31
+    },
+    {
+        "total": 24649000,
+        "depth": 25,
+        "level": 157,
+        "sum": 1302315000,
+        "sumDepth": 31
+    },
+    {
+        "total": 24964000,
+        "depth": 25,
+        "level": 158,
+        "sum": 1327279000,
+        "sumDepth": 31
+    },
+    {
+        "total": 25281000,
+        "depth": 25,
+        "level": 159,
+        "sum": 1352560000,
+        "sumDepth": 31
+    },
+    {
+        "total": 25600000,
+        "depth": 25,
+        "level": 160,
+        "sum": 1378160000,
+        "sumDepth": 31
+    },
+    {
+        "total": 25921000,
+        "depth": 25,
+        "level": 161,
+        "sum": 1404081000,
+        "sumDepth": 31
+    },
+    {
+        "total": 26244000,
+        "depth": 25,
+        "level": 162,
+        "sum": 1430325000,
+        "sumDepth": 31
+    },
+    {
+        "total": 26569000,
+        "depth": 25,
+        "level": 163,
+        "sum": 1456894000,
+        "sumDepth": 31
+    },
+    {
+        "total": 26896000,
+        "depth": 25,
+        "level": 164,
+        "sum": 1483790000,
+        "sumDepth": 31
+    },
+    {
+        "total": 27225000,
+        "depth": 25,
+        "level": 165,
+        "sum": 1511015000,
+        "sumDepth": 31
+    },
+    {
+        "total": 27556000,
+        "depth": 25,
+        "level": 166,
+        "sum": 1538571000,
+        "sumDepth": 31
+    },
+    {
+        "total": 27889000,
+        "depth": 25,
+        "level": 167,
+        "sum": 1566460000,
+        "sumDepth": 31
+    },
+    {
+        "total": 28224000,
+        "depth": 25,
+        "level": 168,
+        "sum": 1594684000,
+        "sumDepth": 31
+    },
+    {
+        "total": 28561000,
+        "depth": 25,
+        "level": 169,
+        "sum": 1623245000,
+        "sumDepth": 31
+    },
+    {
+        "total": 28900000,
+        "depth": 25,
+        "level": 170,
+        "sum": 1652145000,
+        "sumDepth": 31
+    },
+    {
+        "total": 29241000,
+        "depth": 25,
+        "level": 171,
+        "sum": 1681386000,
+        "sumDepth": 31
+    },
+    {
+        "total": 29584000,
+        "depth": 25,
+        "level": 172,
+        "sum": 1710970000,
+        "sumDepth": 31
+    },
+    {
+        "total": 29929000,
+        "depth": 25,
+        "level": 173,
+        "sum": 1740899000,
+        "sumDepth": 31
+    },
+    {
+        "total": 30276000,
+        "depth": 25,
+        "level": 174,
+        "sum": 1771175000,
+        "sumDepth": 31
+    },
+    {
+        "total": 30625000,
+        "depth": 25,
+        "level": 175,
+        "sum": 1801800000,
+        "sumDepth": 31
+    },
+    {
+        "total": 30976000,
+        "depth": 25,
+        "level": 176,
+        "sum": 1832776000,
+        "sumDepth": 31
+    },
+    {
+        "total": 31329000,
+        "depth": 25,
+        "level": 177,
+        "sum": 1864105000,
+        "sumDepth": 31
+    },
+    {
+        "total": 31684000,
+        "depth": 25,
+        "level": 178,
+        "sum": 1895789000,
+        "sumDepth": 31
+    },
+    {
+        "total": 32041000,
+        "depth": 25,
+        "level": 179,
+        "sum": 1927830000,
+        "sumDepth": 31
+    },
+    {
+        "total": 32400000,
+        "depth": 25,
+        "level": 180,
+        "sum": 1960230000,
+        "sumDepth": 31
+    },
+    {
+        "total": 32761000,
+        "depth": 25,
+        "level": 181,
+        "sum": 1992991000,
+        "sumDepth": 31
+    },
+    {
+        "total": 33124000,
+        "depth": 25,
+        "level": 182,
+        "sum": 2026115000,
+        "sumDepth": 31
+    },
+    {
+        "total": 33489000,
+        "depth": 25,
+        "level": 183,
+        "sum": 2059604000,
+        "sumDepth": 31
+    },
+    {
+        "total": 33856000,
+        "depth": 26,
+        "level": 184,
+        "sum": 2093460000,
+        "sumDepth": 31
+    },
+    {
+        "total": 34225000,
+        "depth": 26,
+        "level": 185,
+        "sum": 2127685000,
+        "sumDepth": 31
+    },
+    {
+        "total": 34596000,
+        "depth": 26,
+        "level": 186,
+        "sum": 2162281000,
+        "sumDepth": 32
+    },
+    {
+        "total": 34969000,
+        "depth": 26,
+        "level": 187,
+        "sum": 2197250000,
+        "sumDepth": 32
+    },
+    {
+        "total": 35344000,
+        "depth": 26,
+        "level": 188,
+        "sum": 2232594000,
+        "sumDepth": 32
+    },
+    {
+        "total": 35721000,
+        "depth": 26,
+        "level": 189,
+        "sum": 2268315000,
+        "sumDepth": 32
+    },
+    {
+        "total": 36100000,
+        "depth": 26,
+        "level": 190,
+        "sum": 2304415000,
+        "sumDepth": 32
+    },
+    {
+        "total": 36481000,
+        "depth": 26,
+        "level": 191,
+        "sum": 2340896000,
+        "sumDepth": 32
+    },
+    {
+        "total": 36864000,
+        "depth": 26,
+        "level": 192,
+        "sum": 2377760000,
+        "sumDepth": 32
+    },
+    {
+        "total": 37249000,
+        "depth": 26,
+        "level": 193,
+        "sum": 2415009000,
+        "sumDepth": 32
+    },
+    {
+        "total": 37636000,
+        "depth": 26,
+        "level": 194,
+        "sum": 2452645000,
+        "sumDepth": 32
+    },
+    {
+        "total": 38025000,
+        "depth": 26,
+        "level": 195,
+        "sum": 2490670000,
+        "sumDepth": 32
+    },
+    {
+        "total": 38416000,
+        "depth": 26,
+        "level": 196,
+        "sum": 2529086000,
+        "sumDepth": 32
+    },
+    {
+        "total": 38809000,
+        "depth": 26,
+        "level": 197,
+        "sum": 2567895000,
+        "sumDepth": 32
+    },
+    {
+        "total": 39204000,
+        "depth": 26,
+        "level": 198,
+        "sum": 2607099000,
+        "sumDepth": 32
+    },
+    {
+        "total": 39601000,
+        "depth": 26,
+        "level": 199,
+        "sum": 2646700000,
+        "sumDepth": 32
+    },
+    {
+        "total": 40000000,
+        "depth": 26,
+        "level": 200,
+        "sum": 2686700000,
+        "sumDepth": 32
+    },
+    {
+        "total": 40401000,
+        "depth": 26,
+        "level": 201,
+        "sum": 2727101000,
+        "sumDepth": 32
+    },
+    {
+        "total": 40804000,
+        "depth": 26,
+        "level": 202,
+        "sum": 2767905000,
+        "sumDepth": 32
+    },
+    {
+        "total": 41209000,
+        "depth": 26,
+        "level": 203,
+        "sum": 2809114000,
+        "sumDepth": 32
+    },
+    {
+        "total": 41616000,
+        "depth": 26,
+        "level": 204,
+        "sum": 2850730000,
+        "sumDepth": 32
+    },
+    {
+        "total": 42025000,
+        "depth": 26,
+        "level": 205,
+        "sum": 2892755000,
+        "sumDepth": 32
+    },
+    {
+        "total": 42436000,
+        "depth": 26,
+        "level": 206,
+        "sum": 2935191000,
+        "sumDepth": 32
+    },
+    {
+        "total": 42849000,
+        "depth": 26,
+        "level": 207,
+        "sum": 2978040000,
+        "sumDepth": 32
+    },
+    {
+        "total": 43264000,
+        "depth": 26,
+        "level": 208,
+        "sum": 3021304000,
+        "sumDepth": 32
+    },
+    {
+        "total": 43681000,
+        "depth": 26,
+        "level": 209,
+        "sum": 3064985000,
+        "sumDepth": 32
+    },
+    {
+        "total": 44100000,
+        "depth": 26,
+        "level": 210,
+        "sum": 3109085000,
+        "sumDepth": 32
+    },
+    {
+        "total": 44521000,
+        "depth": 26,
+        "level": 211,
+        "sum": 3153606000,
+        "sumDepth": 32
+    },
+    {
+        "total": 44944000,
+        "depth": 26,
+        "level": 212,
+        "sum": 3198550000,
+        "sumDepth": 32
+    },
+    {
+        "total": 45369000,
+        "depth": 26,
+        "level": 213,
+        "sum": 3243919000,
+        "sumDepth": 32
+    },
+    {
+        "total": 45796000,
+        "depth": 26,
+        "level": 214,
+        "sum": 3289715000,
+        "sumDepth": 32
+    },
+    {
+        "total": 46225000,
+        "depth": 26,
+        "level": 215,
+        "sum": 3335940000,
+        "sumDepth": 32
+    },
+    {
+        "total": 46656000,
+        "depth": 26,
+        "level": 216,
+        "sum": 3382596000,
+        "sumDepth": 32
+    },
+    {
+        "total": 47089000,
+        "depth": 26,
+        "level": 217,
+        "sum": 3429685000,
+        "sumDepth": 32
+    },
+    {
+        "total": 47524000,
+        "depth": 26,
+        "level": 218,
+        "sum": 3477209000,
+        "sumDepth": 32
+    },
+    {
+        "total": 47961000,
+        "depth": 26,
+        "level": 219,
+        "sum": 3525170000,
+        "sumDepth": 32
+    },
+    {
+        "total": 48400000,
+        "depth": 26,
+        "level": 220,
+        "sum": 3573570000,
+        "sumDepth": 32
+    },
+    {
+        "total": 48841000,
+        "depth": 26,
+        "level": 221,
+        "sum": 3622411000,
+        "sumDepth": 32
+    },
+    {
+        "total": 49284000,
+        "depth": 26,
+        "level": 222,
+        "sum": 3671695000,
+        "sumDepth": 32
+    },
+    {
+        "total": 49729000,
+        "depth": 26,
+        "level": 223,
+        "sum": 3721424000,
+        "sumDepth": 32
+    },
+    {
+        "total": 50176000,
+        "depth": 26,
+        "level": 224,
+        "sum": 3771600000,
+        "sumDepth": 32
+    },
+    {
+        "total": 50625000,
+        "depth": 26,
+        "level": 225,
+        "sum": 3822225000,
+        "sumDepth": 32
+    },
+    {
+        "total": 51076000,
+        "depth": 26,
+        "level": 226,
+        "sum": 3873301000,
+        "sumDepth": 32
+    },
+    {
+        "total": 51529000,
+        "depth": 26,
+        "level": 227,
+        "sum": 3924830000,
+        "sumDepth": 32
+    },
+    {
+        "total": 51984000,
+        "depth": 26,
+        "level": 228,
+        "sum": 3976814000,
+        "sumDepth": 32
+    },
+    {
+        "total": 52441000,
+        "depth": 26,
+        "level": 229,
+        "sum": 4029255000,
+        "sumDepth": 32
+    },
+    {
+        "total": 52900000,
+        "depth": 26,
+        "level": 230,
+        "sum": 4082155000,
+        "sumDepth": 32
+    },
+    {
+        "total": 53361000,
+        "depth": 26,
+        "level": 231,
+        "sum": 4135516000,
+        "sumDepth": 32
+    },
+    {
+        "total": 53824000,
+        "depth": 26,
+        "level": 232,
+        "sum": 4189340000,
+        "sumDepth": 32
+    },
+    {
+        "total": 54289000,
+        "depth": 26,
+        "level": 233,
+        "sum": 4243629000,
+        "sumDepth": 32
+    },
+    {
+        "total": 54756000,
+        "depth": 26,
+        "level": 234,
+        "sum": 4298385000,
+        "sumDepth": 33
+    },
+    {
+        "total": 55225000,
+        "depth": 26,
+        "level": 235,
+        "sum": 4353610000,
+        "sumDepth": 33
+    },
+    {
+        "total": 55696000,
+        "depth": 26,
+        "level": 236,
+        "sum": 4409306000,
+        "sumDepth": 33
+    },
+    {
+        "total": 56169000,
+        "depth": 26,
+        "level": 237,
+        "sum": 4465475000,
+        "sumDepth": 33
+    },
+    {
+        "total": 56644000,
+        "depth": 26,
+        "level": 238,
+        "sum": 4522119000,
+        "sumDepth": 33
+    },
+    {
+        "total": 57121000,
+        "depth": 26,
+        "level": 239,
+        "sum": 4579240000,
+        "sumDepth": 33
+    },
+    {
+        "total": 57600000,
+        "depth": 26,
+        "level": 240,
+        "sum": 4636840000,
+        "sumDepth": 33
+    },
+    {
+        "total": 58081000,
+        "depth": 26,
+        "level": 241,
+        "sum": 4694921000,
+        "sumDepth": 33
+    },
+    {
+        "total": 58564000,
+        "depth": 26,
+        "level": 242,
+        "sum": 4753485000,
+        "sumDepth": 33
+    },
+    {
+        "total": 59049000,
+        "depth": 26,
+        "level": 243,
+        "sum": 4812534000,
+        "sumDepth": 33
+    },
+    {
+        "total": 59536000,
+        "depth": 26,
+        "level": 244,
+        "sum": 4872070000,
+        "sumDepth": 33
+    },
+    {
+        "total": 60025000,
+        "depth": 26,
+        "level": 245,
+        "sum": 4932095000,
+        "sumDepth": 33
+    },
+    {
+        "total": 60516000,
+        "depth": 26,
+        "level": 246,
+        "sum": 4992611000,
+        "sumDepth": 33
+    },
+    {
+        "total": 61009000,
+        "depth": 26,
+        "level": 247,
+        "sum": 5053620000,
+        "sumDepth": 33
+    },
+    {
+        "total": 61504000,
+        "depth": 26,
+        "level": 248,
+        "sum": 5115124000,
+        "sumDepth": 33
+    },
+    {
+        "total": 62001000,
+        "depth": 26,
+        "level": 249,
+        "sum": 5177125000,
+        "sumDepth": 33
+    },
+    {
+        "total": 62500000,
+        "depth": 26,
+        "level": 250,
+        "sum": 5239625000,
+        "sumDepth": 33
+    },
+    {
+        "total": 63001000,
+        "depth": 26,
+        "level": 251,
+        "sum": 5302626000,
+        "sumDepth": 33
+    },
+    {
+        "total": 63504000,
+        "depth": 26,
+        "level": 252,
+        "sum": 5366130000,
+        "sumDepth": 33
+    },
+    {
+        "total": 64009000,
+        "depth": 26,
+        "level": 253,
+        "sum": 5430139000,
+        "sumDepth": 33
+    },
+    {
+        "total": 64516000,
+        "depth": 26,
+        "level": 254,
+        "sum": 5494655000,
+        "sumDepth": 33
+    },
+    {
+        "total": 65025000,
+        "depth": 26,
+        "level": 255,
+        "sum": 5559680000,
+        "sumDepth": 33
+    },
+    {
+        "total": 65536000,
+        "depth": 26,
+        "level": 256,
+        "sum": 5625216000,
+        "sumDepth": 33
+    },
+    {
+        "total": 66049000,
+        "depth": 26,
+        "level": 257,
+        "sum": 5691265000,
+        "sumDepth": 33
+    },
+    {
+        "total": 66564000,
+        "depth": 26,
+        "level": 258,
+        "sum": 5757829000,
+        "sumDepth": 33
+    },
+    {
+        "total": 67081000,
+        "depth": 26,
+        "level": 259,
+        "sum": 5824910000,
+        "sumDepth": 33
+    },
+    {
+        "total": 67600000,
+        "depth": 27,
+        "level": 260,
+        "sum": 5892510000,
+        "sumDepth": 33
+    },
+    {
+        "total": 68121000,
+        "depth": 27,
+        "level": 261,
+        "sum": 5960631000,
+        "sumDepth": 33
+    },
+    {
+        "total": 68644000,
+        "depth": 27,
+        "level": 262,
+        "sum": 6029275000,
+        "sumDepth": 33
+    },
+    {
+        "total": 69169000,
+        "depth": 27,
+        "level": 263,
+        "sum": 6098444000,
+        "sumDepth": 33
+    },
+    {
+        "total": 69696000,
+        "depth": 27,
+        "level": 264,
+        "sum": 6168140000,
+        "sumDepth": 33
+    },
+    {
+        "total": 70225000,
+        "depth": 27,
+        "level": 265,
+        "sum": 6238365000,
+        "sumDepth": 33
+    },
+    {
+        "total": 70756000,
+        "depth": 27,
+        "level": 266,
+        "sum": 6309121000,
+        "sumDepth": 33
+    },
+    {
+        "total": 71289000,
+        "depth": 27,
+        "level": 267,
+        "sum": 6380410000,
+        "sumDepth": 33
+    },
+    {
+        "total": 71824000,
+        "depth": 27,
+        "level": 268,
+        "sum": 6452234000,
+        "sumDepth": 33
+    },
+    {
+        "total": 72361000,
+        "depth": 27,
+        "level": 269,
+        "sum": 6524595000,
+        "sumDepth": 33
+    },
+    {
+        "total": 72900000,
+        "depth": 27,
+        "level": 270,
+        "sum": 6597495000,
+        "sumDepth": 33
+    },
+    {
+        "total": 73441000,
+        "depth": 27,
+        "level": 271,
+        "sum": 6670936000,
+        "sumDepth": 33
+    },
+    {
+        "total": 73984000,
+        "depth": 27,
+        "level": 272,
+        "sum": 6744920000,
+        "sumDepth": 33
+    },
+    {
+        "total": 74529000,
+        "depth": 27,
+        "level": 273,
+        "sum": 6819449000,
+        "sumDepth": 33
+    },
+    {
+        "total": 75076000,
+        "depth": 27,
+        "level": 274,
+        "sum": 6894525000,
+        "sumDepth": 33
+    },
+    {
+        "total": 75625000,
+        "depth": 27,
+        "level": 275,
+        "sum": 6970150000,
+        "sumDepth": 33
+    },
+    {
+        "total": 76176000,
+        "depth": 27,
+        "level": 276,
+        "sum": 7046326000,
+        "sumDepth": 33
+    },
+    {
+        "total": 76729000,
+        "depth": 27,
+        "level": 277,
+        "sum": 7123055000,
+        "sumDepth": 33
+    },
+    {
+        "total": 77284000,
+        "depth": 27,
+        "level": 278,
+        "sum": 7200339000,
+        "sumDepth": 33
+    },
+    {
+        "total": 77841000,
+        "depth": 27,
+        "level": 279,
+        "sum": 7278180000,
+        "sumDepth": 33
+    },
+    {
+        "total": 78400000,
+        "depth": 27,
+        "level": 280,
+        "sum": 7356580000,
+        "sumDepth": 33
+    },
+    {
+        "total": 78961000,
+        "depth": 27,
+        "level": 281,
+        "sum": 7435541000,
+        "sumDepth": 33
+    },
+    {
+        "total": 79524000,
+        "depth": 27,
+        "level": 282,
+        "sum": 7515065000,
+        "sumDepth": 33
+    },
+    {
+        "total": 80089000,
+        "depth": 27,
+        "level": 283,
+        "sum": 7595154000,
+        "sumDepth": 33
+    },
+    {
+        "total": 80656000,
+        "depth": 27,
+        "level": 284,
+        "sum": 7675810000,
+        "sumDepth": 33
+    },
+    {
+        "total": 81225000,
+        "depth": 27,
+        "level": 285,
+        "sum": 7757035000,
+        "sumDepth": 33
+    },
+    {
+        "total": 81796000,
+        "depth": 27,
+        "level": 286,
+        "sum": 7838831000,
+        "sumDepth": 33
+    },
+    {
+        "total": 82369000,
+        "depth": 27,
+        "level": 287,
+        "sum": 7921200000,
+        "sumDepth": 33
+    },
+    {
+        "total": 82944000,
+        "depth": 27,
+        "level": 288,
+        "sum": 8004144000,
+        "sumDepth": 33
+    },
+    {
+        "total": 83521000,
+        "depth": 27,
+        "level": 289,
+        "sum": 8087665000,
+        "sumDepth": 33
+    },
+    {
+        "total": 84100000,
+        "depth": 27,
+        "level": 290,
+        "sum": 8171765000,
+        "sumDepth": 33
+    },
+    {
+        "total": 84681000,
+        "depth": 27,
+        "level": 291,
+        "sum": 8256446000,
+        "sumDepth": 33
+    },
+    {
+        "total": 85264000,
+        "depth": 27,
+        "level": 292,
+        "sum": 8341710000,
+        "sumDepth": 33
+    },
+    {
+        "total": 85849000,
+        "depth": 27,
+        "level": 293,
+        "sum": 8427559000,
+        "sumDepth": 33
+    },
+    {
+        "total": 86436000,
+        "depth": 27,
+        "level": 294,
+        "sum": 8513995000,
+        "sumDepth": 33
+    },
+    {
+        "total": 87025000,
+        "depth": 27,
+        "level": 295,
+        "sum": 8601020000,
+        "sumDepth": 34
+    },
+    {
+        "total": 87616000,
+        "depth": 27,
+        "level": 296,
+        "sum": 8688636000,
+        "sumDepth": 34
+    },
+    {
+        "total": 88209000,
+        "depth": 27,
+        "level": 297,
+        "sum": 8776845000,
+        "sumDepth": 34
+    },
+    {
+        "total": 88804000,
+        "depth": 27,
+        "level": 298,
+        "sum": 8865649000,
+        "sumDepth": 34
+    },
+    {
+        "total": 89401000,
+        "depth": 27,
+        "level": 299,
+        "sum": 8955050000,
+        "sumDepth": 34
+    },
+    {
+        "total": 90000000,
+        "depth": 27,
+        "level": 300,
+        "sum": 9045050000,
+        "sumDepth": 34
+    },
+    {
+        "total": 90601000,
+        "depth": 27,
+        "level": 301,
+        "sum": 9135651000,
+        "sumDepth": 34
+    },
+    {
+        "total": 91204000,
+        "depth": 27,
+        "level": 302,
+        "sum": 9226855000,
+        "sumDepth": 34
+    },
+    {
+        "total": 91809000,
+        "depth": 27,
+        "level": 303,
+        "sum": 9318664000,
+        "sumDepth": 34
+    },
+    {
+        "total": 92416000,
+        "depth": 27,
+        "level": 304,
+        "sum": 9411080000,
+        "sumDepth": 34
+    },
+    {
+        "total": 93025000,
+        "depth": 27,
+        "level": 305,
+        "sum": 9504105000,
+        "sumDepth": 34
+    },
+    {
+        "total": 93636000,
+        "depth": 27,
+        "level": 306,
+        "sum": 9597741000,
+        "sumDepth": 34
+    },
+    {
+        "total": 94249000,
+        "depth": 27,
+        "level": 307,
+        "sum": 9691990000,
+        "sumDepth": 34
+    },
+    {
+        "total": 94864000,
+        "depth": 27,
+        "level": 308,
+        "sum": 9786854000,
+        "sumDepth": 34
+    },
+    {
+        "total": 95481000,
+        "depth": 27,
+        "level": 309,
+        "sum": 9882335000,
+        "sumDepth": 34
+    },
+    {
+        "total": 96100000,
+        "depth": 27,
+        "level": 310,
+        "sum": 9978435000,
+        "sumDepth": 34
+    },
+    {
+        "total": 96721000,
+        "depth": 27,
+        "level": 311,
+        "sum": 10075156000,
+        "sumDepth": 34
+    },
+    {
+        "total": 97344000,
+        "depth": 27,
+        "level": 312,
+        "sum": 10172500000,
+        "sumDepth": 34
+    },
+    {
+        "total": 97969000,
+        "depth": 27,
+        "level": 313,
+        "sum": 10270469000,
+        "sumDepth": 34
+    },
+    {
+        "total": 98596000,
+        "depth": 27,
+        "level": 314,
+        "sum": 10369065000,
+        "sumDepth": 34
+    },
+    {
+        "total": 99225000,
+        "depth": 27,
+        "level": 315,
+        "sum": 10468290000,
+        "sumDepth": 34
+    },
+    {
+        "total": 99856000,
+        "depth": 27,
+        "level": 316,
+        "sum": 10568146000,
+        "sumDepth": 34
+    },
+    {
+        "total": 100489000,
+        "depth": 27,
+        "level": 317,
+        "sum": 10668635000,
+        "sumDepth": 34
+    },
+    {
+        "total": 101124000,
+        "depth": 27,
+        "level": 318,
+        "sum": 10769759000,
+        "sumDepth": 34
+    },
+    {
+        "total": 101761000,
+        "depth": 27,
+        "level": 319,
+        "sum": 10871520000,
+        "sumDepth": 34
+    },
+    {
+        "total": 102400000,
+        "depth": 27,
+        "level": 320,
+        "sum": 10973920000,
+        "sumDepth": 34
+    },
+    {
+        "total": 103041000,
+        "depth": 27,
+        "level": 321,
+        "sum": 11076961000,
+        "sumDepth": 34
+    },
+    {
+        "total": 103684000,
+        "depth": 27,
+        "level": 322,
+        "sum": 11180645000,
+        "sumDepth": 34
+    },
+    {
+        "total": 104329000,
+        "depth": 27,
+        "level": 323,
+        "sum": 11284974000,
+        "sumDepth": 34
+    },
+    {
+        "total": 104976000,
+        "depth": 27,
+        "level": 324,
+        "sum": 11389950000,
+        "sumDepth": 34
+    },
+    {
+        "total": 105625000,
+        "depth": 27,
+        "level": 325,
+        "sum": 11495575000,
+        "sumDepth": 34
+    },
+    {
+        "total": 106276000,
+        "depth": 27,
+        "level": 326,
+        "sum": 11601851000,
+        "sumDepth": 34
+    },
+    {
+        "total": 106929000,
+        "depth": 27,
+        "level": 327,
+        "sum": 11708780000,
+        "sumDepth": 34
+    },
+    {
+        "total": 107584000,
+        "depth": 27,
+        "level": 328,
+        "sum": 11816364000,
+        "sumDepth": 34
+    },
+    {
+        "total": 108241000,
+        "depth": 27,
+        "level": 329,
+        "sum": 11924605000,
+        "sumDepth": 34
+    },
+    {
+        "total": 108900000,
+        "depth": 27,
+        "level": 330,
+        "sum": 12033505000,
+        "sumDepth": 34
+    },
+    {
+        "total": 109561000,
+        "depth": 27,
+        "level": 331,
+        "sum": 12143066000,
+        "sumDepth": 34
+    },
+    {
+        "total": 110224000,
+        "depth": 27,
+        "level": 332,
+        "sum": 12253290000,
+        "sumDepth": 34
+    },
+    {
+        "total": 110889000,
+        "depth": 27,
+        "level": 333,
+        "sum": 12364179000,
+        "sumDepth": 34
+    },
+    {
+        "total": 111556000,
+        "depth": 27,
+        "level": 334,
+        "sum": 12475735000,
+        "sumDepth": 34
+    },
+    {
+        "total": 112225000,
+        "depth": 27,
+        "level": 335,
+        "sum": 12587960000,
+        "sumDepth": 34
+    },
+    {
+        "total": 112896000,
+        "depth": 27,
+        "level": 336,
+        "sum": 12700856000,
+        "sumDepth": 34
+    },
+    {
+        "total": 113569000,
+        "depth": 27,
+        "level": 337,
+        "sum": 12814425000,
+        "sumDepth": 34
+    },
+    {
+        "total": 114244000,
+        "depth": 27,
+        "level": 338,
+        "sum": 12928669000,
+        "sumDepth": 34
+    },
+    {
+        "total": 114921000,
+        "depth": 27,
+        "level": 339,
+        "sum": 13043590000,
+        "sumDepth": 34
+    },
+    {
+        "total": 115600000,
+        "depth": 27,
+        "level": 340,
+        "sum": 13159190000,
+        "sumDepth": 34
+    },
+    {
+        "total": 116281000,
+        "depth": 27,
+        "level": 341,
+        "sum": 13275471000,
+        "sumDepth": 34
+    },
+    {
+        "total": 116964000,
+        "depth": 27,
+        "level": 342,
+        "sum": 13392435000,
+        "sumDepth": 34
+    },
+    {
+        "total": 117649000,
+        "depth": 27,
+        "level": 343,
+        "sum": 13510084000,
+        "sumDepth": 34
+    },
+    {
+        "total": 118336000,
+        "depth": 27,
+        "level": 344,
+        "sum": 13628420000,
+        "sumDepth": 34
+    },
+    {
+        "total": 119025000,
+        "depth": 27,
+        "level": 345,
+        "sum": 13747445000,
+        "sumDepth": 34
+    },
+    {
+        "total": 119716000,
+        "depth": 27,
+        "level": 346,
+        "sum": 13867161000,
+        "sumDepth": 34
+    },
+    {
+        "total": 120409000,
+        "depth": 27,
+        "level": 347,
+        "sum": 13987570000,
+        "sumDepth": 34
+    },
+    {
+        "total": 121104000,
+        "depth": 27,
+        "level": 348,
+        "sum": 14108674000,
+        "sumDepth": 34
+    },
+    {
+        "total": 121801000,
+        "depth": 27,
+        "level": 349,
+        "sum": 14230475000,
+        "sumDepth": 34
+    },
+    {
+        "total": 122500000,
+        "depth": 27,
+        "level": 350,
+        "sum": 14352975000,
+        "sumDepth": 34
+    },
+    {
+        "total": 123201000,
+        "depth": 27,
+        "level": 351,
+        "sum": 14476176000,
+        "sumDepth": 34
+    },
+    {
+        "total": 123904000,
+        "depth": 27,
+        "level": 352,
+        "sum": 14600080000,
+        "sumDepth": 34
+    },
+    {
+        "total": 124609000,
+        "depth": 27,
+        "level": 353,
+        "sum": 14724689000,
+        "sumDepth": 34
+    },
+    {
+        "total": 125316000,
+        "depth": 27,
+        "level": 354,
+        "sum": 14850005000,
+        "sumDepth": 34
+    },
+    {
+        "total": 126025000,
+        "depth": 27,
+        "level": 355,
+        "sum": 14976030000,
+        "sumDepth": 34
+    },
+    {
+        "total": 126736000,
+        "depth": 27,
+        "level": 356,
+        "sum": 15102766000,
+        "sumDepth": 34
+    },
+    {
+        "total": 127449000,
+        "depth": 27,
+        "level": 357,
+        "sum": 15230215000,
+        "sumDepth": 34
+    },
+    {
+        "total": 128164000,
+        "depth": 27,
+        "level": 358,
+        "sum": 15358379000,
+        "sumDepth": 34
+    },
+    {
+        "total": 128881000,
+        "depth": 27,
+        "level": 359,
+        "sum": 15487260000,
+        "sumDepth": 34
+    },
+    {
+        "total": 129600000,
+        "depth": 27,
+        "level": 360,
+        "sum": 15616860000,
+        "sumDepth": 34
+    },
+    {
+        "total": 130321000,
+        "depth": 27,
+        "level": 361,
+        "sum": 15747181000,
+        "sumDepth": 34
+    },
+    {
+        "total": 131044000,
+        "depth": 27,
+        "level": 362,
+        "sum": 15878225000,
+        "sumDepth": 34
+    },
+    {
+        "total": 131769000,
+        "depth": 27,
+        "level": 363,
+        "sum": 16009994000,
+        "sumDepth": 34
+    },
+    {
+        "total": 132496000,
+        "depth": 27,
+        "level": 364,
+        "sum": 16142490000,
+        "sumDepth": 34
+    },
+    {
+        "total": 133225000,
+        "depth": 27,
+        "level": 365,
+        "sum": 16275715000,
+        "sumDepth": 34
+    },
+    {
+        "total": 133956000,
+        "depth": 27,
+        "level": 366,
+        "sum": 16409671000,
+        "sumDepth": 34
+    },
+    {
+        "total": 134689000,
+        "depth": 28,
+        "level": 367,
+        "sum": 16544360000,
+        "sumDepth": 34
+    },
+    {
+        "total": 135424000,
+        "depth": 28,
+        "level": 368,
+        "sum": 16679784000,
+        "sumDepth": 34
+    },
+    {
+        "total": 136161000,
+        "depth": 28,
+        "level": 369,
+        "sum": 16815945000,
+        "sumDepth": 34
+    },
+    {
+        "total": 136900000,
+        "depth": 28,
+        "level": 370,
+        "sum": 16952845000,
+        "sumDepth": 34
+    },
+    {
+        "total": 137641000,
+        "depth": 28,
+        "level": 371,
+        "sum": 17090486000,
+        "sumDepth": 34
+    },
+    {
+        "total": 138384000,
+        "depth": 28,
+        "level": 372,
+        "sum": 17228870000,
+        "sumDepth": 35
+    },
+    {
+        "total": 139129000,
+        "depth": 28,
+        "level": 373,
+        "sum": 17367999000,
+        "sumDepth": 35
+    },
+    {
+        "total": 139876000,
+        "depth": 28,
+        "level": 374,
+        "sum": 17507875000,
+        "sumDepth": 35
+    },
+    {
+        "total": 140625000,
+        "depth": 28,
+        "level": 375,
+        "sum": 17648500000,
+        "sumDepth": 35
+    },
+    {
+        "total": 141376000,
+        "depth": 28,
+        "level": 376,
+        "sum": 17789876000,
+        "sumDepth": 35
+    },
+    {
+        "total": 142129000,
+        "depth": 28,
+        "level": 377,
+        "sum": 17932005000,
+        "sumDepth": 35
+    },
+    {
+        "total": 142884000,
+        "depth": 28,
+        "level": 378,
+        "sum": 18074889000,
+        "sumDepth": 35
+    },
+    {
+        "total": 143641000,
+        "depth": 28,
+        "level": 379,
+        "sum": 18218530000,
+        "sumDepth": 35
+    },
+    {
+        "total": 144400000,
+        "depth": 28,
+        "level": 380,
+        "sum": 18362930000,
+        "sumDepth": 35
+    },
+    {
+        "total": 145161000,
+        "depth": 28,
+        "level": 381,
+        "sum": 18508091000,
+        "sumDepth": 35
+    },
+    {
+        "total": 145924000,
+        "depth": 28,
+        "level": 382,
+        "sum": 18654015000,
+        "sumDepth": 35
+    },
+    {
+        "total": 146689000,
+        "depth": 28,
+        "level": 383,
+        "sum": 18800704000,
+        "sumDepth": 35
+    },
+    {
+        "total": 147456000,
+        "depth": 28,
+        "level": 384,
+        "sum": 18948160000,
+        "sumDepth": 35
+    },
+    {
+        "total": 148225000,
+        "depth": 28,
+        "level": 385,
+        "sum": 19096385000,
+        "sumDepth": 35
+    },
+    {
+        "total": 148996000,
+        "depth": 28,
+        "level": 386,
+        "sum": 19245381000,
+        "sumDepth": 35
+    },
+    {
+        "total": 149769000,
+        "depth": 28,
+        "level": 387,
+        "sum": 19395150000,
+        "sumDepth": 35
+    },
+    {
+        "total": 150544000,
+        "depth": 28,
+        "level": 388,
+        "sum": 19545694000,
+        "sumDepth": 35
+    },
+    {
+        "total": 151321000,
+        "depth": 28,
+        "level": 389,
+        "sum": 19697015000,
+        "sumDepth": 35
+    },
+    {
+        "total": 152100000,
+        "depth": 28,
+        "level": 390,
+        "sum": 19849115000,
+        "sumDepth": 35
+    },
+    {
+        "total": 152881000,
+        "depth": 28,
+        "level": 391,
+        "sum": 20001996000,
+        "sumDepth": 35
+    },
+    {
+        "total": 153664000,
+        "depth": 28,
+        "level": 392,
+        "sum": 20155660000,
+        "sumDepth": 35
+    },
+    {
+        "total": 154449000,
+        "depth": 28,
+        "level": 393,
+        "sum": 20310109000,
+        "sumDepth": 35
+    },
+    {
+        "total": 155236000,
+        "depth": 28,
+        "level": 394,
+        "sum": 20465345000,
+        "sumDepth": 35
+    },
+    {
+        "total": 156025000,
+        "depth": 28,
+        "level": 395,
+        "sum": 20621370000,
+        "sumDepth": 35
+    },
+    {
+        "total": 156816000,
+        "depth": 28,
+        "level": 396,
+        "sum": 20778186000,
+        "sumDepth": 35
+    },
+    {
+        "total": 157609000,
+        "depth": 28,
+        "level": 397,
+        "sum": 20935795000,
+        "sumDepth": 35
+    },
+    {
+        "total": 158404000,
+        "depth": 28,
+        "level": 398,
+        "sum": 21094199000,
+        "sumDepth": 35
+    },
+    {
+        "total": 159201000,
+        "depth": 28,
+        "level": 399,
+        "sum": 21253400000,
+        "sumDepth": 35
+    },
+    {
+        "total": 160000000,
+        "depth": 28,
+        "level": 400,
+        "sum": 21413400000,
+        "sumDepth": 35
+    },
+    {
+        "total": 160801000,
+        "depth": 28,
+        "level": 401,
+        "sum": 21574201000,
+        "sumDepth": 35
+    },
+    {
+        "total": 161604000,
+        "depth": 28,
+        "level": 402,
+        "sum": 21735805000,
+        "sumDepth": 35
+    },
+    {
+        "total": 162409000,
+        "depth": 28,
+        "level": 403,
+        "sum": 21898214000,
+        "sumDepth": 35
+    },
+    {
+        "total": 163216000,
+        "depth": 28,
+        "level": 404,
+        "sum": 22061430000,
+        "sumDepth": 35
+    },
+    {
+        "total": 164025000,
+        "depth": 28,
+        "level": 405,
+        "sum": 22225455000,
+        "sumDepth": 35
+    },
+    {
+        "total": 164836000,
+        "depth": 28,
+        "level": 406,
+        "sum": 22390291000,
+        "sumDepth": 35
+    },
+    {
+        "total": 165649000,
+        "depth": 28,
+        "level": 407,
+        "sum": 22555940000,
+        "sumDepth": 35
+    },
+    {
+        "total": 166464000,
+        "depth": 28,
+        "level": 408,
+        "sum": 22722404000,
+        "sumDepth": 35
+    },
+    {
+        "total": 167281000,
+        "depth": 28,
+        "level": 409,
+        "sum": 22889685000,
+        "sumDepth": 35
+    },
+    {
+        "total": 168100000,
+        "depth": 28,
+        "level": 410,
+        "sum": 23057785000,
+        "sumDepth": 35
+    },
+    {
+        "total": 168921000,
+        "depth": 28,
+        "level": 411,
+        "sum": 23226706000,
+        "sumDepth": 35
+    },
+    {
+        "total": 169744000,
+        "depth": 28,
+        "level": 412,
+        "sum": 23396450000,
+        "sumDepth": 35
+    },
+    {
+        "total": 170569000,
+        "depth": 28,
+        "level": 413,
+        "sum": 23567019000,
+        "sumDepth": 35
+    },
+    {
+        "total": 171396000,
+        "depth": 28,
+        "level": 414,
+        "sum": 23738415000,
+        "sumDepth": 35
+    },
+    {
+        "total": 172225000,
+        "depth": 28,
+        "level": 415,
+        "sum": 23910640000,
+        "sumDepth": 35
+    },
+    {
+        "total": 173056000,
+        "depth": 28,
+        "level": 416,
+        "sum": 24083696000,
+        "sumDepth": 35
+    },
+    {
+        "total": 173889000,
+        "depth": 28,
+        "level": 417,
+        "sum": 24257585000,
+        "sumDepth": 35
+    },
+    {
+        "total": 174724000,
+        "depth": 28,
+        "level": 418,
+        "sum": 24432309000,
+        "sumDepth": 35
+    },
+    {
+        "total": 175561000,
+        "depth": 28,
+        "level": 419,
+        "sum": 24607870000,
+        "sumDepth": 35
+    },
+    {
+        "total": 176400000,
+        "depth": 28,
+        "level": 420,
+        "sum": 24784270000,
+        "sumDepth": 35
+    },
+    {
+        "total": 177241000,
+        "depth": 28,
+        "level": 421,
+        "sum": 24961511000,
+        "sumDepth": 35
+    },
+    {
+        "total": 178084000,
+        "depth": 28,
+        "level": 422,
+        "sum": 25139595000,
+        "sumDepth": 35
+    },
+    {
+        "total": 178929000,
+        "depth": 28,
+        "level": 423,
+        "sum": 25318524000,
+        "sumDepth": 35
+    },
+    {
+        "total": 179776000,
+        "depth": 28,
+        "level": 424,
+        "sum": 25498300000,
+        "sumDepth": 35
+    },
+    {
+        "total": 180625000,
+        "depth": 28,
+        "level": 425,
+        "sum": 25678925000,
+        "sumDepth": 35
+    },
+    {
+        "total": 181476000,
+        "depth": 28,
+        "level": 426,
+        "sum": 25860401000,
+        "sumDepth": 35
+    },
+    {
+        "total": 182329000,
+        "depth": 28,
+        "level": 427,
+        "sum": 26042730000,
+        "sumDepth": 35
+    },
+    {
+        "total": 183184000,
+        "depth": 28,
+        "level": 428,
+        "sum": 26225914000,
+        "sumDepth": 35
+    },
+    {
+        "total": 184041000,
+        "depth": 28,
+        "level": 429,
+        "sum": 26409955000,
+        "sumDepth": 35
+    },
+    {
+        "total": 184900000,
+        "depth": 28,
+        "level": 430,
+        "sum": 26594855000,
+        "sumDepth": 35
+    },
+    {
+        "total": 185761000,
+        "depth": 28,
+        "level": 431,
+        "sum": 26780616000,
+        "sumDepth": 35
+    },
+    {
+        "total": 186624000,
+        "depth": 28,
+        "level": 432,
+        "sum": 26967240000,
+        "sumDepth": 35
+    },
+    {
+        "total": 187489000,
+        "depth": 28,
+        "level": 433,
+        "sum": 27154729000,
+        "sumDepth": 35
+    },
+    {
+        "total": 188356000,
+        "depth": 28,
+        "level": 434,
+        "sum": 27343085000,
+        "sumDepth": 35
+    },
+    {
+        "total": 189225000,
+        "depth": 28,
+        "level": 435,
+        "sum": 27532310000,
+        "sumDepth": 35
+    },
+    {
+        "total": 190096000,
+        "depth": 28,
+        "level": 436,
+        "sum": 27722406000,
+        "sumDepth": 35
+    },
+    {
+        "total": 190969000,
+        "depth": 28,
+        "level": 437,
+        "sum": 27913375000,
+        "sumDepth": 35
+    },
+    {
+        "total": 191844000,
+        "depth": 28,
+        "level": 438,
+        "sum": 28105219000,
+        "sumDepth": 35
+    },
+    {
+        "total": 192721000,
+        "depth": 28,
+        "level": 439,
+        "sum": 28297940000,
+        "sumDepth": 35
+    },
+    {
+        "total": 193600000,
+        "depth": 28,
+        "level": 440,
+        "sum": 28491540000,
+        "sumDepth": 35
+    },
+    {
+        "total": 194481000,
+        "depth": 28,
+        "level": 441,
+        "sum": 28686021000,
+        "sumDepth": 35
+    },
+    {
+        "total": 195364000,
+        "depth": 28,
+        "level": 442,
+        "sum": 28881385000,
+        "sumDepth": 35
+    },
+    {
+        "total": 196249000,
+        "depth": 28,
+        "level": 443,
+        "sum": 29077634000,
+        "sumDepth": 35
+    },
+    {
+        "total": 197136000,
+        "depth": 28,
+        "level": 444,
+        "sum": 29274770000,
+        "sumDepth": 35
+    },
+    {
+        "total": 198025000,
+        "depth": 28,
+        "level": 445,
+        "sum": 29472795000,
+        "sumDepth": 35
+    },
+    {
+        "total": 198916000,
+        "depth": 28,
+        "level": 446,
+        "sum": 29671711000,
+        "sumDepth": 35
+    },
+    {
+        "total": 199809000,
+        "depth": 28,
+        "level": 447,
+        "sum": 29871520000,
+        "sumDepth": 35
+    },
+    {
+        "total": 200704000,
+        "depth": 28,
+        "level": 448,
+        "sum": 30072224000,
+        "sumDepth": 35
+    },
+    {
+        "total": 201601000,
+        "depth": 28,
+        "level": 449,
+        "sum": 30273825000,
+        "sumDepth": 35
+    },
+    {
+        "total": 202500000,
+        "depth": 28,
+        "level": 450,
+        "sum": 30476325000,
+        "sumDepth": 35
+    },
+    {
+        "total": 203401000,
+        "depth": 28,
+        "level": 451,
+        "sum": 30679726000,
+        "sumDepth": 35
+    },
+    {
+        "total": 204304000,
+        "depth": 28,
+        "level": 452,
+        "sum": 30884030000,
+        "sumDepth": 35
+    },
+    {
+        "total": 205209000,
+        "depth": 28,
+        "level": 453,
+        "sum": 31089239000,
+        "sumDepth": 35
+    },
+    {
+        "total": 206116000,
+        "depth": 28,
+        "level": 454,
+        "sum": 31295355000,
+        "sumDepth": 35
+    },
+    {
+        "total": 207025000,
+        "depth": 28,
+        "level": 455,
+        "sum": 31502380000,
+        "sumDepth": 35
+    },
+    {
+        "total": 207936000,
+        "depth": 28,
+        "level": 456,
+        "sum": 31710316000,
+        "sumDepth": 35
+    },
+    {
+        "total": 208849000,
+        "depth": 28,
+        "level": 457,
+        "sum": 31919165000,
+        "sumDepth": 35
+    },
+    {
+        "total": 209764000,
+        "depth": 28,
+        "level": 458,
+        "sum": 32128929000,
+        "sumDepth": 35
+    },
+    {
+        "total": 210681000,
+        "depth": 28,
+        "level": 459,
+        "sum": 32339610000,
+        "sumDepth": 35
+    },
+    {
+        "total": 211600000,
+        "depth": 28,
+        "level": 460,
+        "sum": 32551210000,
+        "sumDepth": 35
+    },
+    {
+        "total": 212521000,
+        "depth": 28,
+        "level": 461,
+        "sum": 32763731000,
+        "sumDepth": 35
+    },
+    {
+        "total": 213444000,
+        "depth": 28,
+        "level": 462,
+        "sum": 32977175000,
+        "sumDepth": 35
+    },
+    {
+        "total": 214369000,
+        "depth": 28,
+        "level": 463,
+        "sum": 33191544000,
+        "sumDepth": 35
+    },
+    {
+        "total": 215296000,
+        "depth": 28,
+        "level": 464,
+        "sum": 33406840000,
+        "sumDepth": 35
+    },
+    {
+        "total": 216225000,
+        "depth": 28,
+        "level": 465,
+        "sum": 33623065000,
+        "sumDepth": 35
+    },
+    {
+        "total": 217156000,
+        "depth": 28,
+        "level": 466,
+        "sum": 33840221000,
+        "sumDepth": 35
+    },
+    {
+        "total": 218089000,
+        "depth": 28,
+        "level": 467,
+        "sum": 34058310000,
+        "sumDepth": 35
+    },
+    {
+        "total": 219024000,
+        "depth": 28,
+        "level": 468,
+        "sum": 34277334000,
+        "sumDepth": 35
+    },
+    {
+        "total": 219961000,
+        "depth": 28,
+        "level": 469,
+        "sum": 34497295000,
+        "sumDepth": 36
+    },
+    {
+        "total": 220900000,
+        "depth": 28,
+        "level": 470,
+        "sum": 34718195000,
+        "sumDepth": 36
+    },
+    {
+        "total": 221841000,
+        "depth": 28,
+        "level": 471,
+        "sum": 34940036000,
+        "sumDepth": 36
+    },
+    {
+        "total": 222784000,
+        "depth": 28,
+        "level": 472,
+        "sum": 35162820000,
+        "sumDepth": 36
+    },
+    {
+        "total": 223729000,
+        "depth": 28,
+        "level": 473,
+        "sum": 35386549000,
+        "sumDepth": 36
+    },
+    {
+        "total": 224676000,
+        "depth": 28,
+        "level": 474,
+        "sum": 35611225000,
+        "sumDepth": 36
+    },
+    {
+        "total": 225625000,
+        "depth": 28,
+        "level": 475,
+        "sum": 35836850000,
+        "sumDepth": 36
+    },
+    {
+        "total": 226576000,
+        "depth": 28,
+        "level": 476,
+        "sum": 36063426000,
+        "sumDepth": 36
+    },
+    {
+        "total": 227529000,
+        "depth": 28,
+        "level": 477,
+        "sum": 36290955000,
+        "sumDepth": 36
+    },
+    {
+        "total": 228484000,
+        "depth": 28,
+        "level": 478,
+        "sum": 36519439000,
+        "sumDepth": 36
+    },
+    {
+        "total": 229441000,
+        "depth": 28,
+        "level": 479,
+        "sum": 36748880000,
+        "sumDepth": 36
+    },
+    {
+        "total": 230400000,
+        "depth": 28,
+        "level": 480,
+        "sum": 36979280000,
+        "sumDepth": 36
+    },
+    {
+        "total": 231361000,
+        "depth": 28,
+        "level": 481,
+        "sum": 37210641000,
+        "sumDepth": 36
+    },
+    {
+        "total": 232324000,
+        "depth": 28,
+        "level": 482,
+        "sum": 37442965000,
+        "sumDepth": 36
+    },
+    {
+        "total": 233289000,
+        "depth": 28,
+        "level": 483,
+        "sum": 37676254000,
+        "sumDepth": 36
+    },
+    {
+        "total": 234256000,
+        "depth": 28,
+        "level": 484,
+        "sum": 37910510000,
+        "sumDepth": 36
+    },
+    {
+        "total": 235225000,
+        "depth": 28,
+        "level": 485,
+        "sum": 38145735000,
+        "sumDepth": 36
+    },
+    {
+        "total": 236196000,
+        "depth": 28,
+        "level": 486,
+        "sum": 38381931000,
+        "sumDepth": 36
+    },
+    {
+        "total": 237169000,
+        "depth": 28,
+        "level": 487,
+        "sum": 38619100000,
+        "sumDepth": 36
+    },
+    {
+        "total": 238144000,
+        "depth": 28,
+        "level": 488,
+        "sum": 38857244000,
+        "sumDepth": 36
+    },
+    {
+        "total": 239121000,
+        "depth": 28,
+        "level": 489,
+        "sum": 39096365000,
+        "sumDepth": 36
+    },
+    {
+        "total": 240100000,
+        "depth": 28,
+        "level": 490,
+        "sum": 39336465000,
+        "sumDepth": 36
+    },
+    {
+        "total": 241081000,
+        "depth": 28,
+        "level": 491,
+        "sum": 39577546000,
+        "sumDepth": 36
+    },
+    {
+        "total": 242064000,
+        "depth": 28,
+        "level": 492,
+        "sum": 39819610000,
+        "sumDepth": 36
+    },
+    {
+        "total": 243049000,
+        "depth": 28,
+        "level": 493,
+        "sum": 40062659000,
+        "sumDepth": 36
+    },
+    {
+        "total": 244036000,
+        "depth": 28,
+        "level": 494,
+        "sum": 40306695000,
+        "sumDepth": 36
+    },
+    {
+        "total": 245025000,
+        "depth": 28,
+        "level": 495,
+        "sum": 40551720000,
+        "sumDepth": 36
+    },
+    {
+        "total": 246016000,
+        "depth": 28,
+        "level": 496,
+        "sum": 40797736000,
+        "sumDepth": 36
+    },
+    {
+        "total": 247009000,
+        "depth": 28,
+        "level": 497,
+        "sum": 41044745000,
+        "sumDepth": 36
+    },
+    {
+        "total": 248004000,
+        "depth": 28,
+        "level": 498,
+        "sum": 41292749000,
+        "sumDepth": 36
+    },
+    {
+        "total": 249001000,
+        "depth": 28,
+        "level": 499,
+        "sum": 41541750000,
+        "sumDepth": 36
+    },
+    {
+        "total": 250000000,
+        "depth": 28,
+        "level": 500,
+        "sum": 41791750000,
+        "sumDepth": 36
+    },
+    {
+        "total": 251001000,
+        "depth": 28,
+        "level": 501,
+        "sum": 42042751000,
+        "sumDepth": 36
+    },
+    {
+        "total": 252004000,
+        "depth": 28,
+        "level": 502,
+        "sum": 42294755000,
+        "sumDepth": 36
+    },
+    {
+        "total": 253009000,
+        "depth": 28,
+        "level": 503,
+        "sum": 42547764000,
+        "sumDepth": 36
+    },
+    {
+        "total": 254016000,
+        "depth": 28,
+        "level": 504,
+        "sum": 42801780000,
+        "sumDepth": 36
+    },
+    {
+        "total": 255025000,
+        "depth": 28,
+        "level": 505,
+        "sum": 43056805000,
+        "sumDepth": 36
+    },
+    {
+        "total": 256036000,
+        "depth": 28,
+        "level": 506,
+        "sum": 43312841000,
+        "sumDepth": 36
+    },
+    {
+        "total": 257049000,
+        "depth": 28,
+        "level": 507,
+        "sum": 43569890000,
+        "sumDepth": 36
+    },
+    {
+        "total": 258064000,
+        "depth": 28,
+        "level": 508,
+        "sum": 43827954000,
+        "sumDepth": 36
+    },
+    {
+        "total": 259081000,
+        "depth": 28,
+        "level": 509,
+        "sum": 44087035000,
+        "sumDepth": 36
+    },
+    {
+        "total": 260100000,
+        "depth": 28,
+        "level": 510,
+        "sum": 44347135000,
+        "sumDepth": 36
+    },
+    {
+        "total": 261121000,
+        "depth": 28,
+        "level": 511,
+        "sum": 44608256000,
+        "sumDepth": 36
+    },
+    {
+        "total": 262144000,
+        "depth": 28,
+        "level": 512,
+        "sum": 44870400000,
+        "sumDepth": 36
+    },
+    {
+        "total": 263169000,
+        "depth": 28,
+        "level": 513,
+        "sum": 45133569000,
+        "sumDepth": 36
+    },
+    {
+        "total": 264196000,
+        "depth": 28,
+        "level": 514,
+        "sum": 45397765000,
+        "sumDepth": 36
+    },
+    {
+        "total": 265225000,
+        "depth": 28,
+        "level": 515,
+        "sum": 45662990000,
+        "sumDepth": 36
+    },
+    {
+        "total": 266256000,
+        "depth": 28,
+        "level": 516,
+        "sum": 45929246000,
+        "sumDepth": 36
+    },
+    {
+        "total": 267289000,
+        "depth": 28,
+        "level": 517,
+        "sum": 46196535000,
+        "sumDepth": 36
+    },
+    {
+        "total": 268324000,
+        "depth": 28,
+        "level": 518,
+        "sum": 46464859000,
+        "sumDepth": 36
+    },
+    {
+        "total": 269361000,
+        "depth": 29,
+        "level": 519,
+        "sum": 46734220000,
+        "sumDepth": 36
+    },
+    {
+        "total": 270400000,
+        "depth": 29,
+        "level": 520,
+        "sum": 47004620000,
+        "sumDepth": 36
+    },
+    {
+        "total": 271441000,
+        "depth": 29,
+        "level": 521,
+        "sum": 47276061000,
+        "sumDepth": 36
+    },
+    {
+        "total": 272484000,
+        "depth": 29,
+        "level": 522,
+        "sum": 47548545000,
+        "sumDepth": 36
+    },
+    {
+        "total": 273529000,
+        "depth": 29,
+        "level": 523,
+        "sum": 47822074000,
+        "sumDepth": 36
+    },
+    {
+        "total": 274576000,
+        "depth": 29,
+        "level": 524,
+        "sum": 48096650000,
+        "sumDepth": 36
+    },
+    {
+        "total": 275625000,
+        "depth": 29,
+        "level": 525,
+        "sum": 48372275000,
+        "sumDepth": 36
+    },
+    {
+        "total": 276676000,
+        "depth": 29,
+        "level": 526,
+        "sum": 48648951000,
+        "sumDepth": 36
+    },
+    {
+        "total": 277729000,
+        "depth": 29,
+        "level": 527,
+        "sum": 48926680000,
+        "sumDepth": 36
+    },
+    {
+        "total": 278784000,
+        "depth": 29,
+        "level": 528,
+        "sum": 49205464000,
+        "sumDepth": 36
+    },
+    {
+        "total": 279841000,
+        "depth": 29,
+        "level": 529,
+        "sum": 49485305000,
+        "sumDepth": 36
+    },
+    {
+        "total": 280900000,
+        "depth": 29,
+        "level": 530,
+        "sum": 49766205000,
+        "sumDepth": 36
+    },
+    {
+        "total": 281961000,
+        "depth": 29,
+        "level": 531,
+        "sum": 50048166000,
+        "sumDepth": 36
+    },
+    {
+        "total": 283024000,
+        "depth": 29,
+        "level": 532,
+        "sum": 50331190000,
+        "sumDepth": 36
+    },
+    {
+        "total": 284089000,
+        "depth": 29,
+        "level": 533,
+        "sum": 50615279000,
+        "sumDepth": 36
+    },
+    {
+        "total": 285156000,
+        "depth": 29,
+        "level": 534,
+        "sum": 50900435000,
+        "sumDepth": 36
+    },
+    {
+        "total": 286225000,
+        "depth": 29,
+        "level": 535,
+        "sum": 51186660000,
+        "sumDepth": 36
+    },
+    {
+        "total": 287296000,
+        "depth": 29,
+        "level": 536,
+        "sum": 51473956000,
+        "sumDepth": 36
+    },
+    {
+        "total": 288369000,
+        "depth": 29,
+        "level": 537,
+        "sum": 51762325000,
+        "sumDepth": 36
+    },
+    {
+        "total": 289444000,
+        "depth": 29,
+        "level": 538,
+        "sum": 52051769000,
+        "sumDepth": 36
+    },
+    {
+        "total": 290521000,
+        "depth": 29,
+        "level": 539,
+        "sum": 52342290000,
+        "sumDepth": 36
+    },
+    {
+        "total": 291600000,
+        "depth": 29,
+        "level": 540,
+        "sum": 52633890000,
+        "sumDepth": 36
+    },
+    {
+        "total": 292681000,
+        "depth": 29,
+        "level": 541,
+        "sum": 52926571000,
+        "sumDepth": 36
+    },
+    {
+        "total": 293764000,
+        "depth": 29,
+        "level": 542,
+        "sum": 53220335000,
+        "sumDepth": 36
+    },
+    {
+        "total": 294849000,
+        "depth": 29,
+        "level": 543,
+        "sum": 53515184000,
+        "sumDepth": 36
+    },
+    {
+        "total": 295936000,
+        "depth": 29,
+        "level": 544,
+        "sum": 53811120000,
+        "sumDepth": 36
+    },
+    {
+        "total": 297025000,
+        "depth": 29,
+        "level": 545,
+        "sum": 54108145000,
+        "sumDepth": 36
+    },
+    {
+        "total": 298116000,
+        "depth": 29,
+        "level": 546,
+        "sum": 54406261000,
+        "sumDepth": 36
+    },
+    {
+        "total": 299209000,
+        "depth": 29,
+        "level": 547,
+        "sum": 54705470000,
+        "sumDepth": 36
+    },
+    {
+        "total": 300304000,
+        "depth": 29,
+        "level": 548,
+        "sum": 55005774000,
+        "sumDepth": 36
+    },
+    {
+        "total": 301401000,
+        "depth": 29,
+        "level": 549,
+        "sum": 55307175000,
+        "sumDepth": 36
+    },
+    {
+        "total": 302500000,
+        "depth": 29,
+        "level": 550,
+        "sum": 55609675000,
+        "sumDepth": 36
+    },
+    {
+        "total": 303601000,
+        "depth": 29,
+        "level": 551,
+        "sum": 55913276000,
+        "sumDepth": 36
+    },
+    {
+        "total": 304704000,
+        "depth": 29,
+        "level": 552,
+        "sum": 56217980000,
+        "sumDepth": 36
+    },
+    {
+        "total": 305809000,
+        "depth": 29,
+        "level": 553,
+        "sum": 56523789000,
+        "sumDepth": 36
+    },
+    {
+        "total": 306916000,
+        "depth": 29,
+        "level": 554,
+        "sum": 56830705000,
+        "sumDepth": 36
+    },
+    {
+        "total": 308025000,
+        "depth": 29,
+        "level": 555,
+        "sum": 57138730000,
+        "sumDepth": 36
+    },
+    {
+        "total": 309136000,
+        "depth": 29,
+        "level": 556,
+        "sum": 57447866000,
+        "sumDepth": 36
+    },
+    {
+        "total": 310249000,
+        "depth": 29,
+        "level": 557,
+        "sum": 57758115000,
+        "sumDepth": 36
+    },
+    {
+        "total": 311364000,
+        "depth": 29,
+        "level": 558,
+        "sum": 58069479000,
+        "sumDepth": 36
+    },
+    {
+        "total": 312481000,
+        "depth": 29,
+        "level": 559,
+        "sum": 58381960000,
+        "sumDepth": 36
+    },
+    {
+        "total": 313600000,
+        "depth": 29,
+        "level": 560,
+        "sum": 58695560000,
+        "sumDepth": 36
+    },
+    {
+        "total": 314721000,
+        "depth": 29,
+        "level": 561,
+        "sum": 59010281000,
+        "sumDepth": 36
+    },
+    {
+        "total": 315844000,
+        "depth": 29,
+        "level": 562,
+        "sum": 59326125000,
+        "sumDepth": 36
+    },
+    {
+        "total": 316969000,
+        "depth": 29,
+        "level": 563,
+        "sum": 59643094000,
+        "sumDepth": 36
+    },
+    {
+        "total": 318096000,
+        "depth": 29,
+        "level": 564,
+        "sum": 59961190000,
+        "sumDepth": 36
+    },
+    {
+        "total": 319225000,
+        "depth": 29,
+        "level": 565,
+        "sum": 60280415000,
+        "sumDepth": 36
+    },
+    {
+        "total": 320356000,
+        "depth": 29,
+        "level": 566,
+        "sum": 60600771000,
+        "sumDepth": 36
+    },
+    {
+        "total": 321489000,
+        "depth": 29,
+        "level": 567,
+        "sum": 60922260000,
+        "sumDepth": 36
+    },
+    {
+        "total": 322624000,
+        "depth": 29,
+        "level": 568,
+        "sum": 61244884000,
+        "sumDepth": 36
+    },
+    {
+        "total": 323761000,
+        "depth": 29,
+        "level": 569,
+        "sum": 61568645000,
+        "sumDepth": 36
+    },
+    {
+        "total": 324900000,
+        "depth": 29,
+        "level": 570,
+        "sum": 61893545000,
+        "sumDepth": 36
+    },
+    {
+        "total": 326041000,
+        "depth": 29,
+        "level": 571,
+        "sum": 62219586000,
+        "sumDepth": 36
+    },
+    {
+        "total": 327184000,
+        "depth": 29,
+        "level": 572,
+        "sum": 62546770000,
+        "sumDepth": 36
+    },
+    {
+        "total": 328329000,
+        "depth": 29,
+        "level": 573,
+        "sum": 62875099000,
+        "sumDepth": 36
+    },
+    {
+        "total": 329476000,
+        "depth": 29,
+        "level": 574,
+        "sum": 63204575000,
+        "sumDepth": 36
+    },
+    {
+        "total": 330625000,
+        "depth": 29,
+        "level": 575,
+        "sum": 63535200000,
+        "sumDepth": 36
+    },
+    {
+        "total": 331776000,
+        "depth": 29,
+        "level": 576,
+        "sum": 63866976000,
+        "sumDepth": 36
+    },
+    {
+        "total": 332929000,
+        "depth": 29,
+        "level": 577,
+        "sum": 64199905000,
+        "sumDepth": 36
+    },
+    {
+        "total": 334084000,
+        "depth": 29,
+        "level": 578,
+        "sum": 64533989000,
+        "sumDepth": 36
+    },
+    {
+        "total": 335241000,
+        "depth": 29,
+        "level": 579,
+        "sum": 64869230000,
+        "sumDepth": 36
+    },
+    {
+        "total": 336400000,
+        "depth": 29,
+        "level": 580,
+        "sum": 65205630000,
+        "sumDepth": 36
+    },
+    {
+        "total": 337561000,
+        "depth": 29,
+        "level": 581,
+        "sum": 65543191000,
+        "sumDepth": 36
+    },
+    {
+        "total": 338724000,
+        "depth": 29,
+        "level": 582,
+        "sum": 65881915000,
+        "sumDepth": 36
+    },
+    {
+        "total": 339889000,
+        "depth": 29,
+        "level": 583,
+        "sum": 66221804000,
+        "sumDepth": 36
+    },
+    {
+        "total": 341056000,
+        "depth": 29,
+        "level": 584,
+        "sum": 66562860000,
+        "sumDepth": 36
+    },
+    {
+        "total": 342225000,
+        "depth": 29,
+        "level": 585,
+        "sum": 66905085000,
+        "sumDepth": 36
+    },
+    {
+        "total": 343396000,
+        "depth": 29,
+        "level": 586,
+        "sum": 67248481000,
+        "sumDepth": 36
+    },
+    {
+        "total": 344569000,
+        "depth": 29,
+        "level": 587,
+        "sum": 67593050000,
+        "sumDepth": 36
+    },
+    {
+        "total": 345744000,
+        "depth": 29,
+        "level": 588,
+        "sum": 67938794000,
+        "sumDepth": 36
+    },
+    {
+        "total": 346921000,
+        "depth": 29,
+        "level": 589,
+        "sum": 68285715000,
+        "sumDepth": 36
+    },
+    {
+        "total": 348100000,
+        "depth": 29,
+        "level": 590,
+        "sum": 68633815000,
+        "sumDepth": 36
+    },
+    {
+        "total": 349281000,
+        "depth": 29,
+        "level": 591,
+        "sum": 68983096000,
+        "sumDepth": 37
+    },
+    {
+        "total": 350464000,
+        "depth": 29,
+        "level": 592,
+        "sum": 69333560000,
+        "sumDepth": 37
+    },
+    {
+        "total": 351649000,
+        "depth": 29,
+        "level": 593,
+        "sum": 69685209000,
+        "sumDepth": 37
+    },
+    {
+        "total": 352836000,
+        "depth": 29,
+        "level": 594,
+        "sum": 70038045000,
+        "sumDepth": 37
+    },
+    {
+        "total": 354025000,
+        "depth": 29,
+        "level": 595,
+        "sum": 70392070000,
+        "sumDepth": 37
+    },
+    {
+        "total": 355216000,
+        "depth": 29,
+        "level": 596,
+        "sum": 70747286000,
+        "sumDepth": 37
+    },
+    {
+        "total": 356409000,
+        "depth": 29,
+        "level": 597,
+        "sum": 71103695000,
+        "sumDepth": 37
+    },
+    {
+        "total": 357604000,
+        "depth": 29,
+        "level": 598,
+        "sum": 71461299000,
+        "sumDepth": 37
+    },
+    {
+        "total": 358801000,
+        "depth": 29,
+        "level": 599,
+        "sum": 71820100000,
+        "sumDepth": 37
+    },
+    {
+        "total": 360000000,
+        "depth": 29,
+        "level": 600,
+        "sum": 72180100000,
+        "sumDepth": 37
+    },
+    {
+        "total": 361201000,
+        "depth": 29,
+        "level": 601,
+        "sum": 72541301000,
+        "sumDepth": 37
+    },
+    {
+        "total": 362404000,
+        "depth": 29,
+        "level": 602,
+        "sum": 72903705000,
+        "sumDepth": 37
+    },
+    {
+        "total": 363609000,
+        "depth": 29,
+        "level": 603,
+        "sum": 73267314000,
+        "sumDepth": 37
+    },
+    {
+        "total": 364816000,
+        "depth": 29,
+        "level": 604,
+        "sum": 73632130000,
+        "sumDepth": 37
+    },
+    {
+        "total": 366025000,
+        "depth": 29,
+        "level": 605,
+        "sum": 73998155000,
+        "sumDepth": 37
+    },
+    {
+        "total": 367236000,
+        "depth": 29,
+        "level": 606,
+        "sum": 74365391000,
+        "sumDepth": 37
+    },
+    {
+        "total": 368449000,
+        "depth": 29,
+        "level": 607,
+        "sum": 74733840000,
+        "sumDepth": 37
+    },
+    {
+        "total": 369664000,
+        "depth": 29,
+        "level": 608,
+        "sum": 75103504000,
+        "sumDepth": 37
+    },
+    {
+        "total": 370881000,
+        "depth": 29,
+        "level": 609,
+        "sum": 75474385000,
+        "sumDepth": 37
+    },
+    {
+        "total": 372100000,
+        "depth": 29,
+        "level": 610,
+        "sum": 75846485000,
+        "sumDepth": 37
+    },
+    {
+        "total": 373321000,
+        "depth": 29,
+        "level": 611,
+        "sum": 76219806000,
+        "sumDepth": 37
+    },
+    {
+        "total": 374544000,
+        "depth": 29,
+        "level": 612,
+        "sum": 76594350000,
+        "sumDepth": 37
+    },
+    {
+        "total": 375769000,
+        "depth": 29,
+        "level": 613,
+        "sum": 76970119000,
+        "sumDepth": 37
+    },
+    {
+        "total": 376996000,
+        "depth": 29,
+        "level": 614,
+        "sum": 77347115000,
+        "sumDepth": 37
+    },
+    {
+        "total": 378225000,
+        "depth": 29,
+        "level": 615,
+        "sum": 77725340000,
+        "sumDepth": 37
+    },
+    {
+        "total": 379456000,
+        "depth": 29,
+        "level": 616,
+        "sum": 78104796000,
+        "sumDepth": 37
+    },
+    {
+        "total": 380689000,
+        "depth": 29,
+        "level": 617,
+        "sum": 78485485000,
+        "sumDepth": 37
+    },
+    {
+        "total": 381924000,
+        "depth": 29,
+        "level": 618,
+        "sum": 78867409000,
+        "sumDepth": 37
+    },
+    {
+        "total": 383161000,
+        "depth": 29,
+        "level": 619,
+        "sum": 79250570000,
+        "sumDepth": 37
+    },
+    {
+        "total": 384400000,
+        "depth": 29,
+        "level": 620,
+        "sum": 79634970000,
+        "sumDepth": 37
+    },
+    {
+        "total": 385641000,
+        "depth": 29,
+        "level": 621,
+        "sum": 80020611000,
+        "sumDepth": 37
+    },
+    {
+        "total": 386884000,
+        "depth": 29,
+        "level": 622,
+        "sum": 80407495000,
+        "sumDepth": 37
+    },
+    {
+        "total": 388129000,
+        "depth": 29,
+        "level": 623,
+        "sum": 80795624000,
+        "sumDepth": 37
+    },
+    {
+        "total": 389376000,
+        "depth": 29,
+        "level": 624,
+        "sum": 81185000000,
+        "sumDepth": 37
+    },
+    {
+        "total": 390625000,
+        "depth": 29,
+        "level": 625,
+        "sum": 81575625000,
+        "sumDepth": 37
+    },
+    {
+        "total": 391876000,
+        "depth": 29,
+        "level": 626,
+        "sum": 81967501000,
+        "sumDepth": 37
+    },
+    {
+        "total": 393129000,
+        "depth": 29,
+        "level": 627,
+        "sum": 82360630000,
+        "sumDepth": 37
+    },
+    {
+        "total": 394384000,
+        "depth": 29,
+        "level": 628,
+        "sum": 82755014000,
+        "sumDepth": 37
+    },
+    {
+        "total": 395641000,
+        "depth": 29,
+        "level": 629,
+        "sum": 83150655000,
+        "sumDepth": 37
+    },
+    {
+        "total": 396900000,
+        "depth": 29,
+        "level": 630,
+        "sum": 83547555000,
+        "sumDepth": 37
+    },
+    {
+        "total": 398161000,
+        "depth": 29,
+        "level": 631,
+        "sum": 83945716000,
+        "sumDepth": 37
+    },
+    {
+        "total": 399424000,
+        "depth": 29,
+        "level": 632,
+        "sum": 84345140000,
+        "sumDepth": 37
+    },
+    {
+        "total": 400689000,
+        "depth": 29,
+        "level": 633,
+        "sum": 84745829000,
+        "sumDepth": 37
+    },
+    {
+        "total": 401956000,
+        "depth": 29,
+        "level": 634,
+        "sum": 85147785000,
+        "sumDepth": 37
+    },
+    {
+        "total": 403225000,
+        "depth": 29,
+        "level": 635,
+        "sum": 85551010000,
+        "sumDepth": 37
+    },
+    {
+        "total": 404496000,
+        "depth": 29,
+        "level": 636,
+        "sum": 85955506000,
+        "sumDepth": 37
+    },
+    {
+        "total": 405769000,
+        "depth": 29,
+        "level": 637,
+        "sum": 86361275000,
+        "sumDepth": 37
+    },
+    {
+        "total": 407044000,
+        "depth": 29,
+        "level": 638,
+        "sum": 86768319000,
+        "sumDepth": 37
+    },
+    {
+        "total": 408321000,
+        "depth": 29,
+        "level": 639,
+        "sum": 87176640000,
+        "sumDepth": 37
+    },
+    {
+        "total": 409600000,
+        "depth": 29,
+        "level": 640,
+        "sum": 87586240000,
+        "sumDepth": 37
+    },
+    {
+        "total": 410881000,
+        "depth": 29,
+        "level": 641,
+        "sum": 87997121000,
+        "sumDepth": 37
+    },
+    {
+        "total": 412164000,
+        "depth": 29,
+        "level": 642,
+        "sum": 88409285000,
+        "sumDepth": 37
+    },
+    {
+        "total": 413449000,
+        "depth": 29,
+        "level": 643,
+        "sum": 88822734000,
+        "sumDepth": 37
+    },
+    {
+        "total": 414736000,
+        "depth": 29,
+        "level": 644,
+        "sum": 89237470000,
+        "sumDepth": 37
+    },
+    {
+        "total": 416025000,
+        "depth": 29,
+        "level": 645,
+        "sum": 89653495000,
+        "sumDepth": 37
+    },
+    {
+        "total": 417316000,
+        "depth": 29,
+        "level": 646,
+        "sum": 90070811000,
+        "sumDepth": 37
+    },
+    {
+        "total": 418609000,
+        "depth": 29,
+        "level": 647,
+        "sum": 90489420000,
+        "sumDepth": 37
+    },
+    {
+        "total": 419904000,
+        "depth": 29,
+        "level": 648,
+        "sum": 90909324000,
+        "sumDepth": 37
+    },
+    {
+        "total": 421201000,
+        "depth": 29,
+        "level": 649,
+        "sum": 91330525000,
+        "sumDepth": 37
+    },
+    {
+        "total": 422500000,
+        "depth": 29,
+        "level": 650,
+        "sum": 91753025000,
+        "sumDepth": 37
+    },
+    {
+        "total": 423801000,
+        "depth": 29,
+        "level": 651,
+        "sum": 92176826000,
+        "sumDepth": 37
+    },
+    {
+        "total": 425104000,
+        "depth": 29,
+        "level": 652,
+        "sum": 92601930000,
+        "sumDepth": 37
+    },
+    {
+        "total": 426409000,
+        "depth": 29,
+        "level": 653,
+        "sum": 93028339000,
+        "sumDepth": 37
+    },
+    {
+        "total": 427716000,
+        "depth": 29,
+        "level": 654,
+        "sum": 93456055000,
+        "sumDepth": 37
+    },
+    {
+        "total": 429025000,
+        "depth": 29,
+        "level": 655,
+        "sum": 93885080000,
+        "sumDepth": 37
+    },
+    {
+        "total": 430336000,
+        "depth": 29,
+        "level": 656,
+        "sum": 94315416000,
+        "sumDepth": 37
+    },
+    {
+        "total": 431649000,
+        "depth": 29,
+        "level": 657,
+        "sum": 94747065000,
+        "sumDepth": 37
+    },
+    {
+        "total": 432964000,
+        "depth": 29,
+        "level": 658,
+        "sum": 95180029000,
+        "sumDepth": 37
+    },
+    {
+        "total": 434281000,
+        "depth": 29,
+        "level": 659,
+        "sum": 95614310000,
+        "sumDepth": 37
+    },
+    {
+        "total": 435600000,
+        "depth": 29,
+        "level": 660,
+        "sum": 96049910000,
+        "sumDepth": 37
+    },
+    {
+        "total": 436921000,
+        "depth": 29,
+        "level": 661,
+        "sum": 96486831000,
+        "sumDepth": 37
+    },
+    {
+        "total": 438244000,
+        "depth": 29,
+        "level": 662,
+        "sum": 96925075000,
+        "sumDepth": 37
+    },
+    {
+        "total": 439569000,
+        "depth": 29,
+        "level": 663,
+        "sum": 97364644000,
+        "sumDepth": 37
+    },
+    {
+        "total": 440896000,
+        "depth": 29,
+        "level": 664,
+        "sum": 97805540000,
+        "sumDepth": 37
+    },
+    {
+        "total": 442225000,
+        "depth": 29,
+        "level": 665,
+        "sum": 98247765000,
+        "sumDepth": 37
+    },
+    {
+        "total": 443556000,
+        "depth": 29,
+        "level": 666,
+        "sum": 98691321000,
+        "sumDepth": 37
+    },
+    {
+        "total": 444889000,
+        "depth": 29,
+        "level": 667,
+        "sum": 99136210000,
+        "sumDepth": 37
+    },
+    {
+        "total": 446224000,
+        "depth": 29,
+        "level": 668,
+        "sum": 99582434000,
+        "sumDepth": 37
+    },
+    {
+        "total": 447561000,
+        "depth": 29,
+        "level": 669,
+        "sum": 100029995000,
+        "sumDepth": 37
+    },
+    {
+        "total": 448900000,
+        "depth": 29,
+        "level": 670,
+        "sum": 100478895000,
+        "sumDepth": 37
+    },
+    {
+        "total": 450241000,
+        "depth": 29,
+        "level": 671,
+        "sum": 100929136000,
+        "sumDepth": 37
+    },
+    {
+        "total": 451584000,
+        "depth": 29,
+        "level": 672,
+        "sum": 101380720000,
+        "sumDepth": 37
+    },
+    {
+        "total": 452929000,
+        "depth": 29,
+        "level": 673,
+        "sum": 101833649000,
+        "sumDepth": 37
+    },
+    {
+        "total": 454276000,
+        "depth": 29,
+        "level": 674,
+        "sum": 102287925000,
+        "sumDepth": 37
+    },
+    {
+        "total": 455625000,
+        "depth": 29,
+        "level": 675,
+        "sum": 102743550000,
+        "sumDepth": 37
+    },
+    {
+        "total": 456976000,
+        "depth": 29,
+        "level": 676,
+        "sum": 103200526000,
+        "sumDepth": 37
+    },
+    {
+        "total": 458329000,
+        "depth": 29,
+        "level": 677,
+        "sum": 103658855000,
+        "sumDepth": 37
+    },
+    {
+        "total": 459684000,
+        "depth": 29,
+        "level": 678,
+        "sum": 104118539000,
+        "sumDepth": 37
+    },
+    {
+        "total": 461041000,
+        "depth": 29,
+        "level": 679,
+        "sum": 104579580000,
+        "sumDepth": 37
+    },
+    {
+        "total": 462400000,
+        "depth": 29,
+        "level": 680,
+        "sum": 105041980000,
+        "sumDepth": 37
+    },
+    {
+        "total": 463761000,
+        "depth": 29,
+        "level": 681,
+        "sum": 105505741000,
+        "sumDepth": 37
+    },
+    {
+        "total": 465124000,
+        "depth": 29,
+        "level": 682,
+        "sum": 105970865000,
+        "sumDepth": 37
+    },
+    {
+        "total": 466489000,
+        "depth": 29,
+        "level": 683,
+        "sum": 106437354000,
+        "sumDepth": 37
+    },
+    {
+        "total": 467856000,
+        "depth": 29,
+        "level": 684,
+        "sum": 106905210000,
+        "sumDepth": 37
+    },
+    {
+        "total": 469225000,
+        "depth": 29,
+        "level": 685,
+        "sum": 107374435000,
+        "sumDepth": 37
+    },
+    {
+        "total": 470596000,
+        "depth": 29,
+        "level": 686,
+        "sum": 107845031000,
+        "sumDepth": 37
+    },
+    {
+        "total": 471969000,
+        "depth": 29,
+        "level": 687,
+        "sum": 108317000000,
+        "sumDepth": 37
+    },
+    {
+        "total": 473344000,
+        "depth": 29,
+        "level": 688,
+        "sum": 108790344000,
+        "sumDepth": 37
+    },
+    {
+        "total": 474721000,
+        "depth": 29,
+        "level": 689,
+        "sum": 109265065000,
+        "sumDepth": 37
+    },
+    {
+        "total": 476100000,
+        "depth": 29,
+        "level": 690,
+        "sum": 109741165000,
+        "sumDepth": 37
+    },
+    {
+        "total": 477481000,
+        "depth": 29,
+        "level": 691,
+        "sum": 110218646000,
+        "sumDepth": 37
+    },
+    {
+        "total": 478864000,
+        "depth": 29,
+        "level": 692,
+        "sum": 110697510000,
+        "sumDepth": 37
+    },
+    {
+        "total": 480249000,
+        "depth": 29,
+        "level": 693,
+        "sum": 111177759000,
+        "sumDepth": 37
+    },
+    {
+        "total": 481636000,
+        "depth": 29,
+        "level": 694,
+        "sum": 111659395000,
+        "sumDepth": 37
+    },
+    {
+        "total": 483025000,
+        "depth": 29,
+        "level": 695,
+        "sum": 112142420000,
+        "sumDepth": 37
+    },
+    {
+        "total": 484416000,
+        "depth": 29,
+        "level": 696,
+        "sum": 112626836000,
+        "sumDepth": 37
+    },
+    {
+        "total": 485809000,
+        "depth": 29,
+        "level": 697,
+        "sum": 113112645000,
+        "sumDepth": 37
+    },
+    {
+        "total": 487204000,
+        "depth": 29,
+        "level": 698,
+        "sum": 113599849000,
+        "sumDepth": 37
+    },
+    {
+        "total": 488601000,
+        "depth": 29,
+        "level": 699,
+        "sum": 114088450000,
+        "sumDepth": 37
+    },
+    {
+        "total": 490000000,
+        "depth": 29,
+        "level": 700,
+        "sum": 114578450000,
+        "sumDepth": 37
+    },
+    {
+        "total": 491401000,
+        "depth": 29,
+        "level": 701,
+        "sum": 115069851000,
+        "sumDepth": 37
+    },
+    {
+        "total": 492804000,
+        "depth": 29,
+        "level": 702,
+        "sum": 115562655000,
+        "sumDepth": 37
+    },
+    {
+        "total": 494209000,
+        "depth": 29,
+        "level": 703,
+        "sum": 116056864000,
+        "sumDepth": 37
+    },
+    {
+        "total": 495616000,
+        "depth": 29,
+        "level": 704,
+        "sum": 116552480000,
+        "sumDepth": 37
+    },
+    {
+        "total": 497025000,
+        "depth": 29,
+        "level": 705,
+        "sum": 117049505000,
+        "sumDepth": 37
+    },
+    {
+        "total": 498436000,
+        "depth": 29,
+        "level": 706,
+        "sum": 117547941000,
+        "sumDepth": 37
+    },
+    {
+        "total": 499849000,
+        "depth": 29,
+        "level": 707,
+        "sum": 118047790000,
+        "sumDepth": 37
+    },
+    {
+        "total": 501264000,
+        "depth": 29,
+        "level": 708,
+        "sum": 118549054000,
+        "sumDepth": 37
+    },
+    {
+        "total": 502681000,
+        "depth": 29,
+        "level": 709,
+        "sum": 119051735000,
+        "sumDepth": 37
+    },
+    {
+        "total": 504100000,
+        "depth": 29,
+        "level": 710,
+        "sum": 119555835000,
+        "sumDepth": 37
+    },
+    {
+        "total": 505521000,
+        "depth": 29,
+        "level": 711,
+        "sum": 120061356000,
+        "sumDepth": 37
+    },
+    {
+        "total": 506944000,
+        "depth": 29,
+        "level": 712,
+        "sum": 120568300000,
+        "sumDepth": 37
+    },
+    {
+        "total": 508369000,
+        "depth": 29,
+        "level": 713,
+        "sum": 121076669000,
+        "sumDepth": 37
+    },
+    {
+        "total": 509796000,
+        "depth": 29,
+        "level": 714,
+        "sum": 121586465000,
+        "sumDepth": 37
+    },
+    {
+        "total": 511225000,
+        "depth": 29,
+        "level": 715,
+        "sum": 122097690000,
+        "sumDepth": 37
+    },
+    {
+        "total": 512656000,
+        "depth": 29,
+        "level": 716,
+        "sum": 122610346000,
+        "sumDepth": 37
+    },
+    {
+        "total": 514089000,
+        "depth": 29,
+        "level": 717,
+        "sum": 123124435000,
+        "sumDepth": 37
+    },
+    {
+        "total": 515524000,
+        "depth": 29,
+        "level": 718,
+        "sum": 123639959000,
+        "sumDepth": 37
+    },
+    {
+        "total": 516961000,
+        "depth": 29,
+        "level": 719,
+        "sum": 124156920000,
+        "sumDepth": 37
+    },
+    {
+        "total": 518400000,
+        "depth": 29,
+        "level": 720,
+        "sum": 124675320000,
+        "sumDepth": 37
+    },
+    {
+        "total": 519841000,
+        "depth": 29,
+        "level": 721,
+        "sum": 125195161000,
+        "sumDepth": 37
+    },
+    {
+        "total": 521284000,
+        "depth": 29,
+        "level": 722,
+        "sum": 125716445000,
+        "sumDepth": 37
+    },
+    {
+        "total": 522729000,
+        "depth": 29,
+        "level": 723,
+        "sum": 126239174000,
+        "sumDepth": 37
+    },
+    {
+        "total": 524176000,
+        "depth": 29,
+        "level": 724,
+        "sum": 126763350000,
+        "sumDepth": 37
+    },
+    {
+        "total": 525625000,
+        "depth": 29,
+        "level": 725,
+        "sum": 127288975000,
+        "sumDepth": 37
+    },
+    {
+        "total": 527076000,
+        "depth": 29,
+        "level": 726,
+        "sum": 127816051000,
+        "sumDepth": 37
+    },
+    {
+        "total": 528529000,
+        "depth": 29,
+        "level": 727,
+        "sum": 128344580000,
+        "sumDepth": 37
+    },
+    {
+        "total": 529984000,
+        "depth": 29,
+        "level": 728,
+        "sum": 128874564000,
+        "sumDepth": 37
+    },
+    {
+        "total": 531441000,
+        "depth": 29,
+        "level": 729,
+        "sum": 129406005000,
+        "sumDepth": 37
+    },
+    {
+        "total": 532900000,
+        "depth": 29,
+        "level": 730,
+        "sum": 129938905000,
+        "sumDepth": 37
+    },
+    {
+        "total": 534361000,
+        "depth": 29,
+        "level": 731,
+        "sum": 130473266000,
+        "sumDepth": 37
+    },
+    {
+        "total": 535824000,
+        "depth": 29,
+        "level": 732,
+        "sum": 131009090000,
+        "sumDepth": 37
+    },
+    {
+        "total": 537289000,
+        "depth": 30,
+        "level": 733,
+        "sum": 131546379000,
+        "sumDepth": 37
+    },
+    {
+        "total": 538756000,
+        "depth": 30,
+        "level": 734,
+        "sum": 132085135000,
+        "sumDepth": 37
+    },
+    {
+        "total": 540225000,
+        "depth": 30,
+        "level": 735,
+        "sum": 132625360000,
+        "sumDepth": 37
+    },
+    {
+        "total": 541696000,
+        "depth": 30,
+        "level": 736,
+        "sum": 133167056000,
+        "sumDepth": 37
+    },
+    {
+        "total": 543169000,
+        "depth": 30,
+        "level": 737,
+        "sum": 133710225000,
+        "sumDepth": 37
+    },
+    {
+        "total": 544644000,
+        "depth": 30,
+        "level": 738,
+        "sum": 134254869000,
+        "sumDepth": 37
+    },
+    {
+        "total": 546121000,
+        "depth": 30,
+        "level": 739,
+        "sum": 134800990000,
+        "sumDepth": 37
+    },
+    {
+        "total": 547600000,
+        "depth": 30,
+        "level": 740,
+        "sum": 135348590000,
+        "sumDepth": 37
+    },
+    {
+        "total": 549081000,
+        "depth": 30,
+        "level": 741,
+        "sum": 135897671000,
+        "sumDepth": 37
+    },
+    {
+        "total": 550564000,
+        "depth": 30,
+        "level": 742,
+        "sum": 136448235000,
+        "sumDepth": 37
+    },
+    {
+        "total": 552049000,
+        "depth": 30,
+        "level": 743,
+        "sum": 137000284000,
+        "sumDepth": 37
+    },
+    {
+        "total": 553536000,
+        "depth": 30,
+        "level": 744,
+        "sum": 137553820000,
+        "sumDepth": 38
+    },
+    {
+        "total": 555025000,
+        "depth": 30,
+        "level": 745,
+        "sum": 138108845000,
+        "sumDepth": 38
+    },
+    {
+        "total": 556516000,
+        "depth": 30,
+        "level": 746,
+        "sum": 138665361000,
+        "sumDepth": 38
+    },
+    {
+        "total": 558009000,
+        "depth": 30,
+        "level": 747,
+        "sum": 139223370000,
+        "sumDepth": 38
+    },
+    {
+        "total": 559504000,
+        "depth": 30,
+        "level": 748,
+        "sum": 139782874000,
+        "sumDepth": 38
+    },
+    {
+        "total": 561001000,
+        "depth": 30,
+        "level": 749,
+        "sum": 140343875000,
+        "sumDepth": 38
+    },
+    {
+        "total": 562500000,
+        "depth": 30,
+        "level": 750,
+        "sum": 140906375000,
+        "sumDepth": 38
+    },
+    {
+        "total": 564001000,
+        "depth": 30,
+        "level": 751,
+        "sum": 141470376000,
+        "sumDepth": 38
+    },
+    {
+        "total": 565504000,
+        "depth": 30,
+        "level": 752,
+        "sum": 142035880000,
+        "sumDepth": 38
+    },
+    {
+        "total": 567009000,
+        "depth": 30,
+        "level": 753,
+        "sum": 142602889000,
+        "sumDepth": 38
+    },
+    {
+        "total": 568516000,
+        "depth": 30,
+        "level": 754,
+        "sum": 143171405000,
+        "sumDepth": 38
+    },
+    {
+        "total": 570025000,
+        "depth": 30,
+        "level": 755,
+        "sum": 143741430000,
+        "sumDepth": 38
+    },
+    {
+        "total": 571536000,
+        "depth": 30,
+        "level": 756,
+        "sum": 144312966000,
+        "sumDepth": 38
+    },
+    {
+        "total": 573049000,
+        "depth": 30,
+        "level": 757,
+        "sum": 144886015000,
+        "sumDepth": 38
+    },
+    {
+        "total": 574564000,
+        "depth": 30,
+        "level": 758,
+        "sum": 145460579000,
+        "sumDepth": 38
+    },
+    {
+        "total": 576081000,
+        "depth": 30,
+        "level": 759,
+        "sum": 146036660000,
+        "sumDepth": 38
+    },
+    {
+        "total": 577600000,
+        "depth": 30,
+        "level": 760,
+        "sum": 146614260000,
+        "sumDepth": 38
+    },
+    {
+        "total": 579121000,
+        "depth": 30,
+        "level": 761,
+        "sum": 147193381000,
+        "sumDepth": 38
+    },
+    {
+        "total": 580644000,
+        "depth": 30,
+        "level": 762,
+        "sum": 147774025000,
+        "sumDepth": 38
+    },
+    {
+        "total": 582169000,
+        "depth": 30,
+        "level": 763,
+        "sum": 148356194000,
+        "sumDepth": 38
+    },
+    {
+        "total": 583696000,
+        "depth": 30,
+        "level": 764,
+        "sum": 148939890000,
+        "sumDepth": 38
+    },
+    {
+        "total": 585225000,
+        "depth": 30,
+        "level": 765,
+        "sum": 149525115000,
+        "sumDepth": 38
+    },
+    {
+        "total": 586756000,
+        "depth": 30,
+        "level": 766,
+        "sum": 150111871000,
+        "sumDepth": 38
+    },
+    {
+        "total": 588289000,
+        "depth": 30,
+        "level": 767,
+        "sum": 150700160000,
+        "sumDepth": 38
+    },
+    {
+        "total": 589824000,
+        "depth": 30,
+        "level": 768,
+        "sum": 151289984000,
+        "sumDepth": 38
+    },
+    {
+        "total": 591361000,
+        "depth": 30,
+        "level": 769,
+        "sum": 151881345000,
+        "sumDepth": 38
+    },
+    {
+        "total": 592900000,
+        "depth": 30,
+        "level": 770,
+        "sum": 152474245000,
+        "sumDepth": 38
+    },
+    {
+        "total": 594441000,
+        "depth": 30,
+        "level": 771,
+        "sum": 153068686000,
+        "sumDepth": 38
+    },
+    {
+        "total": 595984000,
+        "depth": 30,
+        "level": 772,
+        "sum": 153664670000,
+        "sumDepth": 38
+    },
+    {
+        "total": 597529000,
+        "depth": 30,
+        "level": 773,
+        "sum": 154262199000,
+        "sumDepth": 38
+    },
+    {
+        "total": 599076000,
+        "depth": 30,
+        "level": 774,
+        "sum": 154861275000,
+        "sumDepth": 38
+    },
+    {
+        "total": 600625000,
+        "depth": 30,
+        "level": 775,
+        "sum": 155461900000,
+        "sumDepth": 38
+    },
+    {
+        "total": 602176000,
+        "depth": 30,
+        "level": 776,
+        "sum": 156064076000,
+        "sumDepth": 38
+    },
+    {
+        "total": 603729000,
+        "depth": 30,
+        "level": 777,
+        "sum": 156667805000,
+        "sumDepth": 38
+    },
+    {
+        "total": 605284000,
+        "depth": 30,
+        "level": 778,
+        "sum": 157273089000,
+        "sumDepth": 38
+    },
+    {
+        "total": 606841000,
+        "depth": 30,
+        "level": 779,
+        "sum": 157879930000,
+        "sumDepth": 38
+    },
+    {
+        "total": 608400000,
+        "depth": 30,
+        "level": 780,
+        "sum": 158488330000,
+        "sumDepth": 38
+    },
+    {
+        "total": 609961000,
+        "depth": 30,
+        "level": 781,
+        "sum": 159098291000,
+        "sumDepth": 38
+    },
+    {
+        "total": 611524000,
+        "depth": 30,
+        "level": 782,
+        "sum": 159709815000,
+        "sumDepth": 38
+    },
+    {
+        "total": 613089000,
+        "depth": 30,
+        "level": 783,
+        "sum": 160322904000,
+        "sumDepth": 38
+    },
+    {
+        "total": 614656000,
+        "depth": 30,
+        "level": 784,
+        "sum": 160937560000,
+        "sumDepth": 38
+    },
+    {
+        "total": 616225000,
+        "depth": 30,
+        "level": 785,
+        "sum": 161553785000,
+        "sumDepth": 38
+    },
+    {
+        "total": 617796000,
+        "depth": 30,
+        "level": 786,
+        "sum": 162171581000,
+        "sumDepth": 38
+    },
+    {
+        "total": 619369000,
+        "depth": 30,
+        "level": 787,
+        "sum": 162790950000,
+        "sumDepth": 38
+    },
+    {
+        "total": 620944000,
+        "depth": 30,
+        "level": 788,
+        "sum": 163411894000,
+        "sumDepth": 38
+    },
+    {
+        "total": 622521000,
+        "depth": 30,
+        "level": 789,
+        "sum": 164034415000,
+        "sumDepth": 38
+    },
+    {
+        "total": 624100000,
+        "depth": 30,
+        "level": 790,
+        "sum": 164658515000,
+        "sumDepth": 38
+    },
+    {
+        "total": 625681000,
+        "depth": 30,
+        "level": 791,
+        "sum": 165284196000,
+        "sumDepth": 38
+    },
+    {
+        "total": 627264000,
+        "depth": 30,
+        "level": 792,
+        "sum": 165911460000,
+        "sumDepth": 38
+    },
+    {
+        "total": 628849000,
+        "depth": 30,
+        "level": 793,
+        "sum": 166540309000,
+        "sumDepth": 38
+    },
+    {
+        "total": 630436000,
+        "depth": 30,
+        "level": 794,
+        "sum": 167170745000,
+        "sumDepth": 38
+    },
+    {
+        "total": 632025000,
+        "depth": 30,
+        "level": 795,
+        "sum": 167802770000,
+        "sumDepth": 38
+    },
+    {
+        "total": 633616000,
+        "depth": 30,
+        "level": 796,
+        "sum": 168436386000,
+        "sumDepth": 38
+    },
+    {
+        "total": 635209000,
+        "depth": 30,
+        "level": 797,
+        "sum": 169071595000,
+        "sumDepth": 38
+    },
+    {
+        "total": 636804000,
+        "depth": 30,
+        "level": 798,
+        "sum": 169708399000,
+        "sumDepth": 38
+    },
+    {
+        "total": 638401000,
+        "depth": 30,
+        "level": 799,
+        "sum": 170346800000,
+        "sumDepth": 38
+    },
+    {
+        "total": 640000000,
+        "depth": 30,
+        "level": 800,
+        "sum": 170986800000,
+        "sumDepth": 38
+    },
+    {
+        "total": 641601000,
+        "depth": 30,
+        "level": 801,
+        "sum": 171628401000,
+        "sumDepth": 38
+    },
+    {
+        "total": 643204000,
+        "depth": 30,
+        "level": 802,
+        "sum": 172271605000,
+        "sumDepth": 38
+    },
+    {
+        "total": 644809000,
+        "depth": 30,
+        "level": 803,
+        "sum": 172916414000,
+        "sumDepth": 38
+    },
+    {
+        "total": 646416000,
+        "depth": 30,
+        "level": 804,
+        "sum": 173562830000,
+        "sumDepth": 38
+    },
+    {
+        "total": 648025000,
+        "depth": 30,
+        "level": 805,
+        "sum": 174210855000,
+        "sumDepth": 38
+    },
+    {
+        "total": 649636000,
+        "depth": 30,
+        "level": 806,
+        "sum": 174860491000,
+        "sumDepth": 38
+    },
+    {
+        "total": 651249000,
+        "depth": 30,
+        "level": 807,
+        "sum": 175511740000,
+        "sumDepth": 38
+    },
+    {
+        "total": 652864000,
+        "depth": 30,
+        "level": 808,
+        "sum": 176164604000,
+        "sumDepth": 38
+    },
+    {
+        "total": 654481000,
+        "depth": 30,
+        "level": 809,
+        "sum": 176819085000,
+        "sumDepth": 38
+    },
+    {
+        "total": 656100000,
+        "depth": 30,
+        "level": 810,
+        "sum": 177475185000,
+        "sumDepth": 38
+    },
+    {
+        "total": 657721000,
+        "depth": 30,
+        "level": 811,
+        "sum": 178132906000,
+        "sumDepth": 38
+    },
+    {
+        "total": 659344000,
+        "depth": 30,
+        "level": 812,
+        "sum": 178792250000,
+        "sumDepth": 38
+    },
+    {
+        "total": 660969000,
+        "depth": 30,
+        "level": 813,
+        "sum": 179453219000,
+        "sumDepth": 38
+    },
+    {
+        "total": 662596000,
+        "depth": 30,
+        "level": 814,
+        "sum": 180115815000,
+        "sumDepth": 38
+    },
+    {
+        "total": 664225000,
+        "depth": 30,
+        "level": 815,
+        "sum": 180780040000,
+        "sumDepth": 38
+    },
+    {
+        "total": 665856000,
+        "depth": 30,
+        "level": 816,
+        "sum": 181445896000,
+        "sumDepth": 38
+    },
+    {
+        "total": 667489000,
+        "depth": 30,
+        "level": 817,
+        "sum": 182113385000,
+        "sumDepth": 38
+    },
+    {
+        "total": 669124000,
+        "depth": 30,
+        "level": 818,
+        "sum": 182782509000,
+        "sumDepth": 38
+    },
+    {
+        "total": 670761000,
+        "depth": 30,
+        "level": 819,
+        "sum": 183453270000,
+        "sumDepth": 38
+    },
+    {
+        "total": 672400000,
+        "depth": 30,
+        "level": 820,
+        "sum": 184125670000,
+        "sumDepth": 38
+    },
+    {
+        "total": 674041000,
+        "depth": 30,
+        "level": 821,
+        "sum": 184799711000,
+        "sumDepth": 38
+    },
+    {
+        "total": 675684000,
+        "depth": 30,
+        "level": 822,
+        "sum": 185475395000,
+        "sumDepth": 38
+    },
+    {
+        "total": 677329000,
+        "depth": 30,
+        "level": 823,
+        "sum": 186152724000,
+        "sumDepth": 38
+    },
+    {
+        "total": 678976000,
+        "depth": 30,
+        "level": 824,
+        "sum": 186831700000,
+        "sumDepth": 38
+    },
+    {
+        "total": 680625000,
+        "depth": 30,
+        "level": 825,
+        "sum": 187512325000,
+        "sumDepth": 38
+    },
+    {
+        "total": 682276000,
+        "depth": 30,
+        "level": 826,
+        "sum": 188194601000,
+        "sumDepth": 38
+    },
+    {
+        "total": 683929000,
+        "depth": 30,
+        "level": 827,
+        "sum": 188878530000,
+        "sumDepth": 38
+    },
+    {
+        "total": 685584000,
+        "depth": 30,
+        "level": 828,
+        "sum": 189564114000,
+        "sumDepth": 38
+    },
+    {
+        "total": 687241000,
+        "depth": 30,
+        "level": 829,
+        "sum": 190251355000,
+        "sumDepth": 38
+    },
+    {
+        "total": 688900000,
+        "depth": 30,
+        "level": 830,
+        "sum": 190940255000,
+        "sumDepth": 38
+    },
+    {
+        "total": 690561000,
+        "depth": 30,
+        "level": 831,
+        "sum": 191630816000,
+        "sumDepth": 38
+    },
+    {
+        "total": 692224000,
+        "depth": 30,
+        "level": 832,
+        "sum": 192323040000,
+        "sumDepth": 38
+    },
+    {
+        "total": 693889000,
+        "depth": 30,
+        "level": 833,
+        "sum": 193016929000,
+        "sumDepth": 38
+    },
+    {
+        "total": 695556000,
+        "depth": 30,
+        "level": 834,
+        "sum": 193712485000,
+        "sumDepth": 38
+    },
+    {
+        "total": 697225000,
+        "depth": 30,
+        "level": 835,
+        "sum": 194409710000,
+        "sumDepth": 38
+    },
+    {
+        "total": 698896000,
+        "depth": 30,
+        "level": 836,
+        "sum": 195108606000,
+        "sumDepth": 38
+    },
+    {
+        "total": 700569000,
+        "depth": 30,
+        "level": 837,
+        "sum": 195809175000,
+        "sumDepth": 38
+    },
+    {
+        "total": 702244000,
+        "depth": 30,
+        "level": 838,
+        "sum": 196511419000,
+        "sumDepth": 38
+    },
+    {
+        "total": 703921000,
+        "depth": 30,
+        "level": 839,
+        "sum": 197215340000,
+        "sumDepth": 38
+    },
+    {
+        "total": 705600000,
+        "depth": 30,
+        "level": 840,
+        "sum": 197920940000,
+        "sumDepth": 38
+    },
+    {
+        "total": 707281000,
+        "depth": 30,
+        "level": 841,
+        "sum": 198628221000,
+        "sumDepth": 38
+    },
+    {
+        "total": 708964000,
+        "depth": 30,
+        "level": 842,
+        "sum": 199337185000,
+        "sumDepth": 38
+    },
+    {
+        "total": 710649000,
+        "depth": 30,
+        "level": 843,
+        "sum": 200047834000,
+        "sumDepth": 38
+    },
+    {
+        "total": 712336000,
+        "depth": 30,
+        "level": 844,
+        "sum": 200760170000,
+        "sumDepth": 38
+    },
+    {
+        "total": 714025000,
+        "depth": 30,
+        "level": 845,
+        "sum": 201474195000,
+        "sumDepth": 38
+    },
+    {
+        "total": 715716000,
+        "depth": 30,
+        "level": 846,
+        "sum": 202189911000,
+        "sumDepth": 38
+    },
+    {
+        "total": 717409000,
+        "depth": 30,
+        "level": 847,
+        "sum": 202907320000,
+        "sumDepth": 38
+    },
+    {
+        "total": 719104000,
+        "depth": 30,
+        "level": 848,
+        "sum": 203626424000,
+        "sumDepth": 38
+    },
+    {
+        "total": 720801000,
+        "depth": 30,
+        "level": 849,
+        "sum": 204347225000,
+        "sumDepth": 38
+    },
+    {
+        "total": 722500000,
+        "depth": 30,
+        "level": 850,
+        "sum": 205069725000,
+        "sumDepth": 38
+    },
+    {
+        "total": 724201000,
+        "depth": 30,
+        "level": 851,
+        "sum": 205793926000,
+        "sumDepth": 38
+    },
+    {
+        "total": 725904000,
+        "depth": 30,
+        "level": 852,
+        "sum": 206519830000,
+        "sumDepth": 38
+    },
+    {
+        "total": 727609000,
+        "depth": 30,
+        "level": 853,
+        "sum": 207247439000,
+        "sumDepth": 38
+    },
+    {
+        "total": 729316000,
+        "depth": 30,
+        "level": 854,
+        "sum": 207976755000,
+        "sumDepth": 38
+    },
+    {
+        "total": 731025000,
+        "depth": 30,
+        "level": 855,
+        "sum": 208707780000,
+        "sumDepth": 38
+    },
+    {
+        "total": 732736000,
+        "depth": 30,
+        "level": 856,
+        "sum": 209440516000,
+        "sumDepth": 38
+    },
+    {
+        "total": 734449000,
+        "depth": 30,
+        "level": 857,
+        "sum": 210174965000,
+        "sumDepth": 38
+    },
+    {
+        "total": 736164000,
+        "depth": 30,
+        "level": 858,
+        "sum": 210911129000,
+        "sumDepth": 38
+    },
+    {
+        "total": 737881000,
+        "depth": 30,
+        "level": 859,
+        "sum": 211649010000,
+        "sumDepth": 38
+    },
+    {
+        "total": 739600000,
+        "depth": 30,
+        "level": 860,
+        "sum": 212388610000,
+        "sumDepth": 38
+    },
+    {
+        "total": 741321000,
+        "depth": 30,
+        "level": 861,
+        "sum": 213129931000,
+        "sumDepth": 38
+    },
+    {
+        "total": 743044000,
+        "depth": 30,
+        "level": 862,
+        "sum": 213872975000,
+        "sumDepth": 38
+    },
+    {
+        "total": 744769000,
+        "depth": 30,
+        "level": 863,
+        "sum": 214617744000,
+        "sumDepth": 38
+    },
+    {
+        "total": 746496000,
+        "depth": 30,
+        "level": 864,
+        "sum": 215364240000,
+        "sumDepth": 38
+    },
+    {
+        "total": 748225000,
+        "depth": 30,
+        "level": 865,
+        "sum": 216112465000,
+        "sumDepth": 38
+    },
+    {
+        "total": 749956000,
+        "depth": 30,
+        "level": 866,
+        "sum": 216862421000,
+        "sumDepth": 38
+    },
+    {
+        "total": 751689000,
+        "depth": 30,
+        "level": 867,
+        "sum": 217614110000,
+        "sumDepth": 38
+    },
+    {
+        "total": 753424000,
+        "depth": 30,
+        "level": 868,
+        "sum": 218367534000,
+        "sumDepth": 38
+    },
+    {
+        "total": 755161000,
+        "depth": 30,
+        "level": 869,
+        "sum": 219122695000,
+        "sumDepth": 38
+    },
+    {
+        "total": 756900000,
+        "depth": 30,
+        "level": 870,
+        "sum": 219879595000,
+        "sumDepth": 38
+    },
+    {
+        "total": 758641000,
+        "depth": 30,
+        "level": 871,
+        "sum": 220638236000,
+        "sumDepth": 38
+    },
+    {
+        "total": 760384000,
+        "depth": 30,
+        "level": 872,
+        "sum": 221398620000,
+        "sumDepth": 38
+    },
+    {
+        "total": 762129000,
+        "depth": 30,
+        "level": 873,
+        "sum": 222160749000,
+        "sumDepth": 38
+    },
+    {
+        "total": 763876000,
+        "depth": 30,
+        "level": 874,
+        "sum": 222924625000,
+        "sumDepth": 38
+    },
+    {
+        "total": 765625000,
+        "depth": 30,
+        "level": 875,
+        "sum": 223690250000,
+        "sumDepth": 38
+    },
+    {
+        "total": 767376000,
+        "depth": 30,
+        "level": 876,
+        "sum": 224457626000,
+        "sumDepth": 38
+    },
+    {
+        "total": 769129000,
+        "depth": 30,
+        "level": 877,
+        "sum": 225226755000,
+        "sumDepth": 38
+    },
+    {
+        "total": 770884000,
+        "depth": 30,
+        "level": 878,
+        "sum": 225997639000,
+        "sumDepth": 38
+    },
+    {
+        "total": 772641000,
+        "depth": 30,
+        "level": 879,
+        "sum": 226770280000,
+        "sumDepth": 38
+    },
+    {
+        "total": 774400000,
+        "depth": 30,
+        "level": 880,
+        "sum": 227544680000,
+        "sumDepth": 38
+    },
+    {
+        "total": 776161000,
+        "depth": 30,
+        "level": 881,
+        "sum": 228320841000,
+        "sumDepth": 38
+    },
+    {
+        "total": 777924000,
+        "depth": 30,
+        "level": 882,
+        "sum": 229098765000,
+        "sumDepth": 38
+    },
+    {
+        "total": 779689000,
+        "depth": 30,
+        "level": 883,
+        "sum": 229878454000,
+        "sumDepth": 38
+    },
+    {
+        "total": 781456000,
+        "depth": 30,
+        "level": 884,
+        "sum": 230659910000,
+        "sumDepth": 38
+    },
+    {
+        "total": 783225000,
+        "depth": 30,
+        "level": 885,
+        "sum": 231443135000,
+        "sumDepth": 38
+    },
+    {
+        "total": 784996000,
+        "depth": 30,
+        "level": 886,
+        "sum": 232228131000,
+        "sumDepth": 38
+    },
+    {
+        "total": 786769000,
+        "depth": 30,
+        "level": 887,
+        "sum": 233014900000,
+        "sumDepth": 38
+    },
+    {
+        "total": 788544000,
+        "depth": 30,
+        "level": 888,
+        "sum": 233803444000,
+        "sumDepth": 38
+    },
+    {
+        "total": 790321000,
+        "depth": 30,
+        "level": 889,
+        "sum": 234593765000,
+        "sumDepth": 38
+    },
+    {
+        "total": 792100000,
+        "depth": 30,
+        "level": 890,
+        "sum": 235385865000,
+        "sumDepth": 38
+    },
+    {
+        "total": 793881000,
+        "depth": 30,
+        "level": 891,
+        "sum": 236179746000,
+        "sumDepth": 38
+    },
+    {
+        "total": 795664000,
+        "depth": 30,
+        "level": 892,
+        "sum": 236975410000,
+        "sumDepth": 38
+    },
+    {
+        "total": 797449000,
+        "depth": 30,
+        "level": 893,
+        "sum": 237772859000,
+        "sumDepth": 38
+    },
+    {
+        "total": 799236000,
+        "depth": 30,
+        "level": 894,
+        "sum": 238572095000,
+        "sumDepth": 38
+    },
+    {
+        "total": 801025000,
+        "depth": 30,
+        "level": 895,
+        "sum": 239373120000,
+        "sumDepth": 38
+    },
+    {
+        "total": 802816000,
+        "depth": 30,
+        "level": 896,
+        "sum": 240175936000,
+        "sumDepth": 38
+    },
+    {
+        "total": 804609000,
+        "depth": 30,
+        "level": 897,
+        "sum": 240980545000,
+        "sumDepth": 38
+    },
+    {
+        "total": 806404000,
+        "depth": 30,
+        "level": 898,
+        "sum": 241786949000,
+        "sumDepth": 38
+    },
+    {
+        "total": 808201000,
+        "depth": 30,
+        "level": 899,
+        "sum": 242595150000,
+        "sumDepth": 38
+    },
+    {
+        "total": 810000000,
+        "depth": 30,
+        "level": 900,
+        "sum": 243405150000,
+        "sumDepth": 38
+    },
+    {
+        "total": 811801000,
+        "depth": 30,
+        "level": 901,
+        "sum": 244216951000,
+        "sumDepth": 38
+    },
+    {
+        "total": 813604000,
+        "depth": 30,
+        "level": 902,
+        "sum": 245030555000,
+        "sumDepth": 38
+    },
+    {
+        "total": 815409000,
+        "depth": 30,
+        "level": 903,
+        "sum": 245845964000,
+        "sumDepth": 38
+    },
+    {
+        "total": 817216000,
+        "depth": 30,
+        "level": 904,
+        "sum": 246663180000,
+        "sumDepth": 38
+    },
+    {
+        "total": 819025000,
+        "depth": 30,
+        "level": 905,
+        "sum": 247482205000,
+        "sumDepth": 38
+    },
+    {
+        "total": 820836000,
+        "depth": 30,
+        "level": 906,
+        "sum": 248303041000,
+        "sumDepth": 38
+    },
+    {
+        "total": 822649000,
+        "depth": 30,
+        "level": 907,
+        "sum": 249125690000,
+        "sumDepth": 38
+    },
+    {
+        "total": 824464000,
+        "depth": 30,
+        "level": 908,
+        "sum": 249950154000,
+        "sumDepth": 38
+    },
+    {
+        "total": 826281000,
+        "depth": 30,
+        "level": 909,
+        "sum": 250776435000,
+        "sumDepth": 38
+    },
+    {
+        "total": 828100000,
+        "depth": 30,
+        "level": 910,
+        "sum": 251604535000,
+        "sumDepth": 38
+    },
+    {
+        "total": 829921000,
+        "depth": 30,
+        "level": 911,
+        "sum": 252434456000,
+        "sumDepth": 38
+    },
+    {
+        "total": 831744000,
+        "depth": 30,
+        "level": 912,
+        "sum": 253266200000,
+        "sumDepth": 38
+    },
+    {
+        "total": 833569000,
+        "depth": 30,
+        "level": 913,
+        "sum": 254099769000,
+        "sumDepth": 38
+    },
+    {
+        "total": 835396000,
+        "depth": 30,
+        "level": 914,
+        "sum": 254935165000,
+        "sumDepth": 38
+    },
+    {
+        "total": 837225000,
+        "depth": 30,
+        "level": 915,
+        "sum": 255772390000,
+        "sumDepth": 38
+    },
+    {
+        "total": 839056000,
+        "depth": 30,
+        "level": 916,
+        "sum": 256611446000,
+        "sumDepth": 38
+    },
+    {
+        "total": 840889000,
+        "depth": 30,
+        "level": 917,
+        "sum": 257452335000,
+        "sumDepth": 38
+    },
+    {
+        "total": 842724000,
+        "depth": 30,
+        "level": 918,
+        "sum": 258295059000,
+        "sumDepth": 38
+    },
+    {
+        "total": 844561000,
+        "depth": 30,
+        "level": 919,
+        "sum": 259139620000,
+        "sumDepth": 38
+    },
+    {
+        "total": 846400000,
+        "depth": 30,
+        "level": 920,
+        "sum": 259986020000,
+        "sumDepth": 38
+    },
+    {
+        "total": 848241000,
+        "depth": 30,
+        "level": 921,
+        "sum": 260834261000,
+        "sumDepth": 38
+    },
+    {
+        "total": 850084000,
+        "depth": 30,
+        "level": 922,
+        "sum": 261684345000,
+        "sumDepth": 38
+    },
+    {
+        "total": 851929000,
+        "depth": 30,
+        "level": 923,
+        "sum": 262536274000,
+        "sumDepth": 38
+    },
+    {
+        "total": 853776000,
+        "depth": 30,
+        "level": 924,
+        "sum": 263390050000,
+        "sumDepth": 38
+    },
+    {
+        "total": 855625000,
+        "depth": 30,
+        "level": 925,
+        "sum": 264245675000,
+        "sumDepth": 38
+    },
+    {
+        "total": 857476000,
+        "depth": 30,
+        "level": 926,
+        "sum": 265103151000,
+        "sumDepth": 38
+    },
+    {
+        "total": 859329000,
+        "depth": 30,
+        "level": 927,
+        "sum": 265962480000,
+        "sumDepth": 38
+    },
+    {
+        "total": 861184000,
+        "depth": 30,
+        "level": 928,
+        "sum": 266823664000,
+        "sumDepth": 38
+    },
+    {
+        "total": 863041000,
+        "depth": 30,
+        "level": 929,
+        "sum": 267686705000,
+        "sumDepth": 38
+    },
+    {
+        "total": 864900000,
+        "depth": 30,
+        "level": 930,
+        "sum": 268551605000,
+        "sumDepth": 38
+    },
+    {
+        "total": 866761000,
+        "depth": 30,
+        "level": 931,
+        "sum": 269418366000,
+        "sumDepth": 38
+    },
+    {
+        "total": 868624000,
+        "depth": 30,
+        "level": 932,
+        "sum": 270286990000,
+        "sumDepth": 38
+    },
+    {
+        "total": 870489000,
+        "depth": 30,
+        "level": 933,
+        "sum": 271157479000,
+        "sumDepth": 38
+    },
+    {
+        "total": 872356000,
+        "depth": 30,
+        "level": 934,
+        "sum": 272029835000,
+        "sumDepth": 38
+    },
+    {
+        "total": 874225000,
+        "depth": 30,
+        "level": 935,
+        "sum": 272904060000,
+        "sumDepth": 38
+    },
+    {
+        "total": 876096000,
+        "depth": 30,
+        "level": 936,
+        "sum": 273780156000,
+        "sumDepth": 38
+    },
+    {
+        "total": 877969000,
+        "depth": 30,
+        "level": 937,
+        "sum": 274658125000,
+        "sumDepth": 38
+    },
+    {
+        "total": 879844000,
+        "depth": 30,
+        "level": 938,
+        "sum": 275537969000,
+        "sumDepth": 39
+    },
+    {
+        "total": 881721000,
+        "depth": 30,
+        "level": 939,
+        "sum": 276419690000,
+        "sumDepth": 39
+    },
+    {
+        "total": 883600000,
+        "depth": 30,
+        "level": 940,
+        "sum": 277303290000,
+        "sumDepth": 39
+    },
+    {
+        "total": 885481000,
+        "depth": 30,
+        "level": 941,
+        "sum": 278188771000,
+        "sumDepth": 39
+    },
+    {
+        "total": 887364000,
+        "depth": 30,
+        "level": 942,
+        "sum": 279076135000,
+        "sumDepth": 39
+    },
+    {
+        "total": 889249000,
+        "depth": 30,
+        "level": 943,
+        "sum": 279965384000,
+        "sumDepth": 39
+    },
+    {
+        "total": 891136000,
+        "depth": 30,
+        "level": 944,
+        "sum": 280856520000,
+        "sumDepth": 39
+    },
+    {
+        "total": 893025000,
+        "depth": 30,
+        "level": 945,
+        "sum": 281749545000,
+        "sumDepth": 39
+    },
+    {
+        "total": 894916000,
+        "depth": 30,
+        "level": 946,
+        "sum": 282644461000,
+        "sumDepth": 39
+    },
+    {
+        "total": 896809000,
+        "depth": 30,
+        "level": 947,
+        "sum": 283541270000,
+        "sumDepth": 39
+    },
+    {
+        "total": 898704000,
+        "depth": 30,
+        "level": 948,
+        "sum": 284439974000,
+        "sumDepth": 39
+    },
+    {
+        "total": 900601000,
+        "depth": 30,
+        "level": 949,
+        "sum": 285340575000,
+        "sumDepth": 39
+    },
+    {
+        "total": 902500000,
+        "depth": 30,
+        "level": 950,
+        "sum": 286243075000,
+        "sumDepth": 39
+    },
+    {
+        "total": 904401000,
+        "depth": 30,
+        "level": 951,
+        "sum": 287147476000,
+        "sumDepth": 39
+    },
+    {
+        "total": 906304000,
+        "depth": 30,
+        "level": 952,
+        "sum": 288053780000,
+        "sumDepth": 39
+    },
+    {
+        "total": 908209000,
+        "depth": 30,
+        "level": 953,
+        "sum": 288961989000,
+        "sumDepth": 39
+    },
+    {
+        "total": 910116000,
+        "depth": 30,
+        "level": 954,
+        "sum": 289872105000,
+        "sumDepth": 39
+    },
+    {
+        "total": 912025000,
+        "depth": 30,
+        "level": 955,
+        "sum": 290784130000,
+        "sumDepth": 39
+    },
+    {
+        "total": 913936000,
+        "depth": 30,
+        "level": 956,
+        "sum": 291698066000,
+        "sumDepth": 39
+    },
+    {
+        "total": 915849000,
+        "depth": 30,
+        "level": 957,
+        "sum": 292613915000,
+        "sumDepth": 39
+    },
+    {
+        "total": 917764000,
+        "depth": 30,
+        "level": 958,
+        "sum": 293531679000,
+        "sumDepth": 39
+    },
+    {
+        "total": 919681000,
+        "depth": 30,
+        "level": 959,
+        "sum": 294451360000,
+        "sumDepth": 39
+    },
+    {
+        "total": 921600000,
+        "depth": 30,
+        "level": 960,
+        "sum": 295372960000,
+        "sumDepth": 39
+    },
+    {
+        "total": 923521000,
+        "depth": 30,
+        "level": 961,
+        "sum": 296296481000,
+        "sumDepth": 39
+    },
+    {
+        "total": 925444000,
+        "depth": 30,
+        "level": 962,
+        "sum": 297221925000,
+        "sumDepth": 39
+    },
+    {
+        "total": 927369000,
+        "depth": 30,
+        "level": 963,
+        "sum": 298149294000,
+        "sumDepth": 39
+    },
+    {
+        "total": 929296000,
+        "depth": 30,
+        "level": 964,
+        "sum": 299078590000,
+        "sumDepth": 39
+    },
+    {
+        "total": 931225000,
+        "depth": 30,
+        "level": 965,
+        "sum": 300009815000,
+        "sumDepth": 39
+    },
+    {
+        "total": 933156000,
+        "depth": 30,
+        "level": 966,
+        "sum": 300942971000,
+        "sumDepth": 39
+    },
+    {
+        "total": 935089000,
+        "depth": 30,
+        "level": 967,
+        "sum": 301878060000,
+        "sumDepth": 39
+    },
+    {
+        "total": 937024000,
+        "depth": 30,
+        "level": 968,
+        "sum": 302815084000,
+        "sumDepth": 39
+    },
+    {
+        "total": 938961000,
+        "depth": 30,
+        "level": 969,
+        "sum": 303754045000,
+        "sumDepth": 39
+    },
+    {
+        "total": 940900000,
+        "depth": 30,
+        "level": 970,
+        "sum": 304694945000,
+        "sumDepth": 39
+    },
+    {
+        "total": 942841000,
+        "depth": 30,
+        "level": 971,
+        "sum": 305637786000,
+        "sumDepth": 39
+    },
+    {
+        "total": 944784000,
+        "depth": 30,
+        "level": 972,
+        "sum": 306582570000,
+        "sumDepth": 39
+    },
+    {
+        "total": 946729000,
+        "depth": 30,
+        "level": 973,
+        "sum": 307529299000,
+        "sumDepth": 39
+    },
+    {
+        "total": 948676000,
+        "depth": 30,
+        "level": 974,
+        "sum": 308477975000,
+        "sumDepth": 39
+    },
+    {
+        "total": 950625000,
+        "depth": 30,
+        "level": 975,
+        "sum": 309428600000,
+        "sumDepth": 39
+    },
+    {
+        "total": 952576000,
+        "depth": 30,
+        "level": 976,
+        "sum": 310381176000,
+        "sumDepth": 39
+    },
+    {
+        "total": 954529000,
+        "depth": 30,
+        "level": 977,
+        "sum": 311335705000,
+        "sumDepth": 39
+    },
+    {
+        "total": 956484000,
+        "depth": 30,
+        "level": 978,
+        "sum": 312292189000,
+        "sumDepth": 39
+    },
+    {
+        "total": 958441000,
+        "depth": 30,
+        "level": 979,
+        "sum": 313250630000,
+        "sumDepth": 39
+    },
+    {
+        "total": 960400000,
+        "depth": 30,
+        "level": 980,
+        "sum": 314211030000,
+        "sumDepth": 39
+    },
+    {
+        "total": 962361000,
+        "depth": 30,
+        "level": 981,
+        "sum": 315173391000,
+        "sumDepth": 39
+    },
+    {
+        "total": 964324000,
+        "depth": 30,
+        "level": 982,
+        "sum": 316137715000,
+        "sumDepth": 39
+    },
+    {
+        "total": 966289000,
+        "depth": 30,
+        "level": 983,
+        "sum": 317104004000,
+        "sumDepth": 39
+    },
+    {
+        "total": 968256000,
+        "depth": 30,
+        "level": 984,
+        "sum": 318072260000,
+        "sumDepth": 39
+    },
+    {
+        "total": 970225000,
+        "depth": 30,
+        "level": 985,
+        "sum": 319042485000,
+        "sumDepth": 39
+    },
+    {
+        "total": 972196000,
+        "depth": 30,
+        "level": 986,
+        "sum": 320014681000,
+        "sumDepth": 39
+    },
+    {
+        "total": 974169000,
+        "depth": 30,
+        "level": 987,
+        "sum": 320988850000,
+        "sumDepth": 39
+    },
+    {
+        "total": 976144000,
+        "depth": 30,
+        "level": 988,
+        "sum": 321964994000,
+        "sumDepth": 39
+    },
+    {
+        "total": 978121000,
+        "depth": 30,
+        "level": 989,
+        "sum": 322943115000,
+        "sumDepth": 39
+    },
+    {
+        "total": 980100000,
+        "depth": 30,
+        "level": 990,
+        "sum": 323923215000,
+        "sumDepth": 39
+    },
+    {
+        "total": 982081000,
+        "depth": 30,
+        "level": 991,
+        "sum": 324905296000,
+        "sumDepth": 39
+    },
+    {
+        "total": 984064000,
+        "depth": 30,
+        "level": 992,
+        "sum": 325889360000,
+        "sumDepth": 39
+    },
+    {
+        "total": 986049000,
+        "depth": 30,
+        "level": 993,
+        "sum": 326875409000,
+        "sumDepth": 39
+    },
+    {
+        "total": 988036000,
+        "depth": 30,
+        "level": 994,
+        "sum": 327863445000,
+        "sumDepth": 39
+    },
+    {
+        "total": 990025000,
+        "depth": 30,
+        "level": 995,
+        "sum": 328853470000,
+        "sumDepth": 39
+    },
+    {
+        "total": 992016000,
+        "depth": 30,
+        "level": 996,
+        "sum": 329845486000,
+        "sumDepth": 39
+    },
+    {
+        "total": 994009000,
+        "depth": 30,
+        "level": 997,
+        "sum": 330839495000,
+        "sumDepth": 39
+    },
+    {
+        "total": 996004000,
+        "depth": 30,
+        "level": 998,
+        "sum": 331835499000,
+        "sumDepth": 39
+    },
+    {
+        "total": 998001000,
+        "depth": 30,
+        "level": 999,
+        "sum": 332833500000,
+        "sumDepth": 39
+    }
+]

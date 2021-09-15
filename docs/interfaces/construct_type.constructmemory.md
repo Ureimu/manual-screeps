@@ -37,13 +37,18 @@ ___
 | :------ | :------ |
 | `constructedWall` |  |
 | `container` |  |
+| `controller` |  |
 | `extension` |  |
 | `extractor` |  |
 | `factory` |  |
+| `invaderCore` |  |
+| `keeperLair` |  |
 | `lab` |  |
 | `link` |  |
 | `nuker` |  |
 | `observer` |  |
+| `portal` |  |
+| `powerBank` |  |
 | `powerSpawn` |  |
 | `rampart` |  |
 | `road` |  |

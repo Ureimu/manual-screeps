@@ -3,7 +3,7 @@ import { ProjectEngine } from "utils/Project/engine";
 import { getSampleData, SampleProject } from "utils/Project/sample";
 import { ProjectNetworkDiagram } from "utils/Project/storage";
 import { DiagramMemory } from "utils/Project/type";
-import { Game, mockConstants } from "./mock";
+import { mockConstants } from "./mock";
 
 mockConstants();
 

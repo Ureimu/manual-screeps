@@ -3,6 +3,7 @@ import { state } from "..";
 import { runningCounter } from "./utils/runningCounter";
 
 function run(creep: Creep): state {
+    if (creep.room.energyCapacityAvailable === creep.room.energyAvailable) return "moving";
     const targets = creep.room.find(FIND_STRUCTURES, {
         // 标明房间内未装满的扩展和出生点
         filter: structure => {

@@ -8,3 +8,7 @@ interface RoomMemory {
 }
 
 interface AIUreiumRoomMemory {}
+
+interface Creep {
+    globalMemory: GlobalCreepMemory;
+}

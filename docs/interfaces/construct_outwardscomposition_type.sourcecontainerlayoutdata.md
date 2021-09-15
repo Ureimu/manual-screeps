@@ -34,7 +34,7 @@ ___
 
 ### pos
 
-• **pos**: RoomPosition
+• **pos**: *string*[]
 
 Inherited from: baseContainerInputData.pos
 

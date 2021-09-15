@@ -54,7 +54,10 @@ function runCreepAction(creep: Creep): void {
     try {
         // if (Game.time % 10 === 0) throw new Error("test Error");
         if (creep.memory.mode === "role") {
-            runCreepByRole(creep);
+            const startCpu = Game.cpu.getUsed();
+            const args = Memory.creepGroups[creep.memory.groupName].arguments;
+            runCreepByRole(creep, args);
+            creep.say(`${((Game.cpu.getUsed() - startCpu) * 100).toFixed(0)}`);
             return;
         }
         if (creep.memory.route && creep.memory.route.name !== "") {
@@ -67,6 +70,7 @@ function runCreepAction(creep: Creep): void {
             //         4
             //     )}  switch:${switchCache.toString()}`
             // );
+            creep.say(`${((Game.cpu.getUsed() - startCpu) * 100).toFixed(0)}`);
             return;
         }
     } catch (e) {

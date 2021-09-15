@@ -12,7 +12,7 @@ export const createCenterCarryGroup: TaskObject<maintainRoomTaskArgs> = {
     working(roomName) {
         const room = Game.rooms[roomName];
         const creepGroupName = `${room.name}CenterCarry`;
-        CreepGroup.create({ creepGroupName, mode: "route" });
+        CreepGroup.create({ creepGroupName, mode: "route", groupArguments: "" });
         for (let index = 0; index < 1; index++) {
             createCreepGroup(room, creepGroupName, index);
         }

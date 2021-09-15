@@ -1,0 +1,30 @@
+import { TaskObject } from "utils/Project";
+import { newRoomTaskArgs } from "../../taskRelation";
+import { CreepGroup } from "frame/creep/group";
+import { SpawnPool } from "frame/spawn/spawnPool";
+
+export const deleteClaimer: TaskObject<newRoomTaskArgs> = {
+    name: "deleteClaimer",
+    description: "deleteClaimer",
+    start(spawnRoomName, claimRoomName) {
+        const claimRoom = Game.rooms[claimRoomName];
+        if (!claimRoom) {
+            return "running";
+        }
+        if(claimRoom.controller?.my) return "end"
+        return "running";
+    },
+    working(spawnRoomName, claimRoomName) {
+        deleteClaimCreep(spawnRoomName, claimRoomName);
+        return "end";
+    }
+};
+
+export function deleteClaimCreep(spawnRoomName: string, claimRoomName: string): void {
+    const creepGroupName = `${spawnRoomName}claim${claimRoomName}`;
+    const creepBodyConfigName = `${spawnRoomName}claim${claimRoomName}`;
+    const creepName = `${spawnRoomName}claim${claimRoomName}`;
+    SpawnPool.deleteCreep({ roomName: spawnRoomName, creepName });
+    CreepGroup.deleteCreepGroup({ creepGroupName });
+    if (Game.creeps[creepName]) Game.creeps[creepName].suicide();
+}

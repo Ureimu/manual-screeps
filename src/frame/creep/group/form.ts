@@ -18,7 +18,8 @@ export class creepGroupForm {
                     options: ["route", "role"].map(value => {
                         return { value, label: value };
                     })
-                }
+                },
+                { name: "groupArguments", label: "creep组参数", type: "input", placeholder: "creep组参数" }
             ],
             {
                 content: "提交",

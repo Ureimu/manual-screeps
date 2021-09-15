@@ -45,7 +45,7 @@
         "@types/sinon": "^5.0.5",
         "@types/sinon-chai": "^3.2.0",
         "@typescript-eslint/eslint-plugin": "^3.10.1",
-        "@typescript-eslint/parser": "^3.7.0",
+        "@typescript-eslint/parser": "^3.10.1",
         "@typescript-eslint/typescript-estree": "^3.7.0",
         "chai": "^4.2.0",
         "eslint": "^6.8.0",
@@ -54,7 +54,7 @@
         "eslint-plugin-import": "^2.22.0",
         "eslint-plugin-prettier": "^3.1.4",
         "lodash": "^3.10.1",
-        "prettier": "2.3.0",
+        "prettier": "^1.9.1",
         "rollup": "^2.6.1",
         "rollup-plugin-clear": "^2.0.7",
         "rollup-plugin-copy": "^3.4.0",
@@ -75,7 +75,9 @@
         "cli-diagram": "^0.3.0",
         "js-base64": "^3.6.0",
         "mocha": "^5.2.0",
+        "prettier-eslint": "^10.1.0",
         "screeps-calculator": "^0.1.11",
+        "screeps-utf15": "^1.0.1",
         "source-map": "~0.6.1",
         "typescript": "^4.2.4"
     }

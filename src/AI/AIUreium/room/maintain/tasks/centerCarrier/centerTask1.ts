@@ -56,7 +56,8 @@ export const centerTask1: TaskObject<maintainRoomTaskArgs> = {
         const route1Name = `${room.name}centerTask1ToLink`;
         const creepGroupName = `${room.name}CenterCarry`;
         const storageFlagName = FlagTools.getName(room.name, "storage", 0);
-        const centerLinkFlagName = centerPos.findInRange(FIND_FLAGS, 1).filter(i => i.name.includes("link"))[0].name;
+        const centerLinkFlagName = centerPos.findInRange(FIND_FLAGS, 1).filter(i => i.name.includes("link"))[0]?.name;
+        if (!centerLinkFlagName) return "running";
         const sourceLinks = getLink(room, "sourceLink");
         const sourceLinkFlagNameList = sourceLinks.map(sourceLink => {
             return sourceLink.pos.lookFor(LOOK_FLAGS)[0].name;

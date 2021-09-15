@@ -19,7 +19,11 @@ export const createOHarvestGroup: TaskObject<outwardsSourceTaskArgs> = {
             roomName,
             readyCondition: "loop"
         });
-        CreepGroup.create({ creepGroupName, mode: "route" });
+        CreepGroup.create({
+            creepGroupName,
+            mode: "route",
+            groupArguments: [roomName, sourceRoomName, sourceName].join(",")
+        });
         CreepGroup.addCreep({ creepName, creepGroupName });
 
         return "end";

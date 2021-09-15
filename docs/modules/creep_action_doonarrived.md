@@ -28,22 +28,26 @@
 | :------ | :------ |
 | `attackAll` | [*CreepAction*](../interfaces/creep_action_doonarrived.creepaction.md) |
 | `build` | [*CreepAction*](../interfaces/creep_action_doonarrived.creepaction.md) |
+| `buildAndRepairOneStructure` | [*CreepAction*](../interfaces/creep_action_doonarrived.creepaction.md) |
 | `buildInRange` | [*CreepAction*](../interfaces/creep_action_doonarrived.creepaction.md) |
 | `fillSpawnAndExtension` | [*CreepAction*](../interfaces/creep_action_doonarrived.creepaction.md) |
 | `fillTower` | [*CreepAction*](../interfaces/creep_action_doonarrived.creepaction.md) |
 | `goTo` | [*CreepAction*](../interfaces/creep_action_doonarrived.creepaction.md) |
 | `harvestSource` | [*CreepAction*](../interfaces/creep_action_doonarrived.creepaction.md) |
+| `keepOnHarvestingMineral` | [*CreepAction*](../interfaces/creep_action_doonarrived.creepaction.md) |
 | `keepOnHarvestingSource` | [*CreepAction*](../interfaces/creep_action_doonarrived.creepaction.md) |
 | `pause` | [*CreepAction*](../interfaces/creep_action_doonarrived.creepaction.md) |
 | `repair` | [*CreepAction*](../interfaces/creep_action_doonarrived.creepaction.md) |
 | `scoutRoom` | [*CreepAction*](../interfaces/creep_action_doonarrived.creepaction.md) |
 | `signController` | [*CreepAction*](../interfaces/creep_action_doonarrived.creepaction.md) |
 | `stayByRoad` | [*CreepAction*](../interfaces/creep_action_doonarrived.creepaction.md) |
+| `transfer` | [*CreepAction*](../interfaces/creep_action_doonarrived.creepaction.md) |
 | `transferEnergy` | [*CreepAction*](../interfaces/creep_action_doonarrived.creepaction.md) |
 | `upgradeController` | [*CreepAction*](../interfaces/creep_action_doonarrived.creepaction.md) |
+| `withdraw` | [*CreepAction*](../interfaces/creep_action_doonarrived.creepaction.md) |
 | `withdrawEnergy` | [*CreepAction*](../interfaces/creep_action_doonarrived.creepaction.md) |
 
-Defined in: src/frame/creep/action/doOnArrived/index.ts:51
+Defined in: src/frame/creep/action/doOnArrived/index.ts:59
 
 ## Functions
 
@@ -60,4 +64,4 @@ Defined in: src/frame/creep/action/doOnArrived/index.ts:51
 
 **Returns:** [*state*](creep_action.md#state)
 
-Defined in: src/frame/creep/action/doOnArrived/index.ts:52
+Defined in: src/frame/creep/action/doOnArrived/index.ts:60

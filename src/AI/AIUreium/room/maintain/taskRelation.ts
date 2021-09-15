@@ -20,7 +20,7 @@ import { centerTask1 } from "./tasks/centerCarrier/centerTask1";
 import { upgradeByLink } from "./tasks/upgrader/upgradeByLink";
 import { harvestToLink } from "./tasks/harvester/harvestToLink";
 import { stopCarrySource } from "./tasks/carrier/stopCarrySource";
-import { startOutwardsSource } from "./tasks/startOutwardsSource";
+import { startOutwardsSourceTask } from "./tasks/startOutwardsSource";
 import { Project, startNodeName } from "utils/Project";
 import { TaskRelation, TaskCollection, DiagramMemory } from "utils/Project/type";
 import { registerObjectDeep } from "utils/profiler";
@@ -28,6 +28,7 @@ import { createMineGroup } from "./tasks/createCreepGroup/createMineGroup";
 import { keepMining } from "./tasks/miner/keepMining";
 import { startCarryMineral } from "./tasks/carrier/startCarryMineral";
 import { centerTask2 } from "./tasks/centerCarrier/centerTask2";
+import { startNewRoomTask } from "./tasks/startNewRoomTask";
 
 const centerLinkHasBuilt = structureHasBuilt("link", "centerLink", 1);
 const sourceLinkHasBuilt = structureHasBuilt("link", "sourceLink", 2);
@@ -68,7 +69,8 @@ const taskRelation = {
     [observerHasBuilt.name]: [buildStructureBySource.name],
     [harvestToLink.name]: [sourceLinkHasBuilt.name, centerTask1.name],
     [stopCarrySource.name]: [harvestToLink.name, carrySource.name],
-    [startOutwardsSource.name]: [createScoutGroup.name],
+    [startOutwardsSourceTask.name]: [createScoutGroup.name],
+    [startNewRoomTask.name]:[createScoutGroup.name],
     [extractorHasBuilt.name]: [storageHasBuilt.name],
     [mineralContainerHasBuilt.name]: [extractorHasBuilt.name],
     [createMineGroup.name]: [mineralContainerHasBuilt.name],
@@ -106,13 +108,14 @@ const taskCollection = registerObjectDeep(
         observerHasBuilt,
         harvestToLink,
         stopCarrySource,
-        startOutwardsSource,
+        startOutwardsSourceTask,
         mineralContainerHasBuilt,
         extractorHasBuilt,
         createMineGroup,
         keepMining,
         startCarryMineral,
-        centerTask2
+        centerTask2,
+        startNewRoomTask
     },
     "maintainRoomProjectTaskCollection"
 );
@@ -133,7 +136,8 @@ export class maintainRoomProject extends Project<maintainRoomTaskArgs, maintainR
         if (!Memory.rooms[this.taskArgs[0]].AIUreium) {
             Memory.rooms[this.taskArgs[0]].AIUreium = {
                 maintainRoom: {},
-                outwardsSource: {}
+                outwardsSource: {},
+                newRoom:{}
             };
         }
         return Memory.rooms?.[this.taskArgs[0]]?.AIUreium?.maintainRoom;

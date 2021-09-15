@@ -29,7 +29,7 @@
 
 Ƭ **conditionState**: ``"jump"`` \| ``"notJump"``
 
-Defined in: src/frame/creep/action/index.ts:49
+Defined in: src/frame/creep/action/index.ts:50
 
 ___
 
@@ -37,13 +37,13 @@ ___
 
 Ƭ **state**: ``"moving"`` \| ``"arrived"`` \| ``"end"`` \| ``"getState"``
 
-Defined in: src/frame/creep/action/index.ts:48
+Defined in: src/frame/creep/action/index.ts:49
 
 ## Properties
 
 ### default
 
-• **default**: (`creep`: Creep) => *void* & { `profilerWrapped`: *boolean* ; `toString`: () => *string*  }
+• **default**: (`creep`: Creep) => *void* \| (...`args`: [creep: Creep]) => *void*
 
 ## Functions
 
@@ -59,7 +59,7 @@ Defined in: src/frame/creep/action/index.ts:48
 
 **Returns:** *void*
 
-Defined in: src/frame/creep/action/index.ts:19
+Defined in: src/frame/creep/action/index.ts:20
 
 ___
 
@@ -69,7 +69,7 @@ ___
 
 **Returns:** *void*
 
-Defined in: src/frame/creep/action/index.ts:27
+Defined in: src/frame/creep/action/index.ts:28
 
 ___
 
@@ -85,4 +85,4 @@ ___
 
 **Returns:** *void*
 
-Defined in: src/frame/creep/action/index.ts:11
+Defined in: src/frame/creep/action/index.ts:12

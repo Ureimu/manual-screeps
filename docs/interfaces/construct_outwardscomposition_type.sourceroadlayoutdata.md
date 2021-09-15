@@ -33,7 +33,7 @@ ___
 
 ### path
 
-• **path**: RoomPosition[]
+• **path**: *string*[]
 
 Inherited from: baseRoadInputData.path
 

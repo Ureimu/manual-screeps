@@ -6,6 +6,8 @@ import { link } from "./structure/link";
 import { registerFN } from "utils/profiler";
 import { maintainOutwardsSource } from "./room/outwardsSource";
 import { terminal } from "./structure/terminal";
+import { allocateNewRoom } from "./mainControl/newRoom";
+import { maintainNewRoom } from "./room/newRoom";
 export const runAi = registerFN((): void => {
     if (!Memory.creepBodyConfig.overalls) {
         CreepBody.createConfig({ creepBodyConfigName: "all" });
@@ -24,5 +26,7 @@ export const runAi = registerFN((): void => {
     if (Game.time % 5 === 0) {
         maintainRoom();
         maintainOutwardsSource();
+        maintainNewRoom()
+        allocateNewRoom()
     }
 }, "runAi");

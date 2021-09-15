@@ -82,7 +82,7 @@ function wrapGetInitMemoryUsedFunction<T extends AnyFunction>(name: string, orig
 function setupProfiler() {
     profilerCache.depth = 0; // reset profilerCache.depth, this needs to be done each tick.
     profilerCache.parentFn = "(tick)";
-    FuncPath.path = ProfilerConsole;
+    new FuncPath().path = ProfilerConsole;
 }
 
 export function wrap(callback: () => void): void {

@@ -4,23 +4,29 @@
 
 ## Table of contents
 
-### Variables
-
-- [autoConstruction](construct_auto.md#autoconstruction)
-
 ### Functions
 
+- [autoConstruction](construct_auto.md#autoconstruction)
 - [callOnStart](construct_auto.md#callonstart)
+- [updateConstruction](construct_auto.md#updateconstruction)
 
-## Variables
+## Functions
 
 ### autoConstruction
 
-• `Const` **autoConstruction**: (`room`: Room) => *void* & { `profilerWrapped`: *boolean* ; `toString`: () => *string*  }
+▸ `Const` **autoConstruction**(`room`: Room): *void*
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `room` | Room |
+
+**Returns:** *void*
 
 Defined in: src/frame/construct/auto.ts:40
 
-## Functions
+___
 
 ### callOnStart
 
@@ -35,3 +41,19 @@ Defined in: src/frame/construct/auto.ts:40
 **Returns:** *void*
 
 Defined in: src/frame/construct/auto.ts:6
+
+___
+
+### updateConstruction
+
+▸ **updateConstruction**(`room`: Room): *void*
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `room` | Room |
+
+**Returns:** *void*
+
+Defined in: src/frame/construct/auto.ts:82

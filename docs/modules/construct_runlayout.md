@@ -12,16 +12,15 @@
 
 ### runLayout
 
-▸ **runLayout**(`room`: Room, `layoutName`: *string*, `layoutFunc`: (`room`: Room) => *void*): *void*
+▸ **runLayout**(`room`: Room, `layoutFunc?`: (`room`: Room) => *void*): *void*
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `room` | Room |
-| `layoutName` | *string* |
-| `layoutFunc` | (`room`: Room) => *void* |
+| `layoutFunc?` | (`room`: Room) => *void* |
 
 **Returns:** *void*
 
-Defined in: src/frame/construct/runLayOut.ts:5
+Defined in: src/frame/construct/runLayOut.ts:9

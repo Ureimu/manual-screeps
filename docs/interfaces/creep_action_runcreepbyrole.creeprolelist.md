@@ -6,4 +6,4 @@
 
 ## Indexable
 
-▪ [name: *string*]: (`creep`: Creep) => *void*
+▪ [name: *string*]: (`creep`: Creep, `args`: *string*[]) => *void*

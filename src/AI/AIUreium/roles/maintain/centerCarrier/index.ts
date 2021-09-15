@@ -1,4 +1,5 @@
 import { capacityRate, resourceLimit } from "AI/AIUreium/mainControl/constants/roomResource";
+import { Constant } from "AI/AIUreium/mainControl/constants/roomTaskControl";
 import { PosStr } from "utils/RoomPositionToStr";
 // 还没有factory时的任务
 let linkState = false;
@@ -33,10 +34,16 @@ export function centerCarrierTask2(creep: Creep): void {
     if (!centerLink) throw new Error("没有centerLink");
 
     // 切换link工作状态
-    if (!linkState && storage.store.energy > resourceLimit.storage.energy.max) {
+    if (
+        !linkState &&
+        storage.store.energy > resourceLimit.storage.energy.max * Constant.controllerLink.energyRate.start
+    ) {
         linkState = true;
     }
-    if (linkState && storage.store.energy < resourceLimit.storage.energy.min) {
+    if (
+        linkState &&
+        storage.store.energy < resourceLimit.storage.energy.min * Constant.controllerLink.energyRate.stop
+    ) {
         linkState = false;
     }
 

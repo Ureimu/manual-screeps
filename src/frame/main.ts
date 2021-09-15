@@ -4,6 +4,7 @@ import { autoConstruction } from "./construct";
 import runCreepAction from "./creep/action";
 import { mountAll } from "./mount";
 import { runSpawnPool, runSpawnQueue } from "./spawn/spawning";
+import { statsEngine } from "./stats";
 import { mapVisualForRoom } from "./visual/mapVisual";
 import { roomVisualize } from "./visual/roomVisual";
 
@@ -31,6 +32,8 @@ export const runFrame = registerFN((): void => {
     Object.values(Game.creeps).forEach(creep => {
         runCreepAction(creep);
     });
+
+    statsEngine.storeData();
 }, "runFrame");
 
 function clearUnusedCreepMemory(): void {

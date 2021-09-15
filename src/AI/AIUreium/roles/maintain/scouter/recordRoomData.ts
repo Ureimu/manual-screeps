@@ -22,7 +22,7 @@ export function recordRoomData(room: Room): void {
                 const flag = source.pos
                     .lookFor(LOOK_FLAGS)
                     .filter(anyFlag => anyFlag.name.includes(`${room.name}source`))[0];
-                const sourceFlagName = flag.name;
+                const sourceFlagName = flag?.name;
                 const spawnName = originRoom.memory.construct.firstSpawnName.name;
                 if (roomSourcesMemory?.[sourceFlagName]?.roomData?.[originRoom.name]?.pathLength) {
                     return;
@@ -48,7 +48,8 @@ export function recordRoomData(room: Room): void {
                         sourceName: sourceFlagName,
                         originRoomName: originRoom.name,
                         pathLength: ret.path.length,
-                        inUse: false
+                        inUse: false,
+                        harvestedEnergyNum: 0
                     };
                 }
                 // console.log(
@@ -80,4 +81,5 @@ export interface OutwardsSourceData {
     pathLength: number;
     path?: string[];
     inUse: boolean;
+    harvestedEnergyNum: number;
 }

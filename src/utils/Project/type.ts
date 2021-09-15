@@ -32,6 +32,12 @@ export interface DiagramMemory {
  * @template T
  */
 export interface TaskObject<T extends unknown[]> {
+    /**
+     * 和对象名称应一致
+     *
+     * @type {string}
+     * @memberof TaskObject
+     */
     name: string;
     description: string;
     start?: (...args: T) => TaskState;

@@ -12,7 +12,7 @@ export const createUpgradeGroup: TaskObject<maintainRoomTaskArgs> = {
     working(roomName) {
         const room = Game.rooms[roomName];
         const creepGroupName = `${room.name}up`;
-        CreepGroup.create({ creepGroupName, mode: "route" });
+        CreepGroup.create({ creepGroupName, mode: "route", groupArguments: "" });
         for (let index = 0; index < 2; index++) {
             addCreep(room, creepGroupName, index);
         }

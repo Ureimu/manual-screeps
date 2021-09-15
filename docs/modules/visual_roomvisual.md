@@ -4,14 +4,22 @@
 
 ## Table of contents
 
-### Variables
+### Functions
 
 - [roomVisualize](visual_roomvisual.md#roomvisualize)
 
-## Variables
+## Functions
 
 ### roomVisualize
 
-• `Const` **roomVisualize**: (`room`: Room) => *void* & { `profilerWrapped`: *boolean* ; `toString`: () => *string*  }
+▸ `Const` **roomVisualize**(`room`: Room): *void*
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `room` | Room |
+
+**Returns:** *void*
 
 Defined in: src/frame/visual/roomVisual/index.ts:7

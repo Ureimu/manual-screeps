@@ -16,4 +16,4 @@
 
 **Returns:** *void*
 
-Defined in: src/frame/mount/mountGlobalFunction.ts:29
+Defined in: src/frame/mount/mountGlobalFunction.ts:30

@@ -1,15 +1,15 @@
 declare global {
     namespace NodeJS {
         interface Global {
-            creepRoleActionList: { [name: string]: (creep: Creep) => void };
+            creepRoleActionList: { [name: string]: (creep: Creep, args: string[]) => void };
         }
     }
 }
-export function runCreepByRole(creep: Creep): void {
-    global.creepRoleActionList[creep.memory.role](creep);
+export function runCreepByRole(creep: Creep, args: string[]): void {
+    global.creepRoleActionList[creep.memory.role](creep, args);
 }
 export interface CreepRoleList {
-    [name: string]: (creep: Creep) => void;
+    [name: string]: (creep: Creep, args: string[]) => void;
 }
 export function registerCreepRole(creepRoleActionList: CreepRoleList): void {
     global.creepRoleActionList = creepRoleActionList;

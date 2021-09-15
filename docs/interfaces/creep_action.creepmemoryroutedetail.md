@@ -18,7 +18,7 @@
 
 • **index**: *number*
 
-Defined in: src/frame/creep/action/index.ts:36
+Defined in: src/frame/creep/action/index.ts:37
 
 ___
 
@@ -26,7 +26,7 @@ ___
 
 • **name**: *string*
 
-Defined in: src/frame/creep/action/index.ts:35
+Defined in: src/frame/creep/action/index.ts:36
 
 ___
 
@@ -34,4 +34,4 @@ ___
 
 • **state**: [*state*](../modules/creep_action.md#state)
 
-Defined in: src/frame/creep/action/index.ts:37
+Defined in: src/frame/creep/action/index.ts:38

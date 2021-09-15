@@ -34,13 +34,14 @@ ___
 
 ### runCreepByRole
 
-▸ **runCreepByRole**(`creep`: Creep): *void*
+▸ **runCreepByRole**(`creep`: Creep, `args`: *string*[]): *void*
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `creep` | Creep |
+| `args` | *string*[] |
 
 **Returns:** *void*
 

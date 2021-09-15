@@ -4,16 +4,24 @@
 
 ## Table of contents
 
-### Variables
+### Functions
 
 - [runSpawnPool](spawn_spawning.md#runspawnpool)
 - [runSpawnQueue](spawn_spawning.md#runspawnqueue)
 
-## Variables
+## Functions
 
 ### runSpawnPool
 
-• `Const` **runSpawnPool**: (`room`: Room) => *void* & { `profilerWrapped`: *boolean* ; `toString`: () => *string*  }
+▸ `Const` **runSpawnPool**(`room`: Room): *void*
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `room` | Room |
+
+**Returns:** *void*
 
 Defined in: src/frame/spawn/spawning/index.ts:84
 
@@ -21,6 +29,14 @@ ___
 
 ### runSpawnQueue
 
-• `Const` **runSpawnQueue**: (`spawn`: *StructureSpawn*) => *void* & { `profilerWrapped`: *boolean* ; `toString`: () => *string*  }
+▸ `Const` **runSpawnQueue**(`spawn`: *StructureSpawn*): *void*
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `spawn` | *StructureSpawn* |
+
+**Returns:** *void*
 
 Defined in: src/frame/spawn/spawning/index.ts:44

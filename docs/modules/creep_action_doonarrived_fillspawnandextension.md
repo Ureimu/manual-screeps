@@ -14,4 +14,4 @@
 
 • `Const` **fillSpawnAndExtension**: [*CreepAction*](../interfaces/creep_action_doonarrived.creepaction.md)
 
-Defined in: src/frame/creep/action/doOnArrived/fillSpawnAndExtension.ts:50
+Defined in: src/frame/creep/action/doOnArrived/fillSpawnAndExtension.ts:51

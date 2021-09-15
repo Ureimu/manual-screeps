@@ -12,4 +12,4 @@
 
 ### default
 
-• **default**: { `alias`: *string* = "profiler"; `exec`: () => *string*  }[]
+• **default**: { `alias`: *string* = "profilerHelp"; `exec`: () => *string*  }[]

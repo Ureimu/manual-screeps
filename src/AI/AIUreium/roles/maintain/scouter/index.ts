@@ -21,7 +21,7 @@ export function scouter(creep: Creep): void {
             creep.moveTo(new RoomPosition(25, 25, scoutRoomName));
         }
     } else {
-        if (creep.room.controller?.my && checkArray(creep.room.memory.construct.freeSpacePosList)) {
+        if (creep.room.controller?.my && checkArray(creep.room.memory?.construct?.freeSpacePosList)) {
             stayByRoad.run(creep);
         }
     }

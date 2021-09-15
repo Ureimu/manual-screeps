@@ -1,13 +1,15 @@
 import { RoomResourceLimit, StructureResourceLimit } from "./type";
 
-export const energyCostPrice = 0.02;
+export const sellLimitRate = 1.2;
+export const buyLimitRate = 0.9;
+export const energyCostPrice = 0.09;
 export const capacityRate = {
     terminalToStorage: TERMINAL_CAPACITY / STORAGE_CAPACITY
 };
 const storageResourceLimit: StructureResourceLimit = {
     energy: {
-        max: 300e3,
-        min: 100e3
+        max: 500e3,
+        min: 400e3
     },
     K: {
         max: 40e3,

@@ -12,13 +12,13 @@ manual-screeps / [Exports](modules.md)
 
 教你如何上手使用该框架。
 
-[教程目录](../tutorial/README.md)
+[教程目录](tutorial/README.md)
 
 ## api 文档
 
 api 文档由 typedoc 自动生成。
 
-[api 文档目录](modules.md)
+[api 文档目录](docs/modules.md)
 
 ## 致谢
 

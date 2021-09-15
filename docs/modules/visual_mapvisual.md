@@ -4,14 +4,22 @@
 
 ## Table of contents
 
-### Variables
+### Functions
 
 - [mapVisualForRoom](visual_mapvisual.md#mapvisualforroom)
 
-## Variables
+## Functions
 
 ### mapVisualForRoom
 
-• `Const` **mapVisualForRoom**: (`room`: Room) => *void* & { `profilerWrapped`: *boolean* ; `toString`: () => *string*  }
+▸ `Const` **mapVisualForRoom**(`room`: Room): *void*
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `room` | Room |
+
+**Returns:** *void*
 
 Defined in: src/frame/visual/mapVisual/index.ts:4

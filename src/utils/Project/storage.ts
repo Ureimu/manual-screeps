@@ -31,15 +31,15 @@ export class ProjectNetworkDiagram {
             end: -1
         }
     };
-    private get startNode() {
+    private getStartNode(time: number) {
         return {
             in: [],
             out: [],
             name: ProjectNetworkDiagram.startNodeName,
             state: "end",
             time: {
-                start: Game.time,
-                end: Game.time
+                start: time,
+                end: time
             }
         } as Node;
     }
@@ -47,7 +47,7 @@ export class ProjectNetworkDiagram {
 
     public constructor(memoryPath: DiagramMemory) {
         if (!memoryPath.diagram) {
-            memoryPath.diagram = { startNode: this.startNode };
+            memoryPath.diagram = { startNode: this.getStartNode(Game.time) };
         }
         this.memoryPath = memoryPath;
         this.diagramDict = memoryPath.diagram;
@@ -151,7 +151,7 @@ export class ProjectNetworkDiagram {
     }
 
     public resetDiagram(): void {
-        this.memoryPath.diagram = { startNode: this.startNode };
+        this.memoryPath.diagram = { startNode: this.getStartNode(Game.time) };
         this.diagramDict = this.memoryPath.diagram;
     }
 

@@ -6,7 +6,7 @@ import creepBodyAlias from "frame/creep/body/help";
 import spawnQueueAlias from "frame/spawn/spawnPool/help";
 import posMaintainerAlias from "frame/flagMaintainer/help";
 import pluginAlias from "frame/plugin/help";
-import uiAlias from "utils/ui/help";
+import uiAlias from "frame/ui/help";
 
 export default _.flatten([
     GlobalAlias,

@@ -2,18 +2,31 @@ import { SpecifiedStructureNameList } from "frame/construct/type";
 import { registerFN } from "utils/profiler";
 import { PosStr } from "utils/RoomPositionToStr";
 import { resourceLimit } from "../mainControl/constants/roomResource";
-
+const linkCache: { [name in SpecifiedStructureNameList<"link">]?: Id<StructureLink>[] } = {};
 export const getLink = registerFN((room: Room, linkName: SpecifiedStructureNameList<"link">): StructureLink[] => {
+    const specifiedLinkCache = linkCache[linkName];
     if (!room.memory.construct.layout) return [];
     const linkPosStrList = room.memory.construct.layout.link?.[linkName]?.posStrList;
     if (!linkPosStrList || !room.memory.construct.construction.link?.[linkName]?.hasBuilt) return [];
-    const linkList = [];
-    for (const linkPosStr of linkPosStrList) {
-        const linkPos = PosStr.getPosFromStr(linkPosStr);
-        const theLink = linkPos.lookFor(LOOK_STRUCTURES).filter(i => i.structureType === "link")[0];
-        if (theLink) linkList.push(theLink as StructureLink);
+    if (!specifiedLinkCache) {
+        const linkList = [];
+        for (const linkPosStr of linkPosStrList) {
+            const linkPos = PosStr.getPosFromStr(linkPosStr);
+            const theLink = linkPos.lookFor(LOOK_STRUCTURES).filter(i => i.structureType === "link")[0];
+            if (theLink) linkList.push(theLink as StructureLink);
+        }
+        linkCache[linkName] = linkList.map(i => i.id);
+        return linkList;
+    } else {
+        const linkList = specifiedLinkCache.map(i => Game.getObjectById(i));
+        if (linkList.some(i => !i) || linkPosStrList.length !== linkList.length) {
+            // 刷新缓存
+            linkCache[linkName] = [];
+            return getLink(room, linkName);
+        } else {
+            return linkList as StructureLink[];
+        }
     }
-    return linkList;
 }, "structure.link.getLink");
 
 const unwrappedLink = {

@@ -182,8 +182,8 @@ export class ErrorMapper {
         }
     }
 
-    public static setErrorSegmentActive(): void {
-        RawMemory.setActiveSegments([this.segmentId]);
+    public static getErrorSegmentId(): number[] {
+        return [this.segmentId];
     }
 
     public static getErrorSegmentMemory(): ErrorSegmentMemory {

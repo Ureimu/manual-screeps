@@ -16,9 +16,9 @@ export class CreepGroup {
      * @returns {string}
      * @memberof creepGroup
      */
-    public static create(args: { creepGroupName: string; mode: CreepGroupMode }): string {
+    public static create(args: { creepGroupName: string; mode: CreepGroupMode; groupArguments: string }): string {
         const { creepGroupName } = args;
-        const { mode } = args;
+        const { mode, groupArguments } = args;
         if (creepGroupName === "") {
             return style(`creep组名称不可以为空`, "error");
         }
@@ -28,7 +28,8 @@ export class CreepGroup {
         Memory.creepGroups[creepGroupName] = {
             mode,
             creepNameList: [],
-            ifShow: false
+            ifShow: false,
+            arguments: groupArguments.split(",")
         };
         return style(`creep组 ${creepGroupName} 创建成功`, "log");
     }

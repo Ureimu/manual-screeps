@@ -50,13 +50,13 @@
 
 **Returns:** *string*
 
-Defined in: src/frame/creep/group/index.ts:43
+Defined in: src/frame/creep/group/index.ts:44
 
 ___
 
 ### create
 
-▸ `Static` **create**(`args`: { `creepGroupName`: *string* ; `mode`: [*CreepGroupMode*](../modules/creep_group_type.md#creepgroupmode)  }): *string*
+▸ `Static` **create**(`args`: { `creepGroupName`: *string* ; `groupArguments`: *string* ; `mode`: [*CreepGroupMode*](../modules/creep_group_type.md#creepgroupmode)  }): *string*
 
 创建creep组。
 
@@ -70,6 +70,7 @@ ___
 | :------ | :------ |
 | `args` | *object* |
 | `args.creepGroupName` | *string* |
+| `args.groupArguments` | *string* |
 | `args.mode` | [*CreepGroupMode*](../modules/creep_group_type.md#creepgroupmode) |
 
 **Returns:** *string*
@@ -98,7 +99,7 @@ ___
 
 **Returns:** *string*
 
-Defined in: src/frame/creep/group/index.ts:252
+Defined in: src/frame/creep/group/index.ts:253
 
 ___
 
@@ -121,7 +122,7 @@ ___
 
 **Returns:** *string*
 
-Defined in: src/frame/creep/group/index.ts:237
+Defined in: src/frame/creep/group/index.ts:238
 
 ___
 
@@ -146,7 +147,7 @@ ___
 
 **Returns:** *string*
 
-Defined in: src/frame/creep/group/index.ts:85
+Defined in: src/frame/creep/group/index.ts:86
 
 ___
 
@@ -172,7 +173,7 @@ ___
 
 **Returns:** *string*
 
-Defined in: src/frame/creep/group/index.ts:132
+Defined in: src/frame/creep/group/index.ts:133
 
 ___
 
@@ -197,4 +198,4 @@ ___
 
 **Returns:** *string*
 
-Defined in: src/frame/creep/group/index.ts:193
+Defined in: src/frame/creep/group/index.ts:194

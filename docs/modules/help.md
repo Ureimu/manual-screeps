@@ -12,4 +12,4 @@
 
 ### default
 
-• **default**: ({ `alias`: *string* ; `exec`: () => Room  } \| { `alias`: *string* = "res"; `exec`: () => *string*  })[]
+• **default**: { `alias`: *string* = "ui"; `exec`: () => *void*  }[]

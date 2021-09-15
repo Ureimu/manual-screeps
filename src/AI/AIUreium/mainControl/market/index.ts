@@ -1,4 +1,4 @@
-import { energyCostPrice, resourceLimit } from "../constants/roomResource";
+import { buyLimitRate, energyCostPrice, resourceLimit, sellLimitRate } from "../constants/roomResource";
 import { Constant } from "../constants/roomTaskControl";
 
 export function runTerminal(terminal: StructureTerminal): void {
@@ -11,8 +11,8 @@ export function runTerminal(terminal: StructureTerminal): void {
         const terminalStoreNum = terminal.store[resourceType];
         const specifiedResourceLimit = limit[resourceType];
         if (!specifiedResourceLimit || !terminalStoreNum) continue;
-        const sellLimit = (specifiedResourceLimit.max - specifiedResourceLimit.min) * 0.5;
-
+        const sellLimit = specifiedResourceLimit.max * sellLimitRate;
+        const buyLimit = specifiedResourceLimit.min * buyLimitRate;
         if (terminalStoreNum > sellLimit) {
             const sellNum = terminalStoreNum - sellLimit;
             const orderList = Game.market.getAllOrders({ type: ORDER_BUY, resourceType }); // 更快
@@ -38,6 +38,33 @@ export function runTerminal(terminal: StructureTerminal): void {
             if (benefitList[0] && benefitList[0].benefit > 0) {
                 const orderToDeal = benefitList[0];
                 Game.market.deal(orderToDeal.id, orderToDeal.amount, terminalRoomName);
+                return;
+            }
+        }
+        if (terminalStoreNum < buyLimit) {
+            const buyNum = buyLimit - terminalStoreNum;
+            const orderList = Game.market.getAllOrders({ type: ORDER_SELL, resourceType }); // 更快
+            let isDealingEnergy = false;
+            if (resourceType === RESOURCE_ENERGY) {
+                isDealingEnergy = true;
+            }
+            const costList = orderList
+                .map(order => {
+                    if (!order.roomName) throw new Error("order 没有 roomName");
+                    let costPricePerUnit = 0;
+                    const dealAmount = order.amount > buyNum ? buyNum : order.amount;
+                    const energyCost = Game.market.calcTransactionCost(dealAmount, order.roomName, terminalRoomName);
+
+                    costPricePerUnit += (energyCost * energyCostPrice) / dealAmount;
+                    // 能量不足
+                    if (energyCost > terminalEnergy) return { id: order.id, amount: dealAmount, cost: 0 };
+                    else return { id: order.id, amount: dealAmount, cost: order.price + costPricePerUnit };
+                })
+                .sort((a, b) => -(b.cost - a.cost));
+            if (costList[0] && costList[0].cost > 0) {
+                const orderToDeal = costList[0];
+                Game.market.deal(orderToDeal.id, orderToDeal.amount, terminalRoomName);
+                return;
             }
         }
     }

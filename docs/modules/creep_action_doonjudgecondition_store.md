@@ -14,4 +14,4 @@
 
 • `Const` **store**: [*CreepCondition*](../interfaces/creep_action_doonjudgecondition.creepcondition.md)
 
-Defined in: src/frame/creep/action/doOnJudgeCondition/store.ts:43
+Defined in: src/frame/creep/action/doOnJudgeCondition/store.ts:44

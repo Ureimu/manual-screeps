@@ -11,5 +11,11 @@ export const loop = ErrorMapper.wrapLoop(() => {
         // if (Game.time % 1000 === 0) throw new Error("test Error");
         runFrame();
         runAi();
+        // const start = Game.cpu.getUsed();
+        // for (let i = 3; i < 12; i++) {
+        //     RawMemory.segments[i] = `${i} ${Game.time}`;
+        //     console.log(RawMemory.segments[i]);
+        // }
+        // console.log(Game.cpu.getUsed() - start);
     });
 });

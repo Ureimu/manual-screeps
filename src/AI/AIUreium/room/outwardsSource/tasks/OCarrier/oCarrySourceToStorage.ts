@@ -29,56 +29,58 @@ export const oCarrySourceToStorage: TaskObject<outwardsSourceTaskArgs> = {
     },
     working(roomName, sourceRoomName, sourceName) {
         const room = Game.rooms[roomName];
-
-        const routeName = `${roomName}oCarrySourceToStorage${sourceName}`;
         const creepGroupName = OCarryGroupCreepName(roomName, sourceName);
-        const storageFlagName = FlagTools.getName(room.name, "storage", 0);
+        CreepGroup.setCreepGroupProperties({ creepGroupName, mode: "role", roleName: "oCarrier1" });
 
-        const creepBody = Memory.creepBodyConfig[creepGroupName][0]?.body;
-        if (!creepBody) throw new Error("creep body 不存在");
-        const carryNum = bodyTools.getNum(creepBody, ["carry"]);
+        // const routeName = `${roomName}oCarrySourceToStorage${sourceName}`;
+        // const creepGroupName = OCarryGroupCreepName(roomName, sourceName);
+        // const storageFlagName = FlagTools.getName(room.name, "storage", 0);
 
-        RoutePlan.create({ routeName, ifLoop: "true" });
-        CreepGroup.setCreepGroupProperties({ creepGroupName, routeName });
-        const containerFlagName = Game.flags[sourceName].pos.findInRange(FIND_FLAGS, 1, {
-            filter: i => i.name.indexOf("container") !== -1 && i.name.indexOf("ConstructionSite") === -1
-        })[0].name;
-        RoutePlan.addCondition({
-            routeName,
-            condition: "creepStore",
-            jumpTo: 3,
-            conditionArgs: `full`
-        });
+        // const creepBody = Memory.creepBodyConfig[creepGroupName][0]?.body;
+        // if (!creepBody) throw new Error("creep body 不存在");
+        // const carryNum = bodyTools.getNum(creepBody, ["carry"]);
 
-        RoutePlan.addMidpoint({
-            routeName,
-            pathMidpointPos: containerFlagName,
-            range: 1,
-            doWhenArrive: "withdrawEnergy",
-            actionArgs: "true"
-        });
+        // RoutePlan.create({ routeName, ifLoop: "true" });
+        // CreepGroup.setCreepGroupProperties({ creepGroupName, routeName });
+        // const containerFlagName = Game.flags[sourceName].pos.findInRange(FIND_FLAGS, 1, {
+        //     filter: i => i.name.indexOf("container") !== -1 && i.name.indexOf("ConstructionSite") === -1
+        // })[0].name;
+        // RoutePlan.addCondition({
+        //     routeName,
+        //     condition: "creepStore",
+        //     jumpTo: 3,
+        //     conditionArgs: `full`
+        // });
 
-        const maxEnergyNum = resourceLimit.storage.energy.max * 0.98;
-        RoutePlan.addCondition({
-            routeName,
-            condition: "store",
-            jumpTo: 2,
-            conditionArgs: `${PosStr.setPosToStr(
-                Game.flags[storageFlagName].pos
-            )},${RESOURCE_ENERGY},>=,${maxEnergyNum}`
-        });
-        RoutePlan.addMidpoint({
-            routeName,
-            pathMidpointPos: storageFlagName,
-            range: 1,
-            doWhenArrive: "transferEnergy"
-        });
-        RoutePlan.addMidpoint({
-            routeName,
-            pathMidpointPos: storageFlagName,
-            range: 50,
-            doWhenArrive: "pause"
-        });
+        // RoutePlan.addMidpoint({
+        //     routeName,
+        //     pathMidpointPos: containerFlagName,
+        //     range: 1,
+        //     doWhenArrive: "withdrawEnergy",
+        //     actionArgs: "true"
+        // });
+
+        // const maxEnergyNum = resourceLimit.storage.energy.max * 0.98;
+        // RoutePlan.addCondition({
+        //     routeName,
+        //     condition: "store",
+        //     jumpTo: 2,
+        //     conditionArgs: `${PosStr.setPosToStr(
+        //         Game.flags[storageFlagName].pos
+        //     )},${RESOURCE_ENERGY},>=,${maxEnergyNum}`
+        // });
+        // RoutePlan.addMidpoint({
+        //     routeName,
+        //     pathMidpointPos: storageFlagName,
+        //     range: 1,
+        //     doWhenArrive: "transferEnergy"
+        // });
+        // RoutePlan.addMidpoint({
+        //     routeName,
+        //     pathMidpointPos: storageFlagName,
+        //     range: 50,
+        //     doWhenArrive: "pause"
+        // });
 
         return "end";
     }

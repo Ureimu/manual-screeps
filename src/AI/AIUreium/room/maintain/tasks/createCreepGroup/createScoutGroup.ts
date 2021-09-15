@@ -12,7 +12,7 @@ export const createScoutGroup: TaskObject<maintainRoomTaskArgs> = {
     working(roomName) {
         const room = Game.rooms[roomName];
         const creepGroupName = `${room.name}s`;
-        CreepGroup.create({ creepGroupName, mode: "role" });
+        CreepGroup.create({ creepGroupName, mode: "role", groupArguments: "" });
         for (let index = 0; index < 2; index++) {
             createCreepGroup(room, creepGroupName, index);
         }

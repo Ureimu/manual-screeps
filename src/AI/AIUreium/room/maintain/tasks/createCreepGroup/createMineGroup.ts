@@ -21,7 +21,7 @@ export const createMineGroup: TaskObject<maintainRoomTaskArgs> = {
             roomName: room.name,
             readyCondition: "loop"
         });
-        CreepGroup.create({ creepGroupName, mode: "route" });
+        CreepGroup.create({ creepGroupName, mode: "route", groupArguments: "" });
         CreepGroup.addCreep({ creepName, creepGroupName });
 
         return "end";

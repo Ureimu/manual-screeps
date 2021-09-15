@@ -1,9 +1,9 @@
 import { TaskObject } from "utils/Project";
 import { maintainRoomTaskArgs } from "../taskRelation";
 
-export const startOutwardsSource: TaskObject<maintainRoomTaskArgs> = {
-    name: "startOutwardsSource",
-    description: "startOutwardsSource",
+export const startOutwardsSourceTask: TaskObject<maintainRoomTaskArgs> = {
+    name: "startOutwardsSourceTask",
+    description: "startOutwardsSourceTask",
     start(roomName) {
         const room = Game.rooms[roomName];
         return "end";

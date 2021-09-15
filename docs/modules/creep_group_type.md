@@ -21,7 +21,7 @@
 
 ### CreepGroupMemory
 
-Ƭ **CreepGroupMemory**<T\>: T *extends* ``"route"`` ? { `creepNameList`: *string*[] ; `ifShow`: *boolean* ; `mode`: ``"route"`` ; `routeName?`: *string*  } : T *extends* ``"role"`` ? { `creepNameList`: *string*[] ; `ifShow`: *boolean* ; `mode`: ``"role"`` ; `roleName?`: *string*  } : *never*
+Ƭ **CreepGroupMemory**<T\>: T *extends* ``"route"`` ? { `arguments`: *string*[] ; `creepNameList`: *string*[] ; `ifShow`: *boolean* ; `mode`: ``"route"`` ; `routeName?`: *string*  } : T *extends* ``"role"`` ? { `arguments`: *string*[] ; `creepNameList`: *string*[] ; `ifShow`: *boolean* ; `mode`: ``"role"`` ; `roleName?`: *string*  } : *never*
 
 #### Type parameters
 
@@ -37,7 +37,7 @@ ___
 
 Ƭ **CreepGroupMode**: ``"route"`` \| ``"role"``
 
-Defined in: src/frame/creep/group/type.ts:38
+Defined in: src/frame/creep/group/type.ts:40
 
 ## Functions
 
@@ -53,4 +53,4 @@ Defined in: src/frame/creep/group/type.ts:38
 
 **Returns:** memory is object
 
-Defined in: src/frame/creep/group/type.ts:40
+Defined in: src/frame/creep/group/type.ts:42

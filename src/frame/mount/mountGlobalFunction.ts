@@ -6,7 +6,7 @@ import { newAcrossTickTask } from "utils/AcrossTick";
 import bodypartsGenerator from "utils/bodypartsGenerator";
 import { createFlattenHelp } from "utils/console/flattenHelp";
 import { createForm } from "utils/console/form";
-import { stats } from "utils/ui";
+import { stats } from "frame/ui";
 
 declare global {
     namespace NodeJS {

@@ -19,7 +19,7 @@
 
 • **description**: *string*
 
-Defined in: src/frame/creep/action/doOnArrived/index.ts:24
+Defined in: src/frame/creep/action/doOnArrived/index.ts:28
 
 ___
 
@@ -27,7 +27,7 @@ ___
 
 • **name**: *string*
 
-Defined in: src/frame/creep/action/doOnArrived/index.ts:23
+Defined in: src/frame/creep/action/doOnArrived/index.ts:27
 
 ___
 
@@ -48,7 +48,7 @@ ___
 
 **Returns:** [*state*](../modules/creep_action.md#state)
 
-Defined in: src/frame/creep/action/doOnArrived/index.ts:22
+Defined in: src/frame/creep/action/doOnArrived/index.ts:26
 
 ___
 
@@ -56,4 +56,4 @@ ___
 
 • **type**: ``"move"`` \| ``"stay"``
 
-Defined in: src/frame/creep/action/doOnArrived/index.ts:25
+Defined in: src/frame/creep/action/doOnArrived/index.ts:29

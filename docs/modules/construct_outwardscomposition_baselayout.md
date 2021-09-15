@@ -6,20 +6,26 @@
 
 ### Functions
 
-- [baseLayout](construct_outwardscomposition_baselayout.md#baselayout)
+- [baseOutwardsLayout](construct_outwardscomposition_baselayout.md#baseoutwardslayout)
 
 ## Functions
 
-### baseLayout
+### baseOutwardsLayout
 
-▸ **baseLayout**(`data`: [*LayoutInputData*](construct_outwardscomposition_type.md#layoutinputdata)): *void*
+▸ **baseOutwardsLayout**<T\>(`data`: [*SpecifiedLayoutInputData*](construct_outwardscomposition_type.md#specifiedlayoutinputdata)<T\>): *void*
+
+#### Type parameters
+
+| Name | Type |
+| :------ | :------ |
+| `T` | ``"outwardsSourceRoad"`` \| ``"passerbyRoad"`` \| ``"sourceContainer"`` \| ``"outwardsMineralRoad"`` \| ``"mineralContainer"`` |
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `data` | [*LayoutInputData*](construct_outwardscomposition_type.md#layoutinputdata) |
+| `data` | [*SpecifiedLayoutInputData*](construct_outwardscomposition_type.md#specifiedlayoutinputdata)<T\> |
 
 **Returns:** *void*
 
-Defined in: src/frame/construct/outwardsComposition/baseLayout.ts:5
+Defined in: src/frame/construct/outwardsComposition/baseLayout.ts:65

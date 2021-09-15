@@ -27,13 +27,13 @@
 
 Overrides: baseRoadInputData.layoutRoomName
 
-Defined in: src/frame/construct/outwardsComposition/type.ts:32
+Defined in: src/frame/construct/outwardsComposition/type.ts:37
 
 ___
 
 ### path
 
-• **path**: RoomPosition[]
+• **path**: *string*[]
 
 Inherited from: baseRoadInputData.path
 
@@ -57,4 +57,4 @@ ___
 
 Overrides: baseRoadInputData.type
 
-Defined in: src/frame/construct/outwardsComposition/type.ts:31
+Defined in: src/frame/construct/outwardsComposition/type.ts:36
