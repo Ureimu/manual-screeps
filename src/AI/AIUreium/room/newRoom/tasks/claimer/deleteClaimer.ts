@@ -11,7 +11,10 @@ export const deleteClaimer: TaskObject<newRoomTaskArgs> = {
         if (!claimRoom) {
             return "running";
         }
-        if(claimRoom.controller?.my) return "end"
+        if (claimRoom.controller?.my) {
+            claimRoom.find(FIND_STRUCTURES).forEach(i => i.destroy());
+            return "end";
+        }
         return "running";
     },
     working(spawnRoomName, claimRoomName) {

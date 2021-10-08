@@ -1,10 +1,10 @@
 import { ProfilerMemory } from "../type";
 
 export class SavePath {
-    public static get path(): ProfilerMemory | undefined {
+    public get path(): ProfilerMemory | undefined {
         return Memory.profiler;
     }
-    public static set path(profilerMemory: ProfilerMemory | undefined) {
+    public set path(profilerMemory: ProfilerMemory | undefined) {
         Memory.profiler = profilerMemory;
     }
 }

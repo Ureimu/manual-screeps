@@ -8,14 +8,23 @@ import { ErrorMapper } from "utils/ErrorMapper";
 import { AcrossTickMemory, AcrossTickReturnCode } from "utils/AcrossTick/type";
 import { statsEngine } from "frame/stats";
 import loader from "utils/Project/loader";
+import { SegmentManager } from "utils/SegmentManager/SegmentManager";
+import { waitThenLog } from "utils/AcrossTick/utils";
 const segmentsCache: { [id: number]: string } = {};
-const debugging=false
+const debugging = false;
 function getStats(task: AcrossTickMemory): AcrossTickReturnCode {
+    const inactiveId = statsEngine.getSegmentIdList().find(id => !SegmentManager.isActive(id));
+    if (inactiveId) {
+        console.log(`未active id:${inactiveId}`);
+        return "finish";
+    }
+    const seriesData = statsEngine.readData() as unknown as FrameStats<number[]> & {
+        timeStamp: SingleData<number[]>;
+        gameTime: SingleData<number[]>;
+    };
+    // waitThenLog(5, `seriesData: \n${JSON.stringify(seriesData, null, 4)}`);
     const data: OriginScreepsData = {
-        timeSeriesData: statsEngine.readData() as unknown as FrameStats<number[]> & {
-            timeStamp: SingleData<number[]>;
-            gameTime: SingleData<number[]>;
-        },
+        timeSeriesData: seriesData,
         userData: {
             name: Object.values(Game.spawns)[0].owner.username,
             gcl: Game.gcl,
@@ -79,7 +88,7 @@ function getStats(task: AcrossTickMemory): AcrossTickReturnCode {
             };
         }
     });
-    const dataHere=  `<script>
+    const dataHere = `<script>
     const sendMemoryInfo = ({ source }) => {
         removeEventListener('message', sendMemoryInfo);
         source.postMessage("${Base64.encodeURI(JSON.stringify(data))}", '*')
@@ -90,21 +99,21 @@ function getStats(task: AcrossTickMemory): AcrossTickReturnCode {
     setTimeout(function () {
         $(".console-controls .md-button:eq(1)").trigger('click');
     });
-<\/script>`.replace(/((\s\s)|\n)/g, "")
+<\/script>`.replace(/((\s\s)|\n)/g, "");
 
-
-    if(debugging){
-        loader.download(`<html>${dataHere}</html>` ,"log.html")
-    }else{
-        console.log(dataHere)
+    if (debugging) {
+        loader.download(`<html>${_.escape(dataHere)}</html>`, "log.html");
+    } else {
+        console.log(dataHere);
     }
     return "finish";
 }
 
 export function stats(): void {
-    const idList = ([] as number[]).concat(ErrorMapper.getErrorSegmentId(), statsEngine.getSegmentIdList());
+    const idList = ([] as number[]).concat(statsEngine.getSegmentIdList(), ErrorMapper.getErrorSegmentId());
     // TODO 当idList的长度大于十的时候，需要依次取出所有数据放入全局cache再打开ui。
-    RawMemory.setActiveSegments(idList);
+    const addedList = SegmentManager.addId(idList);
+    // waitThenLog(5, `try active: ${idList.toString()}, success: ${addedList.toString()}`);
     if (!global.AcrossTickTaskFunction.getStats) {
         AcrossTick.mountTaskFunction({ taskName: "getStats" }, getStats);
     }

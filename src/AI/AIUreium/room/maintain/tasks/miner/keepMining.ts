@@ -18,7 +18,7 @@ export const keepMining: TaskObject<maintainRoomTaskArgs> = {
                 typeList: FlagMaintainer.getTypeList(["container", "containerConstructionSite", "source"])
             });
         }
-        if (room.memory.construct.construction.container?.mineralContainer?.hasBuilt) {
+        if (global.roomMemory[room.name].construction?.container?.mineralContainer?.hasBuilt) {
             return "end";
         }
         return "running";
@@ -35,8 +35,8 @@ export const keepMining: TaskObject<maintainRoomTaskArgs> = {
         const creepGroupName = MineGroupName(room.name);
         const containerFlagName = Game.flags[mineralFlagName].pos.findInRange(FIND_FLAGS, 1, {
             filter: i => i.name.indexOf("container") !== -1 && i.name.indexOf("ConstructionSite") === -1
-        })[0].name;
-
+        })[0]?.name;
+        if (!containerFlagName) return "running";
         RoutePlan.create({ routeName, ifLoop: "true" });
         RoutePlan.addMidpoint({
             routeName,

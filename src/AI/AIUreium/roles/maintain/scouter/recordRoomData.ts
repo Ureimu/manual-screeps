@@ -1,4 +1,4 @@
-import { getCostMatrix } from "frame/construct/composition/gridLayout/costMatrix";
+import { getCostMatrix } from "frame/construct/utils/costMatrix";
 import { FlagMaintainer } from "frame/flagMaintainer";
 import { FlagTools } from "frame/flagMaintainer/tools";
 import { PosStr } from "utils/RoomPositionToStr";
@@ -23,7 +23,8 @@ export function recordRoomData(room: Room): void {
                     .lookFor(LOOK_FLAGS)
                     .filter(anyFlag => anyFlag.name.includes(`${room.name}source`))[0];
                 const sourceFlagName = flag?.name;
-                const spawnName = originRoom.memory.construct.firstSpawnName.name;
+                const spawnName = originRoom.memory.construct.firstSpawnName?.name;
+                if (!spawnName) return;
                 if (roomSourcesMemory?.[sourceFlagName]?.roomData?.[originRoom.name]?.pathLength) {
                     return;
                 }

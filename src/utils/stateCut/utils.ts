@@ -21,7 +21,7 @@ export function stateCut<T>(
 
     conditionArgs: T[],
     stateIndex: number,
-    onStateChange: (name: string, state: string | number, description: string) => void
+    onStateChange: (name: string, stateHere: string | number, description: string) => void
 ): number | string {
     while (stateMemory.length <= stateIndex) {
         stateMemory.push("startState");

@@ -2,13 +2,14 @@ import { newAcrossTickTask } from "utils/AcrossTick";
 import loader from "utils/Project/loader";
 import { loadPlugin } from "./tools/loader";
 import { consoleStyle } from "frame/console/style";
+import { SegmentManager } from "utils/SegmentManager/SegmentManager";
 
 const style = consoleStyle("plugin");
 
 export const pluginCommit = {
     loadPlugin: (args: { segmentName: string }): string => {
         const { segmentName } = args;
-        RawMemory.setActiveSegments([Number(segmentName)]);
+        SegmentManager.addId([Number(segmentName)]);
         newAcrossTickTask(
             {
                 taskName: "loadPlugin",

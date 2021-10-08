@@ -19,5 +19,5 @@ export function setRoleForCreep(args: { roleName: string; creepName: string }): 
     const creepMemory = Memory.creeps[creepName];
     creepMemory.role = roleName;
     creepMemory.mode = "role";
-    console.log(`设置creep ${creepName} 的role为${roleName}完成`);
+    // console.log(`设置creep ${creepName} 的role为${roleName}完成`);
 }

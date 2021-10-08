@@ -17,8 +17,8 @@ function defend(room: Room) {
             filter: {
                 structureType: STRUCTURE_TOWER
             }
-        }) as StructureTower[];
-        towers.forEach(singleTower => singleTower.attack(hostiles[0]));
+        });
+        towers.forEach(singleTower => (singleTower as StructureTower).attack(hostiles[0]));
 
         if (
             hostiles.some(
@@ -45,12 +45,12 @@ function repair(room: Room, hitsMin: number) {
         filter: {
             structureType: STRUCTURE_TOWER
         }
-    }) as StructureTower[];
+    });
     const targets = room.find(FIND_STRUCTURES, {
         filter: object => object.hits < object.hitsMax && object.hits < hitsMin
     });
     targets.sort((a, b) => a.hits - b.hits);
     if (targets.length > 0) {
-        towers.forEach(singleTower => singleTower.repair(targets[0]));
+        towers.forEach(singleTower => (singleTower as StructureTower).repair(targets[0]));
     }
 }

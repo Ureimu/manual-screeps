@@ -1,5 +1,7 @@
 import { runLayout } from "frame/construct";
 import { baseOutwardsLayout } from "frame/construct/outwardsComposition/baseLayout";
+import { getStructureMemory } from "frame/construct/utils";
+import { getCostMatrix } from "frame/construct/utils/costMatrix";
 import { CreepGroup } from "frame/creep/group";
 import { RoutePlan } from "frame/creep/routePlan";
 import { FlagMaintainer } from "frame/flagMaintainer";
@@ -20,13 +22,22 @@ export const oBuildSourceContainer: TaskObject<outwardsSourceTaskArgs> = {
 
         if (!roomSourcesMemory) return "running";
         const sourceData = roomSourcesMemory[sourceName].roomData[roomName];
-        if (!sourceData.path) throw new Error("sourceData.path not exist");
+        if (!sourceData.path) {
+            const spawnName = room.memory.construct.firstSpawnName?.name;
+            if (!spawnName) return "running";
+            const ret = PathFinder.search(
+                Game.spawns[spawnName].pos,
+                { pos: Game.flags[sourceData.sourceName].pos, range: 1 },
+                { maxOps: 1000 * 50, roomCallback: getCostMatrix }
+            );
+            sourceData.path = ret.path.map(pos => PosStr.setPosToStr(pos));
+        }
         if (!sourceRoom) return "running";
         baseOutwardsLayout({
             type: "sourceContainer",
             structureType: "container",
             sourceName,
-            pos: [sourceData.path[sourceData.pathLength - 1]],
+            requireData: [[sourceData.path[sourceData.path.length - 1], 0, 0]],
             layoutRoomName: sourceRoomName
         });
         runLayout(sourceRoom);
@@ -35,10 +46,9 @@ export const oBuildSourceContainer: TaskObject<outwardsSourceTaskArgs> = {
             typeList: FlagMaintainer.getTypeList(["container", "containerConstructionSite", "source"])
         });
         if (
-            (room.memory.construct.construction.container?.sourceContainer?.hasPutSites &&
-                Game.flags[sourceName].pos.findInRange(FIND_FLAGS, 1, {
-                    filter: i => i.name.indexOf("containerConstructionSite") !== -1
-                })[0]?.name) ||
+            Game.flags[sourceName].pos.findInRange(FIND_FLAGS, 1, {
+                filter: i => i.name.indexOf("containerConstructionSite") !== -1
+            })[0]?.name ||
             Game.flags[sourceName].pos.findInRange(FIND_FLAGS, 1, {
                 filter: i => i.name.indexOf("containerConstructionSite") === -1 && i.name.indexOf("container") !== -1
             })[0]?.name
@@ -50,7 +60,7 @@ export const oBuildSourceContainer: TaskObject<outwardsSourceTaskArgs> = {
     working(roomName, sourceRoomName, sourceName) {
         const sourceRoom = Game.rooms[sourceRoomName];
         if (!sourceRoom) return "running";
-        if (sourceRoom.memory.construct.construction.container?.sourceContainer?.hasBuilt) {
+        if (getStructureMemory(sourceRoom.name, "container", "sourceContainer")?.hasBuilt) {
             return "end";
         }
         FlagMaintainer.refresh({

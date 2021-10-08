@@ -27,7 +27,7 @@ export function chooseSource(mainRoom: Room): void {
     }
     const status = mainRoom.memory.status;
     if (!status.outwardsSource) {
-        status.outwardsSource = false;
+        status.outwardsSource = Constant.outwardsSource.defaultStatus;
     }
 
     if (!storeEnergy) return;
@@ -60,16 +60,14 @@ export function chooseSource(mainRoom: Room): void {
     Object.entries(Memory.rooms).forEach(roomData => {
         const [roomName, roomMemory] = roomData;
         if (!roomMemory.sources) return; // 没有memory直接return
-        const isControllerRoom = /(^[WE]\d*[1-9]+[NS]\d*[1-3|7-9]+$)|(^[WE]\d*[1-3|7-9]+[NS]\d*[1-9]+$)/.test(
-            roomName
-        );
-        if(!isControllerRoom)return;
+        const isControllerRoom = /(^[WE]\d*[1-9]+[NS]\d*[1-3|7-9]+$)|(^[WE]\d*[1-3|7-9]+[NS]\d*[1-9]+$)/.test(roomName);
+        if (!isControllerRoom) return;
         Object.entries(roomMemory.sources).forEach(sourceDataEntry => {
             const [sourceName, originRoomToSourceData] = sourceDataEntry;
             if (originRoomToSourceData.inUse) {
                 if (originRoomToSourceData.originRoomName === mainRoom.name) {
                     sourceNum = sourceNum - 1; // 已经有外矿在使用了则减一
-                    return
+                    return;
                 } else if (originRoomToSourceData.originRoomName !== mainRoom.name) {
                     return; // 外矿被别的房间用了直接return
                 }
@@ -86,10 +84,14 @@ export function chooseSource(mainRoom: Room): void {
             });
         });
     });
-    const availableSourceLength= Object.keys(chosenSourceDataList).length
-    debug(`sourceData:availableSourceListLength: ${availableSourceLength}, ${Object.keys(chosenSourceDataList)} `);
-    const startTime = mainRoom.memory.AIUreium?.newRoomData?.startTime
-    if(startTime &&Game.time-startTime<10000){
+    const availableSourceLength = Object.keys(chosenSourceDataList).length;
+    debug(
+        `sourceData:availableSourceListLength: ${availableSourceLength}, ${Object.keys(
+            chosenSourceDataList
+        ).toString()} `
+    );
+    const startTime = mainRoom.memory.AIUreium?.newRoomData?.startTime;
+    if (startTime && Game.time - startTime < 10000) {
         if (Object.keys(chosenSourceDataList).length < sourceNum) return;
     }
 
@@ -98,10 +100,10 @@ export function chooseSource(mainRoom: Room): void {
     // 添加符合条件的外矿
     while (index < sourceNum) {
         const sourceData = sortedSourceDataList[index];
-        if(sourceData){
+        if (sourceData && !sourceData.inUse) {
             debug(`sourceData: ${sourceData.sourceName} start outwardsSource`);
             sourceData.inUse = true;
-            startOutwardsSource(sourceData)
+            startOutwardsSource(sourceData);
         }
         index++;
     }
@@ -110,18 +112,22 @@ export function chooseSource(mainRoom: Room): void {
     index = sourceNum;
     while (index < sortedSourceDataList.length) {
         const sourceData = sortedSourceDataList[index];
+        if (sourceData && sourceData.inUse) {
+            debug(
+                `sourceData: ${sourceData.sourceName} stop outwardsSource index:${index}<${sortedSourceDataList.length}`
+            );
+            sourceData.inUse = false;
 
-        debug(`sourceData: ${sourceData.sourceName} stop outwardsSource index:${index}<${sortedSourceDataList.length}`);
-        sourceData.inUse = false;
-        const sourcesMemoryData = Memory.rooms[sourceData.sourceRoomName].sources;
-        if (!sourcesMemoryData) return;
-        sourcesMemoryData[sourceData.sourceName].inUse = false;
-        sourcesMemoryData[sourceData.sourceName].originRoomName = undefined;
-        delete sourceData.path;
-        if (!mainRoom.memory.AIUreium.outwardsSource[sourceData.sourceRoomName]) {
-            mainRoom.memory.AIUreium.outwardsSource[sourceData.sourceRoomName] = {};
+            const sourcesMemoryData = Memory.rooms[sourceData.sourceRoomName].sources;
+            if (!sourcesMemoryData) return;
+            sourcesMemoryData[sourceData.sourceName].inUse = false;
+            sourcesMemoryData[sourceData.sourceName].originRoomName = undefined;
+            delete sourceData.path;
+            if (!mainRoom.memory.AIUreium.outwardsSource[sourceData.sourceRoomName]) {
+                mainRoom.memory.AIUreium.outwardsSource[sourceData.sourceRoomName] = {};
+            }
+            stopOutwardsSource(sourceData.originRoomName, sourceData.sourceRoomName, sourceData.sourceName);
         }
-        stopOutwardsSource(sourceData.originRoomName, sourceData.sourceRoomName, sourceData.sourceName);
         index++;
     }
 }

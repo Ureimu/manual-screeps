@@ -1,19 +1,23 @@
+import { consoleStyle, LogLevel } from "frame/console/style";
 import { buyLimitRate, energyCostPrice, resourceLimit, sellLimitRate } from "../constants/roomResource";
 import { Constant } from "../constants/roomTaskControl";
-
+const debug = (message: string, level: LogLevel) =>
+    level === "error" ? console.log(consoleStyle("terminal")(message, level)) : void 0;
 export function runTerminal(terminal: StructureTerminal): void {
     const { market } = Constant;
     if (Game.time % market.sellRate !== 0) return;
+    debug(`terminal runs`, "info");
     const terminalRoomName = terminal.room.name;
     const limit = resourceLimit.terminal;
     const terminalEnergy = terminal.store[RESOURCE_ENERGY];
     for (const resourceType of RESOURCES_ALL) {
-        const terminalStoreNum = terminal.store[resourceType];
+        const terminalStoreNum = terminal.store[resourceType] ?? 0;
         const specifiedResourceLimit = limit[resourceType];
-        if (!specifiedResourceLimit || !terminalStoreNum) continue;
+        if (!specifiedResourceLimit) continue;
         const sellLimit = specifiedResourceLimit.max * sellLimitRate;
         const buyLimit = specifiedResourceLimit.min * buyLimitRate;
         if (terminalStoreNum > sellLimit) {
+            debug(`${resourceType} overNum:${terminalStoreNum - buyLimit}`, "info");
             const sellNum = terminalStoreNum - sellLimit;
             const orderList = Game.market.getAllOrders({ type: ORDER_BUY, resourceType }); // 更快
             let isDealingEnergy = false;
@@ -38,10 +42,12 @@ export function runTerminal(terminal: StructureTerminal): void {
             if (benefitList[0] && benefitList[0].benefit > 0) {
                 const orderToDeal = benefitList[0];
                 Game.market.deal(orderToDeal.id, orderToDeal.amount, terminalRoomName);
+                debug(`sell ${resourceType},amount: ${orderToDeal.amount}`, "info");
                 return;
             }
         }
         if (terminalStoreNum < buyLimit) {
+            debug(`${resourceType} requireNum:${buyLimit - terminalStoreNum}`, "info");
             const buyNum = buyLimit - terminalStoreNum;
             const orderList = Game.market.getAllOrders({ type: ORDER_SELL, resourceType }); // 更快
             let isDealingEnergy = false;
@@ -60,10 +66,11 @@ export function runTerminal(terminal: StructureTerminal): void {
                     if (energyCost > terminalEnergy) return { id: order.id, amount: dealAmount, cost: 0 };
                     else return { id: order.id, amount: dealAmount, cost: order.price + costPricePerUnit };
                 })
-                .sort((a, b) => -(b.cost - a.cost));
+                .sort((a, b) => a.cost - b.cost);
             if (costList[0] && costList[0].cost > 0) {
                 const orderToDeal = costList[0];
                 Game.market.deal(orderToDeal.id, orderToDeal.amount, terminalRoomName);
+                debug(`buy ${resourceType},amount: ${orderToDeal.amount}`, "info");
                 return;
             }
         }

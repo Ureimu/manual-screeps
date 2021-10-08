@@ -1,111 +1,114 @@
 import { consoleStyle, LogLevel } from "frame/console/style";
-import { StructureInf, formedLayout } from "frame/construct/type";
+import {
+    StructureInf,
+    ConstructionMemory,
+    SpecifiedLayoutData,
+    LayoutDataNode,
+    LayoutRequireList,
+    FullSpecifiedStructureMemory,
+    SpecifiedStructureNameList,
+    SpecifiedStructureInf
+} from "frame/construct/type";
 import { PosStr } from "utils/RoomPositionToStr";
-import { gridLayoutBuildNumberLimit } from "./composition/gridLayout";
+import { getLayoutFromSegment } from "./getLayoutFromSegment";
+import { getTotalSiteNum } from "./utils/getTotalSiteNum";
 
 const debugMode = false;
-const style = consoleStyle("RunLayout");
-const debug = (str: string, level: LogLevel = "log") => (debugMode ? console.log(style(str, level)) : void 0);
-export function runLayout(room: Room, layoutFunc?: (room: Room) => void): void {
-    if (layoutFunc && !room.memory.construct.firstSpawnName) return;
-    const layout = room.memory.construct.layout;
-    if (!layout && layoutFunc) {
-        layoutFunc(room);
-    }
-    if (!layout) return;
-    let totalSitesNum = room.find(FIND_CONSTRUCTION_SITES).length;
-    Object.entries(layout).forEach(entry => {
-        const constructionName = entry[0] as BuildableStructureConstant;
-        const construction = entry[1];
-        for (const specifiedName in construction) {
-            let levelToBuild = 0;
-            const specifiedConstruction = construction[specifiedName as keyof typeof construction] as {
-                levelToBuild?: number;
-            };
-            if (typeof specifiedConstruction.levelToBuild !== "undefined") {
-                levelToBuild = specifiedConstruction.levelToBuild;
-            }
-            const level = room.controller?.level ?? 0;
-            const buildNumberLimit = levelToBuild <= level ? gridLayoutBuildNumberLimit[constructionName][level] : 0;
-            const posStrList = (
-                construction[specifiedName as keyof typeof construction] as {
-                    posStrList?: string[];
-                }
-            ).posStrList;
-            if (!posStrList) {
-                debug(`${specifiedName} posStrList不存在,跳过`);
-                continue;
-            }
-            if (buildNumberLimit > 0) {
-                totalSitesNum += putConstructionSites(
-                    room,
-                    posStrList,
-                    specifiedName,
-                    constructionName,
-                    buildNumberLimit,
-                    totalSitesNum
-                );
-            }
-            if (totalSitesNum >= 100) {
-                break;
-            }
+const debug = (str: string, level: LogLevel = "log") =>
+    debugMode ? console.log(consoleStyle("RunLayout")(str, level)) : void 0;
+const debugM = (str: string, level: LogLevel = "log") =>
+    debugMode ? console.log(consoleStyle("getAllSpecifiedTypeMemory")(str, level)) : void 0;
+export function runLayout(room: Room): void {
+    debug(room.name);
+    const construct = room.memory.construct;
+    if (!construct.layout) {
+        debug(`尝试获取layout ${Game.time}`);
+        const cacheLayoutData = getLayoutFromSegment(room.name);
+        if (cacheLayoutData) {
+            debug("获取layout完成");
+            construct.layout = cacheLayoutData.layout;
+            construct.centerPos = cacheLayoutData.centerPos;
+            construct.freeSpacePosList = cacheLayoutData.freeSpacePosList;
         }
+    }
+    if (!construct.layout) return;
+    let totalSitesNum = getTotalSiteNum();
+    Object.entries(construct.layout).some(entry => {
+        const constructionName = entry[0] as BuildableStructureConstant;
+
+        const specifiedLayout = entry[1];
+
+        if (!specifiedLayout) return;
+        const level = room.controller?.level ?? 0;
+        const layoutStructureList = Object.values(specifiedLayout)
+            .reduce((p, n) => {
+                p.push(...n.requireList);
+                return p;
+            }, [] as LayoutRequireList)
+            .filter(i => i[1] <= level)
+            .sort((a, b) => b[2] - a[2]);
+
+        const buildNumberLimit = CONTROLLER_STRUCTURES[constructionName][level];
+        const requireList = layoutStructureList;
+        if (!requireList) {
+            debug(`${constructionName} posStrList不存在,跳过`);
+            return false;
+        }
+
+        if (buildNumberLimit > 0) {
+            totalSitesNum = putConstructionSites(room, requireList, constructionName, totalSitesNum);
+        }
+        // 下面这一行注释掉了，因为刷新逻辑也在这个函数执行
+        // if (totalSitesNum >= MAX_CONSTRUCTION_SITES) {
+        //     return true;
+        // }
+        return false;
     });
+    if (!construct.layout || !construct.construction) return;
+    if (!global.roomMemory) global.roomMemory = {};
+    if (!global.roomMemory[room.name]) global.roomMemory[room.name] = {};
+    global.roomMemory[room.name].construction = getAllSpecifiedTypeMemory(room);
 }
 
-function initConstructionMemory(room: Room, name: string, structureType: BuildableStructureConstant): void {
-    const construction = room.memory.construct.construction;
-    if (!construction[structureType]) {
-        construction[structureType] = {};
+declare global {
+    interface GlobalRoomMemory {
+        construction?: FullSpecifiedStructureMemory;
     }
-    const specifiedConstruction = construction[structureType] as {
-        [name: string]: StructureInf<typeof structureType>;
-    };
-    if (!specifiedConstruction[name]) {
-        specifiedConstruction[name] = {
-            sitePosList: {},
+}
+
+function initConstructionMemory<T extends StructureConstant>(room: Room, structureType: T): void {
+    const construction = room.memory.construct.construction;
+    const typedConstruction = construction[structureType];
+    if (!typedConstruction) {
+        (construction[structureType] as unknown as StructureInf<T>) = {
+            siteList: [],
             hasPutSites: false,
             hasBuilt: false,
             type: structureType,
-            num: 0,
-            memory: {}
+            structureList: []
         };
     }
 }
 
 function putConstructionSites<T extends BuildableStructureConstant>(
     room: Room,
-    posStrList: string[],
-    name: string,
+    layoutRequireList: LayoutRequireList,
     structureType: T,
-    buildNumberLimit: number,
     totalSitesNum: number
 ): number {
-    initConstructionMemory(room, name, structureType);
+    initConstructionMemory(room, structureType);
     const construction = room.memory.construct.construction;
-    const specifiedConstruction = construction[structureType];
-    if (specifiedConstruction?.[name]?.hasPutSites === true) return 0;
-    if (buildNumberLimit === 0) return 0;
-    const listC = [];
-    const posList: RoomPosition[] = [];
-    posStrList.forEach(posStr => {
-        if (!posStr) {
-            debug(`${structureType} posStr不存在,跳过`);
-            return;
-        }
-        posList.push(PosStr.getPosFromStr(posStr));
-    });
-
-    const constructionTypeMemory = specifiedConstruction as {
-        [name: string]: StructureInf<typeof structureType>;
-    };
-    debug(JSON.stringify(constructionTypeMemory));
-    const structures: {
-        structureType: string;
-        pos: RoomPosition;
-        destroy?: () => number;
-        remove?: () => number;
-    }[] = room.find(FIND_STRUCTURES, {
+    const layout = room.memory.construct.layout;
+    if (!layout || !construction) return 0;
+    const specifiedConstruction = construction[structureType] as Exclude<ConstructionMemory[T], undefined>;
+    const specifiedLayout = layout[structureType] as Exclude<SpecifiedLayoutData<T>, undefined>;
+    if (!specifiedConstruction) return 0;
+    if (!specifiedLayout) return 0;
+    if (specifiedConstruction?.hasPutSites === true && specifiedConstruction?.hasBuilt === true) return 0;
+    const constructionTypeMemory = specifiedConstruction;
+    if (!constructionTypeMemory) throw new Error("no constructionTypeMemory");
+    // debug(JSON.stringify(constructionTypeMemory, null, 4));
+    const structures = room.find(FIND_STRUCTURES, {
         filter: structure => {
             return structure.structureType === structureType;
         }
@@ -115,97 +118,277 @@ function putConstructionSites<T extends BuildableStructureConstant>(
             return constructionSite.structureType === structureType;
         }
     });
-    const constructionData = specifiedConstruction?.[name];
 
-    if (posList.length > 0) debug(`放置工地 ${name}`);
-    for (let i = 0; i < posList.length; i++) {
-        const conditionFlagList = {
-            isInMemoryPosList: false,
-            isExistUnregisteredStructure: false,
-            isExistUnregisteredConstructionSite: false
-        };
-        //
-        for (const structure of structures) {
-            if (structure.pos.isEqualTo(posList[i])) {
-                const constructionMemory = constructionData?.memory;
-                for (const id in constructionMemory) {
-                    const pos = PosStr.getPosFromStr(constructionMemory[id].pos);
-                    if (pos.isEqualTo(posList[i])) {
-                        conditionFlagList.isExistUnregisteredStructure = true;
-                        break;
-                    }
-                }
-                for (const pos of (
-                    room.memory.construct.layout?.[structureType]?.[
-                        name as keyof typeof room.memory.construct.layout[typeof structureType]
-                    ] as unknown as { posStrList: string[] }
-                ).posStrList) {
-                    if (pos === PosStr.setPosToStr(structure.pos) && structureType === structure.structureType) {
-                        conditionFlagList.isExistUnregisteredConstructionSite = true;
-                        break;
-                    }
-                }
-                if (!conditionFlagList.isExistUnregisteredStructure) {
-                    // debug(`检索到已建成建筑,已添加`);
-                }
-            }
-        }
+    /*
+    这里一共有三个建筑表，一个是布局要求的（layout，记为表A），一个是现在room.find得到的（记为表B），一个是memory存的（记为表C）。
+    将建筑表记为1，建筑工地表记为2.如C2指memory存的建筑工地id表。
+    我们希望layout的所有建筑没有冲突（即不会出现不能叠加放置的建筑叠加在一起,除了road以外不会出现有重复的相同建筑类型的pos的注册）
+    memory只存structureType分类，而具体的specifiedType在有新建筑建成和global重置时，根据layout的对应位置来自动生成在global上。
 
-        for (const site of constructionSites) {
-            if (site.pos.isEqualTo(posList[i])) {
-                const constructionMemory = constructionData?.memory;
-                for (const id in constructionMemory) {
-                    const pos = PosStr.getPosFromStr(constructionMemory[id].pos);
-                    if (pos.isEqualTo(posList[i])) {
-                        conditionFlagList.isExistUnregisteredConstructionSite = true;
-                        break;
-                    }
-                }
-                const siteLayoutData = room.memory.construct.layout?.[structureType]?.[
-                    name as keyof typeof room.memory.construct.layout[typeof structureType]
-                ] as unknown as { posStrList: string[]; levelToBuild: number };
-                if (siteLayoutData.levelToBuild <= (room.controller?.level as number)) {
-                    for (const pos of siteLayoutData.posStrList) {
-                        if (pos === PosStr.setPosToStr(site.pos) && structureType === site.structureType) {
-                            conditionFlagList.isExistUnregisteredConstructionSite = true;
-                            break;
-                        }
-                    }
-                }
-                if (!conditionFlagList.isExistUnregisteredConstructionSite) {
-                    // debug(`检索到已建成建筑,已添加`);
-                }
+    找出所有表A的符合rcl等级要求建筑的位置字符串以及优先级组成的对象并组合为列表，并按照优先度排序，遍历该列表，{
+        1.遍历表B1，找到与其位置相同的建筑。如果有相同的，将所有相同的汇集为一个列表，将该列表传给步骤2，并进入步骤2，如果没有，进入步骤3。
+        2.
+        遍历该列表，{
+            如果建筑类型相同，在表C1中查找该建筑，{
+                如果有该建筑，跳过。
+                如果没有该建筑，向表C1添加这个建筑（pos和id）。并查找表C2对应位置及建筑类型，如果有相同的则删除对应行。跳过。
+            }
+            如果建筑类型不相同，{
+                且不是可以共存的建筑类型（如road，container，rampart），
+                    则尝试destroy该建筑。并查找表C1,C2该建筑对应位置及建筑类型，如果有相同的则删除对应行。并跳过.
+                是可以共存的建筑类型（如road，container，rampart），
+                    则跳过.
             }
         }
-        if (conditionFlagList.isExistUnregisteredStructure === true) {
-            constructionTypeMemory[name].sitePosList[PosStr.setPosToStr(posList[i])] = "structure";
-            constructionTypeMemory[name].num = Object.keys(constructionTypeMemory[name].sitePosList).length;
-            conditionFlagList.isInMemoryPosList = true;
-        }
-        if (conditionFlagList.isExistUnregisteredConstructionSite === true) {
-            constructionTypeMemory[name].sitePosList[PosStr.setPosToStr(posList[i])] = "site";
-            constructionTypeMemory[name].num = Object.keys(constructionTypeMemory[name].sitePosList).length;
-            conditionFlagList.isInMemoryPosList = true;
-        }
-        if (conditionFlagList.isInMemoryPosList === false) {
-            debug(`未检索到已建成建筑或工地,尝试放置工地 ${PosStr.setPosToStr(posList[i])}`);
-            listC[i] = room.createConstructionSite(posList[i], structureType);
-            if (listC[i] === ERR_RCL_NOT_ENOUGH) {
-                debug(`${name}放置数量已经达到上限。`);
-                break;
+        进入步骤3.
+        3.遍历表B2，找到与其位置相同的建筑工地。如果有相同的，将所有相同的汇集为一个列表（应该只有1个元素），将该列表传给步骤4，并进入步骤4，
+        如果没有，进入步骤5。
+        4.
+        遍历该列表，{
+            如果建筑类型相同，在表C2中查找该建筑工地，{
+                如果有该建筑工地，跳过。
+                如果没有该建筑工地，向表C2添加这个建筑工地（pos和id）。并查找表C1对应位置及建筑类型，如果有相同的则删除对应行。跳过。
             }
-            if (listC[i] === ERR_FULL) return 100;
-            if (listC[i] === OK) {
+            如果建筑类型不相同，{
+                且不是可以共存的建筑类型（如road，container，rampart），
+                    则尝试remove该建筑工地。并查找表C1,C2该建筑工地对应位置及建筑类型，如果有相同的则删除对应行。并跳过.
+                是可以共存的建筑类型（如road，container，rampart），
+                    则跳过.
+            }
+        }
+        进入步骤5.
+        5.尝试在对应位置放置工地。结束。（不做任何是否放置成功的检测，因为就算返回ok也可能没有放置成功，在下一次执行该函数的时候再判断。）
+        如果当前总工地数量超过最大工地数量限制，跳出循环。
+    }
+
+
+    提供一个建筑类memory的属性：hasPutSites来判断当前rcl下是否已经放完了该建筑类所有site，通过检查site数量和建筑数量之和是否等于当前布局要求放置建筑数量来实现。
+    提供一个建筑类memory的属性：hasBuilt来判断当前rcl下是否已经修好了该建筑类所有建筑，通过检查建筑数量是否等于当前布局要求放置建筑数量来实现。
+    上面两个属性也给specifiedType提供。
+
+    实现specifiedType.
+    根据C1和A的建筑位置进行遍历对比即可生成specifiedType的表。
+    因为很容易生成所以放在global上。
+    每次建筑更新的时候也更新这个表。
+    */
+
+    layoutRequireList.forEach(([posStr]) => {
+        const samePosList = structures.filter(structure => PosStr.setPosToStr(structure.pos) === posStr);
+        const hasFoundStructure = samePosList.some(i => {
+            const structure = i as ConcreteStructure<T>;
+            const structurePosStr = PosStr.setPosToStr(structure.pos);
+            if (structure.structureType === structureType) {
+                if (!specifiedConstruction.structureList.some(i1 => i1.id === structure.id)) {
+                    (specifiedConstruction.structureList as { pos: string; id: string }[]).push({
+                        id: structure.id,
+                        pos: structurePosStr
+                    });
+                    debug(
+                        `${structureType} structureList 添加了${structurePosStr}, 现在长度为${specifiedConstruction.siteList.length}`
+                    );
+                }
+                return true;
+            } else {
+                if (
+                    !([STRUCTURE_CONTAINER, STRUCTURE_RAMPART, STRUCTURE_ROAD] as StructureConstant[]).includes(
+                        structure.structureType
+                    )
+                ) {
+                    structure.destroy();
+                    removeStructureFromConstructionMemory(structure.structureType, structurePosStr, construction);
+                }
+            }
+            return false;
+        });
+        if (hasFoundStructure) return true;
+
+        const sameSitePosList = constructionSites.filter(
+            constructionSite => PosStr.setPosToStr(constructionSite.pos) === posStr
+        );
+        const hasFoundStructureSite = sameSitePosList.some(i => {
+            const site = i as ConstructionSite<T>;
+            const structurePosStr = PosStr.setPosToStr(site.pos);
+
+            if (site.structureType === structureType) {
+                if (!specifiedConstruction.siteList.some(i1 => i1.id === site.id)) {
+                    (specifiedConstruction.siteList as { pos: string; id: string }[]).push({
+                        id: site.id,
+                        pos: structurePosStr
+                    });
+                    debug(
+                        `${structureType} siteList 添加了${structurePosStr}, 现在长度为${specifiedConstruction.siteList.length}`
+                    );
+                }
+                return true;
+            } else {
+                if (
+                    !([STRUCTURE_CONTAINER, STRUCTURE_RAMPART, STRUCTURE_ROAD] as StructureConstant[]).includes(
+                        site.structureType
+                    )
+                ) {
+                    site.remove();
+                    removeStructureFromConstructionMemory(site.structureType, structurePosStr, construction);
+                }
+            }
+            return false;
+        });
+        if (hasFoundStructureSite) return true;
+        if (totalSitesNum < MAX_CONSTRUCTION_SITES) {
+            debug(`未检索到 ${structureType} 在 ${posStr} 已建成建筑或工地,尝试放置工地.`);
+            const returnCode = room.createConstructionSite(PosStr.getPosFromStr(posStr), structureType);
+            if (returnCode === ERR_RCL_NOT_ENOUGH) {
+                debug(`${structureType}放置数量已经达到rcl上限。`);
+                return true;
+            }
+            if (returnCode === ERR_FULL) {
+                totalSitesNum = MAX_CONSTRUCTION_SITES;
+                return true;
+            }
+            if (returnCode === OK) {
                 totalSitesNum++;
-                if (totalSitesNum >= 100) {
-                    return totalSitesNum;
+                if (totalSitesNum >= MAX_CONSTRUCTION_SITES) {
+                    return true;
                 }
             }
         }
+
+        return false;
+    });
+
+    if (layoutRequireList.length === specifiedConstruction.structureList.length) {
+        specifiedConstruction.hasBuilt = true;
+    } else {
+        specifiedConstruction.hasBuilt = false;
     }
-    if (constructionTypeMemory[name].num === posList.length || constructionTypeMemory[name].num >= buildNumberLimit) {
-        constructionTypeMemory[name].hasPutSites = true;
+    if (
+        layoutRequireList.length ===
+        specifiedConstruction.structureList.length + specifiedConstruction.siteList.length
+    ) {
+        specifiedConstruction.hasPutSites = true;
+    } else {
+        specifiedConstruction.hasPutSites = false;
     }
-    debug(`${name} 检索完成，现在总工地数为${totalSitesNum}`);
     return totalSitesNum;
+}
+
+function removeStructureFromConstructionMemory<T extends StructureConstant>(
+    structureType: T,
+    posStr: string,
+    constructionMemory: ConstructionMemory
+): void {
+    const structureConstructionMemory = constructionMemory[structureType];
+    if (!structureConstructionMemory) return;
+    const structureList = structureConstructionMemory.structureList as { pos: string; id: string }[];
+
+    const findStructureIndex = structureList.findIndex(({ pos }) => {
+        return posStr === pos;
+    });
+    const structureSiteList = structureConstructionMemory.siteList as { pos: string; id: string }[];
+
+    const findStructureSiteIndex = structureSiteList.findIndex(({ pos }) => {
+        return posStr === pos;
+    });
+    if (findStructureIndex !== -1) {
+        _.pullAt(structureConstructionMemory.structureList as { pos: string; id: string }[], findStructureIndex);
+    }
+    if (findStructureSiteIndex !== -1) {
+        _.pullAt(structureConstructionMemory.siteList as { pos: string; id: string }[], findStructureSiteIndex);
+    }
+}
+
+/**
+ * 
+ *  实现specifiedType.
+    根据C1和A的建筑位置进行遍历对比即可生成specifiedType的表。
+    因为很容易生成所以放在global上。
+    每次建筑更新的时候也更新这个表。
+ */
+function getAllSpecifiedTypeMemory(room: Room): FullSpecifiedStructureMemory {
+    const start = Game.cpu.getUsed();
+    const construction = room.memory.construct.construction;
+    const layout = room.memory.construct.layout;
+    if (!layout || !construction) throw Error("how");
+    const fullMemory: FullSpecifiedStructureMemory = {};
+    Object.entries(layout).forEach(([name, tLayout]) => {
+        const structureType = name as BuildableStructureConstant;
+        fullMemory[structureType] = {};
+        const typedFullMemory = fullMemory[structureType];
+        if (!typedFullMemory) return;
+        const typedConstruction = construction[structureType];
+        if (!typedConstruction) return;
+        const structureList = typedConstruction.structureList as {
+            pos: string;
+            id: Id<ConcreteStructure<BuildableStructureConstant>>;
+        }[];
+        const siteList = typedConstruction.siteList as {
+            pos: string;
+            id: Id<ConstructionSite<BuildableStructureConstant>>;
+        }[];
+        if (!tLayout) return;
+        Object.entries(tLayout).forEach(([sName, sLayout]) => {
+            const specifiedName = sName as SpecifiedStructureNameList<BuildableStructureConstant>;
+            (
+                typedFullMemory as {
+                    [name: string]: SpecifiedStructureInf<
+                        BuildableStructureConstant,
+                        SpecifiedStructureNameList<BuildableStructureConstant>
+                    >;
+                }
+            )[specifiedName] = {
+                hasBuilt: false,
+                hasPutSites: false,
+                siteList: [],
+                structureList: [],
+                type: specifiedName
+            };
+            const specifiedTypedMemory = (
+                typedFullMemory as {
+                    [name: string]: SpecifiedStructureInf<
+                        BuildableStructureConstant,
+                        SpecifiedStructureNameList<BuildableStructureConstant>
+                    >;
+                }
+            )[specifiedName];
+            if (!sLayout?.requireList) return;
+            const requireList = sLayout.requireList.filter(([, levelToBuild]) => {
+                return levelToBuild <= (room.controller?.level as number);
+            });
+            requireList.forEach(([posStr]) => {
+                const foundStructure = structureList.find(({ pos }) => pos === posStr);
+                if (foundStructure) {
+                    specifiedTypedMemory.structureList.push({ pos: foundStructure.pos, id: foundStructure.id });
+                }
+                const foundSite = siteList.find(({ pos }) => pos === posStr);
+                if (foundSite) {
+                    (
+                        specifiedTypedMemory.siteList as {
+                            pos: string;
+                            id: Id<ConstructionSite<BuildableStructureConstant>>;
+                        }[]
+                    ).push({ pos: foundSite.pos, id: foundSite.id });
+                }
+            });
+            debugM(
+                `${specifiedName} requireList:${requireList.length} structureList: ${specifiedTypedMemory.structureList.length} siteList: ${specifiedTypedMemory.siteList.length}`,
+                "log"
+            );
+            if (requireList.length === specifiedTypedMemory.structureList.length) {
+                specifiedTypedMemory.hasBuilt = true;
+            } else {
+                specifiedTypedMemory.hasBuilt = false;
+            }
+            if (
+                requireList.length ===
+                specifiedTypedMemory.structureList.length + specifiedTypedMemory.siteList.length
+            ) {
+                specifiedTypedMemory.hasPutSites = true;
+            } else {
+                specifiedTypedMemory.hasPutSites = false;
+            }
+        });
+    });
+    const end = Game.cpu.getUsed();
+    debugM(`cost: ${(end - start).toFixed(4)}`, "log");
+    // 消耗约0.2
+    return fullMemory;
 }

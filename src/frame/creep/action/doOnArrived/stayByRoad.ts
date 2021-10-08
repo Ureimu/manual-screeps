@@ -43,7 +43,7 @@ function run(creep: Creep): state {
                 freeSpacePosList[index].creepName = creep.name;
                 // console.log(`[creep] ${creep.name} 选择了parkingSpot ${posStr}`);
             } else {
-                console.log(`[creep] ${creep.name} 找不到parkingSpot`);
+                // console.log(`[creep] ${creep.name} 找不到parkingSpot`);
             }
         }
         const creepStayPos = global.creepMemory[creep.name].parkingSpot;

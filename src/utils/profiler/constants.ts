@@ -27,5 +27,5 @@ export class AlreadyWrappedError extends Error {
 }
 
 export function getFilter(): string | undefined {
-    return SavePath.path?.filter;
+    return new SavePath().path?.filter;
 }

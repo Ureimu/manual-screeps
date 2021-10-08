@@ -21,31 +21,39 @@ export function getAvailableNearbyRooms(roomName: string): string[] {
     return availableRoomNameList;
 }
 
-let tickNow = 0
-let myRoomList: string[] = []
+let tickNow = 0;
+let myRoomList: string[] = [];
 export function getMyRoom(): string[] {
-    if(tickNow!==Game.time){
-        tickNow=Game.time
-        const returnList: string[] = []
+    if (tickNow !== Game.time) {
+        tickNow = Game.time;
+        const returnList: string[] = [];
         _.forEach(Game.rooms, room => {
             if (room.controller?.my && room.find(FIND_MY_SPAWNS).length !== 0) {
-                returnList.push(room.name)
+                returnList.push(room.name);
             }
         });
-        myRoomList=returnList
-        return returnList
-    }else{
-        return myRoomList
+        myRoomList = returnList;
+        return returnList;
+    } else {
+        return myRoomList;
     }
 }
 
-export function getMyClosestRoom(goalRoomName: string): string|undefined {
-    const myRoomList = getMyRoom()
-    const closestRoom = myRoomList.map(myRoomName=>{
-        if(Game.map.getRoomLinearDistance(myRoomName, goalRoomName)>12){
-            return [myRoomName,700] as [string,number]
+export function getMyClosestRoom(goalRoomName: string): string | undefined {
+    const MyRoomList = getMyRoom();
+    const closestRoom = MyRoomList.map(myRoomName => {
+        const controller = Game.rooms[myRoomName].controller;
+        if (Game.map.getRoomLinearDistance(myRoomName, goalRoomName) > 12 || (controller && controller.level <= 5)) {
+            return [myRoomName, 700] as [string, number];
         }
-        return [myRoomName,PathFinder.search(new RoomPosition(25,25,myRoomName),new RoomPosition(25,25,goalRoomName),{maxOps:20000}).path.length] as [string,number]
-    }).filter(a=>a[1]<500).sort((a,b)=>a[1]-b[1])?.[0]?.[0]
-    return closestRoom
+        return [
+            myRoomName,
+            PathFinder.search(new RoomPosition(25, 25, myRoomName), new RoomPosition(25, 25, goalRoomName), {
+                maxOps: 20000
+            }).path.length
+        ] as [string, number];
+    })
+        .filter(a => a[1] < 500)
+        .sort((a, b) => a[1] - b[1])?.[0]?.[0];
+    return closestRoom;
 }

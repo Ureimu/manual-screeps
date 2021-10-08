@@ -11,7 +11,7 @@ function run(creep: Creep): state {
                 // 避免卡住constructionSites
                 // creep.move(_.random(1, 8) as DirectionConstant); // 随机移动
             }
-            if (Game.time % 40 === 0) console.log(`${closestTarget.progressTotal}:${closestTarget.progress}`);
+            // if (Game.time % 40 === 0) console.log(`${closestTarget.progressTotal}:${closestTarget.progress}`);
             if (!creep.pos.inRangeTo(closestTarget, 3)) {
                 creep.moveTo(closestTarget, {
                     range: 3,

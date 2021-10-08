@@ -94,8 +94,14 @@ export function centerCarrierTask2(creep: Creep): void {
             const terminalStoreNum = terminal.store[resourceType] || 1; // 为0会出现无穷大或者报错
             const gapSize = capacityRate.terminalToStorage - terminalStoreNum / storageStoreNum;
             resourceTypeCache.add(resourceType);
+            // console.log(
+            //     `差距比例：${gapSize} 资源：${resourceType}, storage:${storageStoreNum}, terminal:${terminalStoreNum} gap:${(
+            //         gapSize * storageStoreNum
+            //     ).toFixed(2)} ${(gapSize * terminalStoreNum).toFixed(2)}`
+            // );
             if (
                 Math.abs(gapSize) > 0.05 &&
+                (gapSize * storageStoreNum > 1.6e3 || gapSize * terminalStoreNum > 1.6e3) &&
                 (terminalStoreNum > 3000 * capacityRate.terminalToStorage || storageStoreNum > 3000)
             ) {
                 // console.log(
@@ -104,6 +110,7 @@ export function centerCarrierTask2(creep: Creep): void {
                 transferTask.isTransferring = true;
                 transferTask.resourceType = resourceType;
                 transferTask.gapSize = gapSize;
+                console.log(`creep.withdraw ${gapSize}`);
                 if (gapSize > 0) {
                     creep.withdraw(storage, resourceType);
                 } else {
@@ -119,6 +126,7 @@ export function centerCarrierTask2(creep: Creep): void {
         if (creepUsedCapacity === 0) {
             return; // 被中途劫了
         }
+        console.log(`creep.transfer ${transferTask.gapSize}`);
         if (transferTask.gapSize > 0) {
             creep.transfer(terminal, transferTask.resourceType);
         } else {

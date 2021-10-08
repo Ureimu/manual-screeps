@@ -50,7 +50,7 @@ export const Profiler = {
 
     output(passedOutputLengthLimit?: number): string {
         const outputLengthLimit = passedOutputLengthLimit || 1000;
-        const profilerMemory = SavePath.path;
+        const profilerMemory = new SavePath().path;
         if (!profilerMemory || !profilerMemory.enabledTick) {
             return "Profiler not active.";
         }

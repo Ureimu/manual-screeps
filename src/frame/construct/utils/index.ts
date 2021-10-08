@@ -1,17 +1,30 @@
 import {
-    StructureInf,
     SpecifiedStructureNameList,
     StructureTypeFromSpecifiedStructureName,
-    getStructureTypeBySpecifiedName
+    getStructureTypeBySpecifiedName,
+    SpecifiedStructureInf
 } from "../type";
 
-export function getStructureMemory<T extends StructureConstant>(
+/**
+ * 使用该函数来获取非特定SpecifiedStructure的data
+ *
+ * @export
+ * @template T
+ * @param {string} roomName
+ * @param {T} structureType
+ * @param {SpecifiedStructureNameList<T>} structureSpecifiedName
+ * @returns {(SpecifiedStructureInf<T, SpecifiedStructureNameList<T>> | undefined)}
+ */
+export function getStructureMemory<T extends BuildableStructureConstant>(
     roomName: string,
     structureType: T,
     structureSpecifiedName: SpecifiedStructureNameList<T>
-): StructureInf<T>["memory"] | undefined {
-    return Memory.rooms[roomName]?.construct?.construction?.[structureType]?.[structureSpecifiedName]
-        ?.memory as StructureInf<T>["memory"];
+): SpecifiedStructureInf<T, SpecifiedStructureNameList<T>> | undefined {
+    // 下面这个类型我真改不动了
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    return (global.roomMemory?.[roomName]?.construction?.[structureType] as any)?.[
+        structureSpecifiedName
+    ] as SpecifiedStructureInf<T, SpecifiedStructureNameList<T>>;
 }
 
 export type RequireStructureData = {
@@ -63,16 +76,10 @@ export function getStructureIdList<T extends RequireStructureData>(
                 structureType as SpecifiedStructureNameList<BuildableStructureConstant>
             );
             if (!structureMemory) return;
-            const structureDataList = Object.entries(structureMemory)
-                .map(([, memory]) => {
-                    return { id: memory.id, pos: memory.pos };
-                })
-                .filter(
-                    (data.filter as (value: {
-                        id: Id<ConcreteStructure<StructureConstant>>;
-                        pos: string;
-                    }) => boolean) ?? (() => true)
-                );
+            const structureDataList = structureMemory.structureList.filter(
+                (data.filter as (value: { id: Id<ConcreteStructure<StructureConstant>>; pos: string }) => boolean) ??
+                    (() => true)
+            );
             return { [structureType]: structureDataList.map(value => value) };
         });
         const dataLast: ReturnStructureList<T> = _.assign({}, ...dataRes);

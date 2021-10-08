@@ -16,7 +16,7 @@ export const ProfilerConsole = {
         setupMemory("background", false, filter);
     },
     callgrind(): void {
-        const profilerMemory = SavePath.path;
+        const profilerMemory = new SavePath().path;
         if (!profilerMemory) {
             console.log("Profiler not active.");
             return;
@@ -46,7 +46,7 @@ element.click();
         );
     },
     callgrindStr(): string {
-        const profilerMemory = SavePath.path;
+        const profilerMemory = new SavePath().path;
         if (!profilerMemory) {
             console.log("Profiler not active.");
             return "Profiler not active.";
@@ -54,7 +54,7 @@ element.click();
         return Profiler.callgrind(profilerMemory);
     },
     restart(): void {
-        const profilerMemory = SavePath.path;
+        const profilerMemory = new SavePath().path;
         if (Profiler.isProfiling(profilerMemory)) {
             const filter = profilerMemory.filter;
             let duration: false | number = false;
@@ -76,8 +76,9 @@ function setupMemory(profileType: ProfileType, duration: number | boolean, filte
     resetMemory();
     // eslint-disable-next-line id-blacklist
     const disableTick = Number.isInteger(duration) ? Game.time + (duration as number) : false;
-    if (!SavePath.path) {
-        SavePath.path = {
+    const savePath = new SavePath().path;
+    if (!savePath) {
+        new SavePath().path = {
             map: {},
             totalTime: 0,
             InitMemoryTotalTime: 0,
@@ -90,5 +91,5 @@ function setupMemory(profileType: ProfileType, duration: number | boolean, filte
 }
 
 function resetMemory(): void {
-    SavePath.path = undefined;
+    new SavePath().path = undefined;
 }

@@ -7,7 +7,7 @@ import { createSuccor } from "./tasks/succor/createSuccor";
 import { deleteSuccor } from "./tasks/succor/deleteSuccor";
 
 // 设置Project的存储位置
-type memoryAddressArgs = Parameters<(spawnRoomName: string, claimRoomName: string) => void>;
+type MemoryAddressArgs = Parameters<(spawnRoomName: string, claimRoomName: string) => void>;
 export type newRoomTaskArgs = Parameters<(spawnRoomName: string, claimRoomName: string) => void>;
 
 const taskRelation = {
@@ -17,8 +17,8 @@ const taskRelation = {
     [deleteSuccor.name]: [createSuccor.name]
 };
 const taskCollection = { createClaimer, deleteClaimer, createSuccor, deleteSuccor };
-export class NewRoomProject extends Project<newRoomTaskArgs, memoryAddressArgs> {
-    public constructor(taskArgs: newRoomTaskArgs, memoryAddressArgs: memoryAddressArgs) {
+export class NewRoomProject extends Project<newRoomTaskArgs, MemoryAddressArgs> {
+    public constructor(taskArgs: newRoomTaskArgs, memoryAddressArgs: MemoryAddressArgs) {
         super(taskArgs, memoryAddressArgs);
         // this.wrapTaskCollection(); // 注册所有task到profiler模块，可选
     }

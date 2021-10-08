@@ -1,18 +1,14 @@
 declare global {
     interface RoomMemory {
-        construct: constructMemory;
+        construct: ConstructMemory;
     }
 }
 
-export interface constructMemory {
+export interface ConstructMemory {
     startTime: number;
     roomControlStatus: number[]; // 用来与上一次建造时做比较，在每次升级时会重新建造一次
-    construction: {
-        [structureName in StructureConstant]?: {
-            [name: string]: StructureInf<structureName> | undefined;
-        };
-    };
-    firstSpawnName: {
+    construction: ConstructionMemory;
+    firstSpawnName?: {
         name: string;
         pos: string;
     };
@@ -22,28 +18,65 @@ export interface constructMemory {
     freeSpacePosList?: string[];
 }
 
+export type ConstructionMemory = {
+    [structureName in StructureConstant]?: StructureInf<structureName>;
+};
+
 export type formedLayout = {
+    [structureName in BuildableStructureConstant]?: SpecifiedLayoutData<structureName>;
+};
+
+export type SpecifiedLayoutData<structureName extends BuildableStructureConstant> = {
+    [specifiedName in SpecifiedStructureNameList<structureName>]?: LayoutDataNode;
+};
+
+export type FullSpecifiedStructureMemory = {
     [structureName in BuildableStructureConstant]?: {
-        [specifiedName in SpecifiedStructureNameList<structureName>]?: {
-            posStrList: string[];
-            levelToBuild?: number;
-        };
+        [specifiedName in SpecifiedStructureNameList<structureName>]?: SpecifiedStructureInf<
+            structureName,
+            specifiedName
+        >;
     };
 };
+
+export interface LayoutDataNode {
+    /**
+     * posStr,levelToBuild,priority
+     *
+     * @type {[string, number, number]}
+     * @memberof LayoutDataNode
+     */
+    requireList: LayoutRequireList;
+}
+
+export type LayoutRequireList = [posStr: string, levelToBuild: number, priority: number][];
 
 export interface StructureInf<T extends StructureConstant> {
     hasPutSites: boolean;
     hasBuilt: boolean;
-    sitePosList: { [name: string]: SiteState };
+    siteList: {
+        pos: string;
+        id: T extends BuildableStructureConstant ? Id<ConstructionSite<T>> : never;
+    }[];
     type: T;
-    num: number;
-    memory: {
-        [name: string]: {
-            built?: boolean;
-            pos: string;
-            id: Id<ConcreteStructure<T>>;
-        };
-    };
+    structureList: {
+        pos: string;
+        id: Id<ConcreteStructure<T>>;
+    }[];
+}
+
+export interface SpecifiedStructureInf<T extends StructureConstant, U extends SpecifiedStructureNameList<T>> {
+    hasPutSites: boolean;
+    hasBuilt: boolean;
+    siteList: {
+        pos: string;
+        id: T extends BuildableStructureConstant ? Id<ConstructionSite<T>> : never;
+    }[];
+    structureList: {
+        pos: string;
+        id: Id<ConcreteStructure<T>>;
+    }[];
+    type: U;
 }
 
 export type SiteState = "blank" | "site" | "structure";

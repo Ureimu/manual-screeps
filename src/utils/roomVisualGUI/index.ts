@@ -28,7 +28,7 @@ class Box<T extends elementsLayout> implements BoxConstructor<T> {
 
 export function GUIfun(): GUIclass {
     return {
-        draw<T extends elementsConstant>(visual: RoomVisual, map: map<T>[]) {
+        draw<T extends elementsConstant>(visual: RoomVisual, map: ElementMap<T>[]) {
             this.drawMap(visual, map, -0.5, -0.5);
             return visual;
         },
@@ -64,7 +64,7 @@ export function GUIfun(): GUIclass {
                     console.log("[GUI]警告:未定义的组件名称," + item.type);
                     continue;
                 } else {
-                    componentData = component(visual, box as box<elementsLayoutGeneral>);
+                    componentData = component(visual, box as Box<elementsLayoutGeneral>);
                 }
 
                 if (componentData === undefined || componentData.componentName !== item.type) {
@@ -109,7 +109,7 @@ export function GUIfun(): GUIclass {
         /**
          * 容器组件，用于内置其他组件
          */
-        Div(visual: RoomVisual, box: box<Div>) {
+        Div(visual: RoomVisual, box: Box<Div>) {
             const layout = box.layout;
 
             // 一些Div的默认属性
@@ -145,7 +145,7 @@ export function GUIfun(): GUIclass {
         /**
          * 文本组件，显示文本
          */
-        Text(visual: RoomVisual, box: box<Text>) {
+        Text(visual: RoomVisual, box: Box<Text>) {
             const layout = box.layout;
 
             // Box转Text
@@ -205,7 +205,7 @@ export function GUIfun(): GUIclass {
          * borderColor:进度条边框颜色
          * visibility:是否可见
          */
-        Progress(visual: RoomVisual, box: box<Progress>) {
+        Progress(visual: RoomVisual, box: Box<Progress>) {
             const layout = box.layout;
 
             let borderColor = "#9e9e9e";
@@ -254,7 +254,7 @@ export function GUIfun(): GUIclass {
                             } as elementsLayoutGeneral
                         }
                     ]
-                } as map<"Div">
+                } as ElementMap<"Div">
             ];
 
             GUIfun().drawMap(visual, map, box.x, box.y);
@@ -272,7 +272,7 @@ export function GUIfun(): GUIclass {
          * height:开关高度
          * width:开关宽度
          */
-        SwitchBar(visual: RoomVisual, box: box<SwitchBar>) {
+        SwitchBar(visual: RoomVisual, box: Box<SwitchBar>) {
             // const layout = box.layout;
 
             // 需要正确的返回组件信息
@@ -281,7 +281,7 @@ export function GUIfun(): GUIclass {
             };
         },
 
-        LockTarget(visual: RoomVisual, box: box<LockTarget>) {
+        LockTarget(visual: RoomVisual, box: Box<LockTarget>) {
             return {
                 componentName: "LockTarget"
             };

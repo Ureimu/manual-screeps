@@ -17,7 +17,7 @@ export function wrapFunction<T extends AnyFunction>(
     // console.log(`wrapping Function ${name}: Ready`);
     function wrappedFunction(this: any, ...args: Parameters<T>) {
         // console.log(`wrapping Function ${name}: wrap`);
-        const profilerMemory = SavePath.path;
+        const profilerMemory = new SavePath().path;
         if (Profiler.isProfiling(profilerMemory)) {
             const nameMatchesFilter = name === getFilter();
             const start = Game.cpu.getUsed();
@@ -29,7 +29,7 @@ export function wrapFunction<T extends AnyFunction>(
             let result;
             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
             if (this && this.constructor === wrappedFunction) {
-                result = new (originalFunction as unknown as { new (...args: Parameters<T>): ReturnType<T> })(...args);
+                result = new (originalFunction as unknown as { new (...args0: Parameters<T>): ReturnType<T> })(...args);
             } else {
                 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -49,7 +49,7 @@ export function wrapFunction<T extends AnyFunction>(
 
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         if (this && this.constructor === wrappedFunction) {
-            return new (originalFunction as unknown as { new (...args: Parameters<T>): ReturnType<T> })(...args);
+            return new (originalFunction as unknown as { new (...args0: Parameters<T>): ReturnType<T> })(...args);
         }
         // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         return originalFunction.apply(this, args);

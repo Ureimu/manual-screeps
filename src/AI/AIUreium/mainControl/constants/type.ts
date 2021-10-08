@@ -1,15 +1,15 @@
+import { mineralResource } from "./resourcesConstant";
+
 export interface RoomResourceLimit {
     storage: StructureResourceLimit;
     terminal: StructureResourceLimit;
 }
 
-export interface StructureResourceLimit {
-    [name: string]: {
+export type StructureResourceLimit = {
+    [name in ResourceConstant]: {
         max: number;
         min: number;
     };
-    energy: {
-        max: number;
-        min: number;
-    };
-}
+};
+export type ResourceType<T extends ResourceConstant[]> = T extends (infer U)[] ? U : never;
+export type MineralResource = ResourceType<typeof mineralResource>;

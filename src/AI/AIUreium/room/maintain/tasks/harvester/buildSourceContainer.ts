@@ -1,3 +1,4 @@
+import { getStructureMemory } from "frame/construct/utils";
 import { CreepGroup } from "frame/creep/group";
 import { RoutePlan } from "frame/creep/routePlan";
 import { FlagMaintainer } from "frame/flagMaintainer";
@@ -22,7 +23,10 @@ export const buildSourceContainer: TaskObject<maintainRoomTaskArgs> = {
         const containerFlagName = Game.flags[sourceFlagName].pos.findInRange(FIND_FLAGS, 1, {
             filter: i => i.name.indexOf("container") !== -1
         })[0]?.name;
-        if (room.memory.construct.construction.container?.sourceContainer?.hasPutSites&&(containerSiteFlagName||containerFlagName)) {
+        if (
+            getStructureMemory(room.name, "container", "sourceContainer")?.hasPutSites &&
+            (containerSiteFlagName || containerFlagName)
+        ) {
             return "end";
         }
 
@@ -30,7 +34,7 @@ export const buildSourceContainer: TaskObject<maintainRoomTaskArgs> = {
     },
     working(roomName) {
         const room = Game.rooms[roomName];
-        if (room.memory.construct.construction.container?.sourceContainer?.hasBuilt) {
+        if (getStructureMemory(room.name, "container", "sourceContainer")?.hasBuilt) {
             return "end";
         }
         const sources = room.find(FIND_SOURCES);

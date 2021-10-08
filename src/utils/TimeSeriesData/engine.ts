@@ -1,3 +1,5 @@
+import { waitThenLog } from "utils/AcrossTick/utils";
+import { SegmentManager } from "utils/SegmentManager";
 import UTF15 from "../../utils/utf15";
 import { getDataNodeList, setDataNodeList, TimeSeriesDataStorage } from "./storage";
 import { SingleData, SingleTypedTreeData } from "./type";
@@ -87,7 +89,7 @@ export class TimeSeriesDataEngine<T extends SingleTypedTreeData<SingleData<numbe
         const dataSize = storage.getSeriesDataSize(this.timeData.activeId);
         if (dataSize > 95 * 1000) {
             this.timeData.ifSwitchActiveId = true;
-            RawMemory.setActiveSegments([this.getNextSegmentId()]);
+            SegmentManager.addId([this.getNextSegmentId()]);
             return false;
         }
         return true;
@@ -149,8 +151,9 @@ export class TimeSeriesDataEngine<T extends SingleTypedTreeData<SingleData<numbe
                     }
                 }
             });
-            const convertedSeriesData =
-                setDataNodeList<typeof seriesData, SingleData<string>, string>(seriesDataNodeList);
+            const convertedSeriesData = setDataNodeList<typeof seriesData, SingleData<string>, string>(
+                seriesDataNodeList
+            );
             dataStorage.setSeriesData(this.timeData.activeId, convertedSeriesData);
             dataStorage.save();
             this.timeData.storeNum++;
@@ -158,7 +161,7 @@ export class TimeSeriesDataEngine<T extends SingleTypedTreeData<SingleData<numbe
         }
         if (this.judgeTime()) {
             this.timeData.ifStart = true;
-            RawMemory.setActiveSegments([this.timeData.activeId]);
+            SegmentManager.addId([this.timeData.activeId]);
         }
     }
     public getSegmentIdList(): number[] {
@@ -192,6 +195,7 @@ export class TimeSeriesDataEngine<T extends SingleTypedTreeData<SingleData<numbe
             }
             seriesDataNodeListCopy[key].data = data;
         });
+        // console.log(JSON.stringify(seriesDataCopy, null, 4));
         return seriesDataCopy as SingleTypedTreeData<SingleData<number[]>>;
     }
     /**

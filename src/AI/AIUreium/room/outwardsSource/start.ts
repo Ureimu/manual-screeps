@@ -1,5 +1,5 @@
 import { OutwardsSourceData } from "AI/AIUreium/roles/maintain/scouter/recordRoomData";
-import { getCostMatrix } from "frame/construct/composition/gridLayout/costMatrix";
+import { getCostMatrix } from "frame/construct/utils/costMatrix";
 import { PosStr } from "utils/RoomPositionToStr";
 import { outwardsSourceTaskArgs } from "./taskRelation";
 
@@ -13,7 +13,8 @@ export function startOutwardsSource(sourceData: OutwardsSourceData): void {
         mainRoom.memory.AIUreium.outwardsSource[sourceData.sourceRoomName] = {};
     }
     mainRoom.memory.AIUreium.outwardsSource[sourceData.sourceRoomName][sourceData.sourceName] = {};
-    const spawnName = mainRoom.memory.construct.firstSpawnName.name;
+    const spawnName = mainRoom.memory.construct.firstSpawnName?.name;
+    if (!spawnName) return;
     const ret = PathFinder.search(
         Game.spawns[spawnName].pos,
         { pos: Game.flags[sourceData.sourceName].pos, range: 1 },

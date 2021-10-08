@@ -1,8 +1,9 @@
 export function getNewRoom(): string | undefined {
-    const newFlagName = Object.keys(Game.flags).find(flagName => flagName.includes("claimNew"));
-    if (newFlagName) {
-        return Game.flags[newFlagName].pos.roomName;
-    } else {
-        return;
+    const newFlagNames = Object.keys(Game.flags).filter(flagName => flagName.includes("claim"));
+    for (const name of newFlagNames) {
+        const flagRoomName = Game.flags[name].pos.roomName;
+        if (Game.rooms[flagRoomName]?.controller?.my) continue;
+        else return flagRoomName;
     }
+    return;
 }

@@ -8,10 +8,8 @@ declare global {
     }
 }
 
-export type creepBodyConfigDetail = Partial<
-    {
-        [p in ControllerLevels]: {
-            body: string;
-        };
-    }
->;
+export type creepBodyConfigDetail = Partial<{
+    [p in ControllerLevels]: {
+        body: string;
+    };
+}>;

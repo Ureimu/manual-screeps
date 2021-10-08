@@ -1,3 +1,4 @@
+import { roomCpuCost } from "frame/cpuStats";
 import { registerFN } from "utils/profiler";
 import { GUIfun } from "utils/roomVisualGUI";
 import { printMulText } from "utils/roomVisualGUI/utils";
@@ -27,7 +28,11 @@ export const roomVisualize = registerFN((room: Room): void => {
                 opacity: 0.5
             },
             child: printMulText({
-                content: `现在的游戏时间是${Game.time}tick\n能量值：\n工地数：\n升级速度：${room.memory.stats.upgradeSpeed}/tick,还有${room.memory.stats.ticksToUpgrade}ticks升到下一级`,
+                content: `现在的游戏时间是${Game.time}tick, 房间cpu消耗：${roomCpuCost[room.name]?.toFixed(
+                    2
+                )}\n能量值：\n工地数：\n升级速度：${room.memory.stats.upgradeSpeed}/tick,还有${
+                    room.memory.stats.ticksToUpgrade
+                }ticks升到下一级`,
                 x: 0,
                 y: 0,
                 align: "left"

@@ -20,7 +20,8 @@ export const upgradeByLink: TaskObject<maintainRoomTaskArgs> = {
         });
 
         if (!room.memory.construct.layout) return "running";
-        const controllerContainerPosStr = room.memory.construct.layout.container?.controllerContainer?.posStrList[0];
+        const controllerContainerPosStr =
+            room.memory.construct.layout.container?.controllerContainer?.requireList[0][0];
         if (!controllerContainerPosStr) throw Error(`${room.name}的controllerContainerPosStr不存在！`);
         const controllerContainerPos = PosStr.getPosFromStr(controllerContainerPosStr);
         const controllerLinkFlag = controllerContainerPos

@@ -1,4 +1,5 @@
-import { SpecifiedStructureNameList } from "frame/construct/type";
+import { FullSpecifiedStructureMemory, SpecifiedStructureNameList } from "frame/construct/type";
+import { getStructureMemory } from "frame/construct/utils";
 import { TaskObject } from "utils/Project";
 import { maintainRoomTaskArgs } from "../../taskRelation";
 
@@ -12,11 +13,7 @@ export function structureHasBuilt<T extends BuildableStructureConstant>(
         description: `${structureKind}HasBuilt`,
         working(roomName) {
             const room = Game.rooms[roomName];
-            if (
-                room.memory.construct.construction[structureType]?.[structureKind]?.hasBuilt &&
-                room.memory.construct.construction[structureType]?.[structureKind]?.num &&
-                (room.memory.construct.construction[structureType]?.[structureKind]?.num as number) >= num
-            ) {
+            if (getStructureMemory(room.name, structureType, structureKind)?.hasBuilt) {
                 return "end";
             }
             return "running";

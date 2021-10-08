@@ -9,7 +9,7 @@ module.exports = {
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:prettier/recommended",
-    "prettier/@typescript-eslint",
+    "prettier",
     "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:import/typescript"
@@ -73,7 +73,7 @@ module.exports = {
     "no-shadow": [
       "error",
       {
-        hoist: "all"
+        hoist: "never"
       }
     ],
     "no-unused-vars": "off",
@@ -89,7 +89,7 @@ module.exports = {
     radix: "error",
     "sort-imports": "off",
     "spaced-comment": "error",
-    "@typescript-eslint/no-namespace":"off",
-    "@typescript-eslint/prefer-namespace-keyword":"off"
+    "@typescript-eslint/no-namespace": "off",
+    "@typescript-eslint/prefer-namespace-keyword": "off"
   }
 };

@@ -69,7 +69,7 @@ function createFlagsForObjects<T extends Exclude<FindConstant, FindOptionWithout
     room: Room,
     type: ObjectPosType,
     find: T,
-    filter?: FilterFunction<T>
+    filter?: (i: FindTypes[T]) => boolean
 ): void {
     const objects = room.find(find, { filter: filter ? filter : () => true });
     objects.forEach((object, index) => {

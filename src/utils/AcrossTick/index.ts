@@ -30,7 +30,7 @@ export class AcrossTick {
 
     public static mountTaskFunction(
         task: { taskName: string },
-        taskFunction: (task: AcrossTickMemory) => AcrossTickReturnCode
+        taskFunction: (arg0: AcrossTickMemory) => AcrossTickReturnCode
     ): void {
         if (!global.AcrossTickTaskFunction) {
             global.AcrossTickTaskFunction = {};
@@ -46,7 +46,7 @@ export class AcrossTick {
 
 export function newAcrossTickTask(
     task: AcrossTickMemory,
-    taskFunction?: (task: AcrossTickMemory) => AcrossTickReturnCode
+    taskFunction?: (arg0: AcrossTickMemory) => AcrossTickReturnCode
 ): void {
     const acrossTickTask = new AcrossTick();
     if (taskFunction) {

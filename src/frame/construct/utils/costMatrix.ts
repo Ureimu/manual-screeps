@@ -1,4 +1,5 @@
 import { PosStr } from "utils/RoomPositionToStr";
+import { LayoutDataNode } from "../type";
 
 export function getCostMatrix(roomName: string): CostMatrix {
     // 在这个示例中，`room` 始终存在
@@ -54,12 +55,9 @@ function setStructureCost(
     structureList.forEach(name => {
         const specifiedList = layout[name];
         for (const specifiedName in specifiedList) {
-            const buildingList = specifiedList[specifiedName as keyof typeof specifiedList] as {
-                posStrList: string[];
-                levelToBuild?: number | undefined;
-            };
+            const buildingList = specifiedList[specifiedName as keyof typeof specifiedList] as LayoutDataNode;
             // 在这里遍历所有建筑，并将costs设置为cost
-            buildingList.posStrList.forEach(posStr => {
+            buildingList.requireList.forEach(([posStr]) => {
                 const coord = PosStr.parseCoord(posStr);
                 costMatrix.set(coord.x, coord.y, cost);
             });

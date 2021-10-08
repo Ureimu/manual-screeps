@@ -17,7 +17,7 @@ export function succor1(creep: Creep, args: string[]): void {
         if (spawnSite) {
             if (creep.pos.inRangeTo(spawnSite, 3)) {
                 creep.build(spawnSite);
-            }else{
+            } else {
                 creep.moveTo(spawnSite);
             }
         }

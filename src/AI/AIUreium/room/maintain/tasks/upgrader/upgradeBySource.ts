@@ -17,7 +17,7 @@ export const upgradeBySource: TaskObject<maintainRoomTaskArgs> = {
                 typeList: FlagMaintainer.getTypeList(["container", "containerConstructionSite", "source"])
             });
         }
-        if (room.memory.construct.construction.container?.sourceContainer?.hasBuilt) {
+        if (global.roomMemory[room.name].construction?.container?.sourceContainer?.hasBuilt) {
             return "end";
         }
         return "running";

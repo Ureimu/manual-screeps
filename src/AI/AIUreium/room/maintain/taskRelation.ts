@@ -70,7 +70,7 @@ const taskRelation = {
     [harvestToLink.name]: [sourceLinkHasBuilt.name, centerTask1.name],
     [stopCarrySource.name]: [harvestToLink.name, carrySource.name],
     [startOutwardsSourceTask.name]: [createScoutGroup.name],
-    [startNewRoomTask.name]:[createScoutGroup.name],
+    [startNewRoomTask.name]: [createScoutGroup.name],
     [extractorHasBuilt.name]: [storageHasBuilt.name],
     [mineralContainerHasBuilt.name]: [extractorHasBuilt.name],
     [createMineGroup.name]: [mineralContainerHasBuilt.name],
@@ -137,7 +137,7 @@ export class maintainRoomProject extends Project<maintainRoomTaskArgs, maintainR
             Memory.rooms[this.taskArgs[0]].AIUreium = {
                 maintainRoom: {},
                 outwardsSource: {},
-                newRoom:{}
+                newRoom: {}
             };
         }
         return Memory.rooms?.[this.taskArgs[0]]?.AIUreium?.maintainRoom;

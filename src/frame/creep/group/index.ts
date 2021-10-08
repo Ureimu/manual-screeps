@@ -145,7 +145,7 @@ export class CreepGroup {
         // console.log(creepGroupName, routeName);
         const creepGroupMemory = Memory.creepGroups[creepGroupName];
         const { mode = creepGroupMemory.mode } = args;
-        console.log(`设定${creepGroupName}`);
+        // console.log(`设定${creepGroupName}`);
         if (mode === creepGroupMemory.mode) {
             if (creepGroupModeIsRoute(creepGroupMemory)) {
                 if (!routeName) throw new Error("没有给定路径名称");

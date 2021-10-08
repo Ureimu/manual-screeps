@@ -26,7 +26,9 @@ export const runAi = registerFN((): void => {
     if (Game.time % 5 === 0) {
         maintainRoom();
         maintainOutwardsSource();
-        maintainNewRoom()
-        allocateNewRoom()
+        maintainNewRoom();
+    }
+    if (Game.time % 150 === 0) {
+        allocateNewRoom();
     }
 }, "runAi");

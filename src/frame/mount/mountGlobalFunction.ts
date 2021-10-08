@@ -15,6 +15,7 @@ declare global {
                 clearRoutes: () => void;
                 createTestCreep: () => void;
                 clearAll: () => void;
+                ds: () => void;
                 testConsole: () => string;
                 testConsoleCommit: (args: { uploadedFile: string }) => string;
                 resetAllMaintainTaskProject: () => void;
@@ -29,6 +30,7 @@ declare global {
 // 挂载全局拓展
 export default function mountGlobalMicroFunction(): void {
     global.mf = {
+        ds,
         clearRoutes,
         createTestCreep,
         clearAll,
@@ -40,7 +42,12 @@ export default function mountGlobalMicroFunction(): void {
         hasClearAll: false
     };
 }
-
+function ds(roomName?: string): void {
+    if (roomName) Game.rooms[roomName].find(FIND_STRUCTURES).forEach(i => i.destroy());
+    else {
+        Object.values(Game.rooms).forEach(room => room.find(FIND_STRUCTURES).forEach(i => i.destroy()));
+    }
+}
 function clearRoutes(): void {
     Memory.routes = {};
     Object.values(Game.creeps).forEach(creep => clearCreepRouteMemory(creep.memory));

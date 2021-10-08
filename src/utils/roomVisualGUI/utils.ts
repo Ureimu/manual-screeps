@@ -15,9 +15,9 @@ function getStringList(str: string): string[] {
  *
  * @export
  * @param {Text} layoutF
- * @returns {map<elementsConstant>[]}
+ * @returns {ElementMap<elementsConstant>[]}
  */
-export function printMulText(layoutF: Text): map<elementsConstant>[] {
+export function printMulText(layoutF: Text): ElementMap<elementsConstant>[] {
     const objList = [];
     const strList = getStringList(layoutF.content);
     let i = 0;

@@ -1,4 +1,4 @@
-/* eslint-disable  */
+
 const { readFileSync } = require("fs");
 const _ = require("lodash");
 const { ScreepsServer, stdHooks } = require("screeps-server-mockup");

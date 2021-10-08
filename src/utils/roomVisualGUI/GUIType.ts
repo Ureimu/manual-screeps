@@ -52,7 +52,7 @@ interface baseLayout {
     y: number;
 }
 
-interface map<T extends elementsConstant> {
+interface ElementMap<T extends elementsConstant> {
     /**
      * 组件类型名称。
      *```ts
@@ -74,14 +74,14 @@ interface map<T extends elementsConstant> {
     /**
      * 子组件数组。
      *
-     * @type {map<elementsConstant>[]}
+     * @type {ElementMap<elementsConstant>[]}
      * @memberof map
      */
     child?: this[]; // 子组件数组
 }
 
 interface standardReturn<T> {
-    (visual: RoomVisual, box: box<T>): {
+    (visual: RoomVisual, box: Box<T>): {
         /**
          * 组件类型名称。
          *
@@ -104,19 +104,19 @@ interface GUIclass {
      *
      * @memberof GUIclass
      */
-    draw: <T extends elementsConstant>(visual: RoomVisual, map: map<T>[]) => RoomVisual;
+    draw: <T extends elementsConstant>(visual: RoomVisual, map: ElementMap<T>[]) => RoomVisual;
 
     /**
      * 迭代循环布局结构。
      *
      * @memberof GUIclass
      */
-    drawMap: <T extends elementsConstant>(visual: RoomVisual, map: map<T>[], x: number, y: number) => RoomVisual;
+    drawMap: <T extends elementsConstant>(visual: RoomVisual, map: ElementMap<T>[], x: number, y: number) => RoomVisual;
 
     [name: string]:
         | standardReturnElementsLayout
-        | ((visual: RoomVisual, map: map<elementsConstant>[], x: number, y: number) => void)
-        | ((visual: RoomVisual, map: map<elementsConstant>[]) => void);
+        | ((visual: RoomVisual, map: ElementMap<elementsConstant>[], x: number, y: number) => void)
+        | ((visual: RoomVisual, map: ElementMap<elementsConstant>[]) => void);
 
     /**
      * 在下方定义组件的layout接口，您可以仿造示例来创建自己的自定义组件。
@@ -181,7 +181,7 @@ interface BoxConstructor<T extends elementsLayout> {
     layout: T;
 }
 
-interface box<T> {
+interface Box<T> {
     x: number;
     y: number;
     layout: T;

@@ -1,4 +1,4 @@
-import { SpecifiedOutwardsStructureNameList } from "frame/construct/type";
+import { LayoutRequireList, SpecifiedOutwardsStructureNameList } from "frame/construct/type";
 
 interface baseLayoutInputData {
     type: SpecifiedOutwardsStructureNameList<"road" | "container">;
@@ -9,13 +9,13 @@ interface baseLayoutInputData {
 interface baseRoadInputData extends baseLayoutInputData {
     structureType: "road";
     type: SpecifiedOutwardsStructureNameList<"road">;
-    path: string[];
+    path: LayoutRequireList;
 }
 
 interface baseContainerInputData extends baseLayoutInputData {
     structureType: "container";
     type: SpecifiedOutwardsStructureNameList<"container">;
-    pos: string[];
+    requireData: LayoutRequireList;
 }
 
 export interface sourceRoadLayoutData extends baseRoadInputData {

@@ -1,3 +1,4 @@
+import { getStructureMemory } from "frame/construct/utils";
 import { CreepGroup } from "frame/creep/group";
 import { RoutePlan } from "frame/creep/routePlan";
 import { FlagMaintainer } from "frame/flagMaintainer";
@@ -18,7 +19,7 @@ export const keepHarvesting: TaskObject<maintainRoomTaskArgs> = {
                 typeList: FlagMaintainer.getTypeList(["container", "containerConstructionSite", "source"])
             });
         }
-        if (room.memory.construct.construction.container?.sourceContainer?.hasBuilt) {
+        if (getStructureMemory(room.name, "container", "sourceContainer")?.hasBuilt) {
             return "end";
         }
         return "running";

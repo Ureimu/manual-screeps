@@ -19,7 +19,10 @@ export const harvestToLink: TaskObject<maintainRoomTaskArgs> = {
     working(roomName) {
         const room = Game.rooms[roomName];
         const sources = room.find(FIND_SOURCES);
-
+        FlagMaintainer.refresh({
+            roomName: room.name,
+            typeList: FlagMaintainer.getTypeList(["link"])
+        });
         for (let index = 0; index < sources.length; index++) {
             const routeName = `${room.name}harvestToLink${index}`;
             const creepGroupName = `${room.name}h${index}`;
@@ -29,7 +32,8 @@ export const harvestToLink: TaskObject<maintainRoomTaskArgs> = {
             })[0].name;
             const closestSourceLinkFlagName = Game.flags[containerFlagName].pos.findInRange(FIND_FLAGS, 1, {
                 filter: i => i.name.indexOf("link") !== -1 && i.name.indexOf("ConstructionSite") === -1
-            })[0].name;
+            })?.[0]?.name;
+            if (!closestSourceLinkFlagName) return "running";
             RoutePlan.create({ routeName, ifLoop: "true" });
             RoutePlan.addMidpoint({
                 routeName,

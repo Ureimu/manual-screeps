@@ -1,6 +1,6 @@
 import { resourceLimit } from "AI/AIUreium/mainControl/constants/roomResource";
 import { runLayout } from "frame/construct";
-import { updateConstruction } from "frame/construct/auto";
+
 import { getMyStructuresById, getStructureIdList } from "frame/construct/utils";
 import { PosStr } from "utils/RoomPositionToStr";
 
@@ -22,7 +22,6 @@ export function oCarrier1(creep: Creep, args: string[]): void {
             if (Game.rooms[sourceRoomName] && Game.time % 100 === 0) {
                 // console.log(sourceRoomName);
                 runLayout(Game.rooms[sourceRoomName]);
-                updateConstruction(Game.rooms[sourceRoomName]);
             }
             return;
         }

@@ -28,7 +28,7 @@ function wrapGetInitMemoryUsedFunction<T extends AnyFunction>(name: string, orig
     }
     function wrappedFunction(this: any, ...args: Parameters<T>) {
         const start = Game.cpu.getUsed(); // 把start移动到if上方，避免isProfiling提前调用memory导致获取不到memory初始化消耗
-        const profilerMemory = SavePath.path;
+        const profilerMemory = new SavePath().path;
         if (Profiler.isProfiling(profilerMemory)) {
             const nameMatchesFilter = name === getFilter();
             if (nameMatchesFilter) {
@@ -40,7 +40,7 @@ function wrapGetInitMemoryUsedFunction<T extends AnyFunction>(name: string, orig
             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
             if (this && this.constructor === wrappedFunction) {
                 // eslint-disable-next-line new-cap
-                result = new (originalFunction as unknown as { new (...args: Parameters<T>): ReturnType<T> })(...args);
+                result = new (originalFunction as unknown as { new (...args0: Parameters<T>): ReturnType<T> })(...args);
             } else {
                 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                 result = originalFunction.apply(this, args);
@@ -60,7 +60,7 @@ function wrapGetInitMemoryUsedFunction<T extends AnyFunction>(name: string, orig
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         if (this && this.constructor === wrappedFunction) {
             // eslint-disable-next-line new-cap
-            return new (originalFunction as unknown as { new (...args: Parameters<T>): ReturnType<T> })(...args);
+            return new (originalFunction as unknown as { new (...args0: Parameters<T>): ReturnType<T> })(...args);
         }
         // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         return originalFunction.apply(this, args);
@@ -91,7 +91,7 @@ export function wrap(callback: () => void): void {
     if (profilerCache.enabled) {
         setupProfiler();
     }
-    const profileMemory = SavePath.path;
+    const profileMemory = new SavePath().path;
     if (Profiler.isProfiling(profileMemory)) {
         profilerCache.usedOnStart = Game.cpu.getUsed();
 

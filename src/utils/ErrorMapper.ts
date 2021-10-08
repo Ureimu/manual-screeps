@@ -1,6 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 
 import { SourceMapConsumer } from "source-map";
+import { SegmentManager } from "./SegmentManager";
 const cache: { time: number } = { time: Game.time - 1 };
 interface ErrorSegmentMemory {
     cache: ErrorCache;
@@ -105,6 +106,7 @@ export class ErrorMapper {
     }
 
     public static wrapLoop(loop: () => void): () => void {
+        SegmentManager.addId([this.segmentId]);
         if (Memory.errorCache) {
             // 每次全局缓存更新时自动删除过时errorCache
             Object.keys(Memory.errorCache).forEach(time => {
@@ -120,6 +122,8 @@ export class ErrorMapper {
                 this.handleError(e);
             }
             this.transferCache();
+
+            SegmentManager.activeSegment();
         };
     }
 
@@ -136,7 +140,7 @@ export class ErrorMapper {
                 console.log(errorMessage);
                 if (Game.time !== cache.time) {
                     cache.time = Game.time;
-                    RawMemory.setActiveSegments([this.segmentId]);
+                    SegmentManager.addId([this.segmentId]);
                     Memory.errorCache[Game.time] = {
                         messageList: [],
                         tick: Game.time
@@ -165,7 +169,11 @@ export class ErrorMapper {
             }
 
             errorMemory.cache[tick] = Memory.errorCache[tick];
-
+            if (!SegmentManager.isActive(this.segmentId)) {
+                SegmentManager.addId([this.segmentId]);
+                console.log("errorCache正在启动。");
+                return;
+            }
             if (RawMemory.segments[this.segmentId].length < 9e4 && errorMemory.isFull) {
                 errorMemory.isFull = false;
             }

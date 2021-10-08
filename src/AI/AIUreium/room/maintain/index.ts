@@ -5,7 +5,7 @@ export function maintainRoom(): void {
     _.forEach(Game.rooms, room => {
         if (room.controller?.my && room.find(FIND_MY_SPAWNS).length !== 0) {
             if (!room.memory.AIUreium || !room.memory.AIUreium.maintainRoom)
-                room.memory.AIUreium = { maintainRoom: {}, outwardsSource: {},newRoom:{} };
+                room.memory.AIUreium = { maintainRoom: {}, outwardsSource: {}, newRoom: {} };
             const maintainRoomProject = getMaintainRoomProject(room.name);
             maintainRoomProject.run();
             // console.log(room.name, JSON.stringify(maintainRoomProject.stats));
