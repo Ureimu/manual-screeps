@@ -10,5 +10,11 @@ interface RoomMemory {
 interface AIUreiumRoomMemory {}
 
 interface Creep {
+    /**
+     * creep放在全局上的memory，在死亡后和全局重置时会重置。
+     *
+     * @type {GlobalCreepMemory}
+     * @memberof Creep
+     */
     globalMemory: GlobalCreepMemory;
 }

@@ -48,12 +48,16 @@ export function runTerminal(terminal: StructureTerminal): void {
         }
         if (terminalStoreNum < buyLimit) {
             debug(`${resourceType} requireNum:${buyLimit - terminalStoreNum}`, "info");
-            const buyNum = buyLimit - terminalStoreNum;
-            const orderList = Game.market.getAllOrders({ type: ORDER_SELL, resourceType }); // 更快
             let isDealingEnergy = false;
             if (resourceType === RESOURCE_ENERGY) {
                 isDealingEnergy = true;
             }
+            const buyNum = buyLimit - terminalStoreNum;
+            if (isDealingEnergy && buyNum < 100) {
+                continue;
+            }
+            const orderList = Game.market.getAllOrders({ type: ORDER_SELL, resourceType }); // 更快
+
             const costList = orderList
                 .map(order => {
                     if (!order.roomName) throw new Error("order 没有 roomName");

@@ -21,7 +21,8 @@ export const createHarvestGroup: TaskObject<maintainRoomTaskArgs> = {
                 creepBody: "harvester",
                 priority: "10",
                 roomName: room.name,
-                readyCondition: "loop"
+                readyCondition: "shift",
+                subCond: "worker"
             });
             CreepGroup.create({ creepGroupName, mode: "route", groupArguments: "" });
             CreepGroup.addCreep({ creepName, creepGroupName });

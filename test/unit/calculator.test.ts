@@ -112,9 +112,9 @@ describe("calculator", () => {
     });
 });
 
-function bodyIndexListIsBodyIndexList<T extends BodyPartConstant>(
-    list: { [name in T]?: number }
-): list is { [name in T]: number } {
+function bodyIndexListIsBodyIndexList<T extends BodyPartConstant>(list: { [name in T]?: number }): list is {
+    [name in T]: number;
+} {
     return true;
 }
 
@@ -183,7 +183,17 @@ function getModel(workerBody: string, carrierBody: string, reserverBody: string,
         harvester: { type: "creep", data: [{ use: true, body: workerBody, boost: {} }] },
         carrier: { type: "creep", data: [{ use: true, body: carrierBody, boost: {} }] },
         container: { type: "container", data: [{ useContainer: true }] },
-        source: { type: "source", data: [{ capacity: 3000, powers: {} }] },
+        source: {
+            type: "source",
+            data: [
+                {
+                    capacity: 3000,
+                    powers: {
+                        [PWR_REGEN_SOURCE]: 1
+                    }
+                }
+            ]
+        },
         spawn: { type: "spawn", data: [{ powers: {} }] },
         path: {
             type: "path",
@@ -195,7 +205,15 @@ function getModel(workerBody: string, carrierBody: string, reserverBody: string,
         },
         reserver: {
             type: "creep",
-            data: [{ use: true, body: reserverBody, boost: {} }]
+            data: [
+                {
+                    use: true,
+                    body: reserverBody,
+                    boost: {
+                        attack: { XUH2O: 1 }
+                    }
+                }
+            ]
         }
     });
     return model;

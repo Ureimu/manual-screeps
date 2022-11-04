@@ -5,6 +5,7 @@ import { roomCpuCost } from "./cpuStats";
 import runCreepAction from "./creep/action";
 import { mountAll } from "./mount";
 import { runSpawnPool, runSpawnQueue } from "./spawn/spawning";
+import { shiftController } from "./spawn/spawning/readyCondition/shiftController";
 import { statsEngine } from "./stats";
 import { mapVisualForRoom } from "./visual/mapVisual";
 import { roomVisualize } from "./visual/roomVisual";
@@ -32,6 +33,8 @@ export const runFrame = registerFN((): void => {
     Object.values(Game.spawns).forEach(spawn => {
         runSpawnQueue(spawn);
     });
+
+    shiftController.run();
 
     Object.values(Game.creeps).forEach(creep => {
         runCreepAction(creep);

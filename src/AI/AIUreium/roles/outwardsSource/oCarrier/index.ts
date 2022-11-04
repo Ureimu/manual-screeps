@@ -39,7 +39,7 @@ export function oCarrier1(creep: Creep, args: string[]): void {
     } else {
         const originRoom = Game.rooms[originRoomName];
         if (!originRoom.storage) return;
-        const maxEnergyNum = resourceLimit.storage.energy.max * 0.98;
+        const maxEnergyNum = resourceLimit.storage.energy.max * 1.3;
         if (originRoom.storage.store.energy > maxEnergyNum) return;
         if (!creep.pos.isNearTo(originRoom.storage.pos)) {
             creep.moveTo(originRoom.storage.pos, { range: 1 });

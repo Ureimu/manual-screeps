@@ -57,19 +57,20 @@ export const runSpawnQueue = registerFN((spawn: StructureSpawn): void => {
             const creepBody = bodyTools.compile(
                 chooseBefittingBody({ creepBodyConfigName: spawnTask.creepBody, room: spawn.room })
             );
-            returnCode = spawn.spawnCreep(creepBody, spawnTask.creepName, {
+            const spawnCreepName = spawnTask.creepName;
+            returnCode = spawn.spawnCreep(creepBody, spawnCreepName, {
                 dryRun: true
             });
             if (returnCode === OK) {
-                spawn.spawnCreep(creepBody, spawnTask.creepName);
-                if (spawn.room.memory.spawnPool[spawnTask.creepName])
-                    spawn.room.memory.spawnPool[spawnTask.creepName].state = "notReady";
+                spawn.spawnCreep(creepBody, spawnCreepName);
+                if (spawn.room.memory.spawnPool[spawnCreepName])
+                    spawn.room.memory.spawnPool[spawnCreepName].state = "notReady";
             } else {
                 if (returnCode !== ERR_NOT_ENOUGH_ENERGY && returnCode !== ERR_NAME_EXISTS) {
                     console.log(`spawn:${spawn.name} 返回错误 returnCode: ${returnCode}`);
                 }
                 if (returnCode === ERR_NO_BODYPART && creepBody === []) {
-                    console.log(`spawn:${spawn.name} 返回错误：找不到合适的身体部件数组：${spawnTask.creepName}`);
+                    console.log(`spawn:${spawn.name} 返回错误：找不到合适的身体部件数组：${spawnCreepName}`);
                 }
                 failedList.push(spawnTask);
             }
@@ -117,6 +118,8 @@ export const runSpawnPool = registerFN((room: Room): void => {
                 creepGroupName: groupName,
                 creepName
             });
+            delete global.creepMemory?.[creepName];
+            Memory.rooms[room.name].spawnPool[creepName].creepCondition = "dead";
         });
     }
 
@@ -124,6 +127,7 @@ export const runSpawnPool = registerFN((room: Room): void => {
         justSpawningCreepSet.forEach(creepName => {
             const creep = Game.creeps[creepName];
             callOnBirth(creep);
+            Memory.rooms[room.name].spawnPool[creepName].creepCondition = "alive";
         });
     }
 
@@ -141,7 +145,7 @@ export const runSpawnPool = registerFN((room: Room): void => {
                 room.memory.spawnPool[creepName].state = "running";
                 break;
             case "notReady":
-                readyCondition[detail.readyCondition](detail);
+                readyCondition[detail.spawnCondition](detail);
                 break;
             default:
                 break;

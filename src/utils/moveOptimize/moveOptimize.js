@@ -84,7 +84,7 @@ let config = {
 let pathClearDelay = 5000;  // 清理相应时间内都未被再次使用的路径，同时清理死亡creep的缓存，设为undefined表示不清除缓存
 let hostileCostMatrixClearDelay = 500; // 自动清理相应时间前创建的其他玩家房间的costMatrix
 let coreLayoutRange = 3; // 核心布局半径，在离storage这个范围内频繁检查对穿（减少堵路的等待
-let avoidRooms = []      // 永不踏入这些房间
+let avoidRooms = ["W34N22"]      // 永不踏入这些房间
 let avoidExits = {
     'E35N7': 'E35N6',
     'fromRoom': 'toRoom'

@@ -16,5 +16,10 @@ interface Memory {
     version: string;
 }
 
+/**
+ * creep放在全局上的memory，在死亡后和全局重置时会重置。
+ *
+ * @memberof Creep
+ */
 interface GlobalCreepMemory {}
 interface GlobalRoomMemory {}

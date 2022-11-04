@@ -1,7 +1,8 @@
+import { wrapFunction } from "utils/profiler/wrap/function";
 import { PosStr } from "utils/RoomPositionToStr";
 import { LayoutDataNode } from "../type";
 
-export function getCostMatrix(roomName: string): CostMatrix {
+export const getCostMatrix = wrapFunction("getCostMatrix", (roomName: string): CostMatrix => {
     // 在这个示例中，`room` 始终存在
     // 但是由于 PathFinder 支持跨多房间检索
     // 所以你要更加小心！
@@ -42,7 +43,7 @@ export function getCostMatrix(roomName: string): CostMatrix {
     setStructureCost(roomName, roadExpandList, 1, costs);
 
     return costs;
-}
+});
 
 function setStructureCost(
     roomName: string,

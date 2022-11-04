@@ -9,6 +9,7 @@
         "build": "rollup -c & typedoc --options ./typedoc.config.json",
         "push-main": "rollup -c --environment DEST:miniMain",
         "push-pserver": "rollup -c --environment DEST:pserver",
+        "push-pserver-more": "rollup -c --environment DEST:pserver-more",
         "push-season": "rollup -c --environment DEST:season",
         "push-sim": "rollup -c --environment DEST:sim",
         "test": "npm run test-unit",

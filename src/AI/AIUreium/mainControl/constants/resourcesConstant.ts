@@ -7,9 +7,9 @@ export const mineralResource = [
     RESOURCE_ZYNTHIUM,
     RESOURCE_CATALYST,
     RESOURCE_GHODIUM
-];
+] as const;
 
-export const compound0Resource = [RESOURCE_HYDROXIDE, RESOURCE_ZYNTHIUM_KEANITE, RESOURCE_UTRIUM_LEMERGITE];
+export const compound0Resource = [RESOURCE_HYDROXIDE, RESOURCE_ZYNTHIUM_KEANITE, RESOURCE_UTRIUM_LEMERGITE] as const;
 
 export const compound1Resource = [
     RESOURCE_UTRIUM_HYDRIDE,
@@ -22,7 +22,7 @@ export const compound1Resource = [
     RESOURCE_ZYNTHIUM_OXIDE,
     RESOURCE_GHODIUM_HYDRIDE,
     RESOURCE_GHODIUM_OXIDE
-];
+] as const;
 
 export const compound2Resource = [
     RESOURCE_UTRIUM_ACID,
@@ -35,7 +35,7 @@ export const compound2Resource = [
     RESOURCE_ZYNTHIUM_ALKALIDE,
     RESOURCE_GHODIUM_ACID,
     RESOURCE_GHODIUM_ALKALIDE
-];
+] as const;
 export const compound3Resource = [
     RESOURCE_CATALYZED_UTRIUM_ACID,
     RESOURCE_CATALYZED_UTRIUM_ALKALIDE,
@@ -47,7 +47,7 @@ export const compound3Resource = [
     RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE,
     RESOURCE_CATALYZED_GHODIUM_ACID,
     RESOURCE_CATALYZED_GHODIUM_ALKALIDE
-];
+] as const;
 
 export const compressedResource = [
     RESOURCE_UTRIUM_BAR,
@@ -59,11 +59,11 @@ export const compressedResource = [
     RESOURCE_REDUCTANT,
     RESOURCE_PURIFIER,
     RESOURCE_BATTERY
-];
+] as const;
 
-export const baseCommodityResource = [RESOURCE_SILICON, RESOURCE_METAL, RESOURCE_BIOMASS, RESOURCE_MIST];
+export const baseCommodityResource = [RESOURCE_SILICON, RESOURCE_METAL, RESOURCE_BIOMASS, RESOURCE_MIST] as const;
 
-export const neutralCommodityResource = [RESOURCE_COMPOSITE, RESOURCE_CRYSTAL, RESOURCE_LIQUID];
+export const neutralCommodityResource = [RESOURCE_COMPOSITE, RESOURCE_CRYSTAL, RESOURCE_LIQUID] as const;
 
 export const WSCommodityResource = [
     RESOURCE_WIRE,
@@ -72,7 +72,7 @@ export const WSCommodityResource = [
     RESOURCE_MICROCHIP,
     RESOURCE_CIRCUIT,
     RESOURCE_DEVICE
-];
+] as const;
 
 export const WNCommodityResource = [
     RESOURCE_ALLOY,
@@ -81,7 +81,7 @@ export const WNCommodityResource = [
     RESOURCE_FRAME,
     RESOURCE_HYDRAULICS,
     RESOURCE_MACHINE
-];
+] as const;
 
 export const ENCommodityResource = [
     RESOURCE_CELL,
@@ -90,7 +90,7 @@ export const ENCommodityResource = [
     RESOURCE_MUSCLE,
     RESOURCE_ORGANOID,
     RESOURCE_ORGANISM
-];
+] as const;
 
 export const ESCommodityResource = [
     RESOURCE_CONDENSATE,
@@ -99,4 +99,4 @@ export const ESCommodityResource = [
     RESOURCE_SPIRIT,
     RESOURCE_EMANATION,
     RESOURCE_ESSENCE
-];
+] as const;

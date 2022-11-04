@@ -14,13 +14,13 @@ import {
 } from "./resourcesConstant";
 import { RoomResourceLimit, StructureResourceLimit } from "./type";
 
-export const sellLimitRate = 1.2;
-export const buyLimitRate = 0.9;
+export const sellLimitRate = 1;
+export const buyLimitRate = 1;
 export const energyCostPrice = 0.09;
 export const capacityRate = {
     terminalToStorage: TERMINAL_CAPACITY / STORAGE_CAPACITY
 };
-function transferList<T extends ResourceConstant>(setting: { min: number; max: number }, resList: T[]) {
+function transferList<T extends ResourceConstant>(setting: { min: number; max: number }, resList: readonly T[]) {
     const a = {};
 
     resList.forEach(resName => {
@@ -31,8 +31,8 @@ function transferList<T extends ResourceConstant>(setting: { min: number; max: n
 }
 const storageResourceLimit: StructureResourceLimit = {
     energy: {
-        max: 500e3,
-        min: 400e3
+        max: 160e3,
+        min: 100e3
     },
     power: {
         max: 10e3,

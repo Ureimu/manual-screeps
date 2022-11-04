@@ -77,8 +77,9 @@ function run(creep: Creep): state {
 export function callOnStart(): void {
     AcrossTick.mountTaskFunction({ taskName: "checkPosOccupation" }, ({ args }) => {
         const [creepName, roomName] = args as string[];
+        if (!global.creepMemory[creepName]) return "runAgain";
         const creep = Game.creeps[creepName];
-        const parkingSpot = global.creepMemory[creepName].parkingSpot;
+        const parkingSpot = global.creepMemory[creepName]?.parkingSpot;
         if (!creep) {
             // console.log(`[creep] ${creepName} 由于不存在而放弃了parkingSpot`);
             global.creepMemory[creepName].checkPosOccupation = false;
@@ -123,7 +124,7 @@ function releaseParkingSpot(roomName: string, creepName: string, parkingSpot: st
 }
 
 function checkAllParkingSpot(roomName: string, creepName: string): AcrossTickReturnCode {
-    const freeSpacePosList = global.roomMemory[roomName].freeSpacePosList;
+    const freeSpacePosList = global.roomMemory[roomName]?.freeSpacePosList;
     if (checkArray(freeSpacePosList)) {
         if (!Game.creeps[creepName]) {
             for (const posObj of freeSpacePosList) {

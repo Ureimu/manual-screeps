@@ -8,34 +8,32 @@ import { newAcrossTickTask } from "utils/AcrossTick";
 import { TaskObject } from "utils/Project";
 import { PosStr } from "utils/RoomPositionToStr";
 import { maintainRoomTaskArgs } from "../../taskRelation";
-
-export function callOnStart(): void {
-    global.AcrossTickTaskFunction.centerTask1 = task => {
-        const [roomNameArg, creepGroupNameArg, route1NameArg, route2NameArg] = task.args as string[];
-        const roomArg = Game.rooms[roomNameArg];
-        if (!roomArg.storage) return "finish";
-        const creepGroupMemory = Memory.creepGroups[creepGroupNameArg];
-        if (creepGroupMemory.mode === "route") {
-            if (creepGroupMemory.routeName !== route1NameArg && creepGroupMemory.routeName !== route2NameArg) {
-                CreepGroup.setCreepGroupProperties({ creepGroupName: creepGroupNameArg, routeName: route2NameArg });
-            }
-
-            if (
-                roomArg.storage.store.energy > resourceLimit.storage.energy.max &&
-                creepGroupMemory.routeName !== route1NameArg
-            ) {
-                CreepGroup.setCreepGroupProperties({ creepGroupName: creepGroupNameArg, routeName: route1NameArg });
-            } else if (
-                roomArg.storage.store.energy < resourceLimit.storage.energy.min &&
-                creepGroupMemory.routeName !== route2NameArg
-            ) {
-                CreepGroup.setCreepGroupProperties({ creepGroupName: creepGroupNameArg, routeName: route2NameArg });
-            }
+if (!global.AcrossTickTaskFunction) global.AcrossTickTaskFunction = {};
+global.AcrossTickTaskFunction.centerTask1 = task => {
+    const [roomNameArg, creepGroupNameArg, route1NameArg, route2NameArg] = task.args as string[];
+    const roomArg = Game.rooms[roomNameArg];
+    if (!roomArg.storage) return "finish";
+    const creepGroupMemory = Memory.creepGroups[creepGroupNameArg];
+    if (creepGroupMemory.mode === "route") {
+        if (creepGroupMemory.routeName !== route1NameArg && creepGroupMemory.routeName !== route2NameArg) {
+            CreepGroup.setCreepGroupProperties({ creepGroupName: creepGroupNameArg, routeName: route2NameArg });
         }
 
-        return "runAgain";
-    };
-}
+        if (
+            roomArg.storage.store.energy > resourceLimit.storage.energy.max &&
+            creepGroupMemory.routeName !== route1NameArg
+        ) {
+            CreepGroup.setCreepGroupProperties({ creepGroupName: creepGroupNameArg, routeName: route1NameArg });
+        } else if (
+            roomArg.storage.store.energy < resourceLimit.storage.energy.min &&
+            creepGroupMemory.routeName !== route2NameArg
+        ) {
+            CreepGroup.setCreepGroupProperties({ creepGroupName: creepGroupNameArg, routeName: route2NameArg });
+        }
+    }
+
+    return "runAgain";
+};
 
 export const centerTask1: TaskObject<maintainRoomTaskArgs> = {
     name: "centerTask1",

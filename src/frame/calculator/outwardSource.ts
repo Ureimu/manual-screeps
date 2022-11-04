@@ -1,22 +1,23 @@
 import { SeparateHarvestAndCarryModel, sourceCalculator } from "screeps-calculator";
+import { PathInput } from "screeps-calculator/dist/src/sourceCalculator/inits/path";
+import { SeparateHarvestAndCarryModelResult } from "screeps-calculator/dist/src/sourceCalculator/model/SeparateHarvestAndCarryModel";
 // cpu消耗0.02左右
-export function outwardSourceCalculator(): void {
-    sourceCalculator(
+export function outwardSourceCalculator(data: {
+    harvester: string;
+    carrier: string;
+    pathData: PathInput;
+}): SeparateHarvestAndCarryModelResult {
+    const { harvester, carrier, pathData } = data;
+    return sourceCalculator(
         new SeparateHarvestAndCarryModel({
-            harvester: { type: "creep", data: [{ use: true, body: "w5c1m3", boost: {} }] },
-            carrier: { type: "creep", data: [{ use: true, body: "c9m5w1", boost: { carry: { KH: 5 } } }] },
+            harvester: { type: "creep", data: [{ use: true, body: harvester, boost: {} }] },
+            carrier: { type: "creep", data: [{ use: true, body: carrier, boost: { carry: { KH: 5 } } }] },
             container: { type: "container", data: [{ useContainer: true }] },
             source: { type: "source", data: [{ capacity: 3000, powers: {} }] },
             spawn: { type: "spawn", data: [{ powers: {} }] },
             path: {
                 type: "path",
-                data: [
-                    {
-                        ownedRoomPathLength: { plain: 0, swamp: 0, road: 30 },
-                        reservePathLength: { plain: 10, swamp: 20, road: 10 },
-                        outwardsRoomPathLength: { plain: 0, swamp: 0, road: 30 }
-                    }
-                ]
+                data: [pathData]
             },
             link: {
                 type: "link",

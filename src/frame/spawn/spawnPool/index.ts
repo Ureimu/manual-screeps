@@ -1,6 +1,7 @@
 import { clearCreepRouteMemory } from "frame/creep/action";
 import { readyConditionKey } from "./type";
 import { consoleStyle } from "frame/console/style";
+import { SubCondition } from "../spawning/readyCondition/type";
 
 const style = consoleStyle("spawnPool");
 
@@ -25,10 +26,14 @@ export class SpawnPool {
         priority: string;
         roomName: string;
         readyCondition: readyConditionKey;
+        subCond?: SubCondition;
     }): string {
-        const { creepName, creepBody: creepBodyConfigName, priority, roomName, readyCondition } = args;
+        const { creepName, creepBody: creepBodyConfigName, priority, roomName, readyCondition, subCond } = args;
         if (!Game.rooms[roomName]?.memory) {
             console.log(style(`请检查房间是否存在可用spawn，如果存在则请忽略`, "warning"));
+        }
+        if (readyCondition === "sub" && !subCond) {
+            throw new Error(`添加${creepName}时抛出错误： readyCondition为sub时，subCond不能为undefined`);
         }
         const roomMemory = Game.rooms[roomName].memory;
         if (!roomMemory?.spawnPool) {
@@ -38,9 +43,12 @@ export class SpawnPool {
             creepName,
             creepBody: creepBodyConfigName,
             priority: Number(priority),
-            readyCondition,
+            idList: [],
+            spawnCondition: readyCondition,
+            creepCondition: "queue",
             state: "ready",
-            roomName
+            roomName,
+            subCond
         };
         if (!Memory.creeps) {
             Memory.creeps = {};
@@ -88,16 +96,20 @@ export class SpawnPool {
         creepBody?: string;
         priority?: string;
         readyCondition?: readyConditionKey;
+        subCond?: SubCondition;
     }): string {
-        const { creepName, roomName, creepBody, priority, readyCondition } = args;
+        const { creepName, roomName, creepBody, priority, readyCondition, subCond } = args;
         const memCopy = Object.assign({}, Memory.rooms[roomName].spawnPool[creepName]);
         Memory.rooms[roomName].spawnPool[creepName] = {
             creepName: memCopy.creepName,
             creepBody: creepBody || memCopy.creepBody,
             priority: Number(priority) || memCopy.priority,
-            readyCondition: readyCondition || memCopy.readyCondition,
-            state: "ready",
-            roomName
+            spawnCondition: readyCondition || memCopy.spawnCondition,
+            creepCondition: memCopy.creepCondition,
+            state: memCopy.state,
+            roomName,
+            idList: [],
+            subCond
         };
         return style(`修改creepSpawn信息 ${creepName} 设置完成`, "log");
     }
