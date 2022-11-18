@@ -7,7 +7,7 @@ import { ReadyCondition } from ".";
 import { spawnShiftCreepFunctionSet } from "./spawnShiftCreep";
 import { getSubCreepName } from "./subCreep";
 import { SubCondition } from "./type";
-const debug = (msg: string) => console.log(consoleStyle("shiftController")(msg, "log"));
+const debug = (msg: string) => console.log(consoleStyle("shiftController")(msg, "info"));
 /* 
 轮班控制器 
 */
@@ -95,9 +95,9 @@ export const shiftController = {
     }, // s
     manageShiftCreepTeam: function manageShiftCreepTeam(mainCreepDetail: SpawnCreepDetail): void {
         const { creepName, creepBody, priority, roomName, spawnCondition: readyCondition } = mainCreepDetail;
-        debug(`${creepName} manage`);
+        // debug(`${creepName} manage`);
         if (determineShiftTime(mainCreepDetail)) {
-            debug(`${creepName} try enqueue`);
+            // debug(`${creepName} try enqueue`);
             mainCreepDetail.spawning = true;
             if (mainCreepDetail.state === "notReady") {
                 // 先尝试孵化main creep
@@ -118,10 +118,10 @@ export const shiftController = {
         }
     },
     run: function run(): void {
-        debug(`running ${Game.time}`);
+        // debug(`running ${Game.time}`);
         this.checkIdList();
         const mainCreepNameList = this.getShiftCreepList();
-        debug(`${mainCreepNameList.toString()}`);
+        // debug(`${mainCreepNameList.toString()}`);
         const mainCreepDetailList = this.creepDetailList.filter(detail =>
             mainCreepNameList.some(name => detail.creepName === name)
         );

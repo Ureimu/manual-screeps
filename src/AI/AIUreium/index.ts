@@ -9,7 +9,7 @@ import { terminal } from "./structure/terminal";
 import { allocateNewRoom } from "./mainControl/newRoom";
 import { maintainNewRoom } from "./room/newRoom";
 export const runAi = registerFN((): void => {
-    if (!Memory.creepBodyConfig.overalls) {
+    if (!Memory.creepBodyConfig?.overalls) {
         CreepBody.createConfig({ creepBodyConfigName: "all" });
         CreepBody.setConfig({ creepBodyConfigName: "all", creepBodyConfig: "m2w1c1", controllerLevel: "1" });
     }

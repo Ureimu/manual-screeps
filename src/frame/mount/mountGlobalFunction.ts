@@ -14,7 +14,7 @@ declare global {
             mf: {
                 clearRoutes: () => void;
                 createTestCreep: () => void;
-                clearAll: () => void;
+                clearAll: (clearWalls: boolean) => void;
                 ds: () => void;
                 testConsole: () => string;
                 testConsoleCommit: (args: { uploadedFile: string }) => string;
@@ -76,13 +76,20 @@ function createTestCreep(): void {
     );
 }
 
-function clearAll(): void {
+function clearAll(clearWalls: boolean): void {
     for (const creepName in Game.creeps) {
         Game.creeps[creepName].suicide();
     }
     RawMemory.set("{}");
     for (const spawn in Game.spawns) {
         Game.spawns[spawn].spawning?.cancel();
+    }
+    if (clearWalls) {
+        Object.values(Game.rooms).forEach(room => {
+            room.find(FIND_STRUCTURES)
+                .filter((i): i is StructureWall => i.structureType === STRUCTURE_WALL)
+                .forEach(i => i.destroy());
+        });
     }
     global.mf.hasClearAll = true;
     // Game.cpu.halt(); 自己手动执行
