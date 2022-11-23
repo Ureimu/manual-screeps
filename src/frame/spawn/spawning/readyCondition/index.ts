@@ -16,6 +16,11 @@ export const readyCondition: ReadyCondition = {
         return;
     },
     shift: (spawnCreepDetail: SpawnCreepDetail): void => {
+        // 未启用。
+        const { creepName } = spawnCreepDetail;
+        if (!Game.creeps[creepName]) {
+            spawnEnqueue(spawnCreepDetail);
+        }
         return;
     },
     sub: (spawnCreepDetail: SpawnCreepDetail): void => {

@@ -22,6 +22,11 @@ function createSuccorCreep(spawnRoomName: string, claimRoomName: string): void {
     CreepBody.createConfig({ creepBodyConfigName });
     CreepBody.setConfig({
         creepBodyConfigName,
+        controllerLevel: "2",
+        creepBodyConfig: "m4c2w2"
+    });
+    CreepBody.setConfig({
+        creepBodyConfigName,
         controllerLevel: "3",
         creepBodyConfig: "m6c3w3"
     });

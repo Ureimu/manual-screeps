@@ -43,7 +43,7 @@ export function getMyClosestRoom(goalRoomName: string): string | undefined {
     const MyRoomList = getMyRoom();
     const closestRoom = MyRoomList.map(myRoomName => {
         const controller = Game.rooms[myRoomName].controller;
-        if (Game.map.getRoomLinearDistance(myRoomName, goalRoomName) > 12 || (controller && controller.level <= 5)) {
+        if (Game.map.getRoomLinearDistance(myRoomName, goalRoomName) > 12 || (controller && controller.level <= 3)) {
             return [myRoomName, 700] as [string, number];
         }
         return [

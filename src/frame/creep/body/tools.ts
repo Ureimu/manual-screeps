@@ -8,6 +8,20 @@ export const bodyAbbreviation: { [name: string]: BodyPartConstant } = {
     i: "claim",
     t: "tough"
 };
+
+/**
+ * creeps身体部件生成器。
+ *
+ * 示例：
+ * bodyTools.compile("m5") // [ 'move', 'move', 'move', 'move', 'move' ]
+ *
+ * bodyTools.compile("m2c2") // [ 'move', 'move', 'carry', 'carry' ]
+ *
+ * bodyTools.compile("m1w1*2") // [ 'move', 'work', 'move', 'work' ]
+ *
+ * 更复杂的示例可见bodyTools.compile函数的注释。
+ */
+
 // {
 //     m: 50,
 //     w: 100,

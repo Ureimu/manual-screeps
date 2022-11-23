@@ -34,7 +34,7 @@ export const runFrame = registerFN((): void => {
         runSpawnQueue(spawn);
     });
 
-    shiftController.run();
+    // shiftController.run();
 
     Object.values(Game.creeps).forEach(creep => {
         runCreepAction(creep);

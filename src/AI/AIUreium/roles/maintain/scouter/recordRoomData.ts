@@ -6,13 +6,14 @@ import { PosStr } from "utils/RoomPositionToStr";
 export function recordRoomData(room: Room): void {
     FlagMaintainer.refresh({ roomName: room.name, typeList: FlagMaintainer.getTypeList(["source", "controller"]) });
     const sources = room.find(FIND_SOURCES);
+    console.log(sources.map(i => `${i.room.name},${i.pos.x},${i.pos.y}`));
     room.memory.owner = room.controller?.owner?.username;
     if (!room.memory.sources) room.memory.sources = {};
     const roomSourcesMemory = room.memory.sources;
     _.forEach(Game.rooms, originRoom => {
         const linearDistance = Game.map.getRoomLinearDistance(originRoom.name, room.name);
         if (linearDistance > 3) {
-            // console.log(`${originRoom.name} ${room.name} ${linearDistance}`);
+            console.log(`${originRoom.name} ${room.name} ${linearDistance}`);
             return;
         } else {
             // console.log(`${originRoom.name} ${room.name} ${linearDistance}`);
@@ -36,14 +37,14 @@ export function recordRoomData(room: Room): void {
                     };
                 }
 
-                // console.log(`正在搜索路径：${spawnName} --> ${sourceFlagName}`);
+                console.log(`正在搜索路径：${spawnName} --> ${sourceFlagName}`);
                 const ret = PathFinder.search(
                     Game.spawns[spawnName].pos,
                     { pos: source.pos, range: 1 },
                     { maxOps: 1000 * 50, roomCallback: getCostMatrix }
                 );
                 if (!ret.incomplete) {
-                    // console.log(`记录路径`);
+                    console.log(`记录路径`);
                     roomSourcesMemory[sourceFlagName].roomData[originRoom.name] = {
                         sourceRoomName: room.name,
                         sourceName: sourceFlagName,
