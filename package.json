@@ -7,8 +7,8 @@
     "scripts": {
         "lint": "eslint \"src/**/*.ts\" --fix",
         "build": "rollup -c & typedoc --options ./typedoc.config.json",
-        "push-u-main": "rollup -c --environment DEST:u-main",
-        "push-main": "rollup -c --environment DEST:miniMain",
+        "push-ureium": "rollup -c --environment DEST:u-main",
+        "push-moreOneNight": "rollup -c --environment DEST:miniMain",
         "push-pserver": "rollup -c --environment DEST:pserver",
         "push-pserver-more": "rollup -c --environment DEST:pserver-more",
         "push-season": "rollup -c --environment DEST:season",

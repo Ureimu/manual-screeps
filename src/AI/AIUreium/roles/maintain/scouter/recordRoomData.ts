@@ -25,7 +25,7 @@ export function recordRoomData(room: Room): void {
                     .filter(anyFlag => anyFlag.name.includes(`${room.name}source`))[0];
                 const sourceFlagName = flag?.name;
                 const spawnName = originRoom.memory.construct.firstSpawnName?.name;
-                if (!spawnName) return;
+                if (!spawnName || !sourceFlagName) return;
                 if (roomSourcesMemory?.[sourceFlagName]?.roomData?.[originRoom.name]?.pathLength) {
                     return;
                 }

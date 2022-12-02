@@ -11,5 +11,5 @@ export type StructureResourceLimit = {
         min: number;
     };
 };
-export type ResourceType<T extends ResourceConstant[]> = T extends (infer U)[] ? U : never;
+export type ResourceType<T extends readonly ResourceConstant[]> = T extends readonly (infer U)[] ? U : never;
 export type MineralResource = ResourceType<typeof mineralResource>;

@@ -6,6 +6,8 @@
 
 该框架提供了一系列在游戏控制台的操作方法，以便于玩家在控制台完成从添加 creep 到使 creep 完成一系列任务的复杂操作。具体可见教程。
 
+自动布局功能由[screeps-sideServer](https://github.com/Ureimu/screeps-sideServer)提供支持，数据统计页面由[manual-screeps-ui](https://github.com/Ureimu/manual-screeps-ui)提供支持。
+
 ## 教程
 
 教你如何上手使用该框架。

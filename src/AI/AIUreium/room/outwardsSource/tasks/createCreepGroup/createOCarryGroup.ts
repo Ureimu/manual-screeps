@@ -14,6 +14,10 @@ export const createOCarryGroup: TaskObject<outwardsSourceTaskArgs> = {
         const sourceData = Memory.rooms[sourceRoomName].sources?.[sourceName]?.roomData[roomName];
         if (!sourceData) return "running";
         const pathLength = sourceData.pathLength;
+        if (pathLength === 0) {
+            console.log("sourceData.pathLength should not be zero");
+            return "running";
+        }
         const carryNum = Math.ceil(pathLength * 0.2);
         const moveNum = Math.ceil(pathLength * 0.2);
         const creepName = OCarryGroupCreepName(roomName, sourceName);
