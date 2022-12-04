@@ -1,8 +1,11 @@
 import { CreepAction } from ".";
 import { state } from "..";
 
+const tickLag = 100;
 function run(creep: Creep): state {
-    const scoutRoomName = global.creepMemory[creep.name].scoutRoomName;
+    const creepGlobalMemory = global.creepMemory[creep.name];
+    const scoutRoomName = creepGlobalMemory.scoutRoomName;
+    const lastFindPathTick = creepGlobalMemory.lastFindPathTick ?? 0;
     const targetRoom = Game.rooms[scoutRoomName as string];
 
     if (typeof targetRoom !== "undefined") {
@@ -13,8 +16,22 @@ function run(creep: Creep): state {
     }
 
     if (scoutRoomName) {
+        const centerPos = new RoomPosition(25, 25, scoutRoomName);
+        if (Game.time - lastFindPathTick <= tickLag && !creepGlobalMemory.lastIsOK) {
+            return "moving";
+        }
+        if (Game.time - lastFindPathTick > tickLag) {
+            creepGlobalMemory.lastFindPathTick = Game.time;
+            const result = PathFinder.search(creep.pos, { pos: centerPos, range: 23 });
+            if (result.incomplete) {
+                creepGlobalMemory.lastIsOK = false;
+                return "moving";
+            } else {
+                creepGlobalMemory.lastIsOK = true;
+            }
+        }
         if (creep.room.name !== scoutRoomName) {
-            creep.moveTo(new RoomPosition(25, 25, scoutRoomName));
+            creep.moveTo(centerPos);
             return "arrived";
         }
     }

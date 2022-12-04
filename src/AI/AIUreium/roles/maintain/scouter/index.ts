@@ -3,6 +3,13 @@ import { getAvailableNearbyRooms } from "utils/roomTools";
 import { checkArray } from "utils/typeCheck";
 import { recordRoomData } from "./recordRoomData";
 
+declare global {
+    interface GlobalCreepMemory {
+        lastFindPathTick?: number;
+        lastIsOK?: boolean;
+    }
+}
+const tickLag = 100;
 export function scouter(creep: Creep): void {
     if (!global.creepMemory[creep.name]) global.creepMemory[creep.name] = {};
     const scoutRoomName = global.creepMemory[creep.name].scoutRoomName;
@@ -14,8 +21,26 @@ export function scouter(creep: Creep): void {
             global.creepMemory[creep.name].scoutRoomName = undefined;
         }
 
+        const creepGlobalMemory = global.creepMemory[creep.name];
+        const lastFindPathTick = creepGlobalMemory.lastFindPathTick ?? 0;
+
+        const centerPos = new RoomPosition(25, 25, scoutRoomName);
+        if (Game.time - lastFindPathTick <= tickLag && !creepGlobalMemory.lastIsOK) {
+            return;
+        }
+        if (Game.time - lastFindPathTick > tickLag) {
+            creepGlobalMemory.lastFindPathTick = Game.time;
+            const result = PathFinder.search(creep.pos, { pos: centerPos, range: 23 });
+            if (result.incomplete) {
+                creepGlobalMemory.lastIsOK = false;
+                return;
+            } else {
+                creepGlobalMemory.lastIsOK = true;
+            }
+        }
+
         if (creep.room.name !== scoutRoomName) {
-            creep.moveTo(new RoomPosition(25, 25, scoutRoomName));
+            creep.moveTo(centerPos);
         }
     } else {
         if (creep.room.controller?.my && checkArray(creep.room.memory?.construct?.freeSpacePosList)) {
