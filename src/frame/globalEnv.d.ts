@@ -7,6 +7,7 @@ namespace NodeJS {
     interface Global {
         version: string;
         reset: boolean;
+        lastResetTime: number;
         creepMemory: { [creepName: string]: GlobalCreepMemory };
         roomMemory: { [name: string]: GlobalRoomMemory };
     }

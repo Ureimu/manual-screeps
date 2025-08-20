@@ -4,6 +4,7 @@ import { stopOutwardsSource } from "AI/AIUreium/room/outwardsSource/stop";
 import { consoleStyle, LogLevel } from "frame/console/style";
 import { resourceLimit } from "../constants/roomResource";
 import { Constant } from "../constants/roomTaskControl";
+import { MaxOutwardsSourcePathLength, OutwardsSourceCheckInterval } from "./constant";
 
 declare global {
     interface RoomMemory {
@@ -76,7 +77,7 @@ export function chooseSource(mainRoom: Room): void {
             Object.entries(originRoomToSourceData.roomData).forEach(singleRoomToSourceDataEntry => {
                 const [originRoomName, singleRoomToSourceData] = singleRoomToSourceDataEntry;
                 if (originRoomName !== mainRoom.name) return;
-                if (singleRoomToSourceData.pathLength > 80) return;
+                if (singleRoomToSourceData.pathLength > MaxOutwardsSourcePathLength) return;
                 if (roomMemory.owner) return;
                 if (!singleRoomToSourceData.inUse) {
                     chosenSourceDataList[sourceName] = singleRoomToSourceData;
@@ -91,7 +92,7 @@ export function chooseSource(mainRoom: Room): void {
         ).toString()} `
     );
     const startTime = mainRoom.memory.AIUreium?.newRoomData?.startTime;
-    if (startTime && Game.time - startTime < 10000) {
+    if (startTime && Game.time - startTime < OutwardsSourceCheckInterval) {
         if (Object.keys(chosenSourceDataList).length < sourceNum) return;
     }
 

@@ -355,7 +355,7 @@ function getAllSpecifiedTypeMemory(room: Room): FullSpecifiedStructureMemory {
             });
             requireList.forEach(([posStr]) => {
                 const foundStructure = structureList.find(({ pos }) => pos === posStr);
-                if (foundStructure) {
+                if (foundStructure && Game.getObjectById(foundStructure.id)) {
                     specifiedTypedMemory.structureList.push({ pos: foundStructure.pos, id: foundStructure.id });
                 }
                 const foundSite = siteList.find(({ pos }) => pos === posStr);

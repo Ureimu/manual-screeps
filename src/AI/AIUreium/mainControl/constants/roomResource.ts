@@ -45,21 +45,21 @@ const storageResourceLimit: StructureResourceLimit = {
     ...transferList(
         {
             max: 14e3,
-            min: 7e3
+            min: 0e3
         },
         mineralResource
     ),
     ...transferList(
         {
             max: 8e3,
-            min: 4e3
+            min: 0e3
         },
         [...compound0Resource, ...compound1Resource, ...compound2Resource, ...compound3Resource]
     ),
     ...transferList(
         {
             max: 5e3,
-            min: 3e3
+            min: 0e3
         },
         [...compressedResource]
     ),

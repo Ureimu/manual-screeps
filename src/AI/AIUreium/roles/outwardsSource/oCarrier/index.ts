@@ -6,6 +6,7 @@ import { PosStr } from "utils/RoomPositionToStr";
 
 export function oCarrier1(creep: Creep, args: string[]): void {
     const [originRoomName, sourceRoomName, sourceName] = args;
+    console.log(JSON.stringify(getStructureIdList(creep, sourceRoomName, { sourceContainer: {} }).sourceContainer));
     const sourceRoomIdList = getStructureIdList(creep, sourceRoomName, {
         sourceContainer: {
             filter: ({ pos }) => {
@@ -18,7 +19,7 @@ export function oCarrier1(creep: Creep, args: string[]): void {
     if (creep.store.getFreeCapacity() !== 0) {
         const sourceContainerData = sourceRoomIdList.sourceContainer;
         if (!sourceContainerData || !sourceContainerData[0]) {
-            // console.log(sourceRoomName);
+            console.log(sourceRoomName + " 0");
             if (Game.rooms[sourceRoomName] && Game.time % 100 === 0) {
                 // console.log(sourceRoomName);
                 runLayout(Game.rooms[sourceRoomName]);
@@ -34,6 +35,11 @@ export function oCarrier1(creep: Creep, args: string[]): void {
             const containerEnergy = container.store.energy;
             if (containerEnergy >= creep.store.getFreeCapacity() || containerEnergy > 2000) {
                 creep.withdraw(container, "energy");
+            } else {
+                const resource = container.pos.lookFor(LOOK_RESOURCES).find(i => i.resourceType === "energy");
+                if (resource && (resource.amount >= creep.store.getFreeCapacity() || resource.amount > 2000)) {
+                    creep.pickup(resource);
+                }
             }
         }
     } else {

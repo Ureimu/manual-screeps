@@ -48,6 +48,12 @@ export const oKeepHarvesting: TaskObject<outwardsSourceTaskArgs> = {
         RoutePlan.create({ routeName, ifLoop: "true" });
         RoutePlan.addMidpoint({
             routeName,
+            pathMidpointPos: containerFlagName,
+            range: 0,
+            doWhenArrive: "goTo"
+        });
+        RoutePlan.addMidpoint({
+            routeName,
             pathMidpointPos: sourceFlagName,
             range: 1,
             doWhenArrive: "harvestSource",

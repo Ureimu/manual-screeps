@@ -57,6 +57,8 @@ export function runTerminal(terminal: StructureTerminal): void {
                 continue;
             }
             const orderList = Game.market.getAllOrders({ type: ORDER_SELL, resourceType }); // 更快
+            const history = Game.market.getHistory(resourceType);
+            const meanValue = history.map(i => i.avgPrice).reduce((p, i) => (p += i), 0) / history.length;
 
             const costList = orderList
                 .map(order => {
@@ -67,8 +69,15 @@ export function runTerminal(terminal: StructureTerminal): void {
 
                     costPricePerUnit += (energyCost * energyCostPrice) / dealAmount;
                     // 能量不足
-                    if (energyCost > terminalEnergy) return { id: order.id, amount: dealAmount, cost: 0 };
-                    else return { id: order.id, amount: dealAmount, cost: order.price + costPricePerUnit };
+                    if (energyCost > terminalEnergy)
+                        return { id: order.id, amount: dealAmount, cost: 0, price: order.price };
+                    else
+                        return {
+                            id: order.id,
+                            amount: dealAmount,
+                            cost: order.price + costPricePerUnit,
+                            price: order.price
+                        };
                 })
                 .sort((a, b) => a.cost - b.cost);
             if (costList[0] && costList[0].cost > 0) {

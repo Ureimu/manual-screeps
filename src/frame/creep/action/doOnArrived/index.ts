@@ -13,6 +13,7 @@ import { keepOnHarvestingMineral } from "./keepOnHarvestingMineral";
 import { keepOnHarvestingSource } from "./keepOnHarvestingSource";
 import { pause } from "./pause";
 import { repair } from "./repair";
+import { reserveController } from "./reserveController";
 import { scoutRoom } from "./scoutRoom";
 import { signController } from "./signController";
 import { stayByRoad } from "./stayByRoad";
@@ -48,7 +49,8 @@ const unwrappedActionIndexedList = {
     buildAndRepairOneStructure,
     keepOnHarvestingMineral,
     transfer,
-    withdraw
+    withdraw,
+    reserveController
 };
 for (const name in unwrappedActionIndexedList) {
     unwrappedActionIndexedList[name as keyof typeof unwrappedActionIndexedList].run = registerFN(
