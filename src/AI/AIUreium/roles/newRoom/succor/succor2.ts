@@ -1,4 +1,4 @@
-let isBuilding = false;
+const creepIsBuilding: { [name: string]: boolean } = {};
 let miningId: Id<Source> | undefined;
 export function succor1(creep: Creep, args: string[]): void {
     const [spawnRoomName, claimRoomName] = args;
@@ -6,13 +6,16 @@ export function succor1(creep: Creep, args: string[]): void {
         creep.moveTo(new RoomPosition(25, 25, claimRoomName));
         return;
     }
-    // 状态机
-    if (creep.store.energy === 0 && isBuilding === true) {
-        isBuilding = false;
-    } else if (creep.store.getFreeCapacity() === 0 && isBuilding === false) {
-        isBuilding = true;
+    if (!(creep.name in creepIsBuilding)) {
+        creepIsBuilding[creep.name] = false;
     }
-    if (isBuilding) {
+    // 状态机
+    if (creep.store.energy === 0 && creepIsBuilding[creep.name] === true) {
+        creepIsBuilding[creep.name] = false;
+    } else if (creep.store.getFreeCapacity() === 0 && creepIsBuilding[creep.name] === false) {
+        creepIsBuilding[creep.name] = true;
+    }
+    if (creepIsBuilding[creep.name]) {
         const spawnSite = creep.room.find(FIND_CONSTRUCTION_SITES)[0];
         if (spawnSite) {
             if (creep.pos.inRangeTo(spawnSite, 3)) {
