@@ -69,5 +69,5 @@ const dataGenerator = (): SingleTypedTreeData<SingleData<number>> => {
     });
     return data as unknown as SingleTypedTreeData<SingleData<number>>;
 };
-export const statsEngine = new TimeSeriesDataEngine(dataGenerator, { interval: 5 * 60 * 1000 });
+export const statsEngine = new TimeSeriesDataEngine(dataGenerator, { interval: 1.5 * 60 * 60 * 1000 });
 console.log(`[statsEngine] dataSizePerDay: ${statsEngine.getDataSizePerDay()} byte/day`);
