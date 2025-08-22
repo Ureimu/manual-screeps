@@ -55,6 +55,9 @@ function runCreepAction(creep: Creep): void {
         // if (Game.time % 10 === 0) throw new Error("test Error");
         if (creep.memory.mode === "role") {
             const startCpu = Game.cpu.getUsed();
+            if (!(creep.memory.groupName in Memory.creepGroups)) {
+                throw new Error(`no existing creepGroup of ${creep.memory.groupName} in Memory`);
+            }
             const args = Memory.creepGroups[creep.memory.groupName].arguments;
             runCreepByRole(creep, args);
             creep.say(`${((Game.cpu.getUsed() - startCpu) * 100).toFixed(0)}`);

@@ -24,7 +24,19 @@ export function deleteSuccorCreep(spawnRoomName: string, claimRoomName: string):
     const creepGroupName = `${spawnRoomName}succor${claimRoomName}`;
     const creepBodyConfigName = `${spawnRoomName}succor${claimRoomName}`;
     const creepName = `${spawnRoomName}succor${claimRoomName}`;
-    SpawnPool.deleteCreep({ roomName: spawnRoomName, creepName });
+    const creepNameList = [creepName];
+    const spawnPool = Memory.rooms[spawnRoomName].spawnPool;
+    const spawnPoolCreepNameList = Object.keys(spawnPool);
+    creepNameList.forEach(creepNameHead =>
+        spawnPoolCreepNameList.forEach(spawnPoolCreepName => {
+            if (spawnPoolCreepName.includes(creepNameHead)) {
+                SpawnPool.deleteCreep({ roomName: spawnRoomName, creepName: spawnPoolCreepName });
+                const creep = Game.creeps[spawnPoolCreepName];
+                if (creep) {
+                    creep.suicide();
+                }
+            }
+        })
+    );
     CreepGroup.deleteCreepGroup({ creepGroupName });
-    if (Game.creeps[creepName]) Game.creeps[creepName].suicide();
 }

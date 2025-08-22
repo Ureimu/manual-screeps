@@ -4,6 +4,7 @@ import { FlagTools } from "frame/flagMaintainer/tools";
 import { PosStr } from "utils/RoomPositionToStr";
 
 export function recordRoomData(room: Room): void {
+    console.log(`[Debug] Starting recordRoomData for room: ${room.name}`);
     FlagMaintainer.refresh({ roomName: room.name, typeList: FlagMaintainer.getTypeList(["source", "controller"]) });
     const sources = room.find(FIND_SOURCES);
     console.log(sources.map(i => `${i.room.name},${i.pos.x},${i.pos.y}`));
@@ -11,6 +12,7 @@ export function recordRoomData(room: Room): void {
     if (!room.memory.sources) room.memory.sources = {};
     const roomSourcesMemory = room.memory.sources;
     _.forEach(Game.rooms, originRoom => {
+        console.log(`[Debug] Processing originRoom: ${originRoom.name}`);
         const linearDistance = Game.map.getRoomLinearDistance(originRoom.name, room.name);
         if (linearDistance > 3) {
             console.log(`${originRoom.name} ${room.name} ${linearDistance}`);
@@ -25,8 +27,16 @@ export function recordRoomData(room: Room): void {
                     .filter(anyFlag => anyFlag.name.includes(`${room.name}source`))[0];
                 const sourceFlagName = flag?.name;
                 const spawnName = originRoom.memory.construct.firstSpawnName?.name;
-                if (!spawnName || !sourceFlagName) return;
+                if (!spawnName || !sourceFlagName) {
+                    console.log(
+                        `[Debug] No spawnName:${spawnName} or sourceFlagName: ${sourceFlagName} from room ${originRoom.name}`
+                    );
+                    return;
+                }
                 if (roomSourcesMemory?.[sourceFlagName]?.roomData?.[originRoom.name]?.pathLength) {
+                    console.log(
+                        `[Debug] Path data already exists for source ${sourceFlagName} from room ${originRoom.name}`
+                    );
                     return;
                 }
 
@@ -44,7 +54,9 @@ export function recordRoomData(room: Room): void {
                     { maxOps: 1000 * 50, roomCallback: getCostMatrix }
                 );
                 if (!ret.incomplete) {
-                    console.log(`记录路径`);
+                    console.log(
+                        `[Debug] Path found! Length: ${ret.path.length}, From: ${spawnName} To: ${sourceFlagName}`
+                    );
                     roomSourcesMemory[sourceFlagName].roomData[originRoom.name] = {
                         sourceRoomName: room.name,
                         sourceName: sourceFlagName,
