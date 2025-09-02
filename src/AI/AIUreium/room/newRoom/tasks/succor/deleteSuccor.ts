@@ -38,5 +38,6 @@ export function deleteSuccorCreep(spawnRoomName: string, claimRoomName: string):
             }
         })
     );
-    CreepGroup.deleteCreepGroup({ creepGroupName });
+    // BUG 移除creepGroup会导致还没出生的creep报错，暂时不移除直到解决该问题
+    // CreepGroup.deleteCreepGroup({ creepGroupName });
 }

@@ -14,10 +14,11 @@ import { getLayoutFromSegment } from "./getLayoutFromSegment";
 import { getTotalSiteNum } from "./utils/getTotalSiteNum";
 
 const debugMode = false;
+const debugMMode = false;
 const debug = (str: string, level: LogLevel = "log") =>
     debugMode ? console.log(consoleStyle("RunLayout")(str, level)) : void 0;
 const debugM = (str: string, level: LogLevel = "log") =>
-    debugMode ? console.log(consoleStyle("getAllSpecifiedTypeMemory")(str, level)) : void 0;
+    debugMMode ? console.log(consoleStyle("getAllSpecifiedTypeMemory")(str, level)) : void 0;
 export function runLayout(room: Room): void {
     debug(room.name);
     const construct = room.memory.construct;
@@ -31,8 +32,12 @@ export function runLayout(room: Room): void {
             construct.freeSpacePosList = cacheLayoutData.freeSpacePosList;
         }
     }
-    if (!construct.layout) return;
+    if (!construct.layout) {
+        debug(`提前返回：construct.layout 不存在`, "error");
+        return;
+    }
     let totalSitesNum = getTotalSiteNum();
+    debug(`初始工地数量: ${totalSitesNum}`);
     Object.entries(construct.layout).some(entry => {
         const constructionName = entry[0] as BuildableStructureConstant;
 
@@ -64,10 +69,15 @@ export function runLayout(room: Room): void {
         // }
         return false;
     });
-    if (!construct.layout || !construct.construction) return;
+    if (!construct.layout || !construct.construction) {
+        debug(`提前返回：construct.layout 或 construct.construction 不存在`, "error");
+        return;
+    }
     if (!global.roomMemory) global.roomMemory = {};
     if (!global.roomMemory[room.name]) global.roomMemory[room.name] = {};
-    global.roomMemory[room.name].construction = getAllSpecifiedTypeMemory(room);
+    const specifiedTypeMemory = getAllSpecifiedTypeMemory(room);
+    debug(`更新全局建筑内存：${JSON.stringify(specifiedTypeMemory, null, 2)}`);
+    global.roomMemory[room.name].construction = specifiedTypeMemory;
 }
 
 declare global {
@@ -314,6 +324,12 @@ function getAllSpecifiedTypeMemory(room: Room): FullSpecifiedStructureMemory {
         fullMemory[structureType] = {};
         const typedFullMemory = fullMemory[structureType];
         if (!typedFullMemory) return;
+        const cTypedFullMemory = typedFullMemory as {
+            [name: string]: SpecifiedStructureInf<
+                BuildableStructureConstant,
+                SpecifiedStructureNameList<BuildableStructureConstant>
+            >;
+        };
         const typedConstruction = construction[structureType];
         if (!typedConstruction) return;
         const structureList = typedConstruction.structureList as {
@@ -327,28 +343,14 @@ function getAllSpecifiedTypeMemory(room: Room): FullSpecifiedStructureMemory {
         if (!tLayout) return;
         Object.entries(tLayout).forEach(([sName, sLayout]) => {
             const specifiedName = sName as SpecifiedStructureNameList<BuildableStructureConstant>;
-            (
-                typedFullMemory as {
-                    [name: string]: SpecifiedStructureInf<
-                        BuildableStructureConstant,
-                        SpecifiedStructureNameList<BuildableStructureConstant>
-                    >;
-                }
-            )[specifiedName] = {
+            cTypedFullMemory[specifiedName] = {
                 hasBuilt: false,
                 hasPutSites: false,
                 siteList: [],
                 structureList: [],
                 type: specifiedName
             };
-            const specifiedTypedMemory = (
-                typedFullMemory as {
-                    [name: string]: SpecifiedStructureInf<
-                        BuildableStructureConstant,
-                        SpecifiedStructureNameList<BuildableStructureConstant>
-                    >;
-                }
-            )[specifiedName];
+            const specifiedTypedMemory = cTypedFullMemory[specifiedName];
             if (!sLayout?.requireList) return;
             const requireList = sLayout.requireList.filter(([, levelToBuild]) => {
                 return levelToBuild <= (room.controller?.level as number);

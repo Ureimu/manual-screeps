@@ -142,7 +142,7 @@ function checkAllParkingSpot(roomName: string, creepName: string): AcrossTickRet
 export const stayByRoad: CreepAction = {
     run,
     name: "stayByRoad",
-    description: "呆在路边，但不站在路上，为其他使用路的creep让出空间，适用于一段时间不需要在路上运行的creep",
+    description: "呆在路边",
     type: "move"
 };
 

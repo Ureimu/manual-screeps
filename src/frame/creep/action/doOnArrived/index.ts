@@ -5,6 +5,7 @@ import { attackAll } from "./attackAll";
 import { build } from "./build";
 import { buildAndRepairOneStructure } from "./buildAndRepair";
 import { buildInRange } from "./buildInRange";
+import { claimController } from "./claimController";
 import { fillSpawnAndExtension } from "./fillSpawnAndExtension";
 import { fillTower } from "./fillTower";
 import { goTo } from "./goTo";
@@ -50,7 +51,8 @@ const unwrappedActionIndexedList = {
     keepOnHarvestingMineral,
     transfer,
     withdraw,
-    reserveController
+    reserveController,
+    claimController
 };
 for (const name in unwrappedActionIndexedList) {
     unwrappedActionIndexedList[name as keyof typeof unwrappedActionIndexedList].run = registerFN(

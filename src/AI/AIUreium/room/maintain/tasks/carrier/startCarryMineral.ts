@@ -5,6 +5,7 @@ import { FlagTools } from "frame/flagMaintainer/tools";
 import { SpawnPool } from "frame/spawn/spawnPool";
 import { TaskObject } from "utils/Project";
 import { maintainRoomTaskArgs } from "../../taskRelation";
+import { MineCarryGroupName } from "../createCreepGroup/createMineCarryGroup";
 
 export const startCarryMineral: TaskObject<maintainRoomTaskArgs> = {
     name: "startCarryMineral",
@@ -21,7 +22,7 @@ export const startCarryMineral: TaskObject<maintainRoomTaskArgs> = {
         const room = Game.rooms[roomName];
         const mineral = room.find(FIND_MINERALS)[0];
         const routeName = `${room.name}startCarryMineral`;
-        const creepGroupName = `${room.name}c`;
+        const creepGroupName = MineCarryGroupName(room.name);
         const storageFlagName = FlagTools.getName(room.name, "storage", 0);
 
         Memory.creepGroups[creepGroupName].creepNameList.forEach(creepName => {

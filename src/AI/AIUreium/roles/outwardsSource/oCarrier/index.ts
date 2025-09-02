@@ -6,7 +6,7 @@ import { PosStr } from "utils/RoomPositionToStr";
 
 export function oCarrier1(creep: Creep, args: string[]): void {
     const [originRoomName, sourceRoomName, sourceName] = args;
-    console.log(JSON.stringify(getStructureIdList(creep, sourceRoomName, { sourceContainer: {} }).sourceContainer));
+    // console.log(JSON.stringify(getStructureIdList(creep, sourceRoomName, { sourceContainer: {} }).sourceContainer));
     const sourceRoomIdList = getStructureIdList(creep, sourceRoomName, {
         sourceContainer: {
             filter: ({ pos }) => {
@@ -19,7 +19,7 @@ export function oCarrier1(creep: Creep, args: string[]): void {
     if (creep.store.getFreeCapacity() !== 0) {
         const sourceContainerData = sourceRoomIdList.sourceContainer;
         if (!sourceContainerData || !sourceContainerData[0]) {
-            console.log(sourceRoomName + " 0");
+            // console.log(sourceRoomName + " 0");
             if (Game.rooms[sourceRoomName] && Game.time % 100 === 0) {
                 // console.log(sourceRoomName);
                 runLayout(Game.rooms[sourceRoomName]);

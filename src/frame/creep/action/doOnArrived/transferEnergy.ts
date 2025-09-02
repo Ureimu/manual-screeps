@@ -1,10 +1,12 @@
 import { CreepAction } from ".";
 import { state } from "..";
 import { getMidpointObjects } from "./utils/getMidpointObjects";
+import { stayCloseToWorkSpot } from "./utils/stayCloseToWorkSpot";
 
 function run(creep: Creep): state {
     const storableObject = getMidpointObjects(creep, LOOK_STRUCTURES)[0];
 
+    stayCloseToWorkSpot(creep, storableObject.pos, 1);
     const ifWithdrawing = creep.store.getUsedCapacity() !== 0;
     if (ifWithdrawing) {
         creep.transfer(storableObject, RESOURCE_ENERGY);

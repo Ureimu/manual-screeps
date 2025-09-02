@@ -29,6 +29,7 @@ import { keepMining } from "./tasks/miner/keepMining";
 import { startCarryMineral } from "./tasks/carrier/startCarryMineral";
 import { centerTask2 } from "./tasks/centerCarrier/centerTask2";
 import { startNewRoomTask } from "./tasks/startNewRoomTask";
+import { createMineCarryGroup } from "./tasks/createCreepGroup/createMineCarryGroup";
 
 const centerLinkHasBuilt = structureHasBuilt("link", "centerLink", 1);
 const sourceLinkHasBuilt = structureHasBuilt("link", "sourceLink", 2);
@@ -75,7 +76,8 @@ const taskRelation = {
     [mineralContainerHasBuilt.name]: [extractorHasBuilt.name],
     [createMineGroup.name]: [mineralContainerHasBuilt.name],
     [keepMining.name]: [createMineGroup.name],
-    [startCarryMineral.name]: [keepMining.name, stopCarrySource.name],
+    [createMineCarryGroup.name]: [keepMining.name],
+    [startCarryMineral.name]: [createMineCarryGroup.name],
     [centerTask2.name]: [centerTask1.name, terminalHasBuilt.name]
 };
 const taskCollection = registerObjectDeep(
@@ -115,7 +117,8 @@ const taskCollection = registerObjectDeep(
         keepMining,
         startCarryMineral,
         centerTask2,
-        startNewRoomTask
+        startNewRoomTask,
+        createMineCarryGroup
     },
     "maintainRoomProjectTaskCollection"
 );
