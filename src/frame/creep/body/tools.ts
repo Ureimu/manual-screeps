@@ -49,7 +49,7 @@ export class bodyTools {
     private static flatten(body: string): string {
         if (!body) {
             console.log(body);
-            throw Error("body不存在");
+            return "";
         }
         const mulSplitResult = body.split(this.mulRegExp);
 

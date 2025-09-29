@@ -91,6 +91,9 @@ function clearAll(clearWalls: boolean): void {
                 .forEach(i => i.destroy());
         });
     }
+    for (const flagName in Game.flags) {
+        Game.flags[flagName].remove();
+    }
     global.mf.hasClearAll = true;
     // Game.cpu.halt(); 自己手动执行
 }

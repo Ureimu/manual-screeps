@@ -13,7 +13,9 @@ export function centerCarrierTask2(creep: Creep): void {
     if (!centerPosStr) throw new Error("没有centerPos");
     const centerPos = PosStr.getPosFromStr(centerPosStr);
     // 移动至center位置
+    // console.log(`${creep.pos} ${centerPos}`);
     if (!creep.pos.isEqualTo(centerPos)) {
+        // console.log("123");
         creep.moveTo(centerPos);
         if (!creep.memory.dontPullMe) creep.memory.dontPullMe = true;
         return;

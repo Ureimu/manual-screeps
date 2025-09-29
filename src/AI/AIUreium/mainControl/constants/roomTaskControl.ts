@@ -1,6 +1,7 @@
 export const Constant = {
     market: {
-        sellRate: 15
+        sellRate: 15,
+        buyEnergy: false
     },
     outwardsSource: {
         defaultStatus: false,

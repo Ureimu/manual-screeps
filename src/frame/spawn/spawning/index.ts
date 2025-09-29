@@ -54,9 +54,18 @@ export const runSpawnQueue = registerFN((spawn: StructureSpawn): void => {
     do {
         const spawnTask = spawnQueue.pop();
         if (spawnTask) {
-            const creepBody = bodyTools.compile(
-                chooseBefittingBody({ creepBodyConfigName: spawnTask.creepBody, room: spawn.room })
-            );
+            const creepPreProcessBodyString = chooseBefittingBody({
+                creepBodyConfigName: spawnTask.creepBody,
+                room: spawn.room
+            });
+            if (!creepPreProcessBodyString) {
+                console.log(
+                    `[spawn.chooseBefittingBody] ${spawn.room.name} ${spawnTask.creepBody} 没有合法的body config`
+                );
+                failedList.push(spawnTask);
+                continue;
+            }
+            const creepBody = bodyTools.compile(creepPreProcessBodyString);
             const spawnCreepName = spawnTask.creepName;
             returnCode = spawn.spawnCreep(creepBody, spawnCreepName, {
                 dryRun: true

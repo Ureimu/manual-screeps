@@ -53,7 +53,7 @@ export function runTerminal(terminal: StructureTerminal): void {
                 isDealingEnergy = true;
             }
             const buyNum = buyLimit - terminalStoreNum;
-            if (isDealingEnergy && buyNum < 100) {
+            if (isDealingEnergy && (buyNum < 100 || !Constant.market.buyEnergy)) {
                 continue;
             }
             const orderList = Game.market.getAllOrders({ type: ORDER_SELL, resourceType }); // 更快
