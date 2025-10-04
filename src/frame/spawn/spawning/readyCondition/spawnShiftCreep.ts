@@ -3,22 +3,25 @@ import { chooseBefittingBody } from "frame/creep/body/chooseCondition";
 import { bodyTools } from "frame/creep/body/tools";
 import { SpawnCreepDetail } from "frame/spawn/spawnPool/type";
 import { getAliveCreepList } from "./subCreep";
-import { SubCondition } from "./type";
 import { numData } from "./utils/numData";
 const debug = (msg: string) => console.log(consoleStyle("spawnShiftCreepFunction")(msg, "info"));
+/**
+请使用determineShiftTime函数添加ShiftTime函数，
+不要手动添加函数到spawnShiftCreepFunctionSet，这样做会导致重名未检出。
+ */
 export const spawnShiftCreepFunctionSet: {
-    [Type in SubCondition]: (mainCreepDetail: SpawnCreepDetail) => boolean;
+    [name: string]: (mainCreepDetail: SpawnCreepDetail) => boolean;
 } = {
-    miner: mainCreepDetail => {
-        const creepList = getAliveCreepList(mainCreepDetail);
-        const sumTicksToLive = creepList.reduce((sum, creep) => {
-            return sum + Number(creep.ticksToLive);
-        }, 0);
-        if (sumTicksToLive < 750) {
-            return true;
-        }
-        return false;
-    },
+    // miner: mainCreepDetail => {
+    //     const creepList = getAliveCreepList(mainCreepDetail);
+    //     const sumTicksToLive = creepList.reduce((sum, creep) => {
+    //         return sum + Number(creep.ticksToLive);
+    //     }, 0);
+    //     if (sumTicksToLive < 750) {
+    //         return true;
+    //     }
+    //     return false;
+    // },
     fighter: mainCreepDetail => {
         const creepList = getAliveCreepList(mainCreepDetail);
         return false;
@@ -50,3 +53,11 @@ export const spawnShiftCreepFunctionSet: {
         // });
     }
 };
+
+// 使用该函数添加ShiftTime函数。
+export function addShiftTimeFunction(name: string, func: (mainCreepDetail: SpawnCreepDetail) => boolean) {
+    if (name in spawnShiftCreepFunctionSet) {
+        throw new Error(`duplicated name in spawnShiftCreepFunctionSet when adding func: ${name}`);
+    }
+    spawnShiftCreepFunctionSet[name] = func;
+}

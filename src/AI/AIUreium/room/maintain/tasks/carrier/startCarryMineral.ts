@@ -25,9 +25,6 @@ export const startCarryMineral: TaskObject<maintainRoomTaskArgs> = {
         const creepGroupName = MineCarryGroupName(room.name);
         const storageFlagName = FlagTools.getName(room.name, "storage", 0);
 
-        Memory.creepGroups[creepGroupName].creepNameList.forEach(creepName => {
-            SpawnPool.setCreepProperties({ creepName, roomName, readyCondition: "loop" });
-        }); // 开始所有CarrySource creep
         RoutePlan.create({ routeName, ifLoop: "true" });
 
         const mineralFlagName = FlagTools.getName(room.name, "mineral", 0);

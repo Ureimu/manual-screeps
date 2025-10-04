@@ -1,7 +1,6 @@
 import { clearCreepRouteMemory } from "frame/creep/action";
 import { readyConditionKey } from "./type";
 import { consoleStyle } from "frame/console/style";
-import { SubCondition } from "../spawning/readyCondition/type";
 
 const style = consoleStyle("spawnPool");
 
@@ -26,7 +25,7 @@ export class SpawnPool {
         priority: string;
         roomName: string;
         readyCondition: readyConditionKey;
-        subCond?: SubCondition;
+        subCond?: string;
     }): string {
         const { creepName, creepBody: creepBodyConfigName, priority, roomName, readyCondition, subCond } = args;
         if (!Game.rooms[roomName]?.memory) {
@@ -46,7 +45,7 @@ export class SpawnPool {
             idList: [],
             spawnCondition: readyCondition,
             creepCondition: "queue",
-            state: "ready",
+            state: "notReady",
             roomName,
             subCond
         };
@@ -96,7 +95,7 @@ export class SpawnPool {
         creepBody?: string;
         priority?: string;
         readyCondition?: readyConditionKey;
-        subCond?: SubCondition;
+        subCond?: string;
     }): string {
         const { creepName, roomName, creepBody, priority, readyCondition, subCond } = args;
         const memCopy = Object.assign({}, Memory.rooms[roomName].spawnPool[creepName]);

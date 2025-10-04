@@ -19,7 +19,8 @@ export const createMineCarryGroup: TaskObject<maintainRoomTaskArgs> = {
             creepBody: "carrier",
             priority: "3",
             roomName: room.name,
-            readyCondition: "loop"
+            readyCondition: "shift",
+            subCond: "mineralMiner"
         });
         CreepGroup.create({ creepGroupName, mode: "route", groupArguments: "" });
         CreepGroup.addCreep({ creepName, creepGroupName });

@@ -172,6 +172,11 @@ export class CreepGroup {
                 Memory.creepGroups[creepGroupName].mode = "role";
                 const newCreepGroupMemory = Memory.creepGroups[creepGroupName] as CreepGroupMemory<"role">;
                 newCreepGroupMemory.roleName = roleName;
+                newCreepGroupMemory.creepNameList.forEach(creepName => {
+                    {
+                        setRoleForCreep({ roleName, creepName });
+                    }
+                });
                 return style(`更改mode为role并将creep组 ${creepGroupName} 的角色修改为 ${roleName} 设置完成`, "log");
             } else {
                 if (!routeName) throw new Error("没有给定路径名称");
@@ -179,6 +184,9 @@ export class CreepGroup {
                 Memory.creepGroups[creepGroupName].mode = "route";
                 const newCreepGroupMemory = Memory.creepGroups[creepGroupName] as CreepGroupMemory<"route">;
                 newCreepGroupMemory.routeName = routeName;
+                newCreepGroupMemory.creepNameList.forEach(creepName => {
+                    RoutePlan.chooseRouteForCreep({ creepName, routeName });
+                });
                 return style(`更改mode为route并将creep组 ${creepGroupName} 的路径修改为 ${routeName} 设置完成`, "log");
             }
         }

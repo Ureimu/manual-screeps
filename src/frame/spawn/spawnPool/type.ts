@@ -1,5 +1,4 @@
 import { ReadyCondition } from "frame/spawn/spawning/readyCondition";
-import { SubCondition } from "../spawning/readyCondition/type";
 
 declare global {
     interface SpawnMemory {
@@ -26,7 +25,8 @@ export interface SpawnCreepDetail {
     spawnCondition: readyConditionKey;
     creepCondition: CreepCondition;
     state: runningState;
-    subCond?: SubCondition;
+    subCond?: string;
+    subCondArgs?: string[];
     spawnName?: string;
     spawning?: boolean;
     roomName: string;

@@ -1,6 +1,13 @@
 {
     "cSpell.words": [
         "BODYPART",
-        "Coord"
-    ]
+        "Coord",
+        "dont"
+    ],
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/bower_components": true,
+        "**/*.code-search": true,
+        "docs/**": true
+    }
 }

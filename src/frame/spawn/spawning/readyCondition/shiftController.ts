@@ -6,10 +6,9 @@ import { SpawnCreepDetail } from "frame/spawn/spawnPool/type";
 import { ReadyCondition } from ".";
 import { spawnShiftCreepFunctionSet } from "./spawnShiftCreep";
 import { getSubCreepName } from "./subCreep";
-import { SubCondition } from "./type";
 const debug = (msg: string) => console.log(consoleStyle("shiftController")(msg, "info"));
 /* 
-轮班控制器 
+轮班控制器。
 */
 export const shiftController = {
     timer: Game.time,
@@ -98,23 +97,26 @@ export const shiftController = {
         // debug(`${creepName} manage`);
         if (determineShiftTime(mainCreepDetail)) {
             // debug(`${creepName} try enqueue`);
-            mainCreepDetail.spawning = true;
+            // mainCreepDetail.spawning = true;
             if (mainCreepDetail.state === "notReady") {
+                mainCreepDetail.spawning = true;
                 // 先尝试孵化main creep
                 spawnEnqueue(mainCreepDetail);
-            } else if (Object.values(mainCreepDetail.idList).some(value => !value)) {
-                // 否则孵化sub creep。
-                const unSpawnCreep = Object.entries(mainCreepDetail.idList).find(([idStr, bool]) => !bool);
-                if (unSpawnCreep) {
-                    const id = Number(unSpawnCreep[0]);
-                    mainCreepDetail.idList[id] = true;
-                    this.spawnSubCreep(mainCreepDetail, id);
-                }
-            } else {
-                // 全都活着就添加一个新的creep孵化
-                const id = this.addSubCreepDetail(mainCreepDetail);
-                this.spawnSubCreep(mainCreepDetail, id);
             }
+            // 暂时未启用下方孵化逻辑
+            // } else if (Object.values(mainCreepDetail.idList).some(value => !value)) {
+            //     // 否则孵化sub creep。
+            //     const unSpawnCreep = Object.entries(mainCreepDetail.idList).find(([idStr, bool]) => !bool);
+            //     if (unSpawnCreep) {
+            //         const id = Number(unSpawnCreep[0]);
+            //         mainCreepDetail.idList[id] = true;
+            //         this.spawnSubCreep(mainCreepDetail, id);
+            //     }
+            // } else {
+            //     // 全都活着就添加一个新的creep孵化
+            //     const id = this.addSubCreepDetail(mainCreepDetail);
+            //     this.spawnSubCreep(mainCreepDetail, id);
+            // }
         }
     },
     run: function run(): void {
