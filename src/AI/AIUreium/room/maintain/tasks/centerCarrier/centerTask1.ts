@@ -17,6 +17,12 @@ global.AcrossTickTaskFunction.centerTask1 = task => {
     if (creepGroupMemory.mode === "route") {
         if (creepGroupMemory.routeName !== route1NameArg && creepGroupMemory.routeName !== route2NameArg) {
             CreepGroup.setCreepGroupProperties({ creepGroupName: creepGroupNameArg, routeName: route2NameArg });
+            creepGroupMemory.creepNameList.forEach(creepName => {
+                const creepMemory = Memory.creeps[creepName];
+                if (creepMemory) {
+                    creepMemory.centerCarrierLinkState = true;
+                }
+            });
         }
 
         if (
@@ -24,11 +30,23 @@ global.AcrossTickTaskFunction.centerTask1 = task => {
             creepGroupMemory.routeName !== route1NameArg
         ) {
             CreepGroup.setCreepGroupProperties({ creepGroupName: creepGroupNameArg, routeName: route1NameArg });
+            creepGroupMemory.creepNameList.forEach(creepName => {
+                const creepMemory = Memory.creeps[creepName];
+                if (creepMemory) {
+                    creepMemory.centerCarrierLinkState = true;
+                }
+            });
         } else if (
             roomArg.storage.store.energy < resourceLimit.storage.energy.min &&
             creepGroupMemory.routeName !== route2NameArg
         ) {
             CreepGroup.setCreepGroupProperties({ creepGroupName: creepGroupNameArg, routeName: route2NameArg });
+            creepGroupMemory.creepNameList.forEach(creepName => {
+                const creepMemory = Memory.creeps[creepName];
+                if (creepMemory) {
+                    creepMemory.centerCarrierLinkState = false;
+                }
+            });
         }
     }
 

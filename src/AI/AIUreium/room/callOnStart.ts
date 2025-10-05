@@ -1,5 +1,6 @@
 import { getMaintainRoomProject } from "./maintain/taskRelation";
 import { getOutwardsHarvestProject } from "./outwardsSource/taskRelation";
+import { mountShiftTimeFunction } from "./shiftTimeFunctions";
 
 export function callOnStart(): void {
     // _.forEach(Game.rooms, room => {
@@ -14,6 +15,6 @@ export function callOnStart(): void {
     //         }
     //     }
     // });
-
+    mountShiftTimeFunction();
     return;
 }

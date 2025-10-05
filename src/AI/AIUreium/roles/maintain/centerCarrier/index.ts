@@ -1,8 +1,14 @@
 import { capacityRate, resourceLimit } from "AI/AIUreium/mainControl/constants/roomResource";
 import { Constant } from "AI/AIUreium/mainControl/constants/roomTaskControl";
 import { PosStr } from "utils/RoomPositionToStr";
+
+declare global {
+    interface CreepMemory {
+        centerCarrierLinkState?: boolean;
+    }
+}
+
 // 还没有factory时的任务
-let linkState = false;
 const resourceTypeCache = new Set<ResourceConstant>();
 const transferTaskColl: {
     [name: string]: { resourceType: ResourceConstant; isTransferring: boolean; gapSize: number };
@@ -33,23 +39,27 @@ export function centerCarrierTask2(creep: Creep): void {
         .filter(i => i.structureType === "link")[0] as StructureLink;
     if (!centerLink) throw new Error("没有centerLink");
 
+    if (!("centerCarrierLinkState" in creep.memory)) {
+        creep.memory.centerCarrierLinkState = true;
+    }
+
     // 切换link工作状态
     if (
-        !linkState &&
+        !creep.memory.centerCarrierLinkState &&
         storage.store.energy > resourceLimit.storage.energy.max * Constant.controllerLink.energyRate.start
     ) {
-        linkState = true;
+        creep.memory.centerCarrierLinkState = true;
     }
     if (
-        linkState &&
+        creep.memory.centerCarrierLinkState &&
         storage.store.energy < resourceLimit.storage.energy.min * Constant.controllerLink.energyRate.stop
     ) {
-        linkState = false;
+        creep.memory.centerCarrierLinkState = false;
     }
 
     const creepUsedCapacity = creep.store.getUsedCapacity();
     const creepFreeCapacity = creep.store.getFreeCapacity();
-    if (!linkState) {
+    if (!creep.memory.centerCarrierLinkState) {
         // link不工作时
         const centerLinkStoreEnergy = centerLink.store[RESOURCE_ENERGY];
         if (centerLinkStoreEnergy > 0 && creepUsedCapacity === 0) {

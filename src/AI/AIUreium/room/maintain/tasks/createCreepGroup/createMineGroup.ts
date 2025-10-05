@@ -33,20 +33,3 @@ export const createMineGroup: TaskObject<maintainRoomTaskArgs> = {
         return "end";
     }
 };
-
-addShiftTimeFunction("mineralMiner", detail => {
-    const data = numData(detail);
-    if (!(data.aliveNum === 0 && data.queueNum === 0 && data.deadNum === 1)) return false;
-
-    const roomName = detail.roomName;
-    const room = Game.rooms[roomName];
-    if (!room) return false;
-    const flagName = `${roomName}mineral0`;
-    const flag = Game.flags[flagName];
-    if (!flag) return false;
-    const mineral = flag.pos.lookFor(LOOK_MINERALS)[0];
-    if (!mineral) return false;
-    if (mineral.ticksToRegeneration > 0) return false;
-
-    return true;
-});

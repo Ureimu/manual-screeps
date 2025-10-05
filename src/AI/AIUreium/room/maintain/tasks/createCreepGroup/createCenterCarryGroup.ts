@@ -11,7 +11,7 @@ export const createCenterCarryGroup: TaskObject<maintainRoomTaskArgs> = {
     },
     working(roomName) {
         const room = Game.rooms[roomName];
-        const creepGroupName = `${room.name}CenterCarry`;
+        const creepGroupName = getCreepGroupName(roomName);
         CreepGroup.create({ creepGroupName, mode: "route", groupArguments: "" });
         for (let index = 0; index < 1; index++) {
             createCreepGroup(room, creepGroupName, index);
@@ -23,8 +23,11 @@ export const createCenterCarryGroup: TaskObject<maintainRoomTaskArgs> = {
     }
 };
 
+const getCreepGroupName = (roomName: string) => `${roomName}CenterCarry`;
+export const getCenterCarrierCreepName = (roomName: string, index: number) => `${getCreepGroupName(roomName)}${index}`;
+
 function createCreepGroup(room: Room, creepGroupName: string, index: number) {
-    const creepName = `${creepGroupName}${index}`;
+    const creepName = getCenterCarrierCreepName(room.name, 0);
     SpawnPool.addCreep({
         creepName,
         creepBody: "centerCarrier",
