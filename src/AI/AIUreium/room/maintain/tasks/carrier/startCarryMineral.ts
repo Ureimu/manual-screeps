@@ -34,7 +34,7 @@ export const startCarryMineral: TaskObject<maintainRoomTaskArgs> = {
         RoutePlan.addCondition({
             routeName,
             condition: "creepStore",
-            jumpTo: 2,
+            jumpTo: 3,
             conditionArgs: `full`
         });
         RoutePlan.addMidpoint({
@@ -46,10 +46,24 @@ export const startCarryMineral: TaskObject<maintainRoomTaskArgs> = {
         });
         RoutePlan.addMidpoint({
             routeName,
+            pathMidpointPos: containerFlagName,
+            range: 1,
+            doWhenArrive: "withdraw",
+            actionArgs: `${RESOURCE_ENERGY},true`
+        });
+        RoutePlan.addMidpoint({
+            routeName,
             pathMidpointPos: storageFlagName,
             range: 1,
             doWhenArrive: "transfer",
             actionArgs: mineral.mineralType
+        });
+        RoutePlan.addMidpoint({
+            routeName,
+            pathMidpointPos: storageFlagName,
+            range: 1,
+            doWhenArrive: "transfer",
+            actionArgs: RESOURCE_ENERGY
         });
         RoutePlan.addMidpoint({
             routeName,
