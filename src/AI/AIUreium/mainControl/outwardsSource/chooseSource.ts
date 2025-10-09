@@ -2,15 +2,14 @@ import { OutwardsSourceData } from "AI/AIUreium/roles/maintain/scouter/recordRoo
 import { startOutwardsSource } from "AI/AIUreium/room/outwardsSource/start";
 import { stopOutwardsSource } from "AI/AIUreium/room/outwardsSource/stop";
 import { consoleStyle, LogLevel } from "frame/console/style";
+import { checkControllerRoomName } from "utils/roomNameUtils";
 import { resourceLimit } from "../constants/roomResource";
 import { Constant } from "../constants/roomTaskControl";
 import { MaxOutwardsSourcePathLength, OutwardsSourceCheckInterval } from "./constant";
 
 declare global {
-    interface RoomMemory {
-        status?: {
-            outwardsSource?: boolean;
-        };
+    interface TaskStatus {
+        outwardsSource?: boolean;
     }
 }
 
@@ -18,7 +17,7 @@ const debugMode = true;
 const style = consoleStyle("ChooseSource");
 const debug = (str: string, level: LogLevel = "log") => (debugMode ? console.log(style(str, level)) : void 0);
 export function chooseSource(mainRoom: Room): void {
-    debug(`${mainRoom.name} start`);
+    debug(`${mainRoom.name} chooseSource start`);
     let sourceNum = 0;
     const { outwardsSource } = Constant;
     const storeEnergy = mainRoom.storage?.store[RESOURCE_ENERGY];
@@ -61,7 +60,7 @@ export function chooseSource(mainRoom: Room): void {
     Object.entries(Memory.rooms).forEach(roomData => {
         const [roomName, roomMemory] = roomData;
         if (!roomMemory.sources) return; // 没有memory直接return
-        const isControllerRoom = /(^[WE]\d*[1-9]+[NS]\d*[1-3|7-9]+$)|(^[WE]\d*[1-3|7-9]+[NS]\d*[1-9]+$)/.test(roomName);
+        const isControllerRoom = checkControllerRoomName.test(roomName);
         if (!isControllerRoom) return;
         Object.entries(roomMemory.sources).forEach(sourceDataEntry => {
             const [sourceName, originRoomToSourceData] = sourceDataEntry;

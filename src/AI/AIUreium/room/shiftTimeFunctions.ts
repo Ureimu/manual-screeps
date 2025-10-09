@@ -45,4 +45,12 @@ export function mountShiftTimeFunction() {
 
         return true;
     });
+
+    addShiftTimeFunction("gpWorker", detail => {
+        const data = numData(detail);
+        if (!(data.aliveNum === 0 && data.queueNum === 0 && data.deadNum === 1)) return false;
+
+        if (detail.spawnCount > 0) return false;
+        return true;
+    });
 }

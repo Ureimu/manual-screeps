@@ -15,6 +15,7 @@ namespace NodeJS {
 
 interface RoomMemory {
     AIUreium: AIUreiumRoomMemory;
+    status?: TaskStatus;
 }
 
 interface AIUreiumRoomMemory {}

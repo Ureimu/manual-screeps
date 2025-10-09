@@ -1,4 +1,7 @@
 import { CreepRoleList, registerCreepRole, runCreepByRole } from "frame/creep/action/runCreepByRole";
+import { gpAttacker } from "./getPower/gpAttacker";
+import { gpCarrier } from "./getPower/gpCarrier";
+import { gpHealer } from "./getPower/gpHealer";
 import { centerCarrierTask2 } from "./maintain/centerCarrier";
 import { scouter } from "./maintain/scouter";
 import { claimer1 } from "./newRoom/claimer/claimer1";
@@ -12,7 +15,10 @@ export function callOnStart(): void {
             centerCarrierTask2,
             oCarrier1,
             claimer1,
-            succor1
+            succor1,
+            gpAttacker,
+            gpHealer,
+            gpCarrier
         };
         registerCreepRole(creepRoleList);
     }

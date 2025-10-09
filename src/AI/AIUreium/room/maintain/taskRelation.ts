@@ -30,6 +30,9 @@ import { startCarryMineral } from "./tasks/carrier/startCarryMineral";
 import { centerTask2 } from "./tasks/centerCarrier/centerTask2";
 import { startNewRoomTask } from "./tasks/startNewRoomTask";
 import { createMineCarryGroup } from "./tasks/createCreepGroup/createMineCarryGroup";
+import { stopScout } from "./tasks/scouter/stopScout";
+import { initAiUreimuRoomMemory } from "../utils";
+import { startGetPowerTask } from "./tasks/startGetPowerTask";
 
 const centerLinkHasBuilt = structureHasBuilt("link", "centerLink", 1);
 const sourceLinkHasBuilt = structureHasBuilt("link", "sourceLink", 2);
@@ -78,7 +81,9 @@ const taskRelation = {
     [keepMining.name]: [createMineGroup.name],
     [createMineCarryGroup.name]: [keepMining.name],
     [startCarryMineral.name]: [createMineCarryGroup.name],
-    [centerTask2.name]: [centerTask1.name, terminalHasBuilt.name]
+    [centerTask2.name]: [centerTask1.name, terminalHasBuilt.name],
+    [stopScout.name]: [observerHasBuilt.name],
+    [startGetPowerTask.name]: [observerHasBuilt.name]
 };
 const taskCollection = registerObjectDeep(
     {
@@ -118,7 +123,9 @@ const taskCollection = registerObjectDeep(
         startCarryMineral,
         centerTask2,
         startNewRoomTask,
-        createMineCarryGroup
+        createMineCarryGroup,
+        stopScout,
+        startGetPowerTask
     },
     "maintainRoomProjectTaskCollection"
 );
@@ -137,11 +144,7 @@ export class maintainRoomProject extends Project<maintainRoomTaskArgs, maintainR
             (Memory.rooms[this.taskArgs[0]] as Partial<RoomMemory>) = {};
         }
         if (!Memory.rooms[this.taskArgs[0]].AIUreium) {
-            Memory.rooms[this.taskArgs[0]].AIUreium = {
-                maintainRoom: {},
-                outwardsSource: {},
-                newRoom: {}
-            };
+            Memory.rooms[this.taskArgs[0]].AIUreium = initAiUreimuRoomMemory();
         }
         return Memory.rooms?.[this.taskArgs[0]]?.AIUreium?.maintainRoom;
     }

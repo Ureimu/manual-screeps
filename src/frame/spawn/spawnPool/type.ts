@@ -30,6 +30,7 @@ export interface SpawnCreepDetail {
     spawnName?: string;
     spawning?: boolean;
     roomName: string;
+    spawnCount: number;
 }
 
 export type runningState = "running" | "ready" | "notReady";

@@ -24,7 +24,7 @@ export default {
         format: "cjs",
         sourcemap: true,
     },
-    external: ['priority_queue.wasm','utf15'],
+    external: ['priority_queue.wasm', 'utf15'],
 
     plugins: [
         clear({ targets: ["dist"] }),
@@ -35,20 +35,20 @@ export default {
             targets: [
                 { src: "./src/utils/PriorityQueue/priority_queue.wasm", dest: "./dist/" },
                 { src: "./src/utils/moveOptimize/moveOptimize.js", dest: "./dist/" },
-                { src: "./src/utils/utf15/index.js", dest:"./dist/", rename:"utf15.js" }
+                { src: "./src/utils/utf15/index.js", dest: "./dist/", rename: "utf15.js" }
                 // { src: "./src/profiler/index.js", dest:"./dist/", rename:"profiler.js" }
             ]
         }),
         html({
-			include: '**/*.html',
+            include: '**/*.html',
             htmlMinifierOptions: {
                 collapseWhitespace: true,
                 collapseInlineTagWhitespace: true,
                 minifyCSS: true,
                 removeComments: true
             }
-		}),
-        json({include: '**/*.json'}),
+        }),
+        json({ include: '**/*.json' }),
         screeps({ config: cfg, dryRun: cfg == null })
     ]
 }

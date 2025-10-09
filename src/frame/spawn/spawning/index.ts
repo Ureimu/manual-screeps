@@ -137,6 +137,7 @@ export const runSpawnPool = registerFN((room: Room): void => {
             const creep = Game.creeps[creepName];
             callOnBirth(creep);
             Memory.rooms[room.name].spawnPool[creepName].creepCondition = "alive";
+            Memory.rooms[room.name].spawnPool[creepName].spawnCount += 1;
         });
     }
 

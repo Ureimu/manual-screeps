@@ -1,12 +1,13 @@
 import { chooseSource } from "AI/AIUreium/mainControl/outwardsSource";
 import { DiagramMemory } from "utils/Project/type";
+import { initAiUreimuRoomMemory } from "../utils";
 import { getOutwardsHarvestProject } from "./taskRelation";
 // 如果外矿没有正常运作，可能是第一个spawn没有放到正确位置。
 export function maintainOutwardsSource(): void {
     _.forEach(Game.rooms, room => {
         if (room.controller?.my && room.find(FIND_MY_SPAWNS).length !== 0) {
             if (!room.memory.AIUreium || !room.memory.AIUreium.maintainRoom) {
-                room.memory.AIUreium = { maintainRoom: {}, outwardsSource: {}, newRoom: {} };
+                room.memory.AIUreium = initAiUreimuRoomMemory();
             }
             const sourceData = room.memory.AIUreium.outwardsSourceData;
             if (sourceData) {

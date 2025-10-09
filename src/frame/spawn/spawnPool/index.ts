@@ -47,7 +47,8 @@ export class SpawnPool {
             creepCondition: "queue",
             state: "notReady",
             roomName,
-            subCond
+            subCond,
+            spawnCount: 0
         };
         if (!Memory.creeps) {
             Memory.creeps = {};
@@ -108,7 +109,8 @@ export class SpawnPool {
             state: memCopy.state,
             roomName,
             idList: [],
-            subCond
+            subCond,
+            spawnCount: memCopy.spawnCount
         };
         return style(`修改creepSpawn信息 ${creepName} 设置完成`, "log");
     }

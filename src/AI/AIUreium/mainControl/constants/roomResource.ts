@@ -31,7 +31,7 @@ function transferList<T extends ResourceConstant>(setting: { min: number; max: n
 }
 const storageResourceLimit: StructureResourceLimit = {
     energy: {
-        max: 160e3,
+        max: 350e3,
         min: 100e3
     },
     power: {

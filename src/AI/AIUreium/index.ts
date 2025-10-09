@@ -9,6 +9,8 @@ import { terminal } from "./structure/terminal";
 import { allocateNewRoom } from "./mainControl/newRoom";
 import { maintainNewRoom } from "./room/newRoom";
 import { mountUreimuAiAll } from "./mount";
+import { observer } from "./structure/observer";
+import { runGetPower } from "./room/getPower";
 export const runAi = registerFN((): void => {
     mountUreimuAiAll();
 
@@ -22,6 +24,7 @@ export const runAi = registerFN((): void => {
             tower.run(room);
             link.run(room);
             terminal.run(room);
+            observer.run(room);
         }
     });
 
@@ -30,6 +33,7 @@ export const runAi = registerFN((): void => {
         maintainRoom();
         maintainOutwardsSource();
         maintainNewRoom();
+        runGetPower();
     }
     if (Game.time % 150 === 0) {
         allocateNewRoom();

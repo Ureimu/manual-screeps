@@ -16,5 +16,8 @@ export const Constant = {
             start: 0.95,
             stop: 1
         }
+    },
+    getPower: {
+        lowestEnergyInStorage: 8e4
     }
 };
