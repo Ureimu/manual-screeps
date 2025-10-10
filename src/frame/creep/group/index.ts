@@ -140,12 +140,16 @@ export class CreepGroup {
          * @type {string}
          */
         routeName?: string;
+        groupArgs?: string;
     }): string {
-        const { creepGroupName, routeName, roleName } = args;
+        const { creepGroupName, routeName, roleName, groupArgs } = args;
         // console.log(creepGroupName, routeName);
         const creepGroupMemory = Memory.creepGroups[creepGroupName];
         const { mode = creepGroupMemory.mode } = args;
         // console.log(`设定${creepGroupName}`);
+        if (groupArgs !== undefined) {
+            creepGroupMemory.arguments = groupArgs.split(",");
+        }
         if (mode === creepGroupMemory.mode) {
             if (creepGroupModeIsRoute(creepGroupMemory)) {
                 if (!routeName) throw new Error("没有给定路径名称");

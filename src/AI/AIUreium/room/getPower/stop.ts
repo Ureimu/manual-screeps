@@ -1,4 +1,9 @@
+import { CreepGroup } from "frame/creep/group";
+import { SpawnPool } from "frame/spawn/spawnPool";
 import { getPowerTaskArgs } from "./taskRelation";
+import { getGPAttackerGroupName } from "./tasks/createCreepGroup/createGPAttackerGroup";
+import { getGPCarrierGroupName } from "./tasks/createCreepGroup/createGPCarrierGroup";
+import { getGPHealerGroupName } from "./tasks/createCreepGroup/createGPHealerGroup";
 
 export function stopGetPower(...args: getPowerTaskArgs): void {
     const [originRoomName, powerBankRoomName, powerBankId] = args;
@@ -9,6 +14,19 @@ export function stopGetPower(...args: getPowerTaskArgs): void {
     }
     const status = room.memory.status;
     status.getPower = false;
+
+    const creepGroupNameList = [
+        getGPAttackerGroupName(...args),
+        getGPCarrierGroupName(...args),
+        getGPHealerGroupName(...args)
+    ];
+
+    creepGroupNameList.forEach(creepGroupName => {
+        Memory.creepGroups[creepGroupName].creepNameList.forEach(creepName => {
+            SpawnPool.deleteCreep({ creepName, roomName: originRoomName });
+        });
+        CreepGroup.deleteCreepGroup({ creepGroupName });
+    });
 
     delete room.memory.AIUreium.getPower[powerBankRoomName][powerBankId];
 }
