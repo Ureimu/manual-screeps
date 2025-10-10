@@ -198,6 +198,26 @@ export class PosStr {
         return range;
     }
 
+    public static getSymmetricPosStr(strOpposite: RoomPositionStr, centerStr: RoomPositionStr): RoomPositionStr {
+        const oppositePos = this.parseCoord(strOpposite);
+        const centerPos = this.parseCoord(centerStr);
+
+        if (!oppositePos.roomName || !centerPos.roomName || oppositePos.roomName !== centerPos.roomName) {
+            return "";
+        }
+
+        // 计算对称点坐标：2 * 中心点坐标 - 给定点坐标
+        const symmetricX = 2 * centerPos.x - oppositePos.x;
+        const symmetricY = 2 * centerPos.y - oppositePos.y;
+
+        // 检查计算出的坐标是否在有效范围内
+        if (!this.ifInSquare(symmetricX, symmetricY)) {
+            return "";
+        }
+
+        return this.genePosStr(symmetricX, symmetricY, centerPos.roomName);
+    }
+
     public static reverseSet<T>(set: Set<T>): Set<T> {
         const mList: T[] = [];
         set.forEach(posStr => {

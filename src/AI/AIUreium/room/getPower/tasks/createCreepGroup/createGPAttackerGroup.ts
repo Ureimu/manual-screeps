@@ -13,6 +13,8 @@ export const createGPAttackerGroup: TaskObject<getPowerTaskArgs> = {
         return "end";
     },
     working(roomName, powerBankRoomName, powerBankId) {
+        // TODO 按顺序间隔150tick孵化creep，且孵化完当波次就暂停等待下个波次再继续孵化。
+        // TODO 挖取时，healer移动到以attacker为中心的对称powerBank的位置，如果该位置不是空地，则回退到之前的逻辑。
         const room = Game.rooms[roomName];
         const creepGroupName = getGPAttackerGroupName(roomName, powerBankRoomName, powerBankId);
         CreepGroup.create({

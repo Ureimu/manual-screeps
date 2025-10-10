@@ -1,3 +1,5 @@
+import { PosStr } from "utils/RoomPositionToStr";
+
 export function gpHealer(creep: Creep, args: string[]) {
     const [originRoomName, powerBankRoomName, powerBankId] = args;
     const getPowerData = Memory.rooms[powerBankRoomName]?.powerBanks?.[powerBankId];
@@ -20,6 +22,19 @@ export function gpHealer(creep: Creep, args: string[]) {
     // console.log(gpAttackerName);
     const gpAttacker = Game.creeps[gpAttackerName];
     if (!gpAttacker) return;
+    if (gpAttacker.pos.isNearTo(powerBankPos)) {
+        const healPosStr = PosStr.getSymmetricPosStr(
+            PosStr.setPosToStr(powerBankPos),
+            PosStr.setPosToStr(gpAttacker.pos)
+        );
+        if (healPosStr) {
+            const healPos = PosStr.getPosFromStr(healPosStr);
+            if (!creep.pos.isEqualTo(healPos)) {
+                creep.moveTo(healPos, { range: 0 });
+                return;
+            }
+        }
+    }
     if (!creep.pos.inRangeTo(gpAttacker, 1)) {
         creep.moveTo(gpAttacker, { range: 1 });
         return;
