@@ -1,4 +1,4 @@
-import { OutwardsSourceData } from "AI/AIUreium/roles/maintain/scouter/recordRoomData";
+import { OutwardsSourceData } from "AI/AIUreium/mainControl/recordRoomData";
 import { getCostMatrix } from "frame/construct/utils/costMatrix";
 import { PosStr } from "utils/RoomPositionToStr";
 import { outwardsSourceTaskArgs } from "./taskRelation";

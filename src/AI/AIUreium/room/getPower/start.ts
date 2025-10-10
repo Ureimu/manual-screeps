@@ -1,4 +1,4 @@
-import { PowerBankData } from "AI/AIUreium/roles/maintain/scouter/recordRoomData";
+import { PowerBankData } from "AI/AIUreium/mainControl/recordRoomData";
 
 export function startGetPower(powerBankData: PowerBankData): void {
     if (!powerBankData.originRoomName) return;

@@ -45,6 +45,7 @@ export function choosePowerBank(mainRoom: Room): void {
             );
             if (periodToGetPower - moveTime - spawnCreepTime - workTime < 0) return;
             powerBankMemory.originRoomName = mainRoom.name;
+            powerBankMemory.moveTime = moveTime;
             startGetPower(powerBankMemory);
             status.getPower = true;
             console.log(`${mainRoom.name} start getPower in ${powerBankRoomName}`);

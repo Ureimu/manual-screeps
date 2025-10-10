@@ -2,7 +2,7 @@ import { getStructureMemory } from "frame/construct/utils";
 import { stayByRoad } from "frame/creep/action/doOnArrived/stayByRoad";
 import { getAvailableNearbyRooms } from "utils/roomTools";
 import { checkArray } from "utils/typeCheck";
-import { recordRoomData } from "./recordRoomData";
+import { recordRoomData } from "../../../mainControl/recordRoomData";
 
 declare global {
     interface GlobalCreepMemory {

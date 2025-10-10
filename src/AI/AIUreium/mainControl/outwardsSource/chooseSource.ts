@@ -1,4 +1,4 @@
-import { OutwardsSourceData } from "AI/AIUreium/roles/maintain/scouter/recordRoomData";
+import { OutwardsSourceData } from "AI/AIUreium/mainControl/recordRoomData";
 import { startOutwardsSource } from "AI/AIUreium/room/outwardsSource/start";
 import { stopOutwardsSource } from "AI/AIUreium/room/outwardsSource/stop";
 import { consoleStyle, LogLevel } from "frame/console/style";

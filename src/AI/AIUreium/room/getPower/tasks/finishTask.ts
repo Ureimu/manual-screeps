@@ -28,3 +28,4 @@ export const finishTask: TaskObject<getPowerTaskArgs> = {
         return "end";
     }
 };
+// TODO 在recordRoomData添加获取powerBank周围空位数量，并按照空位来规划creep孵化数量和是否选择该powerBank

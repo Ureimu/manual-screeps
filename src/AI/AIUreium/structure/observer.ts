@@ -1,7 +1,7 @@
 import { getStructureMemory } from "frame/construct/utils";
 import { registerFN } from "utils/profiler";
 import { getSurroundingRoomNames } from "utils/roomNameUtils";
-import { recordRoomData } from "../roles/maintain/scouter/recordRoomData";
+import { recordRoomData } from "../mainControl/recordRoomData";
 const unwrappedObserver = {
     run: (room: Room): void => {
         observe(room);

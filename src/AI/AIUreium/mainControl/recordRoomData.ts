@@ -3,6 +3,7 @@ import { FlagMaintainer } from "frame/flagMaintainer";
 import { FlagTools } from "frame/flagMaintainer/tools";
 import { checkHighwayRoomName } from "utils/roomNameUtils";
 import { PosStr } from "utils/RoomPositionToStr";
+import { getBlankSpace } from "utils/terrainJudgement";
 
 export function recordRoomData(room: Room): void {
     // console.log(`[Debug] Starting recordRoomData for room: ${room.name}`);
@@ -107,13 +108,15 @@ export function recordRoomData(room: Room): void {
         // 添加新数据
         powerBanks.forEach((powerBank: StructurePowerBank) => {
             if (!(powerBank.id in powerBankMemory)) {
+                const blankSpacePosList = getBlankSpace(powerBank.pos);
                 powerBankMemory[powerBank.id] = {
                     decayTime: powerBank.ticksToDecay + Game.time,
                     amount: powerBank.power,
                     x: powerBank.pos.x,
                     y: powerBank.pos.y,
                     roomName: powerBank.pos.roomName,
-                    id: powerBank.id
+                    id: powerBank.id,
+                    blankSpaceCount: blankSpacePosList.length
                 };
             }
         });
@@ -148,8 +151,10 @@ export interface PowerBankData {
     decayTime: number;
     amount: number;
     originRoomName?: string;
+    moveTime?: number;
     x: number;
     y: number;
     roomName: string;
     id: string;
+    blankSpaceCount: number;
 }
