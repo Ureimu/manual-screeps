@@ -16,7 +16,6 @@ export const createGPAttackerGroup: TaskObject<getPowerTaskArgs> = {
     working(roomName, powerBankRoomName, powerBankId) {
         const room = Game.rooms[roomName];
         const creepGroupName = getGPAttackerGroupName(roomName, powerBankRoomName, powerBankId);
-        const decayTime = Memory.rooms[powerBankRoomName].powerBanks?.[powerBankId]?.decayTime;
         CreepGroup.create({
             creepGroupName,
             mode: "role",
@@ -31,16 +30,3 @@ export const createGPAttackerGroup: TaskObject<getPowerTaskArgs> = {
         return "end";
     }
 };
-
-function createNewCreep(room: Room, creepGroupName: string, index: number) {
-    const creepName = `${creepGroupName}-${index}`;
-    SpawnPool.addCreep({
-        creepName,
-        creepBody: "gpAttacker",
-        priority: `${5 - index * 0.1}`,
-        roomName: room.name,
-        readyCondition: "shift",
-        subCond: "gpWorker"
-    });
-    CreepGroup.addCreep({ creepName, creepGroupName });
-}

@@ -85,7 +85,7 @@ export function recordRoomData(room: Room): void {
 
     // power bank 数据
     if (checkHighwayRoomName.test(room.name)) {
-        if (!("powerBank" in room.memory)) {
+        if (!("powerBanks" in room.memory)) {
             room.memory.powerBanks = {};
         }
         const powerBankMemory = room.memory.powerBanks ?? {};

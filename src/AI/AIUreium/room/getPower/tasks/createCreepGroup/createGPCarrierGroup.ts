@@ -20,8 +20,8 @@ export const createGPCarrierGroup: TaskObject<getPowerTaskArgs> = {
             mode: "role",
             groupArguments: `${roomName},${powerBankRoomName},${powerBankId}`
         });
-        const powerAmount = Memory.rooms[powerBankRoomName].powerBanks?.[powerBankId].amount;
-        if (!powerAmount) return "running";
+        const powerAmount = Memory.rooms[powerBankRoomName].powerBanks?.[powerBankId]?.amount;
+        if (!powerAmount) return "end";
         const creepCount = Math.ceil(powerAmount / 1250);
         for (let index = 0; index < creepCount; index++) {
             createNewCreep(room, creepGroupName, index);

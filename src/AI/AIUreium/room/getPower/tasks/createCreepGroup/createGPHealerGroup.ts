@@ -29,16 +29,3 @@ export const createGPHealerGroup: TaskObject<getPowerTaskArgs> = {
         return "end";
     }
 };
-
-function createNewCreep(room: Room, healerCreepGroupName: string, index: number) {
-    const healerCreepName = `${healerCreepGroupName}-${index}`;
-    SpawnPool.addCreep({
-        creepName: healerCreepName,
-        creepBody: "gpHealer",
-        priority: `${4.95 - index * 0.1}`,
-        roomName: room.name,
-        readyCondition: "shift",
-        subCond: "gpWorker"
-    });
-    CreepGroup.addCreep({ creepName: healerCreepName, creepGroupName: healerCreepGroupName });
-}

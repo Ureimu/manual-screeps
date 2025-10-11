@@ -16,11 +16,24 @@ export const finishTask: TaskObject<getPowerTaskArgs> = {
                 creepName => Memory.rooms[roomName].spawnPool[creepName].spawnCount > 0 && !Game.creeps[creepName]
             )
         ) {
+            // console.log(
+            //     `[finishTask.start] all carriers spawned and dead for room:${roomName}, powerBankRoom:${powerBankRoomName}, id:${powerBankId}`
+            // );
             return "end";
         }
         const decayTime = Memory.rooms[powerBankRoomName].powerBanks?.[powerBankId]?.decayTime;
-        if (decayTime && Game.time > decayTime + 1500) return "end";
-        if (!decayTime) return "end";
+        if (decayTime && Game.time > decayTime + 1500) {
+            // console.log(
+            //     `[finishTask.start] decayTime passed for room:${roomName}, powerBankRoom:${powerBankRoomName}, id:${powerBankId}, decayTime:${decayTime}, now:${Game.time}`
+            // );
+            return "end";
+        }
+        if (!decayTime) {
+            // console.log(
+            //     `[finishTask.start] no decayTime for room:${roomName}, powerBankRoom:${powerBankRoomName}, id:${powerBankId}`
+            // );
+            return "end";
+        }
         return "running";
     },
     working(roomName, powerBankRoomName, powerBankId) {
@@ -32,3 +45,4 @@ export const finishTask: TaskObject<getPowerTaskArgs> = {
     }
 };
 // TODO 在recordRoomData添加获取powerBank周围空位数量，并按照空位来规划creep孵化数量和是否选择该powerBank
+// BUG 在刚摧毁powerBank时就过早结束任务，未搬运power

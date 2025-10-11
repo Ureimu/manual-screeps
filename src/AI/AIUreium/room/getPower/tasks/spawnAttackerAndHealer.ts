@@ -20,8 +20,8 @@ export const spawnAttackerAndHealer: TaskObject<getPowerTaskArgs> = {
         const args = Memory.creepGroups[attackerCreepGroupName].arguments;
         const passedTime = Game.time - Number(args[3]);
         const index = Number(args[4]);
-        const blankSpaceCount = Memory.rooms[powerBankRoomName].powerBanks?.[powerBankId].blankSpaceCount;
-        if (blankSpaceCount === undefined) return "running";
+        const blankSpaceCount = Memory.rooms[powerBankRoomName].powerBanks?.[powerBankId]?.blankSpaceCount;
+        if (blankSpaceCount === undefined) return "end";
         const nextTime = calcGetPowerSpawnTime(blankSpaceCount, index);
         if (nextTime > passedTime) {
             return "running";
