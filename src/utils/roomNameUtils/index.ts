@@ -51,3 +51,21 @@ export function getSurroundingRoomNames(roomName: string, range: number): string
     }
     return result;
 }
+
+/**
+ * 计算两个房间名之间的曼哈顿距离
+ * @param roomName1 房间名1
+ * @param roomName2 房间名2
+ * @returns 距离（单位：房间）
+ */
+export function getRoomDistance(roomName1: string, roomName2: string): number {
+    const parsed1 = parseRoomName(roomName1);
+    const parsed2 = parseRoomName(roomName2);
+    if (!parsed1 || !parsed2) return -1;
+    // 计算全局坐标
+    const x1 = parsed1.ew === "E" ? parsed1.x : -parsed1.x - 1;
+    const y1 = parsed1.ns === "N" ? parsed1.y : -parsed1.y - 1;
+    const x2 = parsed2.ew === "E" ? parsed2.x : -parsed2.x - 1;
+    const y2 = parsed2.ns === "N" ? parsed2.y : -parsed2.y - 1;
+    return Math.abs(x1 - x2) + Math.abs(y1 - y2);
+}

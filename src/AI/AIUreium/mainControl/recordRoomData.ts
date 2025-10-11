@@ -97,7 +97,8 @@ export function recordRoomData(room: Room): void {
         const listToClear: string[] = [];
         _.forEach(powerBankMemory, (powerBankData, id) => {
             if (!id) return;
-            if (!powerBanks.some(powerBank => id === powerBank.id)) {
+            // powerBank数据会在powerBank消失后额外留存2000tick，以保证getPower任务正常运行
+            if (powerBankData.decayTime + 2000 < Game.time && !powerBanks.some(powerBank => id === powerBank.id)) {
                 listToClear.push(id);
             }
         });
@@ -116,7 +117,9 @@ export function recordRoomData(room: Room): void {
                     y: powerBank.pos.y,
                     roomName: powerBank.pos.roomName,
                     id: powerBank.id,
-                    blankSpaceCount: blankSpacePosList.length
+                    blankSpaceCount: blankSpacePosList.length,
+                    isAttackedByOthers: powerBank.hits !== powerBank.hitsMax,
+                    isInMyAttack: false
                 };
             }
         });
@@ -157,4 +160,6 @@ export interface PowerBankData {
     roomName: string;
     id: string;
     blankSpaceCount: number;
+    isAttackedByOthers: boolean;
+    isInMyAttack: boolean;
 }

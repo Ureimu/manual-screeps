@@ -3,7 +3,7 @@ import { PosStr } from "utils/RoomPositionToStr";
 export function getBlankSpace(pos: RoomPosition): RoomPosition[] {
     const posStr = PosStr.setPosToStr(pos);
     const squareSet = PosStr.getSquarePosStr(posStr).add(posStr);
-    const BlankSpaceList = [];
+    const BlankSpaceList: RoomPosition[] = [];
     squareSet.forEach(squarePosStr => {
         const squarePos = PosStr.getPosFromStr(squarePosStr);
         const look = squarePos.look();
@@ -13,5 +13,5 @@ export function getBlankSpace(pos: RoomPosition): RoomPosition[] {
             }
         });
     });
-    return [];
+    return BlankSpaceList;
 }

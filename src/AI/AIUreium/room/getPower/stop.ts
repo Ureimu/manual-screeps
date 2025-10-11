@@ -24,6 +24,9 @@ export function stopGetPower(...args: getPowerTaskArgs): void {
     creepGroupNameList.forEach(creepGroupName => {
         Memory.creepGroups[creepGroupName].creepNameList.forEach(creepName => {
             SpawnPool.deleteCreep({ creepName, roomName: originRoomName });
+            if (Game.creeps[creepName]) {
+                Game.creeps[creepName].suicide();
+            }
         });
         CreepGroup.deleteCreepGroup({ creepGroupName });
     });

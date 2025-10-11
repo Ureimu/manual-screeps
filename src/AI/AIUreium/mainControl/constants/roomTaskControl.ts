@@ -18,6 +18,7 @@ export const Constant = {
         }
     },
     getPower: {
-        lowestEnergyInStorage: 8e4
+        lowestEnergyInStorage: 8e4,
+        spawnAttackerCount: 4
     }
 };

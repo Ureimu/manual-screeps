@@ -18,6 +18,9 @@ export const finishTask: TaskObject<getPowerTaskArgs> = {
         ) {
             return "end";
         }
+        const decayTime = Memory.rooms[powerBankRoomName].powerBanks?.[powerBankId]?.decayTime;
+        if (decayTime && Game.time > decayTime + 1500) return "end";
+        if (!decayTime) return "end";
         return "running";
     },
     working(roomName, powerBankRoomName, powerBankId) {

@@ -8,12 +8,14 @@ import { createGPHealerGroup } from "./tasks/createCreepGroup/createGPHealerGrou
 import { waitForAttackEnd } from "./tasks/gpCarrier/waitForAttackEnd";
 import { createGPCarrierGroup } from "./tasks/createCreepGroup/createGPCarrierGroup";
 import { finishTask } from "./tasks/finishTask";
+import { spawnAttackerAndHealer } from "./tasks/spawnAttackerAndHealer";
 
 export const taskRelation = {
     [createGetPowerBodyParts.name]: [ProjectNetworkDiagram.startNodeName],
     [createGPAttackerGroup.name]: [createGetPowerBodyParts.name],
     [createGPHealerGroup.name]: [createGetPowerBodyParts.name],
-    [waitForAttackEnd.name]: [createGPAttackerGroup.name],
+    [spawnAttackerAndHealer.name]: [createGPAttackerGroup.name, createGPHealerGroup.name],
+    [waitForAttackEnd.name]: [spawnAttackerAndHealer.name],
     [createGPCarrierGroup.name]: [waitForAttackEnd.name],
     [finishTask.name]: [createGPCarrierGroup.name]
 };
@@ -24,7 +26,8 @@ const taskCollection = registerObjectDeep(
         createGPHealerGroup,
         waitForAttackEnd,
         createGPCarrierGroup,
-        finishTask
+        finishTask,
+        spawnAttackerAndHealer
     },
     "getPowerTaskCollection"
 );

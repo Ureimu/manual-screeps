@@ -1,3 +1,4 @@
+import { calcGetPowerSpawnTime } from "AI/AIUreium/mainControl/getPower/calcSpawnTime";
 import { CreepGroup } from "frame/creep/group";
 import { SpawnPool } from "frame/spawn/spawnPool";
 import { TaskObject } from "utils/Project";
@@ -9,7 +10,7 @@ export const getGPHealerGroupName = (roomName: string, powerBankRoomName: string
 export const createGPHealerGroup: TaskObject<getPowerTaskArgs> = {
     name: "createGPHealerGroup",
     description: "createGPHealerGroup",
-    start() {
+    start(roomName, powerBankRoomName, powerBankId) {
         return "end";
     },
     working(roomName, powerBankRoomName, powerBankId) {
@@ -20,10 +21,8 @@ export const createGPHealerGroup: TaskObject<getPowerTaskArgs> = {
             mode: "role",
             groupArguments: `${roomName},${powerBankRoomName},${powerBankId}`
         });
-        for (let index = 0; index < 4; index++) {
-            createNewCreep(room, creepGroupName, index);
-        }
         CreepGroup.setCreepGroupProperties({ creepGroupName, mode: "role", roleName: "gpHealer" });
+
         return "end";
     },
     justFinished() {
@@ -31,15 +30,15 @@ export const createGPHealerGroup: TaskObject<getPowerTaskArgs> = {
     }
 };
 
-function createNewCreep(room: Room, creepGroupName: string, index: number) {
-    const creepName = `${creepGroupName}-${index}`;
+function createNewCreep(room: Room, healerCreepGroupName: string, index: number) {
+    const healerCreepName = `${healerCreepGroupName}-${index}`;
     SpawnPool.addCreep({
-        creepName,
+        creepName: healerCreepName,
         creepBody: "gpHealer",
         priority: `${4.95 - index * 0.1}`,
         roomName: room.name,
         readyCondition: "shift",
         subCond: "gpWorker"
     });
-    CreepGroup.addCreep({ creepName, creepGroupName });
+    CreepGroup.addCreep({ creepName: healerCreepName, creepGroupName: healerCreepGroupName });
 }

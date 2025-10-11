@@ -5,12 +5,9 @@ export function gpHealer(creep: Creep, args: string[]) {
     const getPowerData = Memory.rooms[powerBankRoomName]?.powerBanks?.[powerBankId];
     if (!getPowerData) return;
     const powerBankPos = new RoomPosition(getPowerData.x, getPowerData.y, getPowerData.roomName);
-    if (!creep.pos.inRangeTo(powerBankPos, 2)) {
+    if (!creep.pos.inRangeTo(powerBankPos, 15)) {
         creep.moveTo(powerBankPos);
         return;
-    }
-    if (!creep.memory.dontPullMe) {
-        creep.memory.dontPullMe = true;
     }
     const powerBank = Game.getObjectById(powerBankId as Id<StructurePowerBank>);
     if (creep.room.name === getPowerData.roomName && !powerBank) {
@@ -29,15 +26,18 @@ export function gpHealer(creep: Creep, args: string[]) {
         );
         if (healPosStr) {
             const healPos = PosStr.getPosFromStr(healPosStr);
-            if (!creep.pos.isEqualTo(healPos)) {
-                creep.moveTo(healPos, { range: 0 });
-                return;
+            if (creep.room.lookForAt(LOOK_TERRAIN, healPos)[0] !== "wall") {
+                if (!creep.pos.isEqualTo(healPos)) {
+                    creep.moveTo(healPos, { range: 0 });
+                    return;
+                }
             }
         }
-    }
-    if (!creep.pos.inRangeTo(gpAttacker, 1)) {
-        creep.moveTo(gpAttacker, { range: 1 });
-        return;
+        if (!creep.pos.inRangeTo(gpAttacker, 1)) {
+            creep.moveTo(gpAttacker, { range: 1 });
+            return;
+        }
     }
     creep.heal(gpAttacker);
 }
+// TODO 让creep移动时不经过敌人房间
