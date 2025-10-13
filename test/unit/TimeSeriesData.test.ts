@@ -1,6 +1,7 @@
 import { assert } from "chai";
 import { writeFileSync } from "fs";
 import { describe } from "mocha";
+import { SegmentManager } from "utils/SegmentManager";
 import { TimeSeriesDataEngine } from "utils/TimeSeriesData/engine";
 import { getDataNodeList, setDataNodeList } from "utils/TimeSeriesData/storage";
 import { SingleTypedTreeData, SingleData } from "utils/TimeSeriesData/type";
@@ -79,7 +80,7 @@ describe("TimeSeriesData", () => {
         const gameTimeData = data.gameTime as SingleData<number[]>;
         const jsonData = JSON.stringify(data);
         console.log(jsonData);
-        console.log(RawMemory.segments[engine.getSegmentIdList()[0]]);
+        console.log(SegmentManager.readSegment(engine.getSegmentIdList()[0]));
         // writeFileSync("test/unit/test.json", jsonData);
         assert.isBelow(Game.time - Number(gameTimeData.data.pop()), 100);
     });

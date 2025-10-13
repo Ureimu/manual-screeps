@@ -1,5 +1,3 @@
-import { CreepBody } from "frame/creep/body";
-import { ControllerLevels, creepBodyConfigDetail } from "frame/creep/body/type";
 import { TaskObject } from "utils/Project";
 import { stopGetPower } from "../stop";
 import { getPowerTaskArgs } from "../taskRelation";
@@ -44,5 +42,4 @@ export const finishTask: TaskObject<getPowerTaskArgs> = {
         return "end";
     }
 };
-// TODO 在recordRoomData添加获取powerBank周围空位数量，并按照空位来规划creep孵化数量和是否选择该powerBank
-// BUG 在刚摧毁powerBank时就过早结束任务，未搬运power
+// TODO 添加多种任务的启用关闭设置

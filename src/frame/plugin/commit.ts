@@ -19,7 +19,7 @@ export const pluginCommit = {
                 log: true
             },
             task => {
-                loadPlugin(RawMemory.segments[Number(task.args[0])]);
+                loadPlugin(SegmentManager.readSegment(Number(task.args[0])));
                 return "finish";
             }
         );

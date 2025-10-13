@@ -97,7 +97,7 @@ export class TimeSeriesDataEngine<T extends SingleTypedTreeData<SingleData<numbe
     public storeData(): void {
         if (this.timeData.ifSwitchActiveId) {
             this.switchActiveId();
-            RawMemory.segments[this.timeData.activeId] = "";
+            SegmentManager.writeSegment(this.timeData.activeId, "");
             return;
         }
         if (this.timeData.ifStart) {

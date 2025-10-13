@@ -7,3 +7,4 @@ export function loadPlugin(originStr: string): string {
     Memory.plugin[plugin.name] = plugin;
     return plugin.version.plugin;
 }
+ 

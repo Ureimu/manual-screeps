@@ -57,7 +57,7 @@ export function getLayoutFromSegment(roomName: string): CacheLayoutData | undefi
         debug(`${roomName} layout获取完成`, "log");
         return layoutDataCache[roomName];
     }
-    const segmentData = RawMemory.segments[cacheId] ?? RawMemoryCache[cacheId];
+    const segmentData = SegmentManager.readSegment(cacheId) ?? RawMemoryCache[cacheId];
     if (segmentData) {
         debug(`${roomName} layout数据存在`, "log");
         RawMemoryCache[cacheId] = segmentData;
@@ -101,7 +101,7 @@ export function getCallLayoutData(roomName: string): CallLayoutData | undefined 
         SegmentManager.addId([callSegmentId]);
         return;
     }
-    const callSegmentData = RawMemory.segments[callSegmentId];
+    const callSegmentData = SegmentManager.readSegment(callSegmentId);
     if (callSegmentData) {
         debug("获取到了callData数据", "log");
         callData = JSON.parse(callSegmentData) as CallLayoutData;
@@ -138,5 +138,5 @@ export function getCallLayoutData(roomName: string): CallLayoutData | undefined 
 }
 
 export function updateCallData(callData: CallLayoutData): void {
-    RawMemory.segments[callSegmentId] = JSON.stringify(callData);
+    SegmentManager.writeSegment(callSegmentId, JSON.stringify(callData));
 }

@@ -1,5 +1,6 @@
 /* eslint-disable id-blacklist */
 
+import { SegmentManager } from "utils/SegmentManager";
 import { SingleData, SingleTypedTreeData, SingleTypedTreeDataNode } from "./type";
 export class TimeSeriesDataStorage<T extends SingleTypedTreeData<U>, U extends SingleData<string>> {
     private rawSeriesDataList: string[];
@@ -13,7 +14,7 @@ export class TimeSeriesDataStorage<T extends SingleTypedTreeData<U>, U extends S
         } else if (idList.some(id => id > 99 || id < 0)) {
             throw Error("idList参数不正确: id > 99 || id < 0");
         }
-        const rawMemoryList = idList.map(id => RawMemory.segments[id]);
+        const rawMemoryList = idList.map(id => SegmentManager.readSegment(id));
         this.rawSeriesDataList = rawMemoryList;
     }
 
@@ -35,7 +36,9 @@ export class TimeSeriesDataStorage<T extends SingleTypedTreeData<U>, U extends S
         this.rawSeriesDataList[this.idList.findIndex(idInList => idInList === id)] = JSON.stringify(seriesData);
     }
     public save(): void {
-        this.rawSeriesDataList.forEach((seriesData, index) => (RawMemory.segments[this.idList[index]] = seriesData));
+        this.rawSeriesDataList.forEach((seriesData, index) =>
+            SegmentManager.writeSegment(this.idList[index], seriesData)
+        );
     }
 }
 

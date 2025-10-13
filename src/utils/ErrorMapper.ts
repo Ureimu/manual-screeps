@@ -159,7 +159,7 @@ export class ErrorMapper {
         const tick = Game.time - 1;
         if (!Memory.errorCache) Memory.errorCache = {};
         if (Memory.errorCache[tick]) {
-            const segment = RawMemory.segments[this.segmentId];
+            const segment = SegmentManager.readSegment(this.segmentId);
             let errorMemory: ErrorSegmentMemory;
             if (segment) {
                 errorMemory = JSON.parse(segment) as ErrorSegmentMemory;
@@ -174,17 +174,17 @@ export class ErrorMapper {
                 console.log("errorCache正在启动。");
                 return;
             }
-            if (RawMemory.segments[this.segmentId].length < 9e4 && errorMemory.isFull) {
+            if (SegmentManager.readSegment(this.segmentId).length < 9e4 && errorMemory.isFull) {
                 errorMemory.isFull = false;
             }
-            if (RawMemory.segments[this.segmentId].length > 9e4 && !errorMemory.isFull) {
+            if (SegmentManager.readSegment(this.segmentId).length > 9e4 && !errorMemory.isFull) {
                 errorMemory.isFull = true;
             }
             if (errorMemory.isFull) {
                 console.log("errorCache已满，请及时清除");
                 errorMemory.uncaughtErrorNum++;
             } else {
-                RawMemory.segments[this.segmentId] = JSON.stringify(errorMemory);
+                SegmentManager.writeSegment(this.segmentId, JSON.stringify(errorMemory));
             }
             delete Memory.errorCache[tick];
         }
@@ -195,7 +195,7 @@ export class ErrorMapper {
     }
 
     public static getErrorSegmentMemory(): ErrorSegmentMemory {
-        const segment = RawMemory.segments[this.segmentId];
+        const segment = SegmentManager.readSegment(this.segmentId);
         if (segment) {
             const errorMemory = JSON.parse(segment) as ErrorSegmentMemory;
             return errorMemory;
