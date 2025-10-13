@@ -1,4 +1,3 @@
-// TODO 完成内容
 import { PosStr } from "utils/RoomPositionToStr";
 import { CreepCondition } from ".";
 import { conditionState, state } from "..";

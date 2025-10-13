@@ -1,5 +1,5 @@
 import { startNewRoom } from "AI/AIUreium/room/newRoom/start";
-import { getMyClosestRoom } from "utils/roomTools";
+import { getMyRoom } from "utils/roomTools";
 import { getNewRoom } from "./getRoom";
 
 export function allocateNewRoom(): void {
@@ -11,4 +11,27 @@ export function allocateNewRoom(): void {
         return;
     }
     startNewRoom(myClosestRoomName, newRoomName);
+}
+
+export function getMyClosestRoom(goalRoomName: string): string | undefined {
+    const MyRoomList = getMyRoom();
+    const closestRoom = MyRoomList.map(myRoomName => {
+        const controller = Game.rooms[myRoomName].controller;
+        if (
+            Game.map.getRoomLinearDistance(myRoomName, goalRoomName) > 12 ||
+            (controller && controller.level <= 3) ||
+            !global.roomMemory[myRoomName].control?.claimNewRoom
+        ) {
+            return [myRoomName, 700] as [string, number];
+        }
+        return [
+            myRoomName,
+            PathFinder.search(new RoomPosition(25, 25, myRoomName), new RoomPosition(25, 25, goalRoomName), {
+                maxOps: 20000
+            }).path.length
+        ] as [string, number];
+    })
+        .filter(a => a[1] < 500)
+        .sort((a, b) => a[1] - b[1])?.[0]?.[0];
+    return closestRoom;
 }

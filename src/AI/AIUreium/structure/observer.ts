@@ -51,6 +51,5 @@ function observe(room: Room) {
             obData.index = 0;
         }
     }
-    // TODO 使用getSurroundingRoomNames
     // observer.observeRoom()
 }

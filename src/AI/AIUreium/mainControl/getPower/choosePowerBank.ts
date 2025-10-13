@@ -15,6 +15,7 @@ declare global {
 }
 
 export function choosePowerBank(mainRoom: Room): void {
+    if (!global.roomMemory[mainRoom.name].control?.getPower) return;
     console.log(`${mainRoom.name} choosePowerBank`);
     if (!mainRoom.memory.status) {
         mainRoom.memory.status = {};

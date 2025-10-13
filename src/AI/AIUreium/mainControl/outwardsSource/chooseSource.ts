@@ -17,6 +17,7 @@ const debugMode = true;
 const style = consoleStyle("ChooseSource");
 const debug = (str: string, level: LogLevel = "log") => (debugMode ? console.log(style(str, level)) : void 0);
 export function chooseSource(mainRoom: Room): void {
+    if (!global.roomMemory[mainRoom.name].control?.outwardsSource) return;
     debug(`${mainRoom.name} chooseSource start`);
     let sourceNum = 0;
     const { outwardsSource } = Constant;
