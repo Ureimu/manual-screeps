@@ -98,6 +98,7 @@ function clearAll(clearWalls: boolean): void {
     // Game.cpu.halt(); 自己手动执行
 }
 
+// 似乎用该api上传的文件，无法获取到上传的内容。
 function testConsole(): string {
     const commitFunctionName = "microFunction.testConsoleCommit";
     global.mf.id = "uploadedFile" + String(Date.now());
