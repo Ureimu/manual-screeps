@@ -1,5 +1,6 @@
 import { addShiftTimeFunction } from "frame/spawn/spawning/readyCondition/spawnShiftCreep";
 import { numData } from "frame/spawn/spawning/readyCondition/utils/numData";
+import { getRoomControlData } from "../mainControl/controlBoard";
 import { getMaintainRoomProject } from "./maintain/taskRelation";
 import { getCenterCarrierCreepName } from "./maintain/tasks/createCreepGroup/createCenterCarryGroup";
 import { upgradeByLink } from "./maintain/tasks/upgrader/upgradeByLink";
@@ -30,7 +31,7 @@ export function mountShiftTimeFunction() {
     });
 
     addShiftTimeFunction("mineralMiner", detail => {
-        if (!global.roomMemory[detail.roomName].control?.harvestMineral) return false;
+        if (!getRoomControlData(detail.roomName)?.harvestMineral) return false;
         const data = numData(detail);
         if (!(data.aliveNum === 0 && data.queueNum === 0 && data.deadNum === 1)) return false;
 

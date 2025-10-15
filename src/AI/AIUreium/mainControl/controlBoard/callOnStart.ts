@@ -1,10 +1,10 @@
 import { SCREEPS_CODE_DEST } from "codeConstants";
-import { ControlSetting } from "./settings/settings";
+import { FullControlSetting } from "./settings/settings";
 import { defaultRoomControlData } from "./type";
 
 export function callOnStart() {
     console.log(`load ai config from ControlSetting/${SCREEPS_CODE_DEST}/${Game.shard.name}`);
-    const controlData = ControlSetting[SCREEPS_CODE_DEST]?.[Game.shard.name];
+    const controlData = FullControlSetting[SCREEPS_CODE_DEST]?.[Game.shard.name];
     if (!global.roomMemory) global.roomMemory = {};
     _.forEach(Game.rooms, room => {
         if (!room.controller) return;

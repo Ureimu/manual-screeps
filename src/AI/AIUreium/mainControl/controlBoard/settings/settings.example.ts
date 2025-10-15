@@ -13,7 +13,7 @@ import { RoomControlData } from "../type";
 
 const shard3ControlSettings: { [roomName: string]: RoomControlData } = {};
 
-export const ControlSetting: {
+export const FullControlSetting: {
     [destName: string]: {
         [shardName: string]: {
             [roomName: string]: RoomControlData;

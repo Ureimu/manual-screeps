@@ -1,5 +1,6 @@
 import { startNewRoom } from "AI/AIUreium/room/newRoom/start";
 import { getMyRoom } from "utils/roomTools";
+import { getRoomControlData } from "../controlBoard";
 import { getNewRoom } from "./getRoom";
 
 export function allocateNewRoom(): void {
@@ -20,7 +21,7 @@ export function getMyClosestRoom(goalRoomName: string): string | undefined {
         if (
             Game.map.getRoomLinearDistance(myRoomName, goalRoomName) > 12 ||
             (controller && controller.level <= 3) ||
-            !global.roomMemory[myRoomName].control?.claimNewRoom
+            !getRoomControlData(myRoomName)?.claimNewRoom
         ) {
             return [myRoomName, 700] as [string, number];
         }

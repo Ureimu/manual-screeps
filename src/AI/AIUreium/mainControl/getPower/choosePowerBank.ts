@@ -2,6 +2,7 @@ import { startGetPower } from "AI/AIUreium/room/getPower/start";
 import { getCostMatrix } from "frame/construct/utils/costMatrix";
 import { getRoomDistance } from "utils/roomNameUtils";
 import { Constant } from "../constants/roomTaskControl";
+import { getRoomControlData } from "../controlBoard";
 import { PowerBankData } from "../recordRoomData";
 import { calcGetPowerSpawnTime } from "./calcSpawnTime";
 
@@ -15,7 +16,7 @@ declare global {
 }
 
 export function choosePowerBank(mainRoom: Room): void {
-    const taskControl = global.roomMemory[mainRoom.name].control?.getPower;
+    const taskControl = getRoomControlData(mainRoom.name).getPower;
     if (!taskControl) return;
     console.log(`${mainRoom.name} choosePowerBank`);
     if (!mainRoom.memory.status) {
