@@ -69,3 +69,39 @@ export function getRoomDistance(roomName1: string, roomName2: string): number {
     const y2 = parsed2.ns === "N" ? parsed2.y : -parsed2.y - 1;
     return Math.abs(x1 - x2) + Math.abs(y1 - y2);
 }
+
+/**
+ * 获取以两个房间名为对角顶点的矩形内的所有房间名（包含边界）
+ * @param roomA 第一个房间名
+ * @param roomB 第二个房间名
+ * @returns 房间名数组
+ */
+export function getRoomsInRectangle(roomA: string, roomB: string): string[] {
+    const pA = parseRoomName(roomA);
+    const pB = parseRoomName(roomB);
+    if (!pA || !pB) return [];
+
+    // 转换为全局坐标（E/N 为正，W/S 为负且使用 -v-1 映射）
+    const gxA = pA.ew === "E" ? pA.x : -pA.x - 1;
+    const gyA = pA.ns === "N" ? pA.y : -pA.y - 1;
+    const gxB = pB.ew === "E" ? pB.x : -pB.x - 1;
+    const gyB = pB.ns === "N" ? pB.y : -pB.y - 1;
+
+    const minX = Math.min(gxA, gxB);
+    const maxX = Math.max(gxA, gxB);
+    const minY = Math.min(gyA, gyB);
+    const maxY = Math.max(gyA, gyB);
+
+    const result: string[] = [];
+    for (let gx = minX; gx <= maxX; gx++) {
+        for (let gy = minY; gy <= maxY; gy++) {
+            // 将全局坐标转换回房间名
+            const ew: "E" | "W" = gx >= 0 ? "E" : "W";
+            const ns: "N" | "S" = gy >= 0 ? "N" : "S";
+            const localX = gx >= 0 ? gx : -gx - 1;
+            const localY = gy >= 0 ? gy : -gy - 1;
+            result.push(generateRoomName(ew, localX, ns, localY));
+        }
+    }
+    return result;
+}

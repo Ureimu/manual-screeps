@@ -15,7 +15,8 @@ declare global {
 }
 
 export function choosePowerBank(mainRoom: Room): void {
-    if (!global.roomMemory[mainRoom.name].control?.getPower) return;
+    const taskControl = global.roomMemory[mainRoom.name].control?.getPower;
+    if (!taskControl) return;
     console.log(`${mainRoom.name} choosePowerBank`);
     if (!mainRoom.memory.status) {
         mainRoom.memory.status = {};
@@ -33,6 +34,7 @@ export function choosePowerBank(mainRoom: Room): void {
         if (status.getPower) return;
         if (!powerBankRoomName) return;
         if (!powerBankRoomMemory.powerBanks) return;
+        if (!taskControl.rooms.includes(powerBankRoomName)) return;
         _.forEach(powerBankRoomMemory.powerBanks, powerBankMemory => {
             if (status.getPower) return;
             // 如果已经被其他人攻击过，则不选取

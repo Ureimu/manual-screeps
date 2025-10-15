@@ -17,6 +17,7 @@ export interface RoomControlData {
          * 是否进行Power采集。
          */
         run: boolean;
+        rooms: string[];
     };
     /**
      * 家里的mineral采集设定。
@@ -49,7 +50,8 @@ export interface RoomControlData {
 
 export const defaultRoomControlData: RoomControlData = {
     getPower: {
-        run: true
+        run: false,
+        rooms: []
     },
     harvestMineral: {
         run: true

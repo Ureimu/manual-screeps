@@ -81,6 +81,21 @@ function runCreepAction(creep: Creep): void {
     }
 }
 
+/**
+ * 在手动调用时，使用该函数。
+ */
+export function manualRunCreepByRoute(creep: Creep, route: CreepMemoryRouteDetail): void {
+    const switchCounter = { count: 0 };
+    runRecursiveCreepAction(creep, route, switchCounter);
+}
+
+/**
+ * 在手动调用时，使用该函数。
+ */
+export function manualRunCreepByRole(creep: Creep, args: string[]): void {
+    global.creepRoleActionList[creep.memory.role](creep, args);
+}
+
 function runRecursiveCreepAction(
     creep: Creep,
     creepRoute: CreepMemoryRouteDetail,

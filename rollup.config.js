@@ -8,6 +8,8 @@ import copy from "rollup-plugin-copy";
 import screeps from 'rollup-plugin-screeps';
 import html from 'rollup-plugin-html';
 import json from '@rollup/plugin-json'
+import replace from '@rollup/plugin-replace'
+
 
 let cfg;
 const dest = process.env.DEST;
@@ -30,6 +32,12 @@ export default {
         clear({ targets: ["dist"] }),
         resolve({ rootDir: "src" }),
         commonjs(),
+        replace({
+            values: {
+                '__SCREEPS_CODE_DEST__': String(dest),
+            },
+            preventAssignment: true
+        }),
         typescript({ tsconfig: "./tsconfig.json" }),
         copy({
             targets: [
