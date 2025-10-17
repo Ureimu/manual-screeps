@@ -41,6 +41,8 @@ type ReturnStructureList<T extends RequireStructureData> = {
         : never;
 };
 /**
+ * BUG 注意该api不太稳定，返回值经常不存在，待修复后再使用。
+ *
  * 获取某种建筑的id与pos列表。会自动缓存列表并返回缓存。
  * 如果获取的建筑属于自己，可以使用Game.structures来索引到对应建筑，这样更加节省cpu。
  * ```ts

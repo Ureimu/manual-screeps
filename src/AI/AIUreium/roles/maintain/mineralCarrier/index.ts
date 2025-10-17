@@ -1,12 +1,14 @@
-import { getStructureIdList } from "frame/construct/utils";
 import { stayByRoad } from "frame/creep/action/doOnArrived/stayByRoad";
+import { PosStr } from "utils/RoomPositionToStr";
 import { checkArray } from "utils/typeCheck";
 
-export function mineralCarrier(creep: Creep): void {
-    const mineralContainerId = getStructureIdList(creep, creep.room.name, { mineralContainer: {} })
-        ?.mineralContainer?.[0].id;
-    if (!mineralContainerId) return;
-    const mineralContainer = Game.getObjectById(mineralContainerId);
+export function mineralCarrier(creep: Creep, args: string[]): void {
+    const [mineralContainerPosStr] = args;
+    const pos = PosStr.getPosFromStr(mineralContainerPosStr);
+
+    const mineralContainer = pos.lookFor(LOOK_STRUCTURES).filter(i => i.structureType === "container")[0] as
+        | StructureContainer
+        | undefined;
     if (!mineralContainer) return;
     const mineral = creep.room.find(FIND_MINERALS)[0];
     if (!mineral) return;
@@ -14,18 +16,18 @@ export function mineralCarrier(creep: Creep): void {
     if (!storage) return;
     if (creep.store.getFreeCapacity() !== 0 && mineralContainer.store.getUsedCapacity() > creep.store.getCapacity()) {
         if (creep.pos.isNearTo(mineralContainer)) {
-            if (mineralContainer.store[mineral.mineralType] > 0) {
-                creep.withdraw(mineralContainer, mineral.mineralType);
-            } else {
-                creep.withdraw(mineralContainer, RESOURCE_ENERGY);
-            }
+            const storeEntries = Object.entries(mineralContainer.store).filter(([key, value]) => value && value > 0);
+            creep.withdraw(mineralContainer, storeEntries[_.random(0, storeEntries.length)][0] as ResourceConstant);
         } else {
             creep.moveTo(mineralContainer);
         }
         return;
     }
 
-    if (creep.store.getFreeCapacity() === 0) {
+    if (
+        creep.store.getFreeCapacity() === 0 ||
+        (mineralContainer.store.getUsedCapacity() < creep.store.getCapacity() && creep.store.getUsedCapacity() > 0)
+    ) {
         if (creep.pos.isNearTo(storage)) {
             if (creep.store[mineral.mineralType] > 0) {
                 creep.transfer(storage, mineral.mineralType);
