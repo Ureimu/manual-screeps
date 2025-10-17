@@ -9,7 +9,7 @@ import { createDefaultBodyparts } from "./tasks/createDefaultBodyparts";
 import { createFillSpawnGroup } from "./tasks/createCreepGroup/createFillSpawnGroup";
 import { createHarvestGroup } from "./tasks/createCreepGroup/createHarvestGroup";
 import { createUpgradeGroup } from "./tasks/createCreepGroup/createUpgradeGroup";
-import { fillSpawn } from "./tasks/carrier/fillSpawn";
+import { fillSpawn } from "./tasks/spawnFiller/fillSpawn";
 import { keepHarvesting } from "./tasks/harvester/keepHarvesting";
 import { structureHasBuilt } from "./tasks/utils/structureHasBuilt";
 import { upgradeBySource } from "./tasks/upgrader/upgradeBySource";
@@ -26,13 +26,13 @@ import { TaskRelation, TaskCollection, DiagramMemory } from "utils/Project/type"
 import { registerObjectDeep } from "utils/profiler";
 import { createMineGroup } from "./tasks/createCreepGroup/createMineGroup";
 import { keepMining } from "./tasks/miner/keepMining";
-import { startCarryMineral } from "./tasks/carrier/startCarryMineral";
 import { centerTask2 } from "./tasks/centerCarrier/centerTask2";
 import { startNewRoomTask } from "./tasks/startNewRoomTask";
 import { createMineCarryGroup } from "./tasks/createCreepGroup/createMineCarryGroup";
 import { stopScout } from "./tasks/scouter/stopScout";
 import { initAiUreimuRoomMemory } from "../utils";
 import { startGetPowerTask } from "./tasks/startGetPowerTask";
+import { createKeepLevelGroup } from "./tasks/createCreepGroup/createKeepLevelGroup";
 
 const centerLinkHasBuilt = structureHasBuilt("link", "centerLink", 1);
 const sourceLinkHasBuilt = structureHasBuilt("link", "sourceLink", 2);
@@ -80,10 +80,10 @@ const taskRelation = {
     [createMineGroup.name]: [mineralContainerHasBuilt.name],
     [keepMining.name]: [createMineGroup.name],
     [createMineCarryGroup.name]: [keepMining.name],
-    [startCarryMineral.name]: [createMineCarryGroup.name],
     [centerTask2.name]: [centerTask1.name, terminalHasBuilt.name],
     [stopScout.name]: [observerHasBuilt.name],
-    [startGetPowerTask.name]: [observerHasBuilt.name]
+    [startGetPowerTask.name]: [observerHasBuilt.name],
+    [createKeepLevelGroup.name]: [createDefaultBodyparts.name]
 };
 const taskCollection = registerObjectDeep(
     {
@@ -120,12 +120,12 @@ const taskCollection = registerObjectDeep(
         extractorHasBuilt,
         createMineGroup,
         keepMining,
-        startCarryMineral,
         centerTask2,
         startNewRoomTask,
         createMineCarryGroup,
         stopScout,
-        startGetPowerTask
+        startGetPowerTask,
+        createKeepLevelGroup
     },
     "maintainRoomProjectTaskCollection"
 );

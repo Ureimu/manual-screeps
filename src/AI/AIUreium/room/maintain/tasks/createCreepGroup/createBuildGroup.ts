@@ -30,7 +30,8 @@ function addCreep(room: Room, creepGroupName: string, index: number) {
         creepBody: "worker",
         priority: "7",
         roomName: room.name,
-        readyCondition: "loop"
+        readyCondition: "shift",
+        subCond: "builder"
     });
     CreepGroup.addCreep({ creepName, creepGroupName });
 }

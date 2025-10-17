@@ -55,4 +55,33 @@ export function mountShiftTimeFunction() {
         if (detail.spawnCount > 0) return false;
         return true;
     });
+
+    addShiftTimeFunction("levelKeeper", detail => {
+        const data = numData(detail);
+        if (!(data.aliveNum === 0 && data.queueNum === 0 && data.deadNum === 1)) return false;
+
+        const roomName = detail.roomName;
+        const room = Game.rooms[roomName];
+        if (!room) return false;
+        const controller = room.controller;
+        if (!controller) return false;
+
+        if (controller.ticksToDowngrade > 5000) return false;
+
+        return true;
+    });
+
+    addShiftTimeFunction("builder", detail => {
+        const data = numData(detail);
+        if (!(data.aliveNum === 0 && data.queueNum === 0 && data.deadNum === 1)) return false;
+
+        const roomName = detail.roomName;
+        const room = Game.rooms[roomName];
+        if (!room) return false;
+        const constructionSites = room.find(FIND_CONSTRUCTION_SITES);
+        if (constructionSites.length !== 0) return true;
+        const containers = room.find(FIND_STRUCTURES, { filter: i => i.structureType === "container" && i.hits < 5e4 });
+        if (containers.length !== 0) return true;
+        return false;
+    });
 }

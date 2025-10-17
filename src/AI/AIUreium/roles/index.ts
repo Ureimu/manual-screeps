@@ -3,6 +3,8 @@ import { gpAttacker } from "./getPower/gpAttacker";
 import { gpCarrier } from "./getPower/gpCarrier";
 import { gpHealer } from "./getPower/gpHealer";
 import { centerCarrierTask2 } from "./maintain/centerCarrier";
+import { levelKeeper } from "./maintain/levelKeeper";
+import { mineralCarrier } from "./maintain/mineralCarrier";
 import { scouter } from "./maintain/scouter";
 import { claimer1 } from "./newRoom/claimer/claimer1";
 import { succor1 } from "./newRoom/succor/succor1";
@@ -18,7 +20,9 @@ export function callOnStart(): void {
             succor1,
             gpAttacker,
             gpHealer,
-            gpCarrier
+            gpCarrier,
+            levelKeeper,
+            mineralCarrier
         };
         registerCreepRole(creepRoleList);
     }

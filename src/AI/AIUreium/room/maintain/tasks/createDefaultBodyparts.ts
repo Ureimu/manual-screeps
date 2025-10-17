@@ -40,6 +40,10 @@ export const createDefaultBodyparts: TaskObject<maintainRoomTaskArgs> = {
             },
             miner: {
                 "5": { body: "m3w12" }
+            },
+            levelKeeper: {
+                "1": { body: "m2w1c2" },
+                "2": { body: "m5w1c4" }
             }
         };
 
