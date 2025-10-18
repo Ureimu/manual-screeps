@@ -18,7 +18,10 @@ export function mineralCarrier(creep: Creep, args: string[]): void {
         if (creep.pos.isNearTo(mineralContainer)) {
             const storeEntries = Object.entries(mineralContainer.store).filter(([key, value]) => value && value > 0);
             if (storeEntries.length > 0) {
-                creep.withdraw(mineralContainer, storeEntries[_.random(0, storeEntries.length)][0] as ResourceConstant);
+                creep.withdraw(
+                    mineralContainer,
+                    storeEntries[_.random(0, storeEntries.length - 1)][0] as ResourceConstant
+                );
             }
         } else {
             creep.moveTo(mineralContainer);
