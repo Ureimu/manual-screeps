@@ -1,5 +1,5 @@
 import { assert } from "chai";
-import { calcGetPowerSpawnTime } from "../../src/AI/AIUreium/mainControl/getPower/calcSpawnTime";
+import { calcGetPowerSpawnTime } from "../../src/AI/AIUreium/control/getPower/calcSpawnTime";
 
 describe("calcGetPowerSpawnTime", () => {
     it("should always interval 1500 when blankSpaceCount = 1", () => {

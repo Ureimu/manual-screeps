@@ -9,7 +9,7 @@
  * 可以复制controlBoard/type.ts下的defaultRoomControlData为自己的初始设定，然后再自己更改。
  */
 
-import { RoomControlData } from "../type";
+import { RoomControlData } from "./type";
 
 const shard3ControlSettings: { [roomName: string]: RoomControlData } = {};
 

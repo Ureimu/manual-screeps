@@ -1,4 +1,4 @@
-import { MaxOutwardsSourcePathLength } from "AI/AIUreium/mainControl/outwardsSource/constant";
+import { MaxOutwardsSourcePathLength } from "AI/AIUreium/control/outwardsSource/constant";
 import { CreepBody } from "frame/creep/body";
 import { ControllerLevels } from "frame/creep/body/type";
 import { CreepGroup } from "frame/creep/group";

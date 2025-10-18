@@ -1,4 +1,4 @@
-import { chooseSource } from "AI/AIUreium/mainControl/outwardsSource";
+import { chooseSource } from "AI/AIUreium/control/outwardsSource";
 import { DiagramMemory } from "utils/Project/type";
 import { initAiUreimuRoomMemory } from "../utils";
 import { getOutwardsHarvestProject } from "./taskRelation";

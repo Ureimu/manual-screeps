@@ -1,5 +1,5 @@
 import { SCREEPS_CODE_DEST } from "codeConstants";
-import { FullControlSetting } from "./settings/settings";
+import { FullControlSetting } from "./settings";
 import { defaultRoomControlData } from "./type";
 
 export function callOnStart() {

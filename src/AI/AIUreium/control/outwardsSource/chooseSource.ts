@@ -1,11 +1,11 @@
-import { OutwardsSourceData } from "AI/AIUreium/mainControl/recordRoomData";
+import { OutwardsSourceData } from "AI/AIUreium/control/recordRoomData";
 import { startOutwardsSource } from "AI/AIUreium/room/outwardsSource/start";
 import { stopOutwardsSource } from "AI/AIUreium/room/outwardsSource/stop";
 import { consoleStyle, LogLevel } from "frame/console/style";
 import { checkControllerRoomName } from "utils/roomNameUtils";
 import { resourceLimit } from "../constants/roomResource";
 import { Constant } from "../constants/roomTaskControl";
-import { getRoomControlData } from "../controlBoard";
+import { getRoomControlData } from "..";
 import { MaxOutwardsSourcePathLength, OutwardsSourceCheckInterval } from "./constant";
 
 declare global {

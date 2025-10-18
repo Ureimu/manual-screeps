@@ -1,5 +1,5 @@
-import { Constant } from "AI/AIUreium/mainControl/constants/roomTaskControl";
-import { calcGetPowerSpawnTime } from "AI/AIUreium/mainControl/getPower/calcSpawnTime";
+import { Constant } from "AI/AIUreium/control/constants/roomTaskControl";
+import { calcGetPowerSpawnTime } from "AI/AIUreium/control/getPower/calcSpawnTime";
 import { CreepGroup } from "frame/creep/group";
 import { SpawnPool } from "frame/spawn/spawnPool";
 import { TaskObject } from "utils/Project";

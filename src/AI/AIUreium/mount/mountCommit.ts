@@ -1,4 +1,4 @@
-import { AIRoomSetting } from "../mainControl/room";
+import { AIRoomSetting } from "../control/room";
 
 // 挂载全局拓展
 export default function mountCommit(): void {

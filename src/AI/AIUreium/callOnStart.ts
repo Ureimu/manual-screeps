@@ -1,6 +1,6 @@
 import { callOnStart as roomCallOnStart } from "./room/callOnStart";
 import { callOnStart as runCreepRole } from "./roles/index";
-import { callOnStart as controlBoard } from "./mainControl/controlBoard/callOnStart";
+import { callOnStart as controlBoard } from "./control/callOnStart";
 const functionList: (() => void)[] = [roomCallOnStart, runCreepRole, controlBoard];
 
 export function callOnStart(): void {

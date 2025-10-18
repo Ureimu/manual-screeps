@@ -1,4 +1,4 @@
-import { choosePowerBank } from "AI/AIUreium/mainControl/getPower/choosePowerBank";
+import { choosePowerBank } from "AI/AIUreium/control/getPower/choosePowerBank";
 import { DiagramMemory } from "utils/Project/type";
 import { initAiUreimuRoomMemory } from "../utils";
 import { getGetPowerProject } from "./taskRelation";

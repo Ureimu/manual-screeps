@@ -1,4 +1,4 @@
-import { AiRoomSettingForm } from "../mainControl/room/form";
+import { AiRoomSettingForm } from "../control/room/form";
 
 declare global {
     namespace NodeJS {

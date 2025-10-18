@@ -1,6 +1,6 @@
 import { addShiftTimeFunction } from "frame/spawn/spawning/readyCondition/spawnShiftCreep";
 import { numData } from "frame/spawn/spawning/readyCondition/utils/numData";
-import { getRoomControlData } from "../mainControl/controlBoard";
+import { getRoomControlData } from "../control";
 import { getMaintainRoomProject } from "./maintain/taskRelation";
 import { getCenterCarrierCreepName } from "./maintain/tasks/createCreepGroup/createCenterCarryGroup";
 import { upgradeByLink } from "./maintain/tasks/upgrader/upgradeByLink";

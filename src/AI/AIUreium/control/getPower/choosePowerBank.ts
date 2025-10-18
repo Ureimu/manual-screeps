@@ -2,7 +2,7 @@ import { startGetPower } from "AI/AIUreium/room/getPower/start";
 import { getCostMatrix } from "frame/construct/utils/costMatrix";
 import { getRoomDistance } from "utils/roomNameUtils";
 import { Constant } from "../constants/roomTaskControl";
-import { getRoomControlData } from "../controlBoard";
+import { getRoomControlData } from "..";
 import { PowerBankData } from "../recordRoomData";
 import { calcGetPowerSpawnTime } from "./calcSpawnTime";
 

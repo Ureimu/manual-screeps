@@ -1,6 +1,6 @@
 import { startNewRoom } from "AI/AIUreium/room/newRoom/start";
 import { getMyRoom } from "utils/roomTools";
-import { getRoomControlData } from "../controlBoard";
+import { getRoomControlData } from "..";
 import { getNewRoom } from "./getRoom";
 
 export function allocateNewRoom(): void {

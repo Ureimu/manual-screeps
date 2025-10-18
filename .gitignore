@@ -23,7 +23,7 @@
 screeps.json
 .screeps-multimeter.history
 screeps-multimeter.json
-/src/AI/AIUreium/mainControl/controlBoard/settings/settings.ts
+/src/AI/AIUreium/control/settings.ts
 
 # ScreepsServer data from integration tests
 /server

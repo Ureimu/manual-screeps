@@ -1,4 +1,4 @@
-import { resourceLimit } from "AI/AIUreium/mainControl/constants/roomResource";
+import { resourceLimit } from "AI/AIUreium/control/constants/roomResource";
 import { runLayout } from "frame/construct";
 
 import { getMyStructuresById, getStructureIdList } from "frame/construct/utils";

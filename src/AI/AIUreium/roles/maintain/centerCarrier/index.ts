@@ -1,5 +1,5 @@
-import { capacityRate, resourceLimit } from "AI/AIUreium/mainControl/constants/roomResource";
-import { Constant } from "AI/AIUreium/mainControl/constants/roomTaskControl";
+import { capacityRate, resourceLimit } from "AI/AIUreium/control/constants/roomResource";
+import { Constant } from "AI/AIUreium/control/constants/roomTaskControl";
 import { PosStr } from "utils/RoomPositionToStr";
 
 declare global {

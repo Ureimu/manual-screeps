@@ -6,7 +6,7 @@ import { link } from "./structure/link";
 import { registerFN } from "utils/profiler";
 import { maintainOutwardsSource } from "./room/outwardsSource";
 import { terminal } from "./structure/terminal";
-import { allocateNewRoom } from "./mainControl/newRoom";
+import { allocateNewRoom } from "./control/newRoom";
 import { maintainNewRoom } from "./room/newRoom";
 import { mountUreimuAiAll } from "./mount";
 import { observer } from "./structure/observer";

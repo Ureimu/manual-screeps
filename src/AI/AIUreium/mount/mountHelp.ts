@@ -1,4 +1,4 @@
-import GlobalAlias from "../mainControl/help";
+import GlobalAlias from "../control/help";
 
 // 挂载全局拓展
 export default function mountGlobalHelp(): void {

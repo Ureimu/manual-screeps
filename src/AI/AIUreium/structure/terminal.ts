@@ -1,4 +1,4 @@
-import { runTerminal } from "../mainControl/market";
+import { runTerminal } from "../control/market";
 
 export const terminal = {
     run: (room: Room): void => {
