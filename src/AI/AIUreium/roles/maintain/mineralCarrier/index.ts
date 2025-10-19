@@ -17,11 +17,14 @@ export function mineralCarrier(creep: Creep, args: string[]): void {
     if (creep.store.getFreeCapacity() !== 0 && mineralContainer.store.getUsedCapacity() > creep.store.getCapacity()) {
         if (creep.pos.isNearTo(mineralContainer)) {
             const storeEntries = Object.entries(mineralContainer.store).filter(([key, value]) => value && value > 0);
+
             if (storeEntries.length > 0) {
-                creep.withdraw(
-                    mineralContainer,
-                    storeEntries[_.random(0, storeEntries.length - 1)][0] as ResourceConstant
+                // choose the resource with the largest amount
+                const [resource] = storeEntries.reduce(
+                    (maxEntry, entry) => (entry[1] > maxEntry[1] ? entry : maxEntry),
+                    storeEntries[0]
                 );
+                creep.withdraw(mineralContainer, resource as ResourceConstant);
             }
         } else {
             creep.moveTo(mineralContainer);

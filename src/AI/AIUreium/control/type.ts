@@ -17,6 +17,9 @@ export interface RoomControlData {
          * 是否进行Power采集。
          */
         run: boolean;
+        /**
+         * 允许采集power的房间列表。
+         */
         rooms: string[];
     };
     /**
@@ -56,11 +59,28 @@ export interface RoomControlData {
 
         buyEnergy: boolean;
     };
+    /**
+     * 升级控制器设置
+     */
     upgradeController: {
+        /**
+         * loop为一直执行，
+         * stop为停止执行，
+         * onControllerLinkWorks为仅当controllerLink工作时才执行。
+         */
         run: "loop" | "stop" | "onControllerLinkWorks";
     };
+    /**
+     * controllerLink的设置
+     */
     controllerLink: {
+        /**
+         * 开始工作的比率，实际开始工作的storage能量值等于开始工作的比率乘以storage的最大能量值。
+         */
         start: number;
+        /**
+         * 停止工作的比率，实际停止工作的storage能量值等于停止工作的比率乘以storage的最小能量值。
+         */
         stop: number;
     };
 }
