@@ -1,7 +1,6 @@
 export const Constant = {
     market: {
-        sellRate: 15,
-        buyEnergy: false
+        sellRate: 15
     },
     outwardsSource: {
         defaultStatus: false,
@@ -9,12 +8,6 @@ export const Constant = {
         energyRate: {
             start: 1,
             stop: 1.5
-        }
-    },
-    controllerLink: {
-        energyRate: {
-            start: 0.95,
-            stop: 1
         }
     },
     getPower: {

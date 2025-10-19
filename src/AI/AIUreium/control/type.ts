@@ -46,6 +46,23 @@ export interface RoomControlData {
          */
         run: boolean;
     };
+    /**
+     * market设定。
+     */
+    market: {
+        /**
+         * 是否购买能量。
+         */
+
+        buyEnergy: boolean;
+    };
+    upgradeController: {
+        run: "loop" | "stop" | "onControllerLinkWorks";
+    };
+    controllerLink: {
+        start: number;
+        stop: number;
+    };
 }
 
 export const defaultRoomControlData: RoomControlData = {
@@ -61,5 +78,15 @@ export const defaultRoomControlData: RoomControlData = {
     },
     outwardsSource: {
         run: true
+    },
+    market: {
+        buyEnergy: false
+    },
+    upgradeController: {
+        run: "onControllerLinkWorks"
+    },
+    controllerLink: {
+        start: 0.95,
+        stop: 1
     }
 };

@@ -1,3 +1,4 @@
+import { getRoomControlData } from "AI/AIUreium/control";
 import { capacityRate, resourceLimit } from "AI/AIUreium/control/constants/roomResource";
 import { Constant } from "AI/AIUreium/control/constants/roomTaskControl";
 import { PosStr } from "utils/RoomPositionToStr";
@@ -46,13 +47,13 @@ export function centerCarrierTask2(creep: Creep): void {
     // 切换link工作状态
     if (
         !creep.memory.centerCarrierLinkState &&
-        storage.store.energy > resourceLimit.storage.energy.max * Constant.controllerLink.energyRate.start
+        storage.store.energy > resourceLimit.storage.energy.max * getRoomControlData(room.name).controllerLink.start
     ) {
         creep.memory.centerCarrierLinkState = true;
     }
     if (
         creep.memory.centerCarrierLinkState &&
-        storage.store.energy < resourceLimit.storage.energy.min * Constant.controllerLink.energyRate.stop
+        storage.store.energy < resourceLimit.storage.energy.min * getRoomControlData(room.name).controllerLink.stop
     ) {
         creep.memory.centerCarrierLinkState = false;
     }
@@ -119,6 +120,7 @@ export function centerCarrierTask2(creep: Creep): void {
                 needFillStorage = true;
             }
             const gapSize = capacityRate.terminalToStorage - terminalStoreNum / storageStoreNum;
+            const gapNumber = Math.abs(terminalStoreNum / capacityRate.terminalToStorage - storageStoreNum);
             resourceTypeCache.add(resourceType);
             // console.log(
             //     `差距比例：${gapSize} 资源：${resourceType}, storage:${storageStoreNum}, terminal:${terminalStoreNum} gap:${(
@@ -128,7 +130,7 @@ export function centerCarrierTask2(creep: Creep): void {
             if (
                 needFillStorage ||
                 (Math.abs(gapSize) > 0.05 &&
-                    (gapSize * storageStoreNum > 1.6e3 || gapSize * terminalStoreNum > 1.6e3) &&
+                    gapNumber > creep.store.getCapacity() &&
                     (terminalStoreNum > 3000 * capacityRate.terminalToStorage || storageStoreNum > 3000))
             ) {
                 // console.log(

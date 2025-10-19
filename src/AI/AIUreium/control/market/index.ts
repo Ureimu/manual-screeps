@@ -1,4 +1,5 @@
 import { consoleStyle, LogLevel } from "frame/console/style";
+import { getRoomControlData } from "..";
 import { buyLimitRate, energyCostPrice, resourceLimit, sellLimitRate } from "../constants/roomResource";
 import { Constant } from "../constants/roomTaskControl";
 const debug = (message: string, level: LogLevel) =>
@@ -53,7 +54,7 @@ export function runTerminal(terminal: StructureTerminal): void {
                 isDealingEnergy = true;
             }
             const buyNum = buyLimit - terminalStoreNum;
-            if (isDealingEnergy && (buyNum < 100 || !Constant.market.buyEnergy)) {
+            if (isDealingEnergy && (buyNum < 100 || !getRoomControlData(terminal.room.name).market.buyEnergy)) {
                 continue;
             }
             const orderList = Game.market.getAllOrders({ type: ORDER_SELL, resourceType }); // 更快

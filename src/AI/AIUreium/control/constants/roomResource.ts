@@ -14,7 +14,7 @@ import {
 } from "./resourcesConstant";
 import { RoomResourceLimit, StructureResourceLimit } from "./type";
 
-export const sellLimitRate = 1;
+export const sellLimitRate = 2;
 export const buyLimitRate = 1;
 export const energyCostPrice = 10;
 export const capacityRate = {

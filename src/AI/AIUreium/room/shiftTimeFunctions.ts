@@ -24,8 +24,15 @@ export function mountShiftTimeFunction() {
         const centerCarrierMemory = Memory.creeps[getCenterCarrierCreepName(roomName, 0)];
         if (!centerCarrierMemory) return false;
 
-        const centerCarrierLinkState = centerCarrierMemory.centerCarrierLinkState;
-        if (!centerCarrierLinkState) return false;
+        const setting = getRoomControlData(roomName).upgradeController.run;
+        if (setting === "loop") {
+            return true;
+        } else if (setting === "onControllerLinkWorks") {
+            const centerCarrierLinkState = centerCarrierMemory.centerCarrierLinkState;
+            if (!centerCarrierLinkState) return false;
+        } else if (setting === "stop") {
+            return false;
+        }
 
         return true;
     });
