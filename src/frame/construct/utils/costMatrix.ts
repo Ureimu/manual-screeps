@@ -65,3 +65,11 @@ function setStructureCost(
         }
     });
 }
+
+export function avoidEnemyRooms(roomName: string): boolean | CostMatrix {
+    if (Memory.rooms[roomName]?.owner) {
+        const owner = Memory.rooms[roomName].owner;
+        if (owner !== global.gameUserName) return false;
+    }
+    return getCostMatrix(roomName);
+}

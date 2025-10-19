@@ -1,4 +1,5 @@
 import { startNewRoom } from "AI/AIUreium/room/newRoom/start";
+import { avoidEnemyRooms, getCostMatrix } from "frame/construct/utils/costMatrix";
 import { getMyRoom } from "utils/roomTools";
 import { getRoomControlData } from "..";
 import { getNewRoom } from "./getRoom";
@@ -27,9 +28,14 @@ export function getMyClosestRoom(goalRoomName: string): string | undefined {
         }
         return [
             myRoomName,
-            PathFinder.search(new RoomPosition(25, 25, myRoomName), new RoomPosition(25, 25, goalRoomName), {
-                maxOps: 20000
-            }).path.length
+            PathFinder.search(
+                Game.rooms[myRoomName].find(FIND_MY_SPAWNS)[0].pos,
+                new RoomPosition(25, 25, goalRoomName),
+                {
+                    maxOps: 50000,
+                    roomCallback: avoidEnemyRooms
+                }
+            ).path.length
         ] as [string, number];
     })
         .filter(a => a[1] < 500)

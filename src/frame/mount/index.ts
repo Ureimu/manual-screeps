@@ -9,6 +9,7 @@ import mountGlobalHelp from "./mountHelp";
 
 export function mountAll(): void {
     if (!global.reset) {
+        global.gameUserName = Object.values(Game.spawns)[0].owner.username;
         mountGlobalHelp();
         mountGlobalFunctionClass();
         mountGlobalFunctionObject();

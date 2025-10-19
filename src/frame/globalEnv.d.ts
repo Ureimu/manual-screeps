@@ -10,6 +10,7 @@ namespace NodeJS {
         lastResetTime: number;
         creepMemory: { [creepName: string]: GlobalCreepMemory };
         roomMemory: { [name: string]: GlobalRoomMemory };
+        gameUserName: string;
     }
 }
 
