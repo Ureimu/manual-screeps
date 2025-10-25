@@ -6,7 +6,8 @@ import { SpawnCreepDetail } from "frame/spawn/spawnPool/type";
 import { ReadyCondition } from ".";
 import { spawnShiftCreepFunctionSet } from "./spawnShiftCreep";
 import { getSubCreepName } from "./subCreep";
-const debug = (msg: string) => console.log(consoleStyle("shiftController")(msg, "info"));
+import { logManager } from "utils/log4screeps";
+const logger = logManager.createLogger("debug", "ShiftController");
 /* 
 轮班控制器。
 */
@@ -77,7 +78,7 @@ export const shiftController = {
             return false;
         });
         if (!isAdded) {
-            debug(`${creepName} addSubCreepDetail出现问题：没有正确添加到对应creepGroup`);
+            logger.debug(`${creepName} addSubCreepDetail出现问题：没有正确添加到对应creepGroup`);
         }
         mainCreepDetail.idList[nextId] = false;
         this.updateCreepDetailList();

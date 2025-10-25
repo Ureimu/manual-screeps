@@ -1,3 +1,6 @@
+import { logManager } from "utils/log4screeps";
+const logger = logManager.createLogger("debug", "version");
+
 export function versionCheck(): void {
     if (Memory.version) {
         switch (Memory.version) {
@@ -9,5 +12,5 @@ export function versionCheck(): void {
     } else {
         Memory.version = global.version;
     }
-    console.log(`[version] ${Memory.version}`);
+    logger.log(`${Memory.version}`);
 }

@@ -1,6 +1,9 @@
 import { ObjectPosDetail, ObjectPosType } from "frame/flagMaintainer/type";
-import colorful from "utils/console/colorful";
+
+import { logManager } from "utils/log4screeps";
 import { FlagTools } from "./tools";
+
+const logger = logManager.createLogger("debug", "FlagMaintainer");
 
 export const flagNameRegExp = /^[EW]\d{1,2}[NS]\d{1,2}[a-z]+(\d{1,2})$/;
 export const constructionSiteRegExp = /(ConstructionSite)/;
@@ -39,7 +42,7 @@ export function maintainPos(room: Room, typeList: ObjectPosType[]): void {
         // 移除多余的flag
         flagList.forEach(flag => {
             if (Number(flag.name.split(flagNameRegExp)[1]) >= (room.memory.objectNum[type]?.num as number)) {
-                console.log(colorful(`移除旗帜 ${flag.name}`, "yellow"));
+                logger.warn(`移除旗帜 ${flag.name}`);
                 flag.remove();
             }
         });

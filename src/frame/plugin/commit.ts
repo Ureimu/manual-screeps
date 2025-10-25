@@ -1,13 +1,13 @@
 import { newAcrossTickTask } from "utils/AcrossTick";
 import loader from "utils/Project/loader";
 import { loadPlugin } from "./tools/loader";
-import { consoleStyle } from "frame/console/style";
+import { logManager } from "utils/log4screeps";
 import { SegmentManager } from "utils/SegmentManager/SegmentManager";
 
-const style = consoleStyle("plugin");
+const logger = logManager.createLogger("debug", "PluginCommit");
 
 export const pluginCommit = {
-    loadPlugin: (args: { segmentName: string }): string => {
+    loadPlugin: (args: { segmentName: string }): void => {
         const { segmentName } = args;
         SegmentManager.addId([Number(segmentName)]);
         newAcrossTickTask(
@@ -23,11 +23,13 @@ export const pluginCommit = {
                 return "finish";
             }
         );
-        return style(`尝试从 segment：${segmentName} 加载插件`, "log");
+        const message = `尝试从 segment：${segmentName} 加载插件`;
+        logger.info(message);
     },
-    exportPlugin: (args: { pluginVersion: string; pluginName: string }): string => {
+    exportPlugin: (args: { pluginVersion: string; pluginName: string }): void => {
         const { pluginVersion, pluginName } = args;
         loader.download(pluginVersion, `${pluginName}-${pluginVersion}-${global.version}.json`);
-        return style(`导出插件： ${pluginName} : ${pluginVersion} 成功`, "log");
+        const message = `导出插件： ${pluginName} : ${pluginVersion} 成功`;
+        logger.info(message);
     }
 };

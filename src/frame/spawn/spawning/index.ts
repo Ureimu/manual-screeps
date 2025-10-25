@@ -7,6 +7,8 @@ import { TaskPool } from "utils/PriorityQueue/taskPool";
 import { SetTools } from "utils/SetTools";
 import { callOnBirth } from "./callOnBirth";
 import { readyCondition } from "./readyCondition";
+import { logManager } from "utils/log4screeps";
+const logger = logManager.createLogger("debug", "spawning");
 
 function runSpawnTask(spawn: StructureSpawn): boolean {
     if (!spawn.memory.lastFinishSpawnTime) {
@@ -59,9 +61,7 @@ export const runSpawnQueue = registerFN((spawn: StructureSpawn): void => {
                 room: spawn.room
             });
             if (!creepPreProcessBodyString) {
-                console.log(
-                    `[spawn.chooseBefittingBody] ${spawn.room.name} ${spawnTask.creepBody} 没有合法的body config`
-                );
+                logger.warn(`${spawn.room.name} ${spawnTask.creepBody} 没有合法的body config`);
                 failedList.push(spawnTask);
                 continue;
             }
@@ -76,10 +76,10 @@ export const runSpawnQueue = registerFN((spawn: StructureSpawn): void => {
                     spawn.room.memory.spawnPool[spawnCreepName].state = "notReady";
             } else {
                 if (returnCode !== ERR_NOT_ENOUGH_ENERGY && returnCode !== ERR_NAME_EXISTS) {
-                    console.log(`spawn:${spawn.name} 返回错误 returnCode: ${returnCode}`);
+                    logger.error(`spawn:${spawn.name} 返回错误 returnCode: ${returnCode}`);
                 }
                 if (returnCode === ERR_NO_BODYPART && creepBody === []) {
-                    console.log(`spawn:${spawn.name} 返回错误：找不到合适的身体部件数组：${spawnCreepName}`);
+                    logger.error(`spawn:${spawn.name} 返回错误：找不到合适的身体部件数组：${spawnCreepName}`);
                 }
                 failedList.push(spawnTask);
             }

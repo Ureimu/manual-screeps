@@ -5,9 +5,11 @@ import { Constant } from "../constants/roomTaskControl";
 import { getRoomControlData } from "..";
 import { PowerBankData } from "../recordRoomData";
 import { calcGetPowerSpawnTime } from "./calcSpawnTime";
+import { logManager } from "utils/log4screeps";
 
 const workTime = 1500;
 const maxMoveTime = 500;
+const logger = logManager.createLogger("debug", "ChoosePowerBank");
 
 declare global {
     interface TaskStatus {
@@ -18,7 +20,7 @@ declare global {
 export function choosePowerBank(mainRoom: Room): void {
     const taskControl = getRoomControlData(mainRoom.name).getPower;
     if (!taskControl) return;
-    console.log(`${mainRoom.name} choosePowerBank`);
+    logger.info(`${mainRoom.name} choosePowerBank`);
     if (!mainRoom.memory.status) {
         mainRoom.memory.status = {};
     }
@@ -56,7 +58,7 @@ export function choosePowerBank(mainRoom: Room): void {
                 powerBankMemory.blankSpaceCount,
                 Constant.getPower.spawnAttackerCount
             );
-            console.log(
+            logger.debug(
                 `periodToGetPower:${periodToGetPower} pathLength:${moveTime} spawnCreepTime:${spawnCreepTime} workTime:${workTime}`
             );
             if (periodToGetPower - moveTime - spawnCreepTime - workTime < 0) return;
@@ -74,6 +76,6 @@ export function choosePowerBank(mainRoom: Room): void {
         powerBankMemory.isInMyAttack = true;
         startGetPower(powerBankMemory);
         status.getPower = true;
-        console.log(`${mainRoom.name} start getPower in ${powerBankMemory.roomName}`);
+        logger.info(`${mainRoom.name} start getPower in ${powerBankMemory.roomName}`);
     }
 }

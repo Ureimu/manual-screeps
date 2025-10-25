@@ -1,8 +1,8 @@
 import { clearCreepRouteMemory } from "frame/creep/action";
 import { readyConditionKey } from "./type";
-import { consoleStyle } from "frame/console/style";
 
-const style = consoleStyle("spawnPool");
+import { logManager } from "utils/log4screeps";
+const logger = logManager.createLogger("debug", "SpawnPool");
 
 export class SpawnPool {
     /**
@@ -26,10 +26,10 @@ export class SpawnPool {
         roomName: string;
         readyCondition: readyConditionKey;
         subCond?: string;
-    }): string {
+    }): void {
         const { creepName, creepBody: creepBodyConfigName, priority, roomName, readyCondition, subCond } = args;
         if (!Game.rooms[roomName]?.memory) {
-            console.log(style(`请检查房间是否存在可用spawn，如果存在则请忽略`, "warning"));
+            logger.warn(`请检查房间是否存在可用spawn，如果存在则请忽略`);
         }
         if (readyCondition === "sub" && !subCond) {
             throw new Error(`添加${creepName}时抛出错误： readyCondition为sub时，subCond不能为undefined`);
@@ -57,10 +57,8 @@ export class SpawnPool {
             (Memory.creeps[creepName] as Partial<CreepMemory>) = {};
             clearCreepRouteMemory(Memory.creeps[creepName]);
         }
-        return style(
-            `添加creep ${creepName} creepBody: ${creepBodyConfigName} priority: ${priority} 到roomName: ${roomName} , readyCondition: ${readyCondition} 成功`,
-            "log"
-        );
+        const message = `添加creep ${creepName} creepBody: ${creepBodyConfigName} priority: ${priority} 到roomName: ${roomName} , readyCondition: ${readyCondition} 成功`;
+        logger.info(message);
     }
     /**
      * 删除creep。
@@ -74,7 +72,9 @@ export class SpawnPool {
         const { creepName, roomName } = args;
         // console.log(creepName);
         delete Memory.rooms[roomName].spawnPool[creepName];
-        return style(`删除在 ${roomName} 的creep ${creepName} 完成`, "log");
+        const message = `删除在 ${roomName} 的creep ${creepName} 完成`;
+        logger.info(message);
+        return message;
     }
     /**
      * 设置creep参数。
@@ -97,7 +97,7 @@ export class SpawnPool {
         priority?: string;
         readyCondition?: readyConditionKey;
         subCond?: string;
-    }): string {
+    }): void {
         const { creepName, roomName, creepBody, priority, readyCondition, subCond } = args;
         const memCopy = Object.assign({}, Memory.rooms[roomName].spawnPool[creepName]);
         Memory.rooms[roomName].spawnPool[creepName] = {
@@ -112,6 +112,7 @@ export class SpawnPool {
             subCond,
             spawnCount: memCopy.spawnCount
         };
-        return style(`修改creepSpawn信息 ${creepName} 设置完成`, "log");
+        const message = `修改creepSpawn信息 ${creepName} 设置完成`;
+        logger.info(message);
     }
 }

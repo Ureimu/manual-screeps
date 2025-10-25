@@ -8,6 +8,8 @@ import { judgeCondition } from "./onJudgeCondition";
 import { moveCreep } from "./onMoving";
 import { emptyRouteCacheDetail } from "./routeCache";
 import { runCreepByRole } from "./runCreepByRole";
+import { logManager } from "utils/log4screeps";
+const logger = logManager.createLogger("debug", "CreepAction");
 
 export function clearCreepRouteMemory(creepMemory: CreepMemory): void {
     creepMemory.route = {
@@ -107,12 +109,14 @@ function runRecursiveCreepAction(
     switchCounter.count++;
     const maxCount = 100;
     if (switchCounter.count > maxCount) {
-        console.log(`${creep.name} 在 ${Game.time} 发生了 ${maxCount} 次状态转换，已经强制终止`);
+        logger.warn(`${creep.name} 在 ${Game.time} 发生了 ${maxCount} 次状态转换，已经强制终止`);
         return switchCache;
     }
     const routeInfo = creep.memory.route;
     const route = Memory.routes[routeInfo.name];
-    if (!route) throw Error(`creep ${creep.name} 从属的路径 ${routeInfo.name} 尚未定义，请先定义该路径`);
+    if (!route) {
+        throw Error(`creep ${creep.name} 从属的路径 ${routeInfo.name} 尚未定义，请先定义该路径`);
+    }
     if (!route.routeDetailArray) return switchCache;
     const routeDetail = route.routeDetailArray[routeInfo.index];
     if (!routeDetail) return switchCache;

@@ -7,6 +7,7 @@ import bodypartsGenerator from "utils/bodypartsGenerator";
 import { createFlattenHelp } from "utils/console/flattenHelp";
 import { createForm } from "utils/console/form";
 import { stats } from "frame/ui";
+import { logManager } from "utils/log4screeps";
 
 declare global {
     namespace NodeJS {
@@ -42,9 +43,13 @@ export default function mountGlobalMicroFunction(): void {
         hasClearAll: false
     };
 }
+const logger = logManager.createLogger("debug", "GlobalFunction");
 function ds(roomName?: string): void {
-    if (roomName) Game.rooms[roomName].find(FIND_STRUCTURES).forEach(i => i.destroy());
-    else {
+    if (roomName) {
+        logger.info(`Destroying all structures in room ${roomName}`);
+        Game.rooms[roomName].find(FIND_STRUCTURES).forEach(i => i.destroy());
+    } else {
+        logger.info(`Destroying all structures in all rooms`);
         Object.values(Game.rooms).forEach(room => room.find(FIND_STRUCTURES).forEach(i => i.destroy()));
     }
 }

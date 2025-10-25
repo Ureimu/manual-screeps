@@ -10,12 +10,14 @@ import { statsEngine } from "frame/stats";
 import loader from "utils/Project/loader";
 import { SegmentManager } from "utils/SegmentManager/SegmentManager";
 import { waitThenLog } from "utils/AcrossTick/utils";
+import { logManager } from "utils/log4screeps";
+const logger = logManager.createLogger("debug", "UI");
 const segmentsCache: { [id: number]: string } = {};
 const debugging = false;
 function getStats(task: AcrossTickMemory): AcrossTickReturnCode {
     const inactiveId = statsEngine.getSegmentIdList().find(id => !SegmentManager.isActive(id));
     if (inactiveId) {
-        console.log(`未active id:${inactiveId}`);
+        logger.log(`未active id:${inactiveId}`);
         return "finish";
     }
     const seriesData = statsEngine.readData() as unknown as FrameStats<number[]> & {

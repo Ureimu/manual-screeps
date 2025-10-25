@@ -4,9 +4,12 @@ import { FlagTools } from "frame/flagMaintainer/tools";
 import { checkHighwayRoomName } from "utils/roomNameUtils";
 import { PosStr } from "utils/RoomPositionToStr";
 import { getBlankSpace } from "utils/terrainJudgement";
+import { logManager } from "utils/log4screeps";
+
+const logger = logManager.createLogger("info", "RecordRoomData");
 
 export function recordRoomData(room: Room): void {
-    // console.log(`[Debug] Starting recordRoomData for room: ${room.name}`);
+    logger.debug(`Starting recordRoomData for room: ${room.name}`);
     FlagMaintainer.refresh({
         roomName: room.name,
         typeList: FlagMaintainer.getTypeList(["source", "controller"])
@@ -20,7 +23,7 @@ export function recordRoomData(room: Room): void {
     if (!room.memory.sources) room.memory.sources = {};
     const roomSourcesMemory = room.memory.sources;
     _.forEach(Game.rooms, originRoom => {
-        // console.log(`[Debug] Processing originRoom: ${originRoom.name}`);
+        logger.debug(`Processing originRoom: ${originRoom.name}`);
         const linearDistance = Game.map.getRoomLinearDistance(originRoom.name, room.name);
         if (linearDistance > 3) {
             // console.log(`${originRoom.name} ${room.name} ${linearDistance}`);
@@ -36,15 +39,13 @@ export function recordRoomData(room: Room): void {
                 const sourceFlagName = flag?.name;
                 const spawnName = originRoom.memory.construct.firstSpawnName?.name;
                 if (!spawnName || !sourceFlagName) {
-                    // console.log(
-                    //     `[Debug] No spawnName:${spawnName} or sourceFlagName: ${sourceFlagName} from room ${originRoom.name}`
-                    // );
+                    logger.debug(
+                        `No spawnName:${spawnName} or sourceFlagName: ${sourceFlagName} from room ${originRoom.name}`
+                    );
                     return;
                 }
                 if (roomSourcesMemory?.[sourceFlagName]?.roomData?.[originRoom.name]?.pathLength) {
-                    // console.log(
-                    //     `[Debug] Path data already exists for source ${sourceFlagName} from room ${originRoom.name}`
-                    // );
+                    logger.debug(`Path data already exists for source ${sourceFlagName} from room ${originRoom.name}`);
                     return;
                 }
 
@@ -55,16 +56,14 @@ export function recordRoomData(room: Room): void {
                     };
                 }
 
-                //console.log(`正在搜索路径：${spawnName} --> ${sourceFlagName}`);
+                //logger.debug(`正在搜索路径：${spawnName} --> ${sourceFlagName}`);
                 const ret = PathFinder.search(
                     Game.spawns[spawnName].pos,
                     { pos: source.pos, range: 1 },
                     { maxOps: 1000 * 50, roomCallback: getCostMatrix }
                 );
                 if (!ret.incomplete) {
-                    // console.log(
-                    //     `[Debug] Path found! Length: ${ret.path.length}, From: ${spawnName} To: ${sourceFlagName}`
-                    // );
+                    logger.debug(`Path found! Length: ${ret.path.length}, From: ${spawnName} To: ${sourceFlagName}`);
                     roomSourcesMemory[sourceFlagName].roomData[originRoom.name] = {
                         sourceRoomName: room.name,
                         sourceName: sourceFlagName,
@@ -74,7 +73,7 @@ export function recordRoomData(room: Room): void {
                         harvestedEnergyNum: 0
                     };
                 }
-                // console.log(
+                // logger.debug(
                 //     `路径${spawnName}-->${sourceFlagName} complete:${ret.incomplete ? "false" : "true"} pathLength:${
                 //         ret.path.length
                 //     }`

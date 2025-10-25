@@ -3,10 +3,12 @@ import colorful from "utils/console/colorful";
 import { PosStr } from "utils/RoomPositionToStr";
 import { CreepAction } from ".";
 import { state } from "..";
+import { logManager } from "utils/log4screeps";
+const logger = logManager.createLogger("debug", "HarvestSource");
 
 function run(creep: Creep, actionArgs?: string[]): state {
     if (!actionArgs) {
-        console.log(colorful(`错误的使用keepOnHarvestingSource：没有传入source位置参数`, "red"));
+        logger.error(`错误的使用keepOnHarvestingSource：没有传入source位置参数`);
         return "moving";
     }
     if (Game.time % 5 === 0) {

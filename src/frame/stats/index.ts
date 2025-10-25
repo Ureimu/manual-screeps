@@ -6,6 +6,8 @@ import {
 import { FrameStats } from "frame/ui/type";
 import { TimeSeriesDataEngine } from "utils/TimeSeriesData/engine";
 import { SingleTypedTreeData, SingleData } from "utils/TimeSeriesData/type";
+import { logManager } from "utils/log4screeps";
+const logger = logManager.createLogger("debug", "StatsEngine");
 
 const dataGenerator = (): SingleTypedTreeData<SingleData<number>> => {
     const data: FrameStats<number> = {
@@ -70,4 +72,4 @@ const dataGenerator = (): SingleTypedTreeData<SingleData<number>> => {
     return data as unknown as SingleTypedTreeData<SingleData<number>>;
 };
 export const statsEngine = new TimeSeriesDataEngine(dataGenerator, { interval: 1.5 * 60 * 60 * 1000 });
-console.log(`[statsEngine] dataSizePerDay: ${statsEngine.getDataSizePerDay()} byte/day`);
+logger.log(`dataSizePerDay: ${statsEngine.getDataSizePerDay()} byte/day`);

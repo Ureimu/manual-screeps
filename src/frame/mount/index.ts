@@ -6,6 +6,8 @@ import mountGlobalMicroFunction from "./mountGlobalFunction";
 import mountGlobalFunctionClass from "./mountGlobalFunctionClass";
 import mountGlobalFunctionObject from "./mountGlobalFunctionObject";
 import mountGlobalHelp from "./mountHelp";
+import { logManager } from "utils/log4screeps";
+const logger = logManager.createLogger("debug", "mount");
 
 export function mountAll(): void {
     if (!global.reset) {
@@ -20,6 +22,6 @@ export function mountAll(): void {
         global.lastResetTime = Game.time - 1;
         // enable(); // 挂载完所有原型后再启用profiler
         versionCheck();
-        console.log("[mount] 挂载扩展");
+        logger.log("挂载扩展");
     }
 }

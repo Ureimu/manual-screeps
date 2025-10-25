@@ -2,6 +2,8 @@ import { RouteMidpointDetail } from "frame/creep/routePlan/type";
 import { PosStr } from "utils/RoomPositionToStr";
 import { state } from ".";
 import { CostMatrixOpts } from "./routeCache/getCostMatrix";
+import { logManager } from "utils/log4screeps";
+const logger = logManager.createLogger("debug", "CreepMoving");
 
 export function moveCreep(creep: Creep, routeDetail: RouteMidpointDetail): state {
     const destination = PosStr.getPosFromStr(routeDetail.pathMidpointPos);
@@ -20,7 +22,7 @@ export function moveCreep(creep: Creep, routeDetail: RouteMidpointDetail): state
 
     const code = creep.moveTo(destination, { range: routeDetail.range, ignoreCreeps: false });
     if (Game.time % 5 === 0 && creep.name === "W33N21SourceKeeper0") {
-        console.log(
+        logger.debug(
             `"moving!" + ${code} + ${routeDetail.range} + ${typeof routeDetail.range} + ${routeDetail.pathMidpointPos}`
         );
     }

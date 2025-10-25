@@ -1,4 +1,7 @@
 import { createForm } from "utils/console";
+import { logManager } from "utils/log4screeps";
+
+const logger = logManager.createLogger("debug", "FlagMaintainer");
 
 export class FlagMaintainerForm {
     public static refresh(): string {

@@ -6,6 +6,9 @@ import { creepStore } from "./creepStore";
 import { creepTimeToLive } from "./creepTimeToLive";
 import { spawnEnergy } from "./spawnEnergy";
 import { store } from "./store";
+import { logManager } from "utils/log4screeps";
+
+const logger = logManager.createLogger("debug", "CreepCondition");
 
 export interface CreepCondition {
     run: (creep: Creep, conditionArgs?: string[]) => [state, conditionState];
@@ -54,7 +57,7 @@ export function switchDoWhenCondition(routeDetail: RouteConditionDetail, creep: 
         }
         return stateHere[0];
     } else {
-        console.log(`${routeDetail.condition} 不在CreepCondition预设值内`);
+        logger.error(`${routeDetail.condition} 不在CreepCondition预设值内`);
         return "arrived";
     }
 }

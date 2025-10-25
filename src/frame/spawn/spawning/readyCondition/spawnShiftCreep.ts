@@ -4,7 +4,8 @@ import { bodyTools } from "frame/creep/body/tools";
 import { SpawnCreepDetail } from "frame/spawn/spawnPool/type";
 import { getAliveCreepList } from "./subCreep";
 import { numData } from "./utils/numData";
-const debug = (msg: string) => console.log(consoleStyle("spawnShiftCreepFunction")(msg, "info"));
+import { logManager } from "utils/log4screeps";
+const logger = logManager.createLogger("debug", "SpawnShiftCreep");
 /**
 请使用determineShiftTime函数添加ShiftTime函数，
 不要手动添加函数到spawnShiftCreepFunctionSet，这样做会导致重名未检出。

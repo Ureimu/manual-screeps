@@ -6,7 +6,9 @@ import { consoleStyle } from "frame/console/style";
 import { RouteMidpointDetail, RouteConditionDetail, isRouteMidpointDetail } from "./type";
 import { conditionIndexedList } from "frame/creep/action/doOnJudgeCondition";
 import colorful from "utils/console/colorful";
+import { logManager } from "utils/log4screeps";
 
+const logger = logManager.createLogger("debug", "RoutePlan");
 const style = consoleStyle("routePlan");
 
 export class RoutePlan {
@@ -31,13 +33,13 @@ export class RoutePlan {
          * @type {string}
          */
         ifLoop: "true" | "false";
-    }): string {
+    }): void {
         const { routeName, ifLoop = "true" } = args;
         if (routeName === "") {
-            return style(`路径名称不可以为空`, "error");
+            logger.error(`路径名称不可以为空`);
         }
         Memory.routes[routeName] = { routeDetailArray: [], ifLoop: Boolean(ifLoop), ifShow: false };
-        return style(`路径 ${routeName} 创建成功`, "log");
+        logger.info(`路径 ${routeName} 创建成功`);
     }
     /**
      * 添加路径点。
@@ -58,20 +60,20 @@ export class RoutePlan {
              */
             routeName: string;
         } & RouteMidpointDetail
-    ): string {
+    ): void {
         const { routeName, pathMidpointPos, doWhenArrive, actionArgs } = args;
         let { range = 1 } = args;
         range = Number(range);
         if (range < 0) {
-            return style(`range不应小于0，`, "error");
+            logger.error(`range不应小于0`);
         }
         const flag = Game.flags[pathMidpointPos];
         if (!flag) {
-            return style(`路径点位置 ${pathMidpointPos} 旗帜不存在，请先创建该路径旗帜`, "error");
+            logger.error(`路径点位置 ${pathMidpointPos} 旗帜不存在，请先创建该路径旗帜`);
         }
         // console.log(routeName, flag.pos, [doWhenArrive]);
         if (!Memory.routes[routeName]) {
-            return style(`路径 ${routeName} 不存在，请先创建该路径`, "error");
+            logger.error(`路径 ${routeName} 不存在，请先创建该路径`);
         } else {
             Memory.routes[routeName].routeDetailArray.push({
                 pathMidpointPos: PosStr.setPosToStr(flag.pos),
@@ -80,11 +82,10 @@ export class RoutePlan {
                 actionArgs
             });
         }
-        return style(
+        logger.log(
             `为路径${routeName} 添加路径点位置 ${pathMidpointPos} : ${PosStr.setPosToStr(flag.pos)} 成功，现在有 ${
                 Memory.routes[routeName].routeDetailArray.length
-            } 个路径点`,
-            "log"
+            } 个路径点`
         );
     }
     /**
@@ -106,15 +107,15 @@ export class RoutePlan {
              */
             routeName: string;
         } & RouteConditionDetail
-    ): string {
+    ): void {
         const { routeName, condition, jumpTo, conditionArgs } = args;
         // console.log(routeName);
         if (!Memory.routes[routeName]) {
-            return style(`路径 ${routeName} 不存在，请先创建该路径`, "error");
+            logger.error(`路径 ${routeName} 不存在，请先创建该路径`);
         } else {
             Memory.routes[routeName].routeDetailArray.push({ condition, jumpTo, conditionArgs });
         }
-        return style(`添加条件 ${condition} jumpTo ${jumpTo} 成功`, "log");
+        logger.log(`添加条件 ${condition} jumpTo ${jumpTo} 成功`);
     }
     /**
      * 为creep选择路径。

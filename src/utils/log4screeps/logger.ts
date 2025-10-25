@@ -27,6 +27,9 @@ export class Logger {
     public log(...messages: string[]): void {
         this.push("info", messages);
     }
+    public info(...messages: string[]): void {
+        this.push("info", messages);
+    }
     public error(...messages: string[]): void {
         this.push("error", messages);
     }
@@ -39,10 +42,11 @@ export class Logger {
     public push(level: LogLevel, messages: string[]): void {
         if (this.getLevelPriority(level) < this.levelNum) return;
         const timeNow = Game.cpu.getUsed();
-        const formattedTime = (timeNow / 1e6).toFixed(3);
-        const messageHead = `<${_.padLeft(formattedTime, 6, "0")}>[${colorful(level, LogLevelToColor[level])}][${
-            this.label
-        }] `;
+        const formattedTime = timeNow.toFixed(3);
+        const messageHead = `<${Game.time}:${_.padLeft(formattedTime, 6, "0")}>[${colorful(
+            level,
+            LogLevelToColor[level]
+        )}][${this.label}] `;
         if (!this.logNow) {
             this.storage.push(...messages.map((m, i) => ({ m: messageHead + m, t: timeNow, i })));
         } else {
