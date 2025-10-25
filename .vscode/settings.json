@@ -1,8 +1,10 @@
 {
     "cSpell.words": [
         "BODYPART",
+        "cooldown",
         "Coord",
-        "dont"
+        "dont",
+        "Mincut"
     ],
     "search.exclude": {
         "**/node_modules": true,
