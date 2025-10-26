@@ -60,6 +60,10 @@ export interface RoomControlData {
          * should not be bigger than 25/0.3, or change body data (also 0.3) in src\AI\AIUreium\room\outwardsSource\tasks\createCreepGroup\createOCarryGroup.ts
          */
         maxDistance: number;
+        /**
+         * 允许采集外矿的房间列表。
+         */
+        rooms: string[];
     };
     /**
      * market设定。
@@ -96,31 +100,3 @@ export interface RoomControlData {
         stop: number;
     };
 }
-
-export const defaultRoomControlData: RoomControlData = {
-    getPower: {
-        run: false,
-        rooms: [],
-        lowestEnergyInStorage: 8e4
-    },
-    harvestMineral: {
-        run: true
-    },
-    claimNewRoom: {
-        run: true
-    },
-    outwardsSource: {
-        run: true,
-        maxDistance: 50
-    },
-    market: {
-        buyEnergy: false
-    },
-    upgradeController: {
-        run: "onControllerLinkWorks"
-    },
-    controllerLink: {
-        start: 0.95,
-        stop: 1
-    }
-};

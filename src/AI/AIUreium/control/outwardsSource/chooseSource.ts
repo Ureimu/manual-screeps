@@ -57,6 +57,7 @@ export function chooseSource(mainRoom: Room): void {
     }
     const chosenSourceDataList: { [sourceName: string]: OutwardsSourceData } = {};
     const maxDistance = getRoomControlData(mainRoom.name).outwardsSource.maxDistance;
+    const settingRoomList = getRoomControlData(mainRoom.name).outwardsSource.rooms;
     Object.entries(Memory.rooms).forEach(roomData => {
         const [roomName, roomMemory] = roomData;
         if (!roomMemory.sources) return; // 没有memory直接return
@@ -75,8 +76,10 @@ export function chooseSource(mainRoom: Room): void {
             if (!originRoomToSourceData.roomData) return;
             Object.entries(originRoomToSourceData.roomData).forEach(singleRoomToSourceDataEntry => {
                 const [originRoomName, singleRoomToSourceData] = singleRoomToSourceDataEntry;
+                // 在这里设置是否使用外矿。
                 if (originRoomName !== mainRoom.name) return;
                 if (singleRoomToSourceData.pathLength > maxDistance) return;
+                if (!settingRoomList.includes(roomName)) return;
                 if (roomMemory.owner) return;
                 if (!singleRoomToSourceData.inUse) {
                     chosenSourceDataList[sourceName] = singleRoomToSourceData;

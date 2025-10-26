@@ -10,7 +10,8 @@
  */
 
 import { RecursivePartial } from "utils/typeUtils";
-import { defaultRoomControlData, RoomControlData } from "./type";
+import { defaultRoomControlData } from "./defaultSetting";
+import { RoomControlData } from "./type";
 
 const shard3ControlSettings: { [roomName: string]: RecursivePartial<RoomControlData> } = {};
 
