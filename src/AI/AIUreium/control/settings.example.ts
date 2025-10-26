@@ -9,9 +9,10 @@
  * 可以复制controlBoard/type.ts下的defaultRoomControlData为自己的初始设定，然后再自己更改。
  */
 
-import { RoomControlData } from "./type";
+import { RecursivePartial } from "utils/typeUtils";
+import { defaultRoomControlData, RoomControlData } from "./type";
 
-const shard3ControlSettings: { [roomName: string]: RoomControlData } = {};
+const shard3ControlSettings: { [roomName: string]: RecursivePartial<RoomControlData> } = {};
 
 export const FullControlSetting: {
     [destName: string]: {
@@ -21,6 +22,18 @@ export const FullControlSetting: {
     };
 } = {
     official_server: {
-        shard3: shard3ControlSettings
+        shard3: fromPartialSetting(shard3ControlSettings)
     }
 };
+
+function fromPartialSetting(partialSetting: { [roomName: string]: RecursivePartial<RoomControlData> }): {
+    [roomName: string]: RoomControlData;
+} {
+    const newSetting: {
+        [roomName: string]: RoomControlData;
+    } = {};
+    for (const roomName in partialSetting) {
+        newSetting[roomName] = _.merge(_.cloneDeep(defaultRoomControlData), partialSetting[roomName]);
+    }
+    return newSetting;
+}
