@@ -37,6 +37,7 @@ export class RoutePlan {
         const { routeName, ifLoop = "true" } = args;
         if (routeName === "") {
             logger.error(`路径名称不可以为空`);
+            return;
         }
         Memory.routes[routeName] = { routeDetailArray: [], ifLoop: Boolean(ifLoop), ifShow: false };
         logger.info(`路径 ${routeName} 创建成功`);
@@ -66,14 +67,17 @@ export class RoutePlan {
         range = Number(range);
         if (range < 0) {
             logger.error(`range不应小于0`);
+            return;
         }
         const flag = Game.flags[pathMidpointPos];
         if (!flag) {
             logger.error(`路径点位置 ${pathMidpointPos} 旗帜不存在，请先创建该路径旗帜`);
+            return;
         }
         // console.log(routeName, flag.pos, [doWhenArrive]);
         if (!Memory.routes[routeName]) {
             logger.error(`路径 ${routeName} 不存在，请先创建该路径`);
+            return;
         } else {
             Memory.routes[routeName].routeDetailArray.push({
                 pathMidpointPos: PosStr.setPosToStr(flag.pos),
@@ -112,6 +116,7 @@ export class RoutePlan {
         // console.log(routeName);
         if (!Memory.routes[routeName]) {
             logger.error(`路径 ${routeName} 不存在，请先创建该路径`);
+            return;
         } else {
             Memory.routes[routeName].routeDetailArray.push({ condition, jumpTo, conditionArgs });
         }

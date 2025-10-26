@@ -7,7 +7,7 @@ declare global {
         control?: RoomControlData;
     }
 }
-
+// TODO 添加invaderCore处理。
 export interface RoomControlData {
     /**
      * Power采集设定。

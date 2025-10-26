@@ -1,6 +1,8 @@
 import { consoleStyle } from "frame/console/style";
 import { creators } from "utils/console/form";
 import { createFlattenHelp } from "utils/console/flattenHelp";
+import { getRoomControlData } from "..";
+import { logManager } from "utils/log4screeps";
 
 const getButton = (funcName: string) => {
     return creators.button({
@@ -11,12 +13,17 @@ const getButton = (funcName: string) => {
     });
 };
 const style = consoleStyle("AIRoomSetting");
-
+const logger = logManager.createLogger("debug", "RoutePlan");
 export class AIRoomSetting {
-    public static chooseRoom(args: { roomName: string }): string {
+    public static chooseRoom(args: { roomName: string }): void {
         const { roomName } = args;
         if (roomName === "") {
-            return style(`房间名称不可以为空`, "error");
+            logger.error(`房间名称不可以为空`);
+            return;
+        }
+        if (!(roomName in Game.rooms)) {
+            logger.error(`没有该房间的视野`);
+            return;
         }
         const helpMenu = [
             createFlattenHelp({
@@ -33,7 +40,8 @@ export class AIRoomSetting {
             })
         ].join("\n");
 
-        return helpMenu;
+        const settings = getRoomControlData(roomName);
+        logger.log("\n" + JSON.stringify(settings, null, 4));
     }
 
     public static modifySetting(args: {}): string {
