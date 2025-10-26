@@ -21,6 +21,11 @@ export interface RoomControlData {
          * 允许采集power的房间列表。
          */
         rooms: string[];
+
+        /**
+         * 启用power采集的最低能量限制。
+         */
+        lowestEnergyInStorage: number;
     };
     /**
      * 家里的mineral采集设定。
@@ -48,6 +53,13 @@ export interface RoomControlData {
          * 是否进行外矿采集。
          */
         run: boolean;
+
+        /**
+         * 最大允许的外矿距离。
+         *
+         * should not be bigger than 25/0.3, or change body data (also 0.3) in src\AI\AIUreium\room\outwardsSource\tasks\createCreepGroup\createOCarryGroup.ts
+         */
+        maxDistance: number;
     };
     /**
      * market设定。
@@ -88,7 +100,8 @@ export interface RoomControlData {
 export const defaultRoomControlData: RoomControlData = {
     getPower: {
         run: false,
-        rooms: []
+        rooms: [],
+        lowestEnergyInStorage: 8e4
     },
     harvestMineral: {
         run: true
@@ -97,7 +110,8 @@ export const defaultRoomControlData: RoomControlData = {
         run: true
     },
     outwardsSource: {
-        run: true
+        run: true,
+        maxDistance: 50
     },
     market: {
         buyEnergy: false

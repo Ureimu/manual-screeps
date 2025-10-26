@@ -1,25 +1,22 @@
 import { OutwardsSourceData } from "AI/AIUreium/control/recordRoomData";
 import { startOutwardsSource } from "AI/AIUreium/room/outwardsSource/start";
 import { stopOutwardsSource } from "AI/AIUreium/room/outwardsSource/stop";
-import { consoleStyle, LogLevel } from "frame/console/style";
 import { checkControllerRoomName } from "utils/roomNameUtils";
 import { resourceLimit } from "../constants/roomResource";
 import { Constant } from "../constants/roomTaskControl";
 import { getRoomControlData } from "..";
-import { MaxOutwardsSourcePathLength, OutwardsSourceCheckInterval } from "./constant";
+import { OutwardsSourceCheckInterval } from "./constant";
+import { logManager } from "utils/log4screeps";
 
 declare global {
     interface TaskStatus {
         outwardsSource?: boolean;
     }
 }
-
-const debugMode = true;
-const style = consoleStyle("ChooseSource");
-const debug = (str: string, level: LogLevel = "log") => (debugMode ? console.log(style(str, level)) : void 0);
+const logger = logManager.createLogger("debug", "chooseSource");
 export function chooseSource(mainRoom: Room): void {
     if (!getRoomControlData(mainRoom.name).outwardsSource) return;
-    debug(`${mainRoom.name} chooseSource start`);
+    logger.debug(`${mainRoom.name} chooseSource start`);
     let sourceNum = 0;
     const { outwardsSource } = Constant;
     const storeEnergy = mainRoom.storage?.store[RESOURCE_ENERGY];
@@ -33,14 +30,14 @@ export function chooseSource(mainRoom: Room): void {
     }
 
     if (!storeEnergy) return;
-    debug(
+    logger.debug(
         `storeEnergy: ${storeEnergy} max:${(
             resourceLimit.storage.energy.max * Constant.outwardsSource.energyRate.stop
         ).toFixed(0)}, min:${resourceLimit.storage.energy.min * Constant.outwardsSource.energyRate.start}`
     );
     if (storeEnergy > resourceLimit.storage.energy.max * Constant.outwardsSource.energyRate.stop) {
         status.outwardsSource = false;
-        debug(
+        logger.debug(
             `storeEnergy: ${storeEnergy} > ${
                 resourceLimit.storage.energy.max * Constant.outwardsSource.energyRate.stop
             }, stop. `
@@ -48,7 +45,7 @@ export function chooseSource(mainRoom: Room): void {
     }
     if (storeEnergy < resourceLimit.storage.energy.min * Constant.outwardsSource.energyRate.start) {
         status.outwardsSource = true;
-        debug(
+        logger.debug(
             `storeEnergy: ${storeEnergy} < ${
                 resourceLimit.storage.energy.min * Constant.outwardsSource.energyRate.start
             }, start. `
@@ -56,9 +53,10 @@ export function chooseSource(mainRoom: Room): void {
     }
     if (status.outwardsSource) {
         sourceNum = outwardsSource.sourceNum;
-        debug(`sourceNum: ${outwardsSource.sourceNum}, `);
+        logger.debug(`sourceNum: ${outwardsSource.sourceNum}, `);
     }
     const chosenSourceDataList: { [sourceName: string]: OutwardsSourceData } = {};
+    const maxDistance = getRoomControlData(mainRoom.name).outwardsSource.maxDistance;
     Object.entries(Memory.rooms).forEach(roomData => {
         const [roomName, roomMemory] = roomData;
         if (!roomMemory.sources) return; // 没有memory直接return
@@ -78,7 +76,7 @@ export function chooseSource(mainRoom: Room): void {
             Object.entries(originRoomToSourceData.roomData).forEach(singleRoomToSourceDataEntry => {
                 const [originRoomName, singleRoomToSourceData] = singleRoomToSourceDataEntry;
                 if (originRoomName !== mainRoom.name) return;
-                if (singleRoomToSourceData.pathLength > MaxOutwardsSourcePathLength) return;
+                if (singleRoomToSourceData.pathLength > maxDistance) return;
                 if (roomMemory.owner) return;
                 if (!singleRoomToSourceData.inUse) {
                     chosenSourceDataList[sourceName] = singleRoomToSourceData;
@@ -87,7 +85,7 @@ export function chooseSource(mainRoom: Room): void {
         });
     });
     const availableSourceLength = Object.keys(chosenSourceDataList).length;
-    debug(
+    logger.debug(
         `sourceData:availableSourceListLength: ${availableSourceLength}, ${Object.keys(
             chosenSourceDataList
         ).toString()} `
@@ -103,7 +101,7 @@ export function chooseSource(mainRoom: Room): void {
     while (index < sourceNum) {
         const sourceData = sortedSourceDataList[index];
         if (sourceData && !sourceData.inUse) {
-            debug(`sourceData: ${sourceData.sourceName} start outwardsSource`);
+            logger.debug(`sourceData: ${sourceData.sourceName} start outwardsSource`);
             sourceData.inUse = true;
             startOutwardsSource(sourceData);
         }
@@ -115,7 +113,7 @@ export function chooseSource(mainRoom: Room): void {
     while (index < sortedSourceDataList.length) {
         const sourceData = sortedSourceDataList[index];
         if (sourceData && sourceData.inUse) {
-            debug(
+            logger.debug(
                 `sourceData: ${sourceData.sourceName} stop outwardsSource index:${index}<${sortedSourceDataList.length}`
             );
             sourceData.inUse = false;

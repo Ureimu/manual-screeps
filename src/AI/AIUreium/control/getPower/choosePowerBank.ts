@@ -31,7 +31,7 @@ export function choosePowerBank(mainRoom: Room): void {
     }
     if (!mainRoom.storage) return;
     const storage = mainRoom.storage;
-    if (storage.store.energy < Constant.getPower.lowestEnergyInStorage) return;
+    if (storage.store.energy < getRoomControlData(mainRoom.name).getPower.lowestEnergyInStorage) return;
     const validatedPowerBanks: PowerBankData[] = [];
     _.forEach(Memory.rooms, (powerBankRoomMemory, powerBankRoomName) => {
         if (status.getPower) return;
