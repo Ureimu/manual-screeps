@@ -33,6 +33,8 @@ import { stopScout } from "./tasks/scouter/stopScout";
 import { initAiUreimuRoomMemory } from "../utils";
 import { startGetPowerTask } from "./tasks/startGetPowerTask";
 import { createKeepLevelGroup } from "./tasks/createCreepGroup/createKeepLevelGroup";
+import { removeUpgraderToOne } from "./tasks/upgrader/removeUpgraderToOne";
+import { controllerLevelUpgradedTo } from "./tasks/utils/controllerLevelUpgraded";
 
 const centerLinkHasBuilt = structureHasBuilt("link", "centerLink", 1);
 const sourceLinkHasBuilt = structureHasBuilt("link", "sourceLink", 2);
@@ -43,6 +45,7 @@ const factoryHasBuilt = structureHasBuilt("factory", "factory", 1);
 const observerHasBuilt = structureHasBuilt("observer", "observer", 1);
 const mineralContainerHasBuilt = structureHasBuilt("container", "mineralContainer", 1);
 const extractorHasBuilt = structureHasBuilt("extractor", "extractor", 1);
+const controllerLevelUpgradedTo8 = controllerLevelUpgradedTo(8);
 
 const taskRelation = {
     [createDefaultBodyparts.name]: [startNodeName],
@@ -83,7 +86,9 @@ const taskRelation = {
     [centerTask2.name]: [centerTask1.name, terminalHasBuilt.name],
     [stopScout.name]: [observerHasBuilt.name],
     [startGetPowerTask.name]: [observerHasBuilt.name],
-    [createKeepLevelGroup.name]: [createDefaultBodyparts.name]
+    [createKeepLevelGroup.name]: [createDefaultBodyparts.name],
+    [controllerLevelUpgradedTo8.name]: [upgradeByLink.name],
+    [removeUpgraderToOne.name]: [controllerLevelUpgradedTo8.name]
 };
 const taskCollection = registerObjectDeep(
     {
@@ -125,7 +130,9 @@ const taskCollection = registerObjectDeep(
         createMineCarryGroup,
         stopScout,
         startGetPowerTask,
-        createKeepLevelGroup
+        createKeepLevelGroup,
+        removeUpgraderToOne,
+        controllerLevelUpgradedTo8
     },
     "maintainRoomProjectTaskCollection"
 );
