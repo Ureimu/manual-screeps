@@ -19,12 +19,13 @@ const unwrappedLink = {
         const sourceLinkList = getLink(room, "sourceLink");
         const centerLinkToControllerLinkList = cartesianProduct(centerLinkList, controllerLinkList);
         const sourceLinkToCenterLinkList = cartesianProduct(sourceLinkList, centerLinkList);
-        sourceLinkToCenterLinkList.forEach(linkList => {
+        for (let linkList of sourceLinkToCenterLinkList) {
             if (linkList[0].cooldown > 0) return;
             if (linkList[0].store.energy > 700 && linkList[1].store.energy < 100) {
                 linkList[0].transferEnergy(linkList[1]);
+                break;
             }
-        });
+        }
         if (room.storage) {
             if (room.storage.store.energy > resourceLimit.storage.energy.min) {
                 centerLinkToControllerLinkList.forEach(linkList => {
