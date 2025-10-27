@@ -1,8 +1,11 @@
 import { getStructureMemory } from "frame/construct/utils";
 import { stayByRoad } from "frame/creep/action/doOnArrived/stayByRoad";
+import { logManager } from "utils/log4screeps";
 import { getAvailableNearbyRooms } from "utils/roomTools";
 import { checkArray } from "utils/typeCheck";
 import { recordRoomData } from "../../../control/recordRoomData";
+
+const logger = logManager.createLogger("info", "scouter");
 
 declare global {
     interface GlobalCreepMemory {
@@ -18,7 +21,7 @@ export function scouter(creep: Creep): void {
         const targetRoom = Game.rooms[scoutRoomName];
 
         if (typeof targetRoom !== "undefined") {
-            // console.log(`进入room${targetRoom.name}`);
+            // logger.log(`进入room${targetRoom.name}`);
             global.creepMemory[creep.name].scoutRoomName = undefined;
         }
 
@@ -90,7 +93,7 @@ export function manageScoutTask(): void {
                     roomScoutMemory.roomOwner = room.controller?.owner?.username;
                     roomScoutMemory.isInScoutProgress = false;
                     scoutRoomSet.delete(roomName);
-                    console.log(`${roomName}侦察完成，roomOwner:${String(roomScoutMemory.roomOwner)}`);
+                    logger.log(`${roomName}侦察完成，roomOwner:${String(roomScoutMemory.roomOwner)}`);
                 }
             }
         } else {
