@@ -50,7 +50,6 @@ function getStats(task: AcrossTickMemory): AcrossTickReturnCode {
     _.forEach(Game.rooms, room => {
         if (room.controller?.my && room.find(FIND_MY_SPAWNS).length !== 0) {
             const upgradeSpeed = getUpgradeSpeed(room.name);
-            const diagram = new ProjectNetworkDiagram(room.memory?.AIUreium?.maintainRoom);
             const outwardsSourceDiagram: {
                 [sourceName: string]: {
                     name: string;
@@ -61,7 +60,7 @@ function getStats(task: AcrossTickMemory): AcrossTickReturnCode {
             Object.values(room.memory?.AIUreium.outwardsSource).forEach(sourceRoomMemory =>
                 Object.entries(sourceRoomMemory).forEach(sourceMemory => {
                     outwardsSourceDiagram[sourceMemory[0]] = {
-                        diagram: Base64.encode(new ProjectNetworkDiagram(sourceMemory[1]).getDiagramCode(false)),
+                        diagram: Base64.encode(new ProjectNetworkDiagram(sourceMemory[1], false).getDiagramCode(false)),
                         name: sourceMemory[0]
                     };
                 })
@@ -82,8 +81,16 @@ function getStats(task: AcrossTickMemory): AcrossTickReturnCode {
                     num: Object.keys(room.memory.spawnPool).length
                 },
                 projectDiagram: {
-                    maintenance: Base64.encode(diagram.getDiagramCode(false)),
-                    outwardsSource: outwardsSourceDiagram
+                    maintenance: Base64.encode(
+                        new ProjectNetworkDiagram(room.memory?.AIUreium?.maintainRoom, false).getDiagramCode(false)
+                    ),
+                    outwardsSource: outwardsSourceDiagram,
+                    getPower: Base64.encode(
+                        new ProjectNetworkDiagram(room.memory?.AIUreium?.getPower, false).getDiagramCode(false)
+                    ),
+                    newRoom: Base64.encode(
+                        new ProjectNetworkDiagram(room.memory?.AIUreium?.newRoom, false).getDiagramCode(false)
+                    )
                 },
                 name: room.name,
                 spawnPool: room.memory.spawnPool

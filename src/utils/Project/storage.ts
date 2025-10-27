@@ -45,12 +45,20 @@ export class ProjectNetworkDiagram {
     }
     private readonly Regex = /(?<=\s)([a-zA-Z0-9]+)(?=\s)/g;
 
-    public constructor(memoryPath: DiagramMemory) {
-        if (!memoryPath.diagram) {
+    public constructor(memoryPath: DiagramMemory, writable: boolean = true) {
+        if (!memoryPath.diagram && writable) {
             memoryPath.diagram = { startNode: this.getStartNode(Game.time) };
         }
         this.memoryPath = memoryPath;
-        this.diagramDict = memoryPath.diagram;
+        if (!writable) {
+            this.diagramDict = {};
+        } else {
+            if (!memoryPath.diagram) {
+                throw new Error("cannot get legal memory path");
+            } else {
+                this.diagramDict = memoryPath.diagram;
+            }
+        }
     }
 
     public get nodeNum(): number {

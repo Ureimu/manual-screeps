@@ -99,6 +99,8 @@ export interface RoomData {
                 diagram: string;
             };
         };
+        getPower: string;
+        newRoom: string;
     };
     name: string;
     spawnPool: {
