@@ -111,7 +111,7 @@ function getStats(task: AcrossTickMemory): AcrossTickReturnCode {
 <\/script>`.replace(/((\s\s)|\n)/g, "");
 
     if (debugging) {
-        loader.download(`<html>${_.escape(dataHere)}</html>`, "log.html");
+        loader.download(`export const rawData = \`${Base64.encodeURI(JSON.stringify(data))}\`;`, "rawData.ts");
     } else {
         console.log(dataHere);
     }

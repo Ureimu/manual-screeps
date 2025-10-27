@@ -3,6 +3,7 @@ import { mermaid } from "./mermaid";
 import { Colors, DiagramDict, DiagramMemory, Node, NodeState } from "./type";
 
 export const startNodeName = "startNode";
+export const emptyNodeName = "emptyGraphNode";
 /**
  * 项目网络图，方便监控任务执行情况和下发任务。
  *
@@ -12,6 +13,7 @@ export const startNodeName = "startNode";
 export class ProjectNetworkDiagram {
     public readonly NodeStateList: NodeState[] = ["unplayed", "start", "working", "justFinished", "end"];
     public static readonly startNodeName = startNodeName;
+    public static readonly emptyNodeName = emptyNodeName;
     public readonly stateColor: Record<NodeState, Colors> = {
         start: "yellow",
         unplayed: "green",
@@ -43,15 +45,27 @@ export class ProjectNetworkDiagram {
             }
         } as Node;
     }
+    private getEmptyNode(time: number) {
+        return {
+            in: [],
+            out: [],
+            name: ProjectNetworkDiagram.emptyNodeName,
+            state: "end",
+            time: {
+                start: time,
+                end: time
+            }
+        } as Node;
+    }
     private readonly Regex = /(?<=\s)([a-zA-Z0-9]+)(?=\s)/g;
 
-    public constructor(memoryPath: DiagramMemory, writable: boolean = true) {
+    public constructor(memoryPath: DiagramMemory, public writable: boolean = true) {
         if (!memoryPath.diagram && writable) {
             memoryPath.diagram = { startNode: this.getStartNode(Game.time) };
         }
         this.memoryPath = memoryPath;
-        if (!writable) {
-            this.diagramDict = {};
+        if (!writable && !memoryPath.diagram) {
+            this.diagramDict = { emptyNode: this.getEmptyNode(Game.time) };
         } else {
             if (!memoryPath.diagram) {
                 throw new Error("cannot get legal memory path");
