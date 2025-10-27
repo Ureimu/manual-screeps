@@ -44,7 +44,8 @@ export const createOCarryGroup: TaskObject<outwardsSourceTaskArgs> = {
             creepBody: creepName,
             priority: "2",
             roomName,
-            readyCondition: "loop"
+            readyCondition: "shift",
+            subCond: "outwardsSourceWorker"
         });
         CreepGroup.create({
             creepGroupName,

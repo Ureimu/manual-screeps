@@ -1,7 +1,7 @@
 import { SCREEPS_CODE_DEST } from "codeConstants";
 import { logManager } from "utils/log4screeps";
+import { defaultRoomControlData } from "./defaultSetting";
 import { FullControlSetting } from "./settings";
-import { defaultRoomControlData } from "./type";
 
 const logger = logManager.createLogger("debug", "AIControl");
 

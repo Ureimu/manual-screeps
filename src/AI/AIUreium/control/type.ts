@@ -64,6 +64,14 @@ export interface RoomControlData {
          * 允许采集外矿的房间列表。
          */
         rooms: string[];
+        /**
+         * 处理invaderCore的策略。
+         *
+         * stop则暂停该房间外矿creep的孵化。
+         *
+         * attack则会产生attacker攻击invaderCore（未实现）。
+         */
+        InvaderCoreStrategy: "stop" | "attack";
     };
     /**
      * market设定。

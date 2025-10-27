@@ -1,7 +1,7 @@
 import { getCostMatrix } from "frame/construct/utils/costMatrix";
 import { FlagMaintainer } from "frame/flagMaintainer";
 import { FlagTools } from "frame/flagMaintainer/tools";
-import { checkHighwayRoomName } from "utils/roomNameUtils";
+import { checkControllerRoomName, checkHighwayRoomName } from "utils/roomNameUtils";
 import { PosStr } from "utils/RoomPositionToStr";
 import { getBlankSpace } from "utils/terrainJudgement";
 import { logManager } from "utils/log4screeps";
@@ -123,6 +123,48 @@ export function recordRoomData(room: Room): void {
             }
         });
     }
+
+    // invader core 数据
+    if (checkControllerRoomName.test(room.name)) {
+        if (!("invaderCores" in room.memory)) {
+            room.memory.invaderCores = {};
+        }
+        const invaderCoreMemory = room.memory.invaderCores ?? {};
+        const invaderCores: StructureInvaderCore[] = room.find(FIND_STRUCTURES, {
+            filter: i => i.structureType === "invaderCore"
+        });
+
+        // 删除过时数据
+        const listToClear: string[] = [];
+        _.forEach(invaderCoreMemory, (invaderCoreData, id) => {
+            if (!id) return;
+            // invaderCore数据会在powerBank消失后额外留存7000tick，以保证outwardsSource任务正常运行
+            if (
+                invaderCoreData.decayTime + 7000 < Game.time &&
+                !invaderCores.some(invaderCore => id === invaderCore.id)
+            ) {
+                listToClear.push(id);
+            }
+        });
+        listToClear.forEach(id => {
+            delete invaderCoreMemory[id];
+        });
+
+        // 添加新数据
+        invaderCores.forEach((invaderCore: StructureInvaderCore) => {
+            if (!(invaderCore.id in invaderCoreMemory)) {
+                const decayTime = invaderCore.effects.find(i => i.effect === EFFECT_COLLAPSE_TIMER)?.ticksRemaining;
+                if (!decayTime) throw new Error("no decay time in invader core");
+                invaderCoreMemory[invaderCore.id] = {
+                    decayTime: decayTime + Game.time,
+                    x: invaderCore.pos.x,
+                    y: invaderCore.pos.y,
+                    roomName: invaderCore.pos.roomName,
+                    id: invaderCore.id
+                };
+            }
+        });
+    }
 }
 
 declare global {
@@ -137,6 +179,9 @@ declare global {
         owner?: string;
         powerBanks?: {
             [powerBankId: string]: PowerBankData;
+        };
+        invaderCores?: {
+            [invaderCoreId: string]: InvaderCoreData;
         };
     }
 }
@@ -161,4 +206,11 @@ export interface PowerBankData {
     blankSpaceCount: number;
     isAttackedByOthers: boolean;
     isInMyAttack: boolean;
+}
+export interface InvaderCoreData {
+    decayTime: number;
+    x: number;
+    y: number;
+    roomName: string;
+    id: string;
 }

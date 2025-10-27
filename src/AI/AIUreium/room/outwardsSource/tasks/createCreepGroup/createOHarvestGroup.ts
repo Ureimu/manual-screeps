@@ -17,7 +17,8 @@ export const createOHarvestGroup: TaskObject<outwardsSourceTaskArgs> = {
             creepBody: "oHarvester",
             priority: "4",
             roomName,
-            readyCondition: "loop"
+            readyCondition: "shift",
+            subCond: "outwardsSourceWorker"
         });
         CreepGroup.create({
             creepGroupName,

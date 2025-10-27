@@ -91,4 +91,21 @@ export function mountShiftTimeFunction() {
         if (containers.length !== 0) return true;
         return false;
     });
+
+    addShiftTimeFunction("outwardsSourceWorker", detail => {
+        const data = numData(detail);
+        if (!(data.aliveNum === 0 && data.queueNum === 0 && data.deadNum === 1)) return false;
+
+        if (getRoomControlData(detail.roomName)?.outwardsSource.InvaderCoreStrategy === "stop") {
+            const [roomName, sourceRoomName, sourceName] =
+                Memory.creepGroups[Memory.creeps[detail.creepName].groupName].arguments;
+            const coreData = Memory.rooms[sourceRoomName].invaderCores;
+            if (coreData) {
+                if (_.some(coreData, data => data.decayTime + 5000 > Game.time)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    });
 }

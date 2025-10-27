@@ -41,7 +41,7 @@ export class AIRoomSetting {
         ].join("\n");
 
         const settings = getRoomControlData(roomName);
-        logger.log("\n" + JSON.stringify(settings, null, 4));
+        logger.log(`${roomName} setting:\n` + JSON.stringify(settings, null, 4));
     }
 
     public static modifySetting(args: {}): string {
