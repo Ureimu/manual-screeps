@@ -27,7 +27,7 @@ function addCreep(room: Room, creepGroupName: string, index: number) {
     const creepName = `${creepGroupName}${index}`;
     SpawnPool.addCreep({
         creepName,
-        creepBody: "worker",
+        creepBody: "upgrader",
         priority: "8",
         roomName: room.name,
         readyCondition: "shift",

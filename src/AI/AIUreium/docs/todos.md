@@ -3,3 +3,4 @@ x 2. builder改为仅在有建筑工地或需要修理container时孵化（conta
 x 3. mineral carrier改为只在container快满时才去搬运，平时停在parking spot。
 4. 外矿路径长度计算在没有修路时应考虑地形疲劳。
 5. 外矿reserver在预定tick较高时应停止孵化（比如高于1500）。预计可省1/tick的能量。
+6. upgrader应当根据能量消耗动态生成数量。如storage能量高时多生成或者使用更高的身体部件配置。

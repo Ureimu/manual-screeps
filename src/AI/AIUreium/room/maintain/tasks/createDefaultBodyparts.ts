@@ -18,6 +18,14 @@ export const createDefaultBodyparts: TaskObject<maintainRoomTaskArgs> = {
                 "4": { body: "m1w1c1*6" },
                 "5": { body: "m1w1c1*7" }
             },
+            upgrader: {
+                "1": { body: "m2w1c1" },
+                "2": { body: "m1w1c1*2" },
+                "3": { body: "m1w1c1*4" },
+                "4": { body: "m1w1c1*6" },
+                "5": { body: "m1w1c1*7" },
+                "7": { body: "m5w20c8" }
+            },
             harvester: {
                 "1": { body: "w2c1m1" },
                 "2": { body: "w4c1m1" },
