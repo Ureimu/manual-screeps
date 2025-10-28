@@ -183,6 +183,9 @@ declare global {
         invaderCores?: {
             [invaderCoreId: string]: InvaderCoreData;
         };
+        controller?: {
+            reserveEndTime: number;
+        };
     }
 }
 export interface OutwardsSourceData {

@@ -9,6 +9,7 @@ import { scouter } from "./maintain/scouter";
 import { claimer1 } from "./newRoom/claimer/claimer1";
 import { succor1 } from "./newRoom/succor/succor1";
 import { oCarrier1 } from "./outwardsSource/oCarrier";
+import { oReserver } from "./outwardsSource/oReserver";
 
 export function callOnStart(): void {
     if (!global.creepRoleActionList) {
@@ -22,7 +23,8 @@ export function callOnStart(): void {
             gpHealer,
             gpCarrier,
             levelKeeper,
-            mineralCarrier
+            mineralCarrier,
+            oReserver
         };
         registerCreepRole(creepRoleList);
     }

@@ -13,25 +13,26 @@ export const oReserving: TaskObject<outwardsSourceTaskArgs> = {
         return "end";
     },
     working(roomName, sourceRoomName, sourceName) {
-        const routeName = `${roomName}oReserving${sourceName}`;
+        // const routeName = `${roomName}oReserving${sourceName}`;
         const creepGroupName = OReserveGroupCreepName(roomName, sourceName);
-        FlagMaintainer.refresh({ roomName: sourceRoomName, typeList: FlagMaintainer.getTypeList(["controller"]) });
-        const controllerFlagName = FlagTools.getName(sourceRoomName, "controller", 0);
+        CreepGroup.setCreepGroupProperties({ creepGroupName, mode: "role", roleName: "oReserver" });
 
-        RoutePlan.create({ routeName, ifLoop: "true" });
-        RoutePlan.addMidpoint({
-            routeName,
-            pathMidpointPos: controllerFlagName,
-            range: 1,
-            doWhenArrive: "goTo"
-        });
-        RoutePlan.addMidpoint({
-            routeName,
-            pathMidpointPos: controllerFlagName,
-            range: 1,
-            doWhenArrive: "reserveController"
-        });
-        CreepGroup.setCreepGroupProperties({ creepGroupName, routeName });
+        // FlagMaintainer.refresh({ roomName: sourceRoomName, typeList: FlagMaintainer.getTypeList(["controller"]) });
+        // const controllerFlagName = FlagTools.getName(sourceRoomName, "controller", 0);
+
+        // RoutePlan.create({ routeName, ifLoop: "true" });
+        // RoutePlan.addMidpoint({
+        //     routeName,
+        //     pathMidpointPos: controllerFlagName,
+        //     range: 1,
+        //     doWhenArrive: "goTo"
+        // });
+        // RoutePlan.addMidpoint({
+        //     routeName,
+        //     pathMidpointPos: controllerFlagName,
+        //     range: 1,
+        //     doWhenArrive: "reserveController"
+        // });
 
         return "end";
     },

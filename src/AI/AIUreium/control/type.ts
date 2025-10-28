@@ -1,3 +1,5 @@
+import { RoomStatusOutwardsSource } from "./outwardsSource/type";
+
 export const roomControlDataSegmentNameList = Array(5)
     .fill(0)
     .map((i, index) => index + 10);
@@ -5,6 +7,7 @@ export const roomControlDataSegmentNameList = Array(5)
 declare global {
     interface GlobalRoomMemory {
         control?: RoomControlData;
+        status?: RoomStatus;
     }
 }
 // TODO 添加invaderCore处理。
@@ -107,4 +110,8 @@ export interface RoomControlData {
          */
         stop: number;
     };
+}
+
+export interface RoomStatus {
+    outwardsSource?: RoomStatusOutwardsSource;
 }

@@ -17,6 +17,9 @@ const logger = logManager.createLogger("debug", "chooseSource");
 export function chooseSource(mainRoom: Room): void {
     if (!getRoomControlData(mainRoom.name).outwardsSource) return;
     logger.debug(`${mainRoom.name} chooseSource start`);
+    const taskStatus = global.roomMemory[mainRoom.name].status;
+    if (!taskStatus) throw new Error("no status, should init in callOnStart.ts");
+    if (!taskStatus.outwardsSource) taskStatus.outwardsSource = { lastRunTime: Game.time };
     let sourceNum = 0;
     const { outwardsSource } = Constant;
     const storeEnergy = mainRoom.storage?.store[RESOURCE_ENERGY];

@@ -29,7 +29,7 @@ export const createOReserveGroup: TaskObject<outwardsSourceTaskArgs> = {
             priority: "2",
             roomName,
             readyCondition: "shift",
-            subCond: "outwardsSourceWorker"
+            subCond: "outwardsSourceReserver"
         });
         CreepGroup.create({
             creepGroupName,

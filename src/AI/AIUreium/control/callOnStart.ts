@@ -14,5 +14,6 @@ export function callOnStart() {
         if (!room.controller.my) return;
         if (!global.roomMemory[room.name]) global.roomMemory[room.name] = {};
         global.roomMemory[room.name].control = controlData?.[room.name] ?? defaultRoomControlData;
+        global.roomMemory[room.name].status = {};
     });
 }
