@@ -19,7 +19,9 @@ export function chooseSource(mainRoom: Room): void {
     logger.debug(`${mainRoom.name} chooseSource start`);
     const taskStatus = global.roomMemory[mainRoom.name].status;
     if (!taskStatus) throw new Error("no status, should init in callOnStart.ts");
-    if (!taskStatus.outwardsSource) taskStatus.outwardsSource = { lastRunTime: Game.time };
+    if (!taskStatus.outwardsSource)
+        taskStatus.outwardsSource = { lastRunTime: Game.time, sources: {}, isRunning: false };
+    const runningStatus = taskStatus.outwardsSource;
     let sourceNum = 0;
     const { outwardsSource } = Constant;
     const storeEnergy = mainRoom.storage?.store[RESOURCE_ENERGY];
@@ -46,6 +48,7 @@ export function chooseSource(mainRoom: Room): void {
             }, stop. `
         );
     }
+
     if (storeEnergy < resourceLimit.storage.energy.min * Constant.outwardsSource.energyRate.start) {
         status.outwardsSource = true;
         logger.debug(
@@ -54,6 +57,7 @@ export function chooseSource(mainRoom: Room): void {
             }, start. `
         );
     }
+    runningStatus.isRunning = status.outwardsSource ?? false;
     if (status.outwardsSource) {
         sourceNum = outwardsSource.sourceNum;
         logger.debug(`sourceNum: ${outwardsSource.sourceNum}, `);
@@ -71,8 +75,20 @@ export function chooseSource(mainRoom: Room): void {
             if (originRoomToSourceData.inUse) {
                 if (originRoomToSourceData.originRoomName === mainRoom.name) {
                     sourceNum = sourceNum - 1; // 已经有外矿在使用了则减一
+                    runningStatus.sources[sourceName] = {
+                        isInUse: true,
+                        isChosen: false,
+                        isRemoved: false,
+                        reason: "is in use by this room."
+                    };
                     return;
                 } else if (originRoomToSourceData.originRoomName !== mainRoom.name) {
+                    runningStatus.sources[sourceName] = {
+                        isInUse: false,
+                        isChosen: false,
+                        isRemoved: false,
+                        reason: `is in use by other room: ${originRoomToSourceData.originRoomName}`
+                    };
                     return; // 外矿被别的房间用了直接return
                 }
             }
@@ -80,13 +96,59 @@ export function chooseSource(mainRoom: Room): void {
             Object.entries(originRoomToSourceData.roomData).forEach(singleRoomToSourceDataEntry => {
                 const [originRoomName, singleRoomToSourceData] = singleRoomToSourceDataEntry;
                 // 在这里设置是否使用外矿。
-                if (originRoomName !== mainRoom.name) return;
-                if (singleRoomToSourceData.pathLength > maxDistance) return;
-                if (!settingRoomList.includes(roomName)) return;
-                if (roomMemory.owner) return;
-                if (!singleRoomToSourceData.inUse) {
-                    chosenSourceDataList[sourceName] = singleRoomToSourceData;
+                if (originRoomName !== mainRoom.name) {
+                    runningStatus.sources[sourceName] = {
+                        isInUse: false,
+                        isChosen: false,
+                        isRemoved: false,
+                        reason: `is in use by other room: ${originRoomName}`
+                    };
+                    return;
                 }
+                if (singleRoomToSourceData.pathLength > maxDistance) {
+                    runningStatus.sources[sourceName] = {
+                        isInUse: false,
+                        isChosen: false,
+                        isRemoved: false,
+                        reason: `too far from room. path length: ${singleRoomToSourceData.pathLength} > ${maxDistance}`
+                    };
+                    return;
+                }
+                if (!settingRoomList.includes(roomName)) {
+                    runningStatus.sources[sourceName] = {
+                        isInUse: false,
+                        isChosen: false,
+                        isRemoved: false,
+                        reason: `this room is not set in setting.`
+                    };
+                    return;
+                }
+                if (roomMemory.owner) {
+                    runningStatus.sources[sourceName] = {
+                        isInUse: false,
+                        isChosen: false,
+                        isRemoved: false,
+                        reason: `this room is owned by others. owner: ${roomMemory.owner}`
+                    };
+                    return;
+                }
+                if (singleRoomToSourceData.inUse) {
+                    runningStatus.sources[sourceName] = {
+                        isInUse: true,
+                        isChosen: false,
+                        isRemoved: false,
+                        reason: `is in use by this room.`
+                    };
+                    return;
+                }
+
+                chosenSourceDataList[sourceName] = singleRoomToSourceData;
+                runningStatus.sources[sourceName] = {
+                    isInUse: true,
+                    isChosen: true,
+                    isRemoved: false,
+                    reason: `is chosen.`
+                };
             });
         });
     });
@@ -119,6 +181,12 @@ export function chooseSource(mainRoom: Room): void {
     while (index < sortedSourceDataList.length) {
         const sourceData = sortedSourceDataList[index];
         if (sourceData && sourceData.inUse) {
+            runningStatus.sources[sourceData.sourceName] = {
+                isInUse: false,
+                isChosen: false,
+                isRemoved: true,
+                reason: `max limit exceed, removed.`
+            };
             logger.debug(
                 `sourceData: ${sourceData.sourceName} stop outwardsSource index:${index}<${sortedSourceDataList.length}`
             );
