@@ -1,4 +1,5 @@
 import { chooseSource } from "AI/AIUreium/control/outwardsSource";
+import { watchInvader } from "AI/AIUreium/control/outwardsSource/watchInvader";
 import { DiagramMemory } from "utils/Project/type";
 import { initAiUreimuRoomMemory } from "../utils";
 import { getOutwardsHarvestProject } from "./taskRelation";
@@ -19,6 +20,7 @@ export function maintainOutwardsSource(): void {
                 for (const sourceName in room.memory.AIUreium.outwardsSource[sourceRoomName]) {
                     getOutwardsHarvestProject(room.name, sourceRoomName, sourceName).run();
                 }
+                watchInvader(sourceRoomName);
             }
         }
     });

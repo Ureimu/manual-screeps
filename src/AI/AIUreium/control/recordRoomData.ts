@@ -186,6 +186,9 @@ declare global {
         controller?: {
             reserveEndTime: number;
         };
+        invaders?: {
+            decayTime: number;
+        };
     }
 }
 export interface OutwardsSourceData {

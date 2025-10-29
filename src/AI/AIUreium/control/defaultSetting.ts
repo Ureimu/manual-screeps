@@ -16,7 +16,8 @@ export const defaultRoomControlData: RoomControlData = {
         run: true,
         maxDistance: 80,
         rooms: [],
-        InvaderCoreStrategy: "stop"
+        invaderCoreStrategy: "stop",
+        invaderStrategy: "stop"
     },
     market: {
         buyEnergy: false

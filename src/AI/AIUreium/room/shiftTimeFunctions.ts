@@ -99,6 +99,7 @@ export function mountShiftTimeFunction() {
         if (!(data.aliveNum === 0 && data.queueNum === 0 && data.deadNum === 1)) return false;
 
         if (checkInvaderCoreExist(detail)) return false;
+        if (checkInvaderExist(detail)) return false;
         return true;
     });
 
@@ -107,6 +108,7 @@ export function mountShiftTimeFunction() {
         if (!(data.aliveNum === 0 && data.queueNum === 0 && data.deadNum === 1)) return false;
 
         if (checkInvaderCoreExist(detail)) return false;
+        if (checkInvaderExist(detail)) return false;
         const [roomName, sourceRoomName, sourceName] = getCreepGroupDetailBySpawnCreepDetail(detail).arguments;
         const reserveEndTime = Memory.rooms[sourceRoomName].controller?.reserveEndTime;
         if (reserveEndTime && reserveEndTime - Game.time > 1500) {
@@ -117,11 +119,25 @@ export function mountShiftTimeFunction() {
 }
 
 function checkInvaderCoreExist(detail: SpawnCreepDetail): boolean {
-    if (getRoomControlData(detail.roomName)?.outwardsSource.InvaderCoreStrategy === "stop") {
+    if (getRoomControlData(detail.roomName)?.outwardsSource.invaderCoreStrategy === "stop") {
         const [roomName, sourceRoomName, sourceName] = getCreepGroupDetailBySpawnCreepDetail(detail).arguments;
         const coreData = Memory.rooms[sourceRoomName].invaderCores;
         if (coreData) {
             if (_.some(coreData, data => data.decayTime + 5000 > Game.time)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    return false;
+}
+
+function checkInvaderExist(detail: SpawnCreepDetail): boolean {
+    if (getRoomControlData(detail.roomName)?.outwardsSource.invaderStrategy === "stop") {
+        const [roomName, sourceRoomName, sourceName] = getCreepGroupDetailBySpawnCreepDetail(detail).arguments;
+        const invaderData = Memory.rooms[sourceRoomName].invaders;
+        if (invaderData) {
+            if (invaderData.decayTime > Game.time) {
                 return true;
             }
         }

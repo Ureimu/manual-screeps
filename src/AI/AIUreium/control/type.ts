@@ -10,7 +10,7 @@ declare global {
         status?: RoomStatus;
     }
 }
-// TODO 添加invaderCore处理。
+
 export interface RoomControlData {
     /**
      * Power采集设定。
@@ -74,7 +74,15 @@ export interface RoomControlData {
          *
          * attack则会产生attacker攻击invaderCore（未实现）。
          */
-        InvaderCoreStrategy: "stop" | "attack";
+        invaderCoreStrategy: "stop" | "attack";
+        /**
+         * 处理invader的策略。
+         *
+         * stop则暂停该房间外矿creep的孵化。
+         *
+         * attack则会产生attacker攻击invader（未实现）。
+         */
+        invaderStrategy: "stop" | "attack";
     };
     /**
      * market设定。
