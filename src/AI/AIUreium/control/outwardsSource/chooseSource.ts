@@ -160,6 +160,9 @@ export function chooseSource(mainRoom: Room): void {
     );
     const startTime = mainRoom.memory.AIUreium?.newRoomData?.startTime;
     if (startTime && Game.time - startTime < OutwardsSourceCheckInterval) {
+        // 如果才开始不到OutwardsSourceCheckInterval的时间，且已有的source数据小于选定的sourceNum，则不会执行外矿开采。
+        // 该逻辑是为了保证scouter先找完附近的外矿，以保证选取的外矿为最佳的。
+        logger.debug(`wait until ${startTime + OutwardsSourceCheckInterval} tick to start`);
         if (Object.keys(chosenSourceDataList).length < sourceNum) return;
     }
 

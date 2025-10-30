@@ -11,6 +11,8 @@ import { createOCarryGroup } from "./tasks/createCreepGroup/createOCarryGroup";
 import { oCarrySourceToStorage } from "./tasks/OCarrier/oCarrySourceToStorage";
 import { createOReserveGroup } from "./tasks/createCreepGroup/createOReserveGroup";
 import { oReserving } from "./tasks/OReserver/oReserving";
+import { createOBuildGroup } from "./tasks/createCreepGroup/createOBuildGroup";
+import { oBuildRoad } from "./tasks/OBuilder/oBuildRoad";
 
 // 设置Project的存储位置
 
@@ -23,7 +25,9 @@ export const taskRelation = {
     [createOCarryGroup.name]: [oKeepHarvesting.name],
     [oCarrySourceToStorage.name]: [createOCarryGroup.name],
     [createOReserveGroup.name]: [createOCarryGroup.name],
-    [oReserving.name]: [createOReserveGroup.name]
+    [oReserving.name]: [createOReserveGroup.name],
+    [createOBuildGroup.name]: [oCarrySourceToStorage.name],
+    [oBuildRoad.name]: [createOBuildGroup.name]
 };
 const taskCollection = registerObjectDeep(
     {
@@ -35,7 +39,9 @@ const taskCollection = registerObjectDeep(
         createOCarryGroup,
         oCarrySourceToStorage,
         createOReserveGroup,
-        oReserving
+        oReserving,
+        createOBuildGroup,
+        oBuildRoad
     },
     "outwardsHarvestTaskCollection"
 );

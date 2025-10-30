@@ -197,6 +197,7 @@ export interface OutwardsSourceData {
     originRoomName: string;
     pathLength: number;
     path?: string[];
+    maintainRoad?: boolean;
     inUse: boolean;
     harvestedEnergyNum: number;
 }

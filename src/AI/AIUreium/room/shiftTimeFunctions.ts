@@ -116,6 +116,19 @@ export function mountShiftTimeFunction() {
         }
         return true;
     });
+
+    addShiftTimeFunction("outwardsSourceBuilder", detail => {
+        const data = numData(detail);
+        if (!(data.aliveNum === 0 && data.queueNum === 0 && data.deadNum === 1)) return false;
+
+        if (checkInvaderCoreExist(detail)) return false;
+        if (checkInvaderExist(detail)) return false;
+        const [roomName, sourceRoomName, sourceName] = getCreepGroupDetailBySpawnCreepDetail(detail).arguments;
+        const sourceData = Memory.rooms[sourceRoomName].sources?.[sourceName].roomData[roomName];
+        if (!sourceData) return false;
+        if (!sourceData.maintainRoad) return false;
+        return true;
+    });
 }
 
 function checkInvaderCoreExist(detail: SpawnCreepDetail): boolean {
