@@ -20,7 +20,9 @@ export const createOBodyParts: TaskObject<outwardsSourceTaskArgs> = {
             oBuilder: {
                 "1": { body: "w1c1m1" },
                 "4": { body: "w3c4m4" },
-                "5": { body: "w4c4m4" }
+                "5": { body: "w4c4m4" },
+                "6": { body: "w7c7m7" },
+                "7": { body: "w10c10m10" }
             }
         };
 

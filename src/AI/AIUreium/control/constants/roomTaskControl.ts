@@ -3,7 +3,7 @@ export const Constant = {
         sellRate: 15
     },
     outwardsSource: {
-        defaultStatus: false,
+        defaultStatus: true,
         sourceNum: 4,
         energyRate: {
             start: 1,
