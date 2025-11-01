@@ -25,10 +25,7 @@ export function oCarrier1(creep: Creep, args: string[]): void {
     }
 
     if (!creepMemory[creep.name]) {
-        const container = getContainer(originRoomName, sourceRoomName, sourceName);
-        if (container) {
-            creepMemory[creep.name] = { containerId: container.id, containerPosStr: PosStr.setPosToStr(container.pos) };
-        } else {
+        if (!recordContainer(originRoomName, sourceRoomName, sourceName, creep)) {
             return;
         }
     }
@@ -41,11 +38,16 @@ export function oCarrier1(creep: Creep, args: string[]): void {
         if (!creep.pos.isNearTo(sourceContainerPos)) {
             creep.moveTo(sourceContainerPos, { range: 1 });
         } else {
-            const container = Game.getObjectById(containerId);
+            let container = Game.getObjectById(containerId);
             if (!container) {
-                logger.debug(`${creep.name} container not found with id ${containerId}`);
-                return;
+                logger.debug(`${creep.name} container not found with id ${containerId}, try getting container`);
+                if (!recordContainer(originRoomName, sourceRoomName, sourceName, creep)) {
+                    return;
+                } else {
+                    container = Game.getObjectById(creepMemory[creep.name].containerId);
+                }
             }
+            if (!container) return;
             const containerEnergy = container.store.energy;
             if (containerEnergy >= creep.store.getFreeCapacity() || containerEnergy > 2000) {
                 creep.withdraw(container, "energy");
@@ -100,4 +102,18 @@ function getContainer(originRoomName: string, sourceRoomName: string, sourceName
         .find<StructureContainer>((value): value is StructureContainer => value.structureType === "container");
     if (!container) return;
     return container;
+}
+
+function recordContainer(originRoomName: string, sourceRoomName: string, sourceName: string, creep: Creep) {
+    const container = getContainer(originRoomName, sourceRoomName, sourceName);
+    if (container) {
+        creepMemory[creep.name] = {
+            containerId: container.id,
+            containerPosStr: PosStr.setPosToStr(container.pos)
+        };
+        logger.debug(`got container.`);
+        return true;
+    } else {
+        return false;
+    }
 }

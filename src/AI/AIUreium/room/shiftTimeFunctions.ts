@@ -98,12 +98,12 @@ export function mountShiftTimeFunction() {
 
     addShiftTimeFunction("outwardsSourceWorker", detail => {
         const data = numData(detail);
-        logger.debug(`outwardsSourceWorker running:${detail.creepName}, body:${detail.creepBody}`);
+        //logger.debug(`outwardsSourceWorker running:${detail.creepName}, body:${detail.creepBody}`);
         if (!(data.aliveNum === 0 && data.queueNum === 0 && data.deadNum === 1)) return false;
-        logger.debug(`${detail.creepName} is dead`);
+        //logger.debug(`${detail.creepName} is dead`);
         if (checkInvaderCoreExist(detail)) return false;
         if (checkInvaderExist(detail)) return false;
-        logger.debug(`outwardsSourceWorker spawning:${detail.creepName}, body:${detail.creepBody}`);
+        //logger.debug(`outwardsSourceWorker spawning:${detail.creepName}, body:${detail.creepBody}`);
         return true;
     });
 
