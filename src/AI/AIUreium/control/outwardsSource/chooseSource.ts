@@ -7,6 +7,8 @@ import { Constant } from "../constants/roomTaskControl";
 import { getRoomControlData } from "..";
 import { OutwardsSourceCheckInterval } from "./constant";
 import { logManager } from "utils/log4screeps";
+import { getOCarrierBodyRatio } from "AI/AIUreium/room/outwardsSource/tasks/createCreepGroup/createOCarryGroup";
+import { MAX_ENERGY_PER_CONTROLLER_LEVEL } from "utils/constants";
 
 declare global {
     interface TaskStatus {
@@ -63,8 +65,15 @@ export function chooseSource(mainRoom: Room): void {
         logger.debug(`sourceNum: ${outwardsSource.sourceNum}, `);
     }
     const chosenSourceDataList: { [sourceName: string]: OutwardsSourceData } = {};
-    const maxDistance = getRoomControlData(mainRoom.name).outwardsSource.maxDistance;
-    const settingRoomList = getRoomControlData(mainRoom.name).outwardsSource.rooms;
+    const setting = getRoomControlData(mainRoom.name).outwardsSource;
+    const availableMaxDistance = getAvailableMaxDistance(mainRoom);
+    logger.debug(
+        `available max distance: ${availableMaxDistance.toFixed(0)}, setting distance: ${setting.maxDistance.toFixed(
+            0
+        )}`
+    );
+    const maxDistance = Math.min(availableMaxDistance, setting.maxDistance);
+    const settingRoomList = setting.rooms;
     Object.entries(Memory.rooms).forEach(roomData => {
         const [roomName, roomMemory] = roomData;
         if (!roomMemory.sources) return; // 没有memory直接return
@@ -207,4 +216,14 @@ export function chooseSource(mainRoom: Room): void {
         }
         index++;
     }
+}
+
+function getAvailableMaxDistance(room: Room): number {
+    const setting = getRoomControlData(room.name).outwardsSource;
+    const ratios = getOCarrierBodyRatio(setting.useRoad, setting.useReserver);
+    const bodySize = Math.min(
+        MAX_CREEP_SIZE,
+        Math.floor(MAX_ENERGY_PER_CONTROLLER_LEVEL[room.controller?.level ?? 0] / 50)
+    );
+    return bodySize / (ratios.carry + ratios.move);
 }

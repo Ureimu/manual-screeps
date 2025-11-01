@@ -107,9 +107,9 @@ export class SpawnPool {
             spawnCondition: readyCondition || memCopy.spawnCondition,
             creepCondition: memCopy.creepCondition,
             state: memCopy.state,
-            roomName,
+            roomName: memCopy.roomName,
             idList: [],
-            subCond,
+            subCond: subCond || memCopy.subCond,
             spawnCount: memCopy.spawnCount
         };
         const message = `修改creepSpawn信息 ${creepName} 设置完成`;

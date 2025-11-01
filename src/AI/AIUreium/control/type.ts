@@ -83,6 +83,14 @@ export interface RoomControlData {
          * attack则会产生attacker攻击invader（未实现）。
          */
         invaderStrategy: "stop" | "attack";
+        /**
+         * 是否使用外矿road，包含修建和维护。
+         */
+        useRoad: boolean;
+        /**
+         * 是否使用reserver。
+         */
+        useReserver: boolean;
     };
     /**
      * market设定。

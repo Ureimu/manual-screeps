@@ -198,6 +198,7 @@ export interface OutwardsSourceData {
     pathLength: number;
     path?: string[];
     maintainRoad?: boolean;
+    roadHasBuilt?: boolean;
     inUse: boolean;
     harvestedEnergyNum: number;
 }

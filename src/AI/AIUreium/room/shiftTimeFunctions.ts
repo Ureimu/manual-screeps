@@ -2,11 +2,13 @@ import { CreepGroupMemory, CreepGroupMode } from "frame/creep/group/type";
 import { addShiftTimeFunction } from "frame/spawn/spawning/readyCondition/spawnShiftCreep";
 import { numData } from "frame/spawn/spawning/readyCondition/utils/numData";
 import { SpawnCreepDetail } from "frame/spawn/spawnPool/type";
+import { logManager } from "utils/log4screeps";
 import { getRoomControlData } from "../control";
 import { getMaintainRoomProject } from "./maintain/taskRelation";
 import { getCenterCarrierCreepName } from "./maintain/tasks/createCreepGroup/createCenterCarryGroup";
 import { upgradeByLink } from "./maintain/tasks/upgrader/upgradeByLink";
 
+const logger = logManager.createLogger("debug", "mountShiftTimeFunction");
 // 把所有shift设置放在一个文件而不是分散在对应位置的原因是，
 // 在对应位置进行函数编写很容易出现循环引用，不太好。
 export function mountShiftTimeFunction() {
@@ -96,10 +98,12 @@ export function mountShiftTimeFunction() {
 
     addShiftTimeFunction("outwardsSourceWorker", detail => {
         const data = numData(detail);
+        logger.debug(`outwardsSourceWorker running:${detail.creepName}, body:${detail.creepBody}`);
         if (!(data.aliveNum === 0 && data.queueNum === 0 && data.deadNum === 1)) return false;
-
+        logger.debug(`${detail.creepName} is dead`);
         if (checkInvaderCoreExist(detail)) return false;
         if (checkInvaderExist(detail)) return false;
+        logger.debug(`outwardsSourceWorker spawning:${detail.creepName}, body:${detail.creepBody}`);
         return true;
     });
 
@@ -109,6 +113,8 @@ export function mountShiftTimeFunction() {
 
         if (checkInvaderCoreExist(detail)) return false;
         if (checkInvaderExist(detail)) return false;
+
+        if (!getRoomControlData(detail.roomName)?.outwardsSource.useReserver) return false;
         const [roomName, sourceRoomName, sourceName] = getCreepGroupDetailBySpawnCreepDetail(detail).arguments;
         const reserveEndTime = Memory.rooms[sourceRoomName].controller?.reserveEndTime;
         if (reserveEndTime && reserveEndTime - Game.time > 1500) {
@@ -123,10 +129,7 @@ export function mountShiftTimeFunction() {
 
         if (checkInvaderCoreExist(detail)) return false;
         if (checkInvaderExist(detail)) return false;
-        const [roomName, sourceRoomName, sourceName] = getCreepGroupDetailBySpawnCreepDetail(detail).arguments;
-        const sourceData = Memory.rooms[sourceRoomName].sources?.[sourceName].roomData[roomName];
-        if (!sourceData) return false;
-        if (!sourceData.maintainRoad) return false;
+        if (!checkUseOutwardsRoad(detail)) return false;
         return true;
     });
 }
@@ -154,6 +157,17 @@ function checkInvaderExist(detail: SpawnCreepDetail): boolean {
                 return true;
             }
         }
+        return false;
+    }
+    return false;
+}
+
+function checkUseOutwardsRoad(detail: SpawnCreepDetail): boolean {
+    if (getRoomControlData(detail.roomName)?.outwardsSource.useRoad) {
+        const [roomName, sourceRoomName, sourceName] = getCreepGroupDetailBySpawnCreepDetail(detail).arguments;
+        const sourceData = Memory.rooms[sourceRoomName].sources?.[sourceName].roomData[roomName];
+        if (!sourceData) return false;
+        if (sourceData.maintainRoad) return true;
         return false;
     }
     return false;

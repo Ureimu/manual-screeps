@@ -38,6 +38,7 @@ export function oBuilder(creep: Creep, args: string[]): void {
         // 结束任务
         creepMemory[creep.name].pathIndex = 0;
         sourceData.maintainRoad = false;
+        sourceData.roadHasBuilt = true;
         creep.suicide();
         return;
     }

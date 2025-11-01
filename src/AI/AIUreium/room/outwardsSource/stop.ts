@@ -4,7 +4,12 @@ import { outwardsSourceTaskArgs } from "./taskRelation";
 export function stopOutwardsSource(...args: outwardsSourceTaskArgs): void {
     const [originRoomName, sourceRoomName, sourceName] = args;
 
-    const outwardsHarvestCreepNameList = [`${originRoomName}oh${sourceName}`, `${originRoomName}oc${sourceName}`];
+    const outwardsHarvestCreepNameList = [
+        `${originRoomName}oh${sourceName}`,
+        `${originRoomName}oc${sourceName}`,
+        `${originRoomName}or${sourceName}`,
+        `${originRoomName}ob${sourceName}`
+    ];
     const spawnPool = Memory.rooms[originRoomName].spawnPool;
     const spawnPoolCreepNameList = Object.keys(spawnPool);
     outwardsHarvestCreepNameList.forEach(creepNameHead =>

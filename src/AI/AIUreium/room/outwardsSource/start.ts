@@ -1,3 +1,4 @@
+import { getRoomControlData } from "AI/AIUreium/control";
 import { OutwardsSourceData } from "AI/AIUreium/control/recordRoomData";
 import { getCostMatrix } from "frame/construct/utils/costMatrix";
 import { PosStr } from "utils/RoomPositionToStr";
@@ -21,4 +22,11 @@ export function startOutwardsSource(sourceData: OutwardsSourceData): void {
         { maxOps: 1000 * 50, roomCallback: getCostMatrix }
     );
     sourceData.path = ret.path.map(pos => PosStr.setPosToStr(pos));
+    if (
+        getRoomControlData(sourceData.originRoomName)?.outwardsSource.useRoad &&
+        !sourceData.maintainRoad &&
+        !sourceData.roadHasBuilt
+    ) {
+        sourceData.maintainRoad = true;
+    }
 }
