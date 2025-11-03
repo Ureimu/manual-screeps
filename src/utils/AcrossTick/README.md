@@ -46,4 +46,22 @@ newAcrossTickTask(
 
 该模块默认情况下会在 global 清空时中断所有任务。
 
-**如果需要保证任务持续执行，请在重置 global 时在 global.AcrossTickTaskFunction 上挂载自己的 task 函数。**
+**如果需要保证任务持续执行，请在重置 global 时使用 AcrossTick.mount 函数挂载自己的 task 函数。**
+
+在主循环代码外面执行的代码都只会在重置 global时执行一次，所以可以直接挂载。
+
+一个延时log的例子：
+
+```ts
+// log.ts
+import { AcrossTick, newAcrossTickTask } from ".";
+
+AcrossTick.mount("log", ({ args }) => {
+    console.log(...args);
+    return "finish";
+});
+
+export function waitThenLog(time: number, ...messages: string[]): void {
+    newAcrossTickTask({ taskName: "log", args: messages, executeTick: Game.time + time, intervalTick: 1, log: false });
+}
+```

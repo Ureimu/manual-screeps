@@ -1,6 +1,6 @@
 import { AcrossTick, newAcrossTickTask } from ".";
 
-AcrossTick.mountTaskFunction({ taskName: "log" }, ({ args }) => {
+AcrossTick.mount("log", ({ args }) => {
     console.log(...args);
     return "finish";
 });

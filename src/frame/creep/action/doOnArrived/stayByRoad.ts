@@ -4,7 +4,6 @@ import { PosStr } from "utils/RoomPositionToStr";
 import { checkArray } from "utils/typeCheck";
 import { CreepAction } from ".";
 import { state } from "..";
-import { getMidpointObjects } from "./utils/getMidpointObjects";
 import { runningCounter } from "./utils/runningCounter";
 
 function run(creep: Creep): state {
@@ -74,38 +73,36 @@ function run(creep: Creep): state {
     }
 }
 
-export function callOnStart(): void {
-    AcrossTick.mountTaskFunction({ taskName: "checkPosOccupation" }, ({ args }) => {
-        const [creepName, roomName] = args as string[];
-        if (!global.creepMemory[creepName]) return "runAgain";
-        const creep = Game.creeps[creepName];
-        const parkingSpot = global.creepMemory[creepName]?.parkingSpot;
-        if (!creep) {
-            // console.log(`[creep] ${creepName} 由于不存在而放弃了parkingSpot`);
-            global.creepMemory[creepName].checkPosOccupation = false;
-            if (parkingSpot) {
-                return releaseParkingSpot(roomName, creepName, parkingSpot);
-            } else {
-                return checkAllParkingSpot(roomName, creepName);
-            }
-        }
-
-        if (!global.creepMemory[creepName].checkPosOccupation) {
-            global.creepMemory[creepName].checkPosOccupation = true;
-        }
-        if (creep.pos && parkingSpot) {
-            const creepPos = Game.creeps[creepName].pos;
-            if (PosStr.setPosToStr(creepPos) === parkingSpot) {
-                return "runAgain";
-            }
-        }
+AcrossTick.mount("checkPosOccupation", ({ args }) => {
+    const [creepName, roomName] = args as string[];
+    if (!global.creepMemory[creepName]) return "runAgain";
+    const creep = Game.creeps[creepName];
+    const parkingSpot = global.creepMemory[creepName]?.parkingSpot;
+    if (!creep) {
+        // console.log(`[creep] ${creepName} 由于不存在而放弃了parkingSpot`);
+        global.creepMemory[creepName].checkPosOccupation = false;
         if (parkingSpot) {
             return releaseParkingSpot(roomName, creepName, parkingSpot);
         } else {
             return checkAllParkingSpot(roomName, creepName);
         }
-    });
-}
+    }
+
+    if (!global.creepMemory[creepName].checkPosOccupation) {
+        global.creepMemory[creepName].checkPosOccupation = true;
+    }
+    if (creep.pos && parkingSpot) {
+        const creepPos = Game.creeps[creepName].pos;
+        if (PosStr.setPosToStr(creepPos) === parkingSpot) {
+            return "runAgain";
+        }
+    }
+    if (parkingSpot) {
+        return releaseParkingSpot(roomName, creepName, parkingSpot);
+    } else {
+        return checkAllParkingSpot(roomName, creepName);
+    }
+});
 
 function releaseParkingSpot(roomName: string, creepName: string, parkingSpot: string): AcrossTickReturnCode {
     const freeSpacePosList = global.roomMemory[roomName].freeSpacePosList;

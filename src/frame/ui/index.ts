@@ -118,14 +118,13 @@ function getStats(task: AcrossTickMemory): AcrossTickReturnCode {
     return "finish";
 }
 
+AcrossTick.mount("getStats", getStats);
+
 export function stats(): void {
     const idList = ([] as number[]).concat(statsEngine.getSegmentIdList(), ErrorMapper.getErrorSegmentId());
     // TODO 当idList的长度大于十的时候，需要依次取出所有数据放入全局cache再打开ui。
     const addedList = SegmentManager.addId(idList);
     // waitThenLog(5, `try active: ${idList.toString()}, success: ${addedList.toString()}`);
-    if (!global.AcrossTickTaskFunction.getStats) {
-        AcrossTick.mountTaskFunction({ taskName: "getStats" }, getStats);
-    }
 
     newAcrossTickTask({ taskName: "getStats", args: [], executeTick: Game.time + 1, intervalTick: 1, log: true });
 }
