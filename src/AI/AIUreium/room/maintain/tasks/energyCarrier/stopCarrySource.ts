@@ -3,6 +3,7 @@ import { FlagMaintainer } from "frame/flagMaintainer";
 import { SpawnPool } from "frame/spawn/spawnPool";
 import { TaskObject } from "utils/Project";
 import { maintainRoomTaskArgs } from "../../taskRelation";
+import { energyCarryGroupName } from "../createCreepGroup/createEnergyCarryGroup";
 
 export const stopCarrySource: TaskObject<maintainRoomTaskArgs> = {
     name: "stopCarrySource",
@@ -17,7 +18,7 @@ export const stopCarrySource: TaskObject<maintainRoomTaskArgs> = {
     },
     working(roomName) {
         const room = Game.rooms[roomName];
-        const creepGroupName = `${room.name}c`;
+        const creepGroupName = energyCarryGroupName(room.name);
 
         Memory.creepGroups[creepGroupName].creepNameList.forEach(creepName => {
             SpawnPool.setCreepProperties({ creepName, roomName, readyCondition: "notLoop" });
