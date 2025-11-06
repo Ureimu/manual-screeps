@@ -4,6 +4,8 @@ import { logManager } from "utils/log4screeps";
 import { getAvailableNearbyRooms } from "utils/roomTools";
 import { checkArray } from "utils/typeCheck";
 import { recordRoomData } from "../../../control/recordRoomData";
+import type MoveOptimize from "utils/moveOptimize";
+const moveOptimize: typeof MoveOptimize = require("moveOptimize");
 
 const logger = logManager.createLogger("info", "scouter");
 
@@ -18,6 +20,10 @@ export function scouter(creep: Creep): void {
     if (!global.creepMemory[creep.name]) global.creepMemory[creep.name] = {};
     const scoutRoomName = global.creepMemory[creep.name].scoutRoomName;
     if (scoutRoomName) {
+        if (scoutRoomName in moveOptimize.avoidRooms) {
+            logger.log(`room:${scoutRoomName} is owner by others, not scouted.`);
+            global.creepMemory[creep.name].scoutRoomName = undefined;
+        }
         const targetRoom = Game.rooms[scoutRoomName];
 
         if (typeof targetRoom !== "undefined") {

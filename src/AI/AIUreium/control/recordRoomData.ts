@@ -5,6 +5,8 @@ import { checkControllerRoomName, checkHighwayRoomName } from "utils/roomNameUti
 import { PosStr } from "utils/RoomPositionToStr";
 import { getBlankSpace } from "utils/terrainJudgement";
 import { logManager } from "utils/log4screeps";
+import type MoveOptimize from "utils/moveOptimize";
+const moveOptimize: typeof MoveOptimize = require("moveOptimize");
 
 const logger = logManager.createLogger("info", "RecordRoomData");
 
@@ -15,6 +17,14 @@ export function recordRoomData(room: Room): void {
         typeList: FlagMaintainer.getTypeList(["source", "controller"])
     });
 
+    // 记录所有者
+    if (room.memory.owner !== room.controller?.owner?.username) {
+        if (!room.controller?.owner?.username || room.controller?.my) {
+            moveOptimize.deleteAvoidRooms(room.name);
+        } else {
+            moveOptimize.addAvoidRooms(room.name);
+        }
+    }
     room.memory.owner = room.controller?.owner?.username;
 
     // 外矿数据

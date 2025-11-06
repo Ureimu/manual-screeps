@@ -42,7 +42,7 @@ export default {
         copy({
             targets: [
                 { src: "./src/utils/PriorityQueue/priority_queue.wasm", dest: "./dist/" },
-                { src: "./src/utils/moveOptimize/moveOptimize.js", dest: "./dist/" },
+                { src: "./src/utils/moveOptimize/index.js", dest: "./dist/", rename: "moveOptimize.js" },
                 { src: "./src/utils/utf15/index.js", dest: "./dist/", rename: "utf15.js" }
                 // { src: "./src/profiler/index.js", dest:"./dist/", rename:"profiler.js" }
             ]
