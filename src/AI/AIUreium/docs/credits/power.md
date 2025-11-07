@@ -30,3 +30,5 @@ bank有2M血量，attacker伤害为600。
 平均cpu消耗，约为5.0/tick
 
 按时间计算，按照1500tick一轮，为6362c/tick
+
+实际单个房间平均50000tick出一个powerBank，按照单个房间收10个过道房来算，5000tick一个，平均为1908c/tick

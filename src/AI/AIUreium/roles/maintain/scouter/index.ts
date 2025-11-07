@@ -23,6 +23,7 @@ export function scouter(creep: Creep): void {
         if (scoutRoomName in moveOptimize.avoidRooms) {
             logger.log(`room:${scoutRoomName} is owner by others, not scouted.`);
             global.creepMemory[creep.name].scoutRoomName = undefined;
+            return;
         }
         const targetRoom = Game.rooms[scoutRoomName];
 
