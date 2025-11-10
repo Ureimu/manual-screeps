@@ -42,7 +42,7 @@ export function mountShiftTimeFunction() {
     });
 
     addShiftTimeFunction("mineralMiner", detail => {
-        if (!getRoomControlData(detail.roomName)?.harvestMineral) return false;
+        if (!getRoomControlData(detail.roomName).harvestMineral.run) return false;
         const data = numData(detail);
         if (!(data.aliveNum === 0 && data.queueNum === 0 && data.deadNum === 1)) return false;
 
