@@ -24,7 +24,7 @@ function run(creep: Creep): state {
 
     const freeSpacePosList = global.roomMemory[creep.room.name].freeSpacePosList;
     if (checkArray(freeSpacePosList)) {
-        if (!global.creepMemory[creep.name].parkingSpot) {
+        if (!global.creepMemory[creep.name]?.parkingSpot) {
             const closestSpot = creep.pos.findClosestByRange(
                 freeSpacePosList
                     .filter(({ creepName }) => {

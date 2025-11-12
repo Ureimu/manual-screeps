@@ -32,9 +32,9 @@ export class AcrossTick {
         if (!global.AcrossTickTaskFunction) {
             global.AcrossTickTaskFunction = {};
         }
-        if (taskName in global.AcrossTickTaskFunction) {
-            throw new Error(`[AcrossTick]: ${taskName} already defined in AcrossTickTaskFunction`);
-        }
+        // if (taskName in global.AcrossTickTaskFunction) {
+        //     throw new Error(`[AcrossTick]: ${taskName} already defined in AcrossTickTaskFunction`);
+        // }
         global.AcrossTickTaskFunction[taskName] = taskFunction;
     }
 

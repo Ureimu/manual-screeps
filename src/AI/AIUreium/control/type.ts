@@ -126,6 +126,15 @@ export interface RoomControlData {
          */
         stop: number;
     };
+    /**
+     * power处理设置
+     */
+    processPower: {
+        /**
+         * 是否执行power处理。
+         */
+        run: boolean;
+    };
 }
 
 export interface RoomStatus {
