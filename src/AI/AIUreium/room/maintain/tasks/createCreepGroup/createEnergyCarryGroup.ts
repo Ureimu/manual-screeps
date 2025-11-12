@@ -3,21 +3,20 @@ import { SpawnPool } from "frame/spawn/spawnPool";
 import { TaskObject } from "utils/Project";
 import { maintainRoomTaskArgs } from "../../taskRelation";
 
-export const carryGroupName = (roomName: string): string => `${roomName}c`;
-export const createCarryGroup: TaskObject<maintainRoomTaskArgs> = {
-    name: "createCarryGroup",
-    description: "createCarryGroup",
+export const energyCarryGroupName = (roomName: string): string => `${roomName}ce`;
+export const createEnergyCarryGroup: TaskObject<maintainRoomTaskArgs> = {
+    name: "createEnergyCarryGroup",
+    description: "createEnergyCarryGroup",
     start() {
         return "end";
     },
     working(roomName) {
         const room = Game.rooms[roomName];
-        const creepGroupName = carryGroupName(room.name);
+        const creepGroupName = energyCarryGroupName(room.name);
         CreepGroup.create({ creepGroupName, mode: "route", groupArguments: "" });
         for (let index = 0; index < 2; index++) {
             createCreepGroup(room, creepGroupName, index);
         }
-        CreepGroup.setCreepGroupProperties({ creepGroupName, mode: "role", roleName: "carrier" });
         return "end";
     },
     justFinished() {

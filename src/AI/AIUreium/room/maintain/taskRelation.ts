@@ -1,10 +1,10 @@
 import { buildSourceContainer } from "./tasks/harvester/buildSourceContainer";
 import { buildStructureBySource } from "./tasks/builder/buildStructureBySource";
 import { buildStructureByStorage } from "./tasks/builder/buildStructureByStorage";
-import { carrySource } from "./tasks/carrier/carrySource";
-import { carrySourceAndFill } from "./tasks/carrier/carrySourceAndFill";
+import { carrySource } from "./tasks/energyCarrier/carrySource";
+import { carrySourceAndFill } from "./tasks/energyCarrier/carrySourceAndFill";
 import { createBuildGroup } from "./tasks/createCreepGroup/createBuildGroup";
-import { createCarryGroup } from "./tasks/createCreepGroup/createCarryGroup";
+import { createEnergyCarryGroup } from "./tasks/createCreepGroup/createEnergyCarryGroup";
 import { createDefaultBodyparts } from "./tasks/createDefaultBodyparts";
 import { createFillSpawnGroup } from "./tasks/createCreepGroup/createFillSpawnGroup";
 import { createHarvestGroup } from "./tasks/createCreepGroup/createHarvestGroup";
@@ -19,7 +19,7 @@ import { createCenterCarryGroup } from "./tasks/createCreepGroup/createCenterCar
 import { centerTask1 } from "./tasks/centerCarrier/centerTask1";
 import { upgradeByLink } from "./tasks/upgrader/upgradeByLink";
 import { harvestToLink } from "./tasks/harvester/harvestToLink";
-import { stopCarrySource } from "./tasks/carrier/stopCarrySource";
+import { stopCarrySource } from "./tasks/energyCarrier/stopCarrySource";
 import { startOutwardsSourceTask } from "./tasks/startOutwardsSource";
 import { Project, startNodeName } from "utils/Project";
 import { TaskRelation, TaskCollection, DiagramMemory } from "utils/Project/type";
@@ -35,6 +35,7 @@ import { startGetPowerTask } from "./tasks/startGetPowerTask";
 import { createKeepLevelGroup } from "./tasks/createCreepGroup/createKeepLevelGroup";
 import { removeUpgraderToOne } from "./tasks/upgrader/removeUpgraderToOne";
 import { controllerLevelUpgradedTo } from "./tasks/utils/controllerLevelUpgraded";
+import { createCarryGroup } from "./tasks/createCreepGroup/createCarryGroup";
 
 const centerLinkHasBuilt = structureHasBuilt("link", "centerLink", 1);
 const sourceLinkHasBuilt = structureHasBuilt("link", "sourceLink", 2);
@@ -52,8 +53,8 @@ const taskRelation = {
     [createHarvestGroup.name]: [createDefaultBodyparts.name],
     [buildSourceContainer.name]: [createHarvestGroup.name],
     [keepHarvesting.name]: [buildSourceContainer.name],
-    [createCarryGroup.name]: [createDefaultBodyparts.name, keepHarvesting.name],
-    [carrySourceAndFill.name]: [createCarryGroup.name],
+    [createEnergyCarryGroup.name]: [createDefaultBodyparts.name, keepHarvesting.name],
+    [carrySourceAndFill.name]: [createEnergyCarryGroup.name],
     [createUpgradeGroup.name]: [carrySourceAndFill.name],
     [upgradeBySource.name]: [createUpgradeGroup.name],
     [createBuildGroup.name]: [createUpgradeGroup.name],
@@ -88,13 +89,14 @@ const taskRelation = {
     [startGetPowerTask.name]: [observerHasBuilt.name],
     [createKeepLevelGroup.name]: [createDefaultBodyparts.name],
     [controllerLevelUpgradedTo8.name]: [upgradeByLink.name],
-    [removeUpgraderToOne.name]: [controllerLevelUpgradedTo8.name]
+    [removeUpgraderToOne.name]: [controllerLevelUpgradedTo8.name],
+    [createCarryGroup.name]: [storageHasBuilt.name]
 };
 const taskCollection = registerObjectDeep(
     {
         createDefaultBodyparts,
         createHarvestGroup,
-        createCarryGroup,
+        createEnergyCarryGroup,
         buildSourceContainer,
         keepHarvesting,
         carrySourceAndFill,
@@ -132,7 +134,8 @@ const taskCollection = registerObjectDeep(
         startGetPowerTask,
         createKeepLevelGroup,
         removeUpgraderToOne,
-        controllerLevelUpgradedTo8
+        controllerLevelUpgradedTo8,
+        createCarryGroup
     },
     "maintainRoomProjectTaskCollection"
 );

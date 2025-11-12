@@ -30,5 +30,8 @@ export const defaultRoomControlData: RoomControlData = {
     controllerLink: {
         start: 0.95,
         stop: 1
+    },
+    processPower: {
+        run: true
     }
 };

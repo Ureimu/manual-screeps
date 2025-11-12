@@ -1,3 +1,5 @@
+import { processPower } from "AI/AIUreium/control/processPower";
+import { roomCarry } from "AI/AIUreium/control/roomCarry";
 import { DiagramMemory } from "utils/Project/type";
 import { initAiUreimuRoomMemory } from "../utils";
 import { getMaintainRoomProject } from "./taskRelation";
@@ -10,6 +12,10 @@ export function maintainRoom(): void {
             const maintainRoomProject = getMaintainRoomProject(room.name);
             maintainRoomProject.run();
             // console.log(room.name, JSON.stringify(maintainRoomProject.stats));
+            if (Game.time % 50 === 0) {
+                processPower(room);
+            }
+            roomCarry(room);
         }
     });
 }

@@ -11,6 +11,8 @@ import { maintainNewRoom } from "./room/newRoom";
 import { mountUreimuAiAll } from "./mount";
 import { observer } from "./structure/observer";
 import { runGetPower } from "./room/getPower";
+import { powerSpawn } from "./structure/powerSpawn";
+import { processPower } from "./control/processPower";
 export const runAi = registerFN((): void => {
     mountUreimuAiAll();
 
@@ -25,6 +27,7 @@ export const runAi = registerFN((): void => {
             link.run(room);
             terminal.run(room);
             observer.run(room);
+            powerSpawn.run(room);
         }
     });
 

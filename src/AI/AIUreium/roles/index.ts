@@ -2,6 +2,7 @@ import { CreepRoleList, registerCreepRole, runCreepByRole } from "frame/creep/ac
 import { gpAttacker } from "./getPower/gpAttacker";
 import { gpCarrier } from "./getPower/gpCarrier";
 import { gpHealer } from "./getPower/gpHealer";
+import { carrier } from "./maintain/carrier";
 import { centerCarrierTask2 } from "./maintain/centerCarrier";
 import { levelKeeper } from "./maintain/levelKeeper";
 import { mineralCarrier } from "./maintain/mineralCarrier";
@@ -26,7 +27,8 @@ export function callOnStart(): void {
             levelKeeper,
             mineralCarrier,
             oReserver,
-            oBuilder
+            oBuilder,
+            carrier
         };
         registerCreepRole(creepRoleList);
     }
