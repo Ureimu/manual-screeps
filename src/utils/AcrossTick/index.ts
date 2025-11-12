@@ -28,13 +28,17 @@ export class AcrossTick {
         this.task.executeTick = Game.time;
     }
 
-    public static mount(taskName: string, taskFunction: (arg0: AcrossTickMemory) => AcrossTickReturnCode): void {
+    public static mount(
+        taskName: string,
+        taskFunction: (arg0: AcrossTickMemory) => AcrossTickReturnCode,
+        redefine = false
+    ): void {
         if (!global.AcrossTickTaskFunction) {
             global.AcrossTickTaskFunction = {};
         }
-        // if (taskName in global.AcrossTickTaskFunction) {
-        //     throw new Error(`[AcrossTick]: ${taskName} already defined in AcrossTickTaskFunction`);
-        // }
+        if (!redefine && taskName in global.AcrossTickTaskFunction) {
+            throw new Error(`[AcrossTick]: ${taskName} already defined in AcrossTickTaskFunction`);
+        }
         global.AcrossTickTaskFunction[taskName] = taskFunction;
     }
 
@@ -50,7 +54,7 @@ export function newAcrossTickTask(
 ): void {
     const acrossTickTask = new AcrossTick();
     if (taskFunction) {
-        AcrossTick.mount(task.taskName, taskFunction);
+        AcrossTick.mount(task.taskName, taskFunction, true);
     }
     acrossTickTask.runAfterTicks(task);
     acrossTickTask.finish();
