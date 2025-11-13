@@ -5,7 +5,8 @@ export function gpHealer(creep: Creep, args: string[]) {
     const getPowerData = Memory.rooms[powerBankRoomName]?.powerBanks?.[powerBankId];
     if (!getPowerData) return;
     const powerBankPos = new RoomPosition(getPowerData.x, getPowerData.y, getPowerData.roomName);
-    if (!creep.pos.inRangeTo(powerBankPos, 15)) {
+    // 使用随机等待位置范围来使gpHealer不会发生高频对穿导致堵路的问题。
+    if (!creep.pos.inRangeTo(powerBankPos, _.random(10, 20))) {
         creep.moveTo(powerBankPos);
         return;
     }
