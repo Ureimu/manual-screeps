@@ -9,6 +9,7 @@ import { OutwardsSourceCheckInterval } from "./constant";
 import { logManager } from "utils/log4screeps";
 import { getOCarrierBodyRatio } from "AI/AIUreium/room/outwardsSource/tasks/createCreepGroup/createOCarryGroup";
 import { MAX_ENERGY_PER_CONTROLLER_LEVEL } from "utils/constants";
+import { RoomStatusOutwardsSource } from "./type";
 
 declare global {
     interface TaskStatus {
@@ -17,13 +18,28 @@ declare global {
 }
 const logger = logManager.createLogger("debug", "chooseSource");
 export function chooseSource(mainRoom: Room): void {
-    if (!getRoomControlData(mainRoom.name).outwardsSource) return;
-    logger.debug(`${mainRoom.name} chooseSource start`);
     const taskStatus = global.roomMemory[mainRoom.name].status;
     if (!taskStatus) throw new Error("no status, should init in callOnStart.ts");
     if (!taskStatus.outwardsSource)
         taskStatus.outwardsSource = { lastRunTime: Game.time, sources: {}, isRunning: false };
     const runningStatus = taskStatus.outwardsSource;
+    if (!getRoomControlData(mainRoom.name).outwardsSource.run) {
+        // 移除所有外矿。
+        const projectStorage = mainRoom.memory.AIUreium.outwardsSource;
+        if (Object.keys(projectStorage).length > 0) {
+            _.forEach(projectStorage, (projectRoomStorage, roomName) => {
+                if (!roomName) return;
+                _.forEach(projectRoomStorage, (project, sourceName) => {
+                    if (!sourceName) return;
+                    const sourceData = Memory.rooms[roomName].sources?.[sourceName].roomData[mainRoom.name];
+                    if (!sourceData) return;
+                    removeSource(mainRoom, runningStatus, sourceData);
+                });
+            });
+        }
+        return;
+    }
+    logger.debug(`${mainRoom.name} chooseSource start`);
     let sourceNum = 0;
     const { outwardsSource } = Constant;
     const storeEnergy = mainRoom.storage?.store[RESOURCE_ENERGY];
@@ -192,28 +208,7 @@ export function chooseSource(mainRoom: Room): void {
     index = sourceNum;
     while (index < sortedSourceDataList.length) {
         const sourceData = sortedSourceDataList[index];
-        if (sourceData && sourceData.inUse) {
-            runningStatus.sources[sourceData.sourceName] = {
-                isInUse: false,
-                isChosen: false,
-                isRemoved: true,
-                reason: `max limit exceed, removed.`
-            };
-            logger.debug(
-                `sourceData: ${sourceData.sourceName} stop outwardsSource index:${index}<${sortedSourceDataList.length}`
-            );
-            sourceData.inUse = false;
-
-            const sourcesMemoryData = Memory.rooms[sourceData.sourceRoomName].sources;
-            if (!sourcesMemoryData) return;
-            sourcesMemoryData[sourceData.sourceName].inUse = false;
-            sourcesMemoryData[sourceData.sourceName].originRoomName = undefined;
-            delete sourceData.path;
-            if (!mainRoom.memory.AIUreium.outwardsSource[sourceData.sourceRoomName]) {
-                mainRoom.memory.AIUreium.outwardsSource[sourceData.sourceRoomName] = {};
-            }
-            stopOutwardsSource(sourceData.originRoomName, sourceData.sourceRoomName, sourceData.sourceName);
-        }
+        removeSource(mainRoom, runningStatus, sourceData);
         index++;
     }
 }
@@ -226,4 +221,27 @@ function getAvailableMaxDistance(room: Room): number {
         Math.floor(MAX_ENERGY_PER_CONTROLLER_LEVEL[room.controller?.level ?? 0] / 50)
     );
     return bodySize / (ratios.carry + ratios.move);
+}
+
+function removeSource(mainRoom: Room, runningStatus: RoomStatusOutwardsSource, sourceData: OutwardsSourceData) {
+    if (sourceData && sourceData.inUse) {
+        runningStatus.sources[sourceData.sourceName] = {
+            isInUse: false,
+            isChosen: false,
+            isRemoved: true,
+            reason: `max limit exceed, removed.`
+        };
+        logger.debug(`sourceData: ${sourceData.sourceName} stop outwardsSource`);
+        sourceData.inUse = false;
+
+        const sourcesMemoryData = Memory.rooms[sourceData.sourceRoomName].sources;
+        if (!sourcesMemoryData) return;
+        sourcesMemoryData[sourceData.sourceName].inUse = false;
+        sourcesMemoryData[sourceData.sourceName].originRoomName = undefined;
+        delete sourceData.path;
+        if (!mainRoom.memory.AIUreium.outwardsSource[sourceData.sourceRoomName]) {
+            mainRoom.memory.AIUreium.outwardsSource[sourceData.sourceRoomName] = {};
+        }
+        stopOutwardsSource(sourceData.originRoomName, sourceData.sourceRoomName, sourceData.sourceName);
+    }
 }

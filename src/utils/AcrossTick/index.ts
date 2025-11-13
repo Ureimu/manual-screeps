@@ -1,7 +1,10 @@
+import { logManager } from "utils/log4screeps";
 import { registerFN } from "utils/profiler";
 import { profile } from "utils/profiler/decorator";
 import { runTask } from "./runTask";
 import { AcrossTickMemory, AcrossTickReturnCode } from "./type";
+
+const logger = logManager.createLogger("debug", "acrossTick");
 
 @profile
 export class AcrossTick {
@@ -67,13 +70,13 @@ export const runAllAcrossTickTask = registerFN((): void => {
     }
     if (!global.AcrossTickTaskFunction[""]) {
         global.AcrossTickTaskFunction[""] = (task: AcrossTickMemory): AcrossTickReturnCode => {
-            console.log(`An empty task was detected`);
+            logger.log(`An empty task was detected`);
             return "emptyTask";
         };
     }
     if (!global.AcrossTickTaskFunction.test) {
         global.AcrossTickTaskFunction.test = (task: AcrossTickMemory): AcrossTickReturnCode => {
-            console.log(
+            logger.debug(
                 `${Game.time} Running TickTask: ${task.taskName},args:${JSON.stringify(task.args)} created in ${
                     task.taskCreateTick as number
                 } succeed`
@@ -84,7 +87,7 @@ export const runAllAcrossTickTask = registerFN((): void => {
     Object.keys(Memory.AcrossTick)
         .filter(time => Number(time) < Game.time)
         .forEach(time => {
-            console.log(`delete out-of-date TickTask: ${time}`);
+            logger.debug(`delete out-of-date TickTask: ${time}`);
             delete Memory.AcrossTick[time];
         });
     runSpecifiedTickTask(Game.time);
@@ -94,7 +97,7 @@ function runSpecifiedTickTask(tick: number): void {
     if (Memory.AcrossTick[tick]) {
         const taskList = Memory.AcrossTick[tick].slice(0); // 复制一份拷贝,避免后面执行时更改memory引发错误
         for (const task of taskList) {
-            // console.log(`Running TickTask: ${task.taskName}`);
+            // logger.log(`Running TickTask: ${task.taskName}`);
             const returnCode = runTask(task);
             runAfterTask(returnCode, task);
         }
@@ -105,17 +108,17 @@ function runSpecifiedTickTask(tick: number): void {
 export function runAfterTask(returnCode: AcrossTickReturnCode, task: AcrossTickMemory): AcrossTickReturnCode {
     switch (returnCode) {
         case "finish": {
-            if (task.log) console.log(`Running TickTask finished: ${task.taskName}`);
+            if (task.log) logger.log(`Running TickTask finished: ${task.taskName}`);
             // Memory.AcrossTick[task.executeTick].splice(Memory.AcrossTick[task.executeTick].indexOf(task), 1);
             return "finish";
         }
         case "emptyTask": {
-            if (task.log) console.log(`Running emptyTask finished: ${task.taskName}`);
+            if (task.log) logger.log(`Running emptyTask finished: ${task.taskName}`);
             return "emptyTask";
         }
         case "runAgain": {
             newAcrossTickTask(task);
-            // if (task.log) console.log(`Running TickTask finished: ${task.taskName}, this task will run again at ${task.executeTick}`);
+            // if (task.log) logger.log(`Running TickTask finished: ${task.taskName}, this task will run again at ${task.executeTick}`);
             return "runAgain";
         }
         default:
