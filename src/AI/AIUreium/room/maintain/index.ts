@@ -1,3 +1,4 @@
+import { carryMineral } from "AI/AIUreium/control/carryMineral";
 import { processPower } from "AI/AIUreium/control/processPower";
 import { roomCarry } from "AI/AIUreium/control/roomCarry";
 import { DiagramMemory } from "utils/Project/type";
@@ -14,6 +15,7 @@ export function maintainRoom(): void {
             // console.log(room.name, JSON.stringify(maintainRoomProject.stats));
             if (Game.time % 50 === 0) {
                 processPower(room);
+                carryMineral(room);
             }
             roomCarry(room);
         }

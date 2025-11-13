@@ -28,7 +28,6 @@ import { createMineGroup } from "./tasks/createCreepGroup/createMineGroup";
 import { keepMining } from "./tasks/miner/keepMining";
 import { centerTask2 } from "./tasks/centerCarrier/centerTask2";
 import { startNewRoomTask } from "./tasks/startNewRoomTask";
-import { createMineCarryGroup } from "./tasks/createCreepGroup/createMineCarryGroup";
 import { stopScout } from "./tasks/scouter/stopScout";
 import { initAiUreimuRoomMemory } from "../utils";
 import { startGetPowerTask } from "./tasks/startGetPowerTask";
@@ -83,7 +82,6 @@ const taskRelation = {
     [mineralContainerHasBuilt.name]: [extractorHasBuilt.name],
     [createMineGroup.name]: [mineralContainerHasBuilt.name],
     [keepMining.name]: [createMineGroup.name],
-    [createMineCarryGroup.name]: [keepMining.name],
     [centerTask2.name]: [centerTask1.name, terminalHasBuilt.name],
     [stopScout.name]: [observerHasBuilt.name],
     [startGetPowerTask.name]: [observerHasBuilt.name],
@@ -129,7 +127,6 @@ const taskCollection = registerObjectDeep(
         keepMining,
         centerTask2,
         startNewRoomTask,
-        createMineCarryGroup,
         stopScout,
         startGetPowerTask,
         createKeepLevelGroup,
