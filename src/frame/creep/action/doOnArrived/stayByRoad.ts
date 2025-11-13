@@ -7,6 +7,7 @@ import { state } from "..";
 import { runningCounter } from "./utils/runningCounter";
 
 function run(creep: Creep): state {
+    if (!global.creepMemory[creep.name]) return "moving";
     if (!global.roomMemory?.[creep.room.name]?.freeSpacePosList) {
         if (!global.roomMemory) global.roomMemory = {};
         const posList = creep.room.memory.construct.freeSpacePosList as string[];
@@ -77,7 +78,7 @@ AcrossTick.mount("checkPosOccupation", ({ args }) => {
     const [creepName, roomName] = args as string[];
     if (!global.creepMemory[creepName]) return "runAgain";
     const creep = Game.creeps[creepName];
-    const parkingSpot = global.creepMemory[creepName]?.parkingSpot;
+    const parkingSpot = global.creepMemory[creepName].parkingSpot;
     if (!creep) {
         // console.log(`[creep] ${creepName} 由于不存在而放弃了parkingSpot`);
         global.creepMemory[creepName].checkPosOccupation = false;
@@ -132,7 +133,8 @@ function checkAllParkingSpot(roomName: string, creepName: string): AcrossTickRet
         }
         return "finish";
     } else {
-        throw new TypeError("freeSpacePosList类型不正确");
+        // freeSpacePosList不存在，直接结束任务
+        return "finish";
     }
 }
 

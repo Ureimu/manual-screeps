@@ -12,8 +12,8 @@ import { roomVisualize } from "./visual/roomVisual";
 
 export const runFrame = registerFN((): void => {
     if (global.mf?.hasClearAll && Game.cpu.halt) Game.cpu.halt();
-    runAllAcrossTickTask();
     mountAll();
+    runAllAcrossTickTask();
     if (Game.time % 1500 === 0) clearUnusedCreepMemory();
     Object.values(Game.rooms).forEach(room => {
         const start = Game.cpu.getUsed();
