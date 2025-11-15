@@ -21,7 +21,9 @@ export function carryMineral(room: Room) {
         const containerFlagName = Game.flags[mineralFlagName].pos.findInRange(FIND_FLAGS, 1, {
             filter: i => i.name.indexOf("container") !== -1 && i.name.indexOf("ConstructionSite") === -1
         })[0]?.name;
-        const container = Game.flags[containerFlagName].pos
+        const flag = Game.flags[containerFlagName];
+        if (!flag) return;
+        const container = flag.pos
             .lookFor(LOOK_STRUCTURES)
             .filter((i): i is StructureContainer => i.structureType === "container")[0];
         if (!container) return;
