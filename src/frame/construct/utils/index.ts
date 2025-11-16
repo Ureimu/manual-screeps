@@ -61,11 +61,11 @@ export function getStructureIdList<T extends RequireStructureData>(
     roomName: string,
     requireStructureList: T
 ): ReturnStructureList<T> {
-    if (!creep.globalMemory.structureCache) creep.globalMemory.structureCache = {};
-    if (Game.time % 1500 === 0) {
+    if (Game.time % 1500 === 0 && creep.globalMemory.structureCache) {
         // 定时清空重置缓存
         delete creep.globalMemory.structureCache[roomName];
     }
+    if (!creep.globalMemory.structureCache) creep.globalMemory.structureCache = {};
 
     if (!creep.globalMemory.structureCache[roomName]) {
         const dataRes = Object.entries(requireStructureList).map(([structureType, data]) => {

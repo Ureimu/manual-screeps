@@ -9,35 +9,32 @@ import {
     SpecifiedStructureNameList,
     SpecifiedStructureInf
 } from "frame/construct/type";
+import { logManager } from "utils/log4screeps";
 import { PosStr } from "utils/RoomPositionToStr";
 import { getLayoutFromSegment } from "./getLayoutFromSegment";
 import { getTotalSiteNum } from "./utils/getTotalSiteNum";
+import { getAllSpecifiedTypeMemory } from "./utils/structureMemory";
 
-const debugMode = false;
-const debugMMode = false;
-const debug = (str: string, level: LogLevel = "log") =>
-    debugMode ? console.log(consoleStyle("RunLayout")(str, level)) : void 0;
-const debugM = (str: string, level: LogLevel = "log") =>
-    debugMMode ? console.log(consoleStyle("getAllSpecifiedTypeMemory")(str, level)) : void 0;
+const logger = logManager.createLogger("info", "RunLayout");
 export function runLayout(room: Room): void {
-    debug(room.name);
+    logger.debug(room.name);
     const construct = room.memory.construct;
     if (!construct.layout) {
-        debug(`尝试获取layout ${Game.time}`);
+        logger.debug(`尝试获取layout ${Game.time}`);
         const cacheLayoutData = getLayoutFromSegment(room.name);
         if (cacheLayoutData) {
-            debug("获取layout完成");
+            logger.debug("获取layout完成");
             construct.layout = cacheLayoutData.layout;
             construct.centerPos = cacheLayoutData.centerPos;
             construct.freeSpacePosList = cacheLayoutData.freeSpacePosList;
         }
     }
     if (!construct.layout) {
-        debug(`提前返回：construct.layout 不存在`, "error");
+        logger.debug(`提前返回：construct.layout 不存在`, "error");
         return;
     }
     let totalSitesNum = getTotalSiteNum();
-    debug(`初始工地数量: ${totalSitesNum}`);
+    logger.debug(`初始工地数量: ${totalSitesNum}`);
     Object.entries(construct.layout).some(entry => {
         const constructionName = entry[0] as BuildableStructureConstant;
 
@@ -56,7 +53,7 @@ export function runLayout(room: Room): void {
         const buildNumberLimit = CONTROLLER_STRUCTURES[constructionName][level];
         const requireList = layoutStructureList;
         if (!requireList) {
-            debug(`${constructionName} posStrList不存在,跳过`);
+            logger.debug(`${constructionName} posStrList不存在,跳过`);
             return false;
         }
 
@@ -70,13 +67,13 @@ export function runLayout(room: Room): void {
         return false;
     });
     if (!construct.layout || !construct.construction) {
-        debug(`提前返回：construct.layout 或 construct.construction 不存在`, "error");
+        logger.debug(`提前返回：construct.layout 或 construct.construction 不存在`, "error");
         return;
     }
     if (!global.roomMemory) global.roomMemory = {};
     if (!global.roomMemory[room.name]) global.roomMemory[room.name] = {};
     const specifiedTypeMemory = getAllSpecifiedTypeMemory(room);
-    debug(`更新全局建筑内存：${JSON.stringify(specifiedTypeMemory, null, 2)}`);
+    logger.debug(`更新全局建筑内存：${JSON.stringify(specifiedTypeMemory, null, 2)}`);
     global.roomMemory[room.name].construction = specifiedTypeMemory;
 }
 
@@ -193,7 +190,7 @@ function putConstructionSites<T extends BuildableStructureConstant>(
                         id: structure.id,
                         pos: structurePosStr
                     });
-                    debug(
+                    logger.debug(
                         `${structureType} structureList 添加了${structurePosStr}, 现在长度为${specifiedConstruction.siteList.length}`
                     );
                 }
@@ -225,7 +222,7 @@ function putConstructionSites<T extends BuildableStructureConstant>(
                         id: site.id,
                         pos: structurePosStr
                     });
-                    debug(
+                    logger.debug(
                         `${structureType} siteList 添加了${structurePosStr}, 现在长度为${specifiedConstruction.siteList.length}`
                     );
                 }
@@ -244,10 +241,10 @@ function putConstructionSites<T extends BuildableStructureConstant>(
         });
         if (hasFoundStructureSite) return true;
         if (totalSitesNum < MAX_CONSTRUCTION_SITES) {
-            debug(`未检索到 ${structureType} 在 ${posStr} 已建成建筑或工地,尝试放置工地.`);
+            logger.debug(`未检索到 ${structureType} 在 ${posStr} 已建成建筑或工地,尝试放置工地.`);
             const returnCode = room.createConstructionSite(PosStr.getPosFromStr(posStr), structureType);
             if (returnCode === ERR_RCL_NOT_ENOUGH) {
-                debug(`${structureType}放置数量已经达到rcl上限。`);
+                logger.debug(`${structureType}放置数量已经达到rcl上限。`);
                 return true;
             }
             if (returnCode === ERR_FULL) {
@@ -304,93 +301,4 @@ function removeStructureFromConstructionMemory<T extends StructureConstant>(
     if (findStructureSiteIndex !== -1) {
         _.pullAt(structureConstructionMemory.siteList as { pos: string; id: string }[], findStructureSiteIndex);
     }
-}
-
-/**
- * 
- *  实现specifiedType.
-    根据C1和A的建筑位置进行遍历对比即可生成specifiedType的表。
-    因为很容易生成所以放在global上。
-    每次建筑更新的时候也更新这个表。
- */
-function getAllSpecifiedTypeMemory(room: Room): FullSpecifiedStructureMemory {
-    const start = Game.cpu.getUsed();
-    const construction = room.memory.construct.construction;
-    const layout = room.memory.construct.layout;
-    if (!layout || !construction) throw Error("how");
-    const fullMemory: FullSpecifiedStructureMemory = {};
-    Object.entries(layout).forEach(([name, tLayout]) => {
-        const structureType = name as BuildableStructureConstant;
-        fullMemory[structureType] = {};
-        const typedFullMemory = fullMemory[structureType];
-        if (!typedFullMemory) return;
-        const cTypedFullMemory = typedFullMemory as {
-            [name: string]: SpecifiedStructureInf<
-                BuildableStructureConstant,
-                SpecifiedStructureNameList<BuildableStructureConstant>
-            >;
-        };
-        const typedConstruction = construction[structureType];
-        if (!typedConstruction) return;
-        const structureList = typedConstruction.structureList as {
-            pos: string;
-            id: Id<ConcreteStructure<BuildableStructureConstant>>;
-        }[];
-        const siteList = typedConstruction.siteList as {
-            pos: string;
-            id: Id<ConstructionSite<BuildableStructureConstant>>;
-        }[];
-        if (!tLayout) return;
-        Object.entries(tLayout).forEach(([sName, sLayout]) => {
-            const specifiedName = sName as SpecifiedStructureNameList<BuildableStructureConstant>;
-            cTypedFullMemory[specifiedName] = {
-                hasBuilt: false,
-                hasPutSites: false,
-                siteList: [],
-                structureList: [],
-                type: specifiedName
-            };
-            const specifiedTypedMemory = cTypedFullMemory[specifiedName];
-            if (!sLayout?.requireList) return;
-            const requireList = sLayout.requireList.filter(([, levelToBuild]) => {
-                return levelToBuild <= (room.controller?.level as number);
-            });
-            requireList.forEach(([posStr]) => {
-                const foundStructure = structureList.find(({ pos }) => pos === posStr);
-                if (foundStructure && Game.getObjectById(foundStructure.id)) {
-                    specifiedTypedMemory.structureList.push({ pos: foundStructure.pos, id: foundStructure.id });
-                }
-                const foundSite = siteList.find(({ pos }) => pos === posStr);
-                if (foundSite) {
-                    (
-                        specifiedTypedMemory.siteList as {
-                            pos: string;
-                            id: Id<ConstructionSite<BuildableStructureConstant>>;
-                        }[]
-                    ).push({ pos: foundSite.pos, id: foundSite.id });
-                }
-            });
-            debugM(
-                `${specifiedName} requireList:${requireList.length} structureList: ${specifiedTypedMemory.structureList.length} siteList: ${specifiedTypedMemory.siteList.length}`,
-                "log"
-            );
-            if (requireList.length === specifiedTypedMemory.structureList.length) {
-                specifiedTypedMemory.hasBuilt = true;
-            } else {
-                specifiedTypedMemory.hasBuilt = false;
-            }
-            if (
-                requireList.length ===
-                specifiedTypedMemory.structureList.length + specifiedTypedMemory.siteList.length
-            ) {
-                specifiedTypedMemory.hasPutSites = true;
-            } else {
-                specifiedTypedMemory.hasPutSites = false;
-            }
-        });
-    });
-    const end = Game.cpu.getUsed();
-    debugM(`cost: ${(end - start).toFixed(4)}`, "log");
-    // 消耗约0.2
-    return fullMemory;
 }
