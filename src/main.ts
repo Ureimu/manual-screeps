@@ -8,6 +8,10 @@ require("moveOptimize");
 global.version = "0.1.1";
 enable();
 export const loop = ErrorMapper.wrapLoop(() => {
+    if (Memory.stopTicks && Memory.stopTicks > 0) {
+        Memory.stopTicks -= 1;
+        return;
+    }
     wrap(function () {
         runFrame();
         runAi();

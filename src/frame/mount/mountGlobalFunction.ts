@@ -21,6 +21,7 @@ declare global {
                 testConsoleCommit: (args: { uploadedFile: string }) => string;
                 resetAllMaintainTaskProject: () => void;
                 stats: () => void;
+                stopFor: (ticks: number) => void;
                 id: string;
                 hasClearAll: boolean;
             };
@@ -40,7 +41,8 @@ export default function mountGlobalMicroFunction(): void {
         id: "",
         resetAllMaintainTaskProject,
         stats,
-        hasClearAll: false
+        hasClearAll: false,
+        stopFor
     };
 }
 const logger = logManager.createLogger("debug", "GlobalFunction");
@@ -143,4 +145,8 @@ function resetAllMaintainTaskProject(): void {
     for (const roomName in Game.rooms) {
         getMaintainRoomProject(roomName).reset();
     }
+}
+
+function stopFor(ticks: number) {
+    Memory.stopTicks = ticks;
 }
