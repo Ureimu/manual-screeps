@@ -47,7 +47,6 @@ const sumPower = _.reduce(
 );
 
 interface ObserveData {
-    roomList: string[];
     specifiedRooms: { [name in RoomType]: string[] };
 
     indexList: { [name in RoomType]: number };
@@ -71,7 +70,6 @@ function observe(room: Room) {
         const fullRoomList = getSurroundingRoomNames(room.name, 5);
         logger.debug(JSON.stringify(fullRoomList, null, 4));
         observeData[room.name] = {
-            roomList: fullRoomList,
             specifiedRooms: {
                 highwayRoom: fullRoomList.filter(i => checkHighwayRoomName.test(i)),
                 controllerRoom: fullRoomList.filter(i => checkControllerRoomName.test(i)),
@@ -87,13 +85,15 @@ function observe(room: Room) {
         };
     }
 
+    //logger.debug(JSON.stringify(observeData[room.name], null, 4));
+
     const obData = observeData[room.name];
     const sign = obData.count % sumPower;
     const entry = powerRightValueEntries.find(i => i[1] > sign);
     if (!entry) throw new Error("how");
     const roomType = entry[0];
 
-    const obRoomName = obData.roomList[obData.indexList[roomType]];
+    const obRoomName = obData.specifiedRooms[roomType][obData.indexList[roomType]];
 
     if (Game.time % checkInterval === 0) {
         observer.observeRoom(obRoomName);
