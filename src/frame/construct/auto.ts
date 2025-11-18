@@ -77,17 +77,27 @@ export const autoConstruction = registerFN((room: Room): void => {
 
     let refreshTime = 75;
     const startTime = room.memory.construct.startTime;
+    if (Game.cpu.bucket > 1e3) {
+        refreshTime = 100;
+    } else {
+        refreshTime = 300;
+    }
+    if ((room.controller?.level ?? 0) >= 8) {
+        refreshTime = 1000;
+    }
     if (Game.time - startTime <= 60) {
         if (Game.cpu.bucket > 1e3) {
-            refreshTime = 50;
+            refreshTime = 5;
         } else {
-            refreshTime = 300;
-        }
-
-        if ((room.controller?.level ?? 0) >= 8) {
-            refreshTime = 1000;
+            refreshTime = 15;
         }
     }
+
+    // 重置global时运行，以生成全局建筑缓存
+    if (Game.time - global.lastResetTime === 0 || Game.time - global.lastResetTime === 1) {
+        runLayout(room);
+    }
+
     // logger.log(`autoConstruction ${room.name} ${(Game.time - startTime) % refreshTime}`);
     if (
         (Game.time - startTime) % refreshTime === refreshTime - 1 ||
