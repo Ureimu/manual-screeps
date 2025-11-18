@@ -1,6 +1,9 @@
+import { logManager } from "utils/log4screeps";
 import mountCommit from "./mountCommit";
 import mountGlobalFunctionClass from "./mountGlobalFunctionClass";
 import mountGlobalHelp from "./mountHelp";
+
+const logger = logManager.createLogger("info", "mount.UreimuAi");
 
 export function mountUreimuAiAll(): void {
     if (!global.AIUreium) {
@@ -12,6 +15,6 @@ export function mountUreimuAiAll(): void {
             reset: true,
             lastResetTime: Game.time - 1
         };
-        console.log("[mount] 挂载Ureimu Ai扩展");
+        logger.log("挂载Ureimu Ai扩展");
     }
 }

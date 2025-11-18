@@ -66,8 +66,7 @@ export function getAllSpecifiedTypeMemory(room: Room): FullSpecifiedStructureMem
                 }
             });
             logger.debug(
-                `${specifiedName} requireList:${requireList.length} structureList: ${specifiedTypedMemory.structureList.length} siteList: ${specifiedTypedMemory.siteList.length}`,
-                "log"
+                `${specifiedName} requireList:${requireList.length} structureList: ${specifiedTypedMemory.structureList.length} siteList: ${specifiedTypedMemory.siteList.length}`
             );
             if (requireList.length === specifiedTypedMemory.structureList.length) {
                 specifiedTypedMemory.hasBuilt = true;
@@ -85,7 +84,7 @@ export function getAllSpecifiedTypeMemory(room: Room): FullSpecifiedStructureMem
         });
     });
     const end = Game.cpu.getUsed();
-    logger.debug(`cost: ${(end - start).toFixed(4)}`, "log");
+    logger.debug(`cost: ${(end - start).toFixed(4)}`);
     // 消耗约0.2
     return fullMemory;
 }

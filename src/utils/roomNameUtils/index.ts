@@ -1,6 +1,7 @@
 const ROOM_NAME_REGEX = /^([EW])(\d{1,3})([NS])(\d{1,3})$/;
 export const checkHighwayRoomName = /^[EW](?:\d{1,2}0|0)[NS]\d{1,3}$|^[EW]\d{1,3}[NS](?:\d{1,2}0|0)$/;
 export const checkControllerRoomName = /(^[WE]\d*[1-9]+[NS]\d*[1-3|7-9]+$)|(^[WE]\d*[1-3|7-9]+[NS]\d*[1-9]+$)/;
+export const checkCenterRoomName = /^[WE]\d*[4-6]+[NS]\d*[4-6]+$/;
 /**
  * 解析房间名，返回对象 { ew, x, ns, y }
  */

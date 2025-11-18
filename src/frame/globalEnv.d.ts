@@ -16,6 +16,7 @@ namespace NodeJS {
 
 interface Memory {
     version: string;
+    stopTicks?: number;
 }
 
 /**
