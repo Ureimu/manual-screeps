@@ -72,6 +72,10 @@ export class SpawnPool {
         const { creepName, roomName } = args;
         // console.log(creepName);
         delete Memory.rooms[roomName].spawnPool[creepName];
+        const index = Memory.rooms[roomName].diedCreepList.findIndex(i => i === creepName);
+        if (index !== -1) {
+            Memory.rooms[roomName].diedCreepList.splice(index, 1);
+        }
         const message = `删除在 ${roomName} 的creep ${creepName} 完成`;
         logger.info(message);
         return message;
