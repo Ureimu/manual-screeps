@@ -20,6 +20,7 @@ declare global {
 export function choosePowerBank(mainRoom: Room): void {
     const taskControl = getRoomControlData(mainRoom.name).getPower;
     if (!taskControl) return;
+    if (!taskControl.run) return;
     logger.info(`${mainRoom.name} choosePowerBank`);
     if (!mainRoom.memory.status) {
         mainRoom.memory.status = {};
