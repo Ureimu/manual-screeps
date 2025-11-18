@@ -1,7 +1,10 @@
+import { logManager } from "utils/log4screeps";
 import { CreepAction } from ".";
 import { state } from "..";
 
 const tickLag = 100;
+const logger = logManager.createLogger("info", "scouter");
+
 function run(creep: Creep): state {
     const creepGlobalMemory = global.creepMemory[creep.name];
     const scoutRoomName = creepGlobalMemory.scoutRoomName;
@@ -9,7 +12,7 @@ function run(creep: Creep): state {
     const targetRoom = Game.rooms[scoutRoomName as string];
 
     if (typeof targetRoom !== "undefined") {
-        console.log(`进入room${targetRoom.name}`);
+        logger.log(`进入room${targetRoom.name}`);
         // getNewSource(targetRoom);
         // getScoutInfo(targetRoom);
         // manageOutwardsSourceMaintain(targetRoom);

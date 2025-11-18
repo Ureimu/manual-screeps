@@ -2,10 +2,13 @@ import { Constant } from "AI/AIUreium/control/constants/roomTaskControl";
 import { calcGetPowerSpawnTime } from "AI/AIUreium/control/getPower/calcSpawnTime";
 import { CreepGroup } from "frame/creep/group";
 import { SpawnPool } from "frame/spawn/spawnPool";
+import { logManager } from "utils/log4screeps";
 import { TaskObject } from "utils/Project";
 import { getPowerTaskArgs } from "../taskRelation";
 import { getGPAttackerGroupName } from "./createCreepGroup/createGPAttackerGroup";
 import { getGPHealerGroupName } from "./createCreepGroup/createGPHealerGroup";
+
+const logger = logManager.createLogger("info", "getPower.spawn");
 
 export const spawnAttackerAndHealer: TaskObject<getPowerTaskArgs> = {
     name: "spawnAttackerAndHealer",
@@ -26,7 +29,7 @@ export const spawnAttackerAndHealer: TaskObject<getPowerTaskArgs> = {
         if (nextTime > passedTime) {
             return "running";
         }
-        console.log(`passedTime:${nextTime}, create ${attackerCreepGroupName}`);
+        logger.log(`passedTime:${nextTime}, create ${attackerCreepGroupName}`);
         createNewCreep(room, attackerCreepGroupName, healerCreepGroupName, index);
         args[4] = `${index + 1}`;
         if (index + 1 < Constant.getPower.spawnAttackerCount) return "running";

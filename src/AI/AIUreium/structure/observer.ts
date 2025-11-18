@@ -16,7 +16,7 @@ const unwrappedObserver = {
 unwrappedObserver.run = registerFN(unwrappedObserver.run, "structure.observer.run");
 export const observer = unwrappedObserver;
 
-const logger = logManager.createLogger("debug", "observer");
+const logger = logManager.createLogger("info", "observer");
 
 const observeData: { [roomName: string]: ObserveData } = {};
 
@@ -99,7 +99,7 @@ function observe(room: Room) {
         observer.observeRoom(obRoomName);
     }
     if (Game.time % checkInterval === 1) {
-        logger.log(`${room.name} observe ${obRoomName}`);
+        logger.debug(`${room.name} observe ${obRoomName}`);
         if (Game.rooms[obRoomName]) recordRoomData(Game.rooms[obRoomName]);
 
         obData.count += 1;

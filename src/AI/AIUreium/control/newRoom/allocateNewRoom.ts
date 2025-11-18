@@ -1,15 +1,18 @@
 import { startNewRoom } from "AI/AIUreium/room/newRoom/start";
 import { avoidEnemyRooms, getCostMatrix } from "frame/construct/utils/costMatrix";
+import { logManager } from "utils/log4screeps";
 import { getMyRoom } from "utils/roomTools";
 import { getRoomControlData } from "..";
 import { getNewRoom } from "./getRoom";
+
+const logger = logManager.createLogger("info", "allocateNewRoom");
 
 export function allocateNewRoom(): void {
     const newRoomName = getNewRoom();
     if (!newRoomName) return;
     const myClosestRoomName = getMyClosestRoom(newRoomName);
     if (!myClosestRoomName) {
-        console.log(`找不到能够claim${newRoomName}的房间`);
+        logger.log(`找不到能够claim${newRoomName}的房间`);
         return;
     }
     startNewRoom(myClosestRoomName, newRoomName);

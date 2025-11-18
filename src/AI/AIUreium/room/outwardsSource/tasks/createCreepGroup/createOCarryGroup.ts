@@ -4,8 +4,10 @@ import { ControllerLevels } from "frame/creep/body/type";
 import { CreepGroup } from "frame/creep/group";
 import { SpawnPool } from "frame/spawn/spawnPool";
 import { MAX_ENERGY_PER_CONTROLLER_LEVEL } from "utils/constants";
+import { logManager } from "utils/log4screeps";
 import { TaskObject } from "utils/Project";
 import { outwardsSourceTaskArgs } from "../../taskRelation";
+const logger = logManager.createLogger("info", "createOCarryGroup");
 export const OCarryGroupCreepName = (roomName: string, sourceName: string): string => `${roomName}oc${sourceName}`;
 export const createOCarryGroup: TaskObject<outwardsSourceTaskArgs> = {
     name: "createOCarryGroup",
@@ -18,7 +20,7 @@ export const createOCarryGroup: TaskObject<outwardsSourceTaskArgs> = {
         if (!sourceData) return "running";
         const pathLength = sourceData.pathLength;
         if (pathLength === 0) {
-            console.log("sourceData.pathLength should not be zero");
+            logger.log("sourceData.pathLength should not be zero");
             return "running";
         }
 

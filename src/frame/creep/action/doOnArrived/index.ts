@@ -1,4 +1,5 @@
 import { RouteMidpointDetail } from "frame/creep/routePlan/type";
+import { logManager } from "utils/log4screeps";
 import { registerFN } from "utils/profiler";
 import { state } from "..";
 import { attackAll } from "./attackAll";
@@ -23,6 +24,7 @@ import { transferEnergy } from "./transferEnergy";
 import { upgradeController } from "./upgradeController";
 import { withdraw } from "./withdraw";
 import { withdrawEnergy } from "./withdrawEnergy";
+const logger = logManager.createLogger("info", "creepAction.doOnArrived");
 
 export interface CreepAction {
     run: (creep: Creep, actionArgs?: string[]) => state;
@@ -68,7 +70,7 @@ export function switchDoWhenArrive(routeDetail: RouteMidpointDetail, creep: Cree
             routeDetail.actionArgs ? routeDetail.actionArgs.split(",") : undefined
         );
     } else {
-        console.log(`${routeDetail.doWhenArrive} 不在doStuff预设值内`);
+        logger.log(`${routeDetail.doWhenArrive} 不在doStuff预设值内`);
         return "arrived";
     }
 }

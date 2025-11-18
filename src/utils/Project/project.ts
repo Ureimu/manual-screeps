@@ -1,12 +1,14 @@
 import { DiagramMemory, TaskCollection, TaskObject, TaskRelation } from "./type";
 import { ProjectEngine } from "./engine";
 import { ProjectNetworkDiagram } from "./storage";
+import { logManager } from "utils/log4screeps";
+const logger = logManager.createLogger("info", "Project");
 
 export abstract class Project<TaskArgs extends unknown[], MemoryAddressArgs extends unknown[]> {
     public constructor(taskArgs: TaskArgs, memoryAddressArgs: MemoryAddressArgs) {
         this.memoryAddressArgs = memoryAddressArgs;
         this.taskArgs = taskArgs;
-        console.log(this.taskArgs);
+        logger.log(`init project, args: ${String(this.taskArgs)}`);
         this.diagram = new ProjectNetworkDiagram(this.getMemory());
         this.getMemory().diagram = this.diagram.diagramDict;
     }
