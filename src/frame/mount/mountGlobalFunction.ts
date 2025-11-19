@@ -8,6 +8,7 @@ import { createFlattenHelp } from "utils/console/flattenHelp";
 import { createForm } from "utils/console/form";
 import { stats } from "frame/ui";
 import { logManager } from "utils/log4screeps";
+import { calcPowerToGPL } from "utils/gameLevel";
 
 declare global {
     namespace NodeJS {
@@ -24,6 +25,7 @@ declare global {
                 stopFor: (ticks: number) => void;
                 id: string;
                 hasClearAll: boolean;
+                calcGPL: (gplLevel: number) => number;
             };
         }
     }
@@ -42,7 +44,8 @@ export default function mountGlobalMicroFunction(): void {
         resetAllMaintainTaskProject,
         stats,
         hasClearAll: false,
-        stopFor
+        stopFor,
+        calcGPL: calcPowerToGPL
     };
 }
 const logger = logManager.createLogger("debug", "GlobalFunction");
