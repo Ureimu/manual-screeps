@@ -12,7 +12,6 @@ import { mountUreimuAiAll } from "./mount";
 import { observer } from "./structure/observer";
 import { runGetPower } from "./room/getPower";
 import { powerSpawn } from "./structure/powerSpawn";
-import { processPower } from "./control/processPower";
 export const runAi = registerFN((): void => {
     mountUreimuAiAll();
 

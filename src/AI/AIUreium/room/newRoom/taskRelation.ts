@@ -19,10 +19,9 @@ const taskRelation = {
 const taskCollection = { createClaimer, deleteClaimer, createSuccor, deleteSuccor };
 export class NewRoomProject extends Project<newRoomTaskArgs, MemoryAddressArgs> {
     public constructor(taskArgs: newRoomTaskArgs, memoryAddressArgs: MemoryAddressArgs) {
-        super(taskArgs, memoryAddressArgs);
+        super("newRoom", taskArgs, memoryAddressArgs);
         // this.wrapTaskCollection(); // 注册所有task到profiler模块，可选
     }
-    public name = "newRoom";
     public taskRelation: TaskRelation = taskRelation;
     public taskCollection: TaskCollection<newRoomTaskArgs> = taskCollection;
     /**

@@ -34,10 +34,10 @@ const taskCollection = registerObjectDeep(
 export type getPowerTaskArgs = [originRoomName: string, powerBankRoomName: string, powerBankId: string];
 class getPowerProject extends Project<getPowerTaskArgs, getPowerTaskArgs> {
     public constructor(taskArgs: getPowerTaskArgs, memoryAddressArgs: getPowerTaskArgs) {
-        super(taskArgs, memoryAddressArgs);
+        super("getPowerProject", taskArgs, memoryAddressArgs);
         // this.wrapTaskCollection(); // 注册所有task到profiler模块，可选
     }
-    public name = "getPowerProject";
+
     public taskRelation: TaskRelation = taskRelation;
     public taskCollection: TaskCollection<getPowerTaskArgs> = taskCollection;
     public getMemory(): DiagramMemory {

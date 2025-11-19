@@ -46,7 +46,10 @@ export function getSampleData(): {
 }
 export const sampleDiagramMemory: DiagramMemory = {};
 export class SampleProject extends Project<exampleTaskArgs, memoryAddressArgs> {
-    public name = "sample";
+    public constructor(taskArgs: exampleTaskArgs, memoryAddressArgs: memoryAddressArgs) {
+        super("sample", taskArgs, memoryAddressArgs);
+        // this.wrapTaskCollection(); // 注册所有task到profiler模块，可选
+    }
     public taskRelation: TaskRelation = taskRelation;
     public taskCollection: TaskCollection<exampleTaskArgs> = taskCollection;
     /**

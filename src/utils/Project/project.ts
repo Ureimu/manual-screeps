@@ -5,21 +5,25 @@ import { logManager } from "utils/log4screeps";
 const logger = logManager.createLogger("info", "Project");
 
 export abstract class Project<TaskArgs extends unknown[], MemoryAddressArgs extends unknown[]> {
-    public constructor(taskArgs: TaskArgs, memoryAddressArgs: MemoryAddressArgs) {
+    public constructor(
+        /**
+         * 项目名称
+         *
+         * @abstract
+         * @type {string}
+         * @memberof Project
+         */
+        public name: string,
+        taskArgs: TaskArgs,
+        memoryAddressArgs: MemoryAddressArgs
+    ) {
         this.memoryAddressArgs = memoryAddressArgs;
         this.taskArgs = taskArgs;
-        logger.log(`init project, args: ${String(this.taskArgs)}`);
+        logger.log(`init project: ${name}, args: ${String(this.taskArgs)}`);
         this.diagram = new ProjectNetworkDiagram(this.getMemory());
         this.getMemory().diagram = this.diagram.diagramDict;
     }
-    /**
-     * 项目名称
-     *
-     * @abstract
-     * @type {string}
-     * @memberof Project
-     */
-    public abstract name: string;
+
     private engineCache?: ProjectEngine<TaskArgs>;
     /**
      * 项目运行的引擎代码。所有节点的状态变化在这里进行

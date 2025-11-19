@@ -48,10 +48,9 @@ const taskCollection = registerObjectDeep(
 export type outwardsSourceTaskArgs = [originRoomName: string, sourceRoomName: string, sourceName: string];
 class outwardsHarvestProject extends Project<outwardsSourceTaskArgs, outwardsSourceTaskArgs> {
     public constructor(taskArgs: outwardsSourceTaskArgs, memoryAddressArgs: outwardsSourceTaskArgs) {
-        super(taskArgs, memoryAddressArgs);
+        super("outwardsHarvestProject", taskArgs, memoryAddressArgs);
         // this.wrapTaskCollection(); // 注册所有task到profiler模块，可选
     }
-    public name = "outwardsHarvestProject";
     public taskRelation: TaskRelation = taskRelation;
     public taskCollection: TaskCollection<outwardsSourceTaskArgs> = taskCollection;
     public getMemory(): DiagramMemory {

@@ -139,10 +139,9 @@ const taskCollection = registerObjectDeep(
 export type maintainRoomTaskArgs = [roomName: string];
 export class maintainRoomProject extends Project<maintainRoomTaskArgs, maintainRoomTaskArgs> {
     public constructor(taskArgs: maintainRoomTaskArgs, memoryAddressArgs: maintainRoomTaskArgs) {
-        super(taskArgs, memoryAddressArgs);
+        super("maintainRoomProject", taskArgs, memoryAddressArgs);
         // this.wrapTaskCollection(); // 注册所有task到profiler模块，可选
     }
-    public name = "maintainRoomProject";
     public taskRelation: TaskRelation = taskRelation;
     public taskCollection: TaskCollection<maintainRoomTaskArgs> = taskCollection;
     public getMemory(): DiagramMemory {
