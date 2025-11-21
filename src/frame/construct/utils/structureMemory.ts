@@ -1,6 +1,6 @@
 import { logManager } from "utils/log4screeps";
 import { FullSpecifiedStructureMemory, SpecifiedStructureInf, SpecifiedStructureNameList } from "../type";
-const logger = logManager.createLogger("debug", "getAllSpecifiedTypeMemory");
+const logger = logManager.createLogger("info", "getAllSpecifiedTypeMemory");
 /**
  * 
  *  实现specifiedType.

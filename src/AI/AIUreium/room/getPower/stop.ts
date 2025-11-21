@@ -31,6 +31,5 @@ export function stopGetPower(...args: getPowerTaskArgs): void {
         CreepGroup.deleteCreepGroup({ creepGroupName });
     });
 
-    delete Memory.rooms[room.name].AIUreium.getPower[powerBankRoomName][powerBankId];
-    delete Memory.rooms[room.name].AIUreium.getPower[powerBankRoomName];
+    delete Memory.rooms[originRoomName].AIUreium.getPower[powerBankRoomName][powerBankId];
 }
