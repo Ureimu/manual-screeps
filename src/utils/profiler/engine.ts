@@ -57,7 +57,7 @@ export const Profiler = {
 
         const endTick = Math.min(profilerMemory.disableTick || Game.time, Game.time);
         const startTick = profilerMemory.enabledTick + 1;
-        const elapsedTicks = endTick - startTick;
+        const elapsedTicks = endTick - startTick + 2;
         const header = "calls\t\ttime\t\tavg\t\tfunction";
         const footer = [
             `Avg: ${(profilerMemory.totalTime / elapsedTicks).toFixed(2)}`,
