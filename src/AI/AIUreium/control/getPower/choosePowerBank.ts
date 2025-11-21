@@ -59,8 +59,11 @@ export function choosePowerBank(mainRoom: Room): void {
                 powerBankMemory.blankSpaceCount,
                 Constant.getPower.spawnAttackerCount
             );
+            const neededTime = moveTime + spawnCreepTime + workTime;
             logger.debug(
-                `periodToGetPower:${periodToGetPower} pathLength:${moveTime} spawnCreepTime:${spawnCreepTime} workTime:${workTime}`
+                `periodToGetPower:${periodToGetPower} ${
+                    neededTime > periodToGetPower ? ">" : "<"
+                } neededTime:${neededTime} = \npathLength:${moveTime} + spawnCreepTime:${spawnCreepTime} + workTime:${workTime}`
             );
             if (periodToGetPower - moveTime - spawnCreepTime - workTime < 0) return;
             validatedPowerBanks.push(powerBankMemory);

@@ -15,6 +15,7 @@ export function allocateNewRoom(): void {
         logger.log(`找不到能够claim${newRoomName}的房间`);
         return;
     }
+    logger.log(`开始从房间${myClosestRoomName}占领房间${newRoomName}。`);
     startNewRoom(myClosestRoomName, newRoomName);
 }
 

@@ -43,10 +43,11 @@ export class Logger {
         if (this.getLevelPriority(level) < this.levelNum) return;
         const timeNow = Game.cpu.getUsed();
         const formattedTime = timeNow.toFixed(3);
-        const messageHead = `<${Game.time}:${_.padLeft(formattedTime, 6, "0")}>[${colorful(
-            level,
-            LogLevelToColor[level]
-        )}][${this.label}] `;
+        const gameTime = `${Game.time}`;
+        const cpu = `${_.padLeft(formattedTime, 6, "0")}`;
+        const logLevel = `${colorful(level, LogLevelToColor[level])}`;
+        const label = `${this.label}`;
+        const messageHead = `<${gameTime}:${cpu}>[${logLevel}][${label}] `;
         if (!this.logNow) {
             this.storage.push(...messages.map((m, i) => ({ m: messageHead + m, t: timeNow, i })));
         } else {

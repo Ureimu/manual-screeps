@@ -34,17 +34,37 @@ export function runTerminal(terminal: StructureTerminal): void {
 
                     costPricePerUnit += (energyCost * energyCostPrice) / dealAmount;
 
-                    if (energyCost > terminalEnergy) return { id: order.id, amount: dealAmount, benefit: 0 }; // 能量不足
+                    if (energyCost > terminalEnergy)
+                        return { id: order.id, amount: dealAmount, benefit: 0, price: order.price, energyCost }; // 能量不足
                     // 花去的能量超过了物品价值，亏本
-                    if (costPricePerUnit > order.price) return { id: order.id, amount: dealAmount, benefit: 0 };
-                    else return { id: order.id, amount: dealAmount, benefit: order.price - costPricePerUnit };
+                    if (costPricePerUnit > order.price)
+                        return { id: order.id, amount: dealAmount, benefit: 0, price: order.price, energyCost };
+                    else
+                        return {
+                            id: order.id,
+                            amount: dealAmount,
+                            benefit: order.price - costPricePerUnit,
+                            price: order.price,
+                            energyCost
+                        };
                 })
                 .sort((a, b) => b.benefit - a.benefit);
             if (benefitList[0] && benefitList[0].benefit > 0) {
                 const orderToDeal = benefitList[0];
                 Game.market.deal(orderToDeal.id, orderToDeal.amount, terminalRoomName);
-                logger.info(`sell ${resourceType},amount: ${orderToDeal.amount}`);
+                logger.info(
+                    `sell ${resourceType}, amount: ${orderToDeal.amount}, price:${orderToDeal.price}, energyCost:${
+                        orderToDeal.energyCost
+                    }, earns ${(orderToDeal.amount * orderToDeal.price).toFixed(0)} credits.`
+                );
                 return;
+            } else {
+                if (benefitList[0]) {
+                    const orderToDeal = benefitList[0];
+                    logger.debug(`${resourceType} not sold. Best order benefit: ${orderToDeal.benefit}`);
+                } else {
+                    logger.debug(`${resourceType} not sold. No available order.`);
+                }
             }
         }
         if (terminalStoreNum < buyLimit) {
@@ -54,8 +74,16 @@ export function runTerminal(terminal: StructureTerminal): void {
                 isDealingEnergy = true;
             }
             const buyNum = buyLimit - terminalStoreNum;
-            if (isDealingEnergy && (buyNum < 100 || !getRoomControlData(terminal.room.name).market.buyEnergy)) {
-                continue;
+            if (isDealingEnergy) {
+                if (!getRoomControlData(terminal.room.name).market.buyEnergy) {
+                    logger.debug(
+                        `${terminal.room.name} is not allowed to buy energy. set setting.market.buyEnergy to true to allow this.`
+                    );
+                    continue;
+                } else if (buyNum < 100) {
+                    logger.debug(`buy num is too low, stop buying. num:${buyNum}`);
+                    continue;
+                }
             }
             const orderList = Game.market.getAllOrders({ type: ORDER_SELL, resourceType }); // 更快
             const history = Game.market.getHistory(resourceType);
@@ -71,21 +99,33 @@ export function runTerminal(terminal: StructureTerminal): void {
                     costPricePerUnit += (energyCost * energyCostPrice) / dealAmount;
                     // 能量不足
                     if (energyCost > terminalEnergy)
-                        return { id: order.id, amount: dealAmount, cost: 0, price: order.price };
+                        return { id: order.id, amount: dealAmount, cost: 0, price: order.price, energyCost };
                     else
                         return {
                             id: order.id,
                             amount: dealAmount,
                             cost: order.price + costPricePerUnit,
-                            price: order.price
+                            price: order.price,
+                            energyCost
                         };
                 })
                 .sort((a, b) => a.cost - b.cost);
             if (costList[0] && costList[0].cost > 0) {
                 const orderToDeal = costList[0];
                 Game.market.deal(orderToDeal.id, orderToDeal.amount, terminalRoomName);
-                logger.info(`buy ${resourceType},amount: ${orderToDeal.amount}`);
+                logger.info(
+                    `buy ${resourceType}, amount: ${orderToDeal.amount}, price:${orderToDeal.price}, energyCost:${
+                        orderToDeal.energyCost
+                    }, costs ${(orderToDeal.amount * orderToDeal.price).toFixed(0)} credits.`
+                );
                 return;
+            } else {
+                if (costList[0]) {
+                    const orderToDeal = costList[0];
+                    logger.debug(`${resourceType} not bought. Best order cost: ${orderToDeal.cost}`);
+                } else {
+                    logger.debug(`${resourceType} not bought. No available order.`);
+                }
             }
         }
     }
