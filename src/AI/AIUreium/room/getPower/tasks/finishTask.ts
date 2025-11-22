@@ -1,8 +1,9 @@
+import { logManager } from "utils/log4screeps";
 import { TaskObject } from "utils/Project";
 import { stopGetPower } from "../stop";
 import { getPowerTaskArgs } from "../taskRelation";
 import { getGPCarrierGroupName } from "./createCreepGroup/createGPCarrierGroup";
-
+const logger = logManager.createLogger("debug", "getPower.finishTask");
 export const finishTask: TaskObject<getPowerTaskArgs> = {
     name: "finishTask",
     description: "finishTask",
@@ -14,27 +15,28 @@ export const finishTask: TaskObject<getPowerTaskArgs> = {
                 creepName => Memory.rooms[roomName].spawnPool[creepName].spawnCount > 0 && !Game.creeps[creepName]
             )
         ) {
-            // console.log(
-            //     `[finishTask.start] all carriers spawned and dead for room:${roomName}, powerBankRoom:${powerBankRoomName}, id:${powerBankId}`
-            // );
+            logger.debug(
+                `all carriers spawned and dead for room:${roomName}, powerBankRoom:${powerBankRoomName}, id:${powerBankId}`
+            );
             return "end";
         }
         const decayTime = Memory.rooms[powerBankRoomName].powerBanks?.[powerBankId]?.decayTime;
         if (decayTime && Game.time > decayTime + 1500) {
-            // console.log(
-            //     `[finishTask.start] decayTime passed for room:${roomName}, powerBankRoom:${powerBankRoomName}, id:${powerBankId}, decayTime:${decayTime}, now:${Game.time}`
-            // );
+            logger.debug(
+                `decayTime passed for room:${roomName}, powerBankRoom:${powerBankRoomName}, id:${powerBankId}, decayTime:${decayTime}, now:${Game.time}`
+            );
             return "end";
         }
         if (!decayTime) {
-            // console.log(
-            //     `[finishTask.start] no decayTime for room:${roomName}, powerBankRoom:${powerBankRoomName}, id:${powerBankId}`
-            // );
+            logger.debug(`no decayTime for room:${roomName}, powerBankRoom:${powerBankRoomName}, id:${powerBankId}`);
             return "end";
         }
         return "running";
     },
     working(roomName, powerBankRoomName, powerBankId) {
+        logger.debug(
+            `stop getPower, remove task. room:${roomName}, powerBankRoom:${powerBankRoomName}, id:${powerBankId}`
+        );
         stopGetPower(roomName, powerBankRoomName, powerBankId);
         return "end";
     },

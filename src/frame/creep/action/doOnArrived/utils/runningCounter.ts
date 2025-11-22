@@ -9,6 +9,9 @@ export function runningCounter(creep: Creep, name: string): number {
         creepGlobalMemory.gameTime = Game.time;
         creepGlobalMemory.count[name] = 0;
     }
+    if (creepGlobalMemory.count[name] === null) {
+        creepGlobalMemory.count[name] = 0;
+    }
     creepGlobalMemory.count[name]++;
     return creepGlobalMemory.count[name];
 }

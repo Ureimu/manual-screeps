@@ -11,6 +11,7 @@ export class AcrossTick {
     public task: AcrossTickMemory;
     public constructor() {
         if (!Memory.AcrossTick) Memory.AcrossTick = {}; // 可以自己放在扩展挂载的地方
+        if (!global.AcrossTick) global.AcrossTick = {};
         this.task = {
             taskName: "",
             args: [],
@@ -46,8 +47,13 @@ export class AcrossTick {
     }
 
     public finish(): void {
-        if (!Memory.AcrossTick[this.task.executeTick]) Memory.AcrossTick[this.task.executeTick] = [];
-        Memory.AcrossTick[this.task.executeTick].push(this.task);
+        if (this.task.useGlobal) {
+            if (!global.AcrossTick[this.task.executeTick]) global.AcrossTick[this.task.executeTick] = [];
+            global.AcrossTick[this.task.executeTick].push(this.task);
+        } else {
+            if (!Memory.AcrossTick[this.task.executeTick]) Memory.AcrossTick[this.task.executeTick] = [];
+            Memory.AcrossTick[this.task.executeTick].push(this.task);
+        }
     }
 }
 
@@ -65,6 +71,7 @@ export function newAcrossTickTask(
 
 export const runAllAcrossTickTask = registerFN((): void => {
     if (!Memory.AcrossTick) Memory.AcrossTick = {}; // 可以自己放在扩展挂载的地方
+    if (!global.AcrossTick) global.AcrossTick = {}; // 可以自己放在扩展挂载的地方
     if (!global.AcrossTickTaskFunction) {
         global.AcrossTickTaskFunction = {};
     }
@@ -84,12 +91,20 @@ export const runAllAcrossTickTask = registerFN((): void => {
             return "finish";
         };
     }
-    Object.keys(Memory.AcrossTick)
-        .filter(time => Number(time) < Game.time)
-        .forEach(time => {
-            logger.debug(`delete out-of-date TickTask: ${time}`);
-            delete Memory.AcrossTick[time];
-        });
+    if (Game.time % 100 === 0) {
+        Object.keys(Memory.AcrossTick)
+            .filter(time => Number(time) < Game.time)
+            .forEach(time => {
+                logger.debug(`delete out-of-date TickTask: ${time}`);
+                delete Memory.AcrossTick[time];
+            });
+        Object.keys(global.AcrossTick)
+            .filter(time => Number(time) < Game.time)
+            .forEach(time => {
+                logger.debug(`delete out-of-date TickTask: ${time}`);
+                delete global.AcrossTick[time];
+            });
+    }
     runSpecifiedTickTask(Game.time);
 }, "runAllAcrossTickTask");
 
@@ -103,6 +118,15 @@ function runSpecifiedTickTask(tick: number): void {
         }
         delete Memory.AcrossTick[tick];
     }
+    if (global.AcrossTick[tick]) {
+        const taskList = global.AcrossTick[tick].slice(0); // 复制一份拷贝,避免后面执行时更改memory引发错误
+        for (const task of taskList) {
+            // logger.log(`Running TickTask: ${task.taskName}`);
+            const returnCode = runTask(task);
+            runAfterTask(returnCode, task);
+        }
+        delete global.AcrossTick[tick];
+    }
 }
 
 export function runAfterTask(returnCode: AcrossTickReturnCode, task: AcrossTickMemory): AcrossTickReturnCode {
@@ -110,6 +134,7 @@ export function runAfterTask(returnCode: AcrossTickReturnCode, task: AcrossTickM
         case "finish": {
             if (task.log) logger.log(`Running TickTask finished: ${task.taskName}`);
             // Memory.AcrossTick[task.executeTick].splice(Memory.AcrossTick[task.executeTick].indexOf(task), 1);
+            // global.AcrossTick[task.executeTick].splice(global.AcrossTick[task.executeTick].indexOf(task), 1);
             return "finish";
         }
         case "emptyTask": {
