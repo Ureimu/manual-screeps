@@ -35,7 +35,7 @@ const storageResourceLimit: StructureResourceLimit = {
         min: 100e3
     },
     power: {
-        max: 10e3,
+        max: 20e3,
         min: 0e3
     },
     ops: {

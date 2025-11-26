@@ -1,10 +1,12 @@
 import { CreepGroup } from "frame/creep/group";
 import { SpawnPool } from "frame/spawn/spawnPool";
+import { logManager } from "utils/log4screeps";
 import { getPowerTaskArgs } from "./taskRelation";
 import { getGPAttackerGroupName } from "./tasks/createCreepGroup/createGPAttackerGroup";
 import { getGPCarrierGroupName } from "./tasks/createCreepGroup/createGPCarrierGroup";
 import { getGPHealerGroupName } from "./tasks/createCreepGroup/createGPHealerGroup";
 
+const logger = logManager.createLogger("debug", "stopGetPower");
 export function stopGetPower(...args: getPowerTaskArgs): void {
     const [originRoomName, powerBankRoomName, powerBankId] = args;
 
@@ -32,4 +34,9 @@ export function stopGetPower(...args: getPowerTaskArgs): void {
     });
 
     delete Memory.rooms[originRoomName].AIUreium.getPower[powerBankRoomName][powerBankId];
+    logger.debug(
+        `deleted memory length for now: ${
+            JSON.stringify(Memory.rooms[originRoomName].AIUreium.getPower[powerBankRoomName][powerBankId]).length
+        }`
+    );
 }
