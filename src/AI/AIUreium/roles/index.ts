@@ -7,6 +7,7 @@ import { centerCarrierTask2 } from "./maintain/centerCarrier";
 import { levelKeeper } from "./maintain/levelKeeper";
 import { mineralCarrier } from "./maintain/mineralCarrier";
 import { scouter } from "./maintain/scouter";
+import { spawnFiller } from "./maintain/spawnFiller";
 import { claimer1 } from "./newRoom/claimer/claimer1";
 import { succor1 } from "./newRoom/succor/succor1";
 import { oBuilder } from "./outwardsSource/oBuilder";
@@ -28,7 +29,8 @@ export function callOnStart(): void {
             mineralCarrier,
             oReserver,
             oBuilder,
-            carrier
+            carrier,
+            spawnFiller
         };
         registerCreepRole(creepRoleList);
     }

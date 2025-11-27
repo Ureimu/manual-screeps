@@ -43,6 +43,9 @@ function runSpawnTask(spawn: StructureSpawn): boolean {
     }
 }
 
+export const spawningOption: { [spawnName: string]: { energyStructures: Id<StructureExtension | StructureSpawn>[] } } =
+    {};
+
 export const runSpawnQueue = registerFN((spawn: StructureSpawn): void => {
     if (!runSpawnTask(spawn)) return;
     if (spawn.spawning) return;
@@ -88,6 +91,14 @@ export const runSpawnQueue = registerFN((spawn: StructureSpawn): void => {
                 dryRun: true
             });
             if (returnCode === OK) {
+                if (spawningOption[spawn.name]) {
+                    const energyStructures = spawningOption[spawn.name].energyStructures
+                        .map<StructureSpawn | StructureExtension | undefined>(
+                            i => Game.structures[i] as StructureSpawn | StructureExtension | undefined
+                        )
+                        .filter((i): i is StructureSpawn | StructureExtension => !i);
+                    spawn.spawnCreep(creepBody, spawnCreepName, { energyStructures });
+                }
                 spawn.spawnCreep(creepBody, spawnCreepName);
                 spawn.room.memory.roomEnergy.amount -= energyCost;
                 if (spawn.room.memory.spawnPool[spawnCreepName])
