@@ -36,7 +36,7 @@ export function stopGetPower(...args: getPowerTaskArgs): void {
     delete Memory.rooms[originRoomName].AIUreium.getPower[powerBankRoomName][powerBankId];
     logger.debug(
         `deleted memory length for now: ${
-            JSON.stringify(Memory.rooms[originRoomName].AIUreium.getPower[powerBankRoomName][powerBankId]).length
+            JSON.stringify(Memory.rooms[originRoomName].AIUreium.getPower[powerBankRoomName][powerBankId])?.length
         }`
     );
 }

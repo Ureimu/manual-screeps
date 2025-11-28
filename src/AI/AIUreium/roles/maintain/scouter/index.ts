@@ -115,7 +115,7 @@ export function manageScoutTask(): void {
 
     for (const creepName in Game.creeps) {
         if (Game.creeps[creepName].memory.role === "scouter") {
-            if (!global.creepMemory[creepName].scoutRoomName) {
+            if (!Game.creeps[creepName].globalMemory.scoutRoomName) {
                 const newRoomName = Array.from(scoutRoomSet.keys())[0];
                 global.creepMemory[creepName].scoutRoomName = newRoomName;
                 scoutRoomSet.delete(newRoomName);
