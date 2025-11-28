@@ -32,6 +32,8 @@ export const defaultRoomControlData: RoomControlData = {
         stop: 1
     },
     processPower: {
-        run: false
+        run: false,
+        energyLimit: 100e3,
+        powerLimit: 1e3
     }
 };

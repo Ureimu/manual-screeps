@@ -4,14 +4,19 @@ import { addCarryTask, getCarryTask } from "../roomCarry";
 
 const logger = logManager.createLogger("debug", "processPower");
 export function processPower(room: Room) {
-    if (!getRoomControlData(room.name).processPower.run) return;
+    const control = getRoomControlData(room.name).processPower;
+    if (!control.run) return;
     const taskName = `processPower`;
     if (!room.storage) return;
     const powerSpawn: StructurePowerSpawn = room
         .find(FIND_MY_STRUCTURES)
         .filter<StructurePowerSpawn>((i): i is StructurePowerSpawn => i.structureType === "powerSpawn")?.[0];
     if (!powerSpawn) return;
-    if (room.storage.store[RESOURCE_ENERGY] < 100e3 || room.storage.store[RESOURCE_POWER] < 1e3) return;
+    if (
+        room.storage.store[RESOURCE_ENERGY] < control.energyLimit ||
+        room.storage.store[RESOURCE_POWER] < control.powerLimit
+    )
+        return;
     if (powerSpawn.store[RESOURCE_ENERGY] > 1e3 && powerSpawn.store[RESOURCE_POWER] > 20) return;
     logger.log(`${room.name} process power`);
     const task = getCarryTask(room.name, "carrier", taskName);

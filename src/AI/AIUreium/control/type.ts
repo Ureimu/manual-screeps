@@ -134,6 +134,14 @@ export interface RoomControlData {
          * 是否执行power处理。
          */
         run: boolean;
+        /**
+         * 执行power处理的最低storage所含能量数量限制。
+         */
+        energyLimit: number;
+        /**
+         * 执行power处理的最低storage所含power数量限制。
+         */
+        powerLimit: number;
     };
 }
 
