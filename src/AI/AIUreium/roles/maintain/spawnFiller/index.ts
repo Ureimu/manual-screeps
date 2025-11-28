@@ -1,7 +1,6 @@
 import { getMyStructuresById } from "frame/construct/utils";
 import { stayByRoad } from "frame/creep/action/doOnArrived/stayByRoad";
 import { spawningOption } from "frame/spawn/spawning";
-import { MAX_ENERGY_PER_CONTROLLER_LEVEL } from "utils/constants";
 import { logManager } from "utils/log4screeps";
 
 const logger = logManager.createLogger("debug", "spawnFiller");
@@ -19,6 +18,7 @@ const creepData: {
         [creepName: string]: {
             reservedEnergyStructures: Id<StructureSpawn | StructureExtension>[];
             isCarrying: boolean;
+            goWithdraw: boolean;
         };
     };
 } = {};
@@ -36,17 +36,43 @@ export function spawnFiller(creep: Creep) {
     cache(creep);
     const roomCache = cacheData[room.name];
 
-    if (room.energyAvailable === room.energyCapacityAvailable) {
-        stayByRoad.run(creep);
+    const data = creepData[room.name][creep.name];
+    if ((creep?.ticksToLive ?? 0) < 15) {
+        if (data.reservedEnergyStructures.length > 0) {
+            // 如果要死了就解放所有reservedEnergyStructures
+            logger.debug(`creep is going to die, release all reservedEnergyStructures.`);
+            data.reservedEnergyStructures.forEach(i => roomCache.reservedEnergyStructures.delete(i));
+            data.reservedEnergyStructures = [];
+        }
         return;
     }
 
+    if (room.energyAvailable === room.energyCapacityAvailable) {
+        if (data.reservedEnergyStructures.length > 0) {
+            logger.debug(`energy is full for all reservedEnergyStructures, release them.`);
+            data.reservedEnergyStructures.forEach(i => roomCache.reservedEnergyStructures.delete(i));
+            data.reservedEnergyStructures = [];
+        }
+        if (creep.store.energy === 0) {
+            stayByRoad.run(creep);
+            return;
+        } else {
+            // 将多余能量放回storage
+            if (!creep.pos.isNearTo(storage)) {
+                creep.moveTo(storage, { range: 1 });
+            } else {
+                creep.transfer(storage, "energy");
+            }
+            return;
+        }
+    }
+
     // 找energyStructure，先找最近的，然后找最近的旁边最近的，以此类推，完成预定。
-    // TODO 如果循环选择下个时最近的点时 ，存在路径长度（使用范围估计）比到storage的两倍距离还长，就去storage补充能量再去。
+    // 如果循环选择下个时最近的点时 ，存在路径长度（使用范围估计）比到storage的两倍距离还长，就去storage补充能量再去。
     // TODO 将填塔任务移交给carrier
 
     // 每个tick检测当前目标是否已填充，若填充则移除
-    const data = creepData[room.name][creep.name];
+
     if (data.reservedEnergyStructures[0] && Game.structures[data.reservedEnergyStructures[0]]) {
         if (
             (
@@ -59,9 +85,13 @@ export function spawnFiller(creep: Creep) {
         }
     }
 
-    if (data.isCarrying && creep.store.getUsedCapacity() < EXTENSION_ENERGY_CAPACITY[controller.level]) {
+    if (
+        data.isCarrying &&
+        (creep.store.getUsedCapacity() < EXTENSION_ENERGY_CAPACITY[controller.level] || data.goWithdraw)
+    ) {
         logger.debug(`${creep.name} is transferring`);
         data.isCarrying = false;
+        data.goWithdraw = false;
     }
 
     if (!data.isCarrying && creep.store.getFreeCapacity() === 0) {
@@ -86,11 +116,18 @@ export function spawnFiller(creep: Creep) {
                 creep.transfer(energyStructure, "energy");
 
                 if (data.reservedEnergyStructures.length > 1) {
+                    // 如果循环选择下个时最近的点时 ，存在路径长度（使用范围估计）比到storage的两倍距离还长，就去storage补充能量再去。
+                    const baseRange = creep.pos.getRangeTo(storage);
                     const next = Game.structures[data.reservedEnergyStructures[1]] as
                         | StructureExtension
                         | StructureSpawn;
 
-                    creep.moveTo(next, { range: 1 });
+                    if (baseRange > 5 && creep.pos.getRangeTo(next) > baseRange) {
+                        data.goWithdraw = true;
+                        creep.moveTo(storage, { range: 1 });
+                    } else {
+                        creep.moveTo(next, { range: 1 });
+                    }
                 }
             }
         }
@@ -101,8 +138,6 @@ export function spawnFiller(creep: Creep) {
             creep.withdraw(storage, "energy");
         }
     }
-
-    // TODO 如果要死了就解放所有reservedEnergyStructures
 }
 
 function cache(creep: Creep) {
@@ -120,7 +155,7 @@ function cache(creep: Creep) {
         creepData[room.name] = {};
     }
     if (!creepData[room.name][creep.name]) {
-        creepData[room.name][creep.name] = { reservedEnergyStructures: [], isCarrying: false };
+        creepData[room.name][creep.name] = { reservedEnergyStructures: [], isCarrying: false, goWithdraw: false };
     }
 
     if (cacheData[room.name].lastUpdateTime === Game.time) return;
