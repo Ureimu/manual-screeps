@@ -1,4 +1,5 @@
 import { carryMineral } from "AI/AIUreium/control/carryMineral";
+import { fillTower } from "AI/AIUreium/control/fillTower";
 import { processPower } from "AI/AIUreium/control/processPower";
 import { roomCarry } from "AI/AIUreium/control/roomCarry";
 import { DiagramMemory } from "utils/Project/type";
@@ -16,6 +17,7 @@ export function maintainRoom(): void {
             if (Game.time % 50 === 0) {
                 processPower(room);
                 carryMineral(room);
+                fillTower(room);
             }
             roomCarry(room);
         }

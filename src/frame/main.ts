@@ -37,6 +37,7 @@ export const runFrame = registerFN((): void => {
     shiftController.run();
 
     Object.values(Game.creeps).forEach(creep => {
+        if (creep.spawning) return;
         runCreepAction(creep);
     });
 
