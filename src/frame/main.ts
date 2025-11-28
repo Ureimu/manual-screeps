@@ -23,8 +23,8 @@ export const runFrame = registerFN((): void => {
         }
         if (room.controller?.my && mySpawnsLength !== 0) {
             runSpawnPool(room);
-            roomVisualize(room);
-            mapVisualForRoom(room);
+            // roomVisualize(room);
+            // mapVisualForRoom(room);
         }
         const end = Game.cpu.getUsed();
         roomCpuCost[room.name] = end - start;
