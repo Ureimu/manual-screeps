@@ -1,10 +1,13 @@
 import { AcrossTick, newAcrossTickTask } from "utils/AcrossTick";
 import { AcrossTickReturnCode } from "utils/AcrossTick/type";
+import { logManager } from "utils/log4screeps";
 import { PosStr } from "utils/RoomPositionToStr";
 import { checkArray } from "utils/typeCheck";
 import { CreepAction } from ".";
 import { state } from "..";
 import { runningCounter } from "./utils/runningCounter";
+
+const logger = logManager.createLogger("debug", "checkPosOccupation");
 
 function run(creep: Creep): state {
     if (!global.creepMemory[creep.name]) return "moving";
@@ -64,7 +67,8 @@ function run(creep: Creep): state {
                     executeTick: Game.time + 6,
                     intervalTick: 10,
                     args: [creep.name, creep.room.name],
-                    log: false
+                    log: false,
+                    useGlobal: true
                 });
                 return "moving";
             }
@@ -117,7 +121,7 @@ function releaseParkingSpot(roomName: string, creepName: string, parkingSpot: st
         global.creepMemory[creepName].checkPosOccupation = false;
         return "finish";
     } else {
-        throw new TypeError("freeSpacePosList类型不正确");
+        return "finish";
     }
 }
 

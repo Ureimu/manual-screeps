@@ -13,6 +13,10 @@ declare global {
         spawnPool: {
             [creepName: string]: SpawnCreepDetail;
         };
+        roomEnergy: {
+            amount: number;
+            tick: number;
+        };
     }
 }
 

@@ -43,11 +43,26 @@ function runSpawnTask(spawn: StructureSpawn): boolean {
     }
 }
 
+export const spawningOption: { [spawnName: string]: { energyStructures: Id<StructureExtension | StructureSpawn>[] } } =
+    {};
+
 export const runSpawnQueue = registerFN((spawn: StructureSpawn): void => {
     if (!runSpawnTask(spawn)) return;
     if (spawn.spawning) return;
     if (spawn.room.energyAvailable < BODYPART_COST.carry * 6) return;
 
+    if (!spawn.room.memory.roomEnergy) {
+        spawn.room.memory.roomEnergy = {
+            amount: spawn.room.energyAvailable,
+            tick: Game.time
+        };
+    }
+    if (spawn.room.memory.roomEnergy.tick !== Game.time) {
+        spawn.room.memory.roomEnergy = {
+            amount: spawn.room.energyAvailable,
+            tick: Game.time
+        };
+    }
     // 执行spawn
     const taskPool = new TaskPool<SpawnCreepDetail>();
     const spawnQueue = taskPool.initQueueFromTaskQueue(spawn.memory.spawnQueue);
@@ -67,11 +82,25 @@ export const runSpawnQueue = registerFN((spawn: StructureSpawn): void => {
             }
             const creepBody = bodyTools.compile(creepPreProcessBodyString);
             const spawnCreepName = spawnTask.creepName;
+            const energyCost = bodyTools.getEnergyCost(creepPreProcessBodyString);
+            if (energyCost > spawn.room.memory.roomEnergy.amount) {
+                failedList.push(spawnTask);
+                continue;
+            }
             returnCode = spawn.spawnCreep(creepBody, spawnCreepName, {
                 dryRun: true
             });
             if (returnCode === OK) {
+                if (spawningOption[spawn.name]) {
+                    const energyStructures = spawningOption[spawn.name].energyStructures
+                        .map<StructureSpawn | StructureExtension | undefined>(
+                            i => Game.structures[i] as StructureSpawn | StructureExtension | undefined
+                        )
+                        .filter((i): i is StructureSpawn | StructureExtension => !i);
+                    spawn.spawnCreep(creepBody, spawnCreepName, { energyStructures });
+                }
                 spawn.spawnCreep(creepBody, spawnCreepName);
+                spawn.room.memory.roomEnergy.amount -= energyCost;
                 if (spawn.room.memory.spawnPool[spawnCreepName])
                     spawn.room.memory.spawnPool[spawnCreepName].state = "notReady";
             } else {

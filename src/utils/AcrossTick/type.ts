@@ -7,6 +7,7 @@ declare global {
             AcrossTickTaskFunction: {
                 [taskName: string]: (task: AcrossTickMemory) => AcrossTickReturnCode;
             };
+            AcrossTick: { [tick: string]: AcrossTickMemory[] };
         }
     }
 }
@@ -18,6 +19,7 @@ export interface AcrossTickMemory {
     taskCreateTick?: number;
     intervalTick: number;
     log: boolean;
+    useGlobal?: boolean;
 }
 
 export type AcrossTickReturnCode = "finish" | "emptyTask" | "runAgain";
