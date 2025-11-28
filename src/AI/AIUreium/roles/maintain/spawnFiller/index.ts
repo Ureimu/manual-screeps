@@ -10,6 +10,10 @@ const cacheData: {
         dataList: { id: Id<StructureSpawn | StructureExtension>; x: number; y: number }[];
         lastUpdateTime: number;
         reservedEnergyStructures: Set<Id<StructureSpawn | StructureExtension>>;
+        checkCache: {
+            lastUpdateTime: number;
+            isAllReserved: boolean;
+        };
     };
 } = {};
 
@@ -47,7 +51,10 @@ export function spawnFiller(creep: Creep) {
         return;
     }
 
-    if (room.energyAvailable === room.energyCapacityAvailable) {
+    if (
+        room.energyAvailable === room.energyCapacityAvailable ||
+        (data.reservedEnergyStructures.length === 0 && checkIsAllReserved(roomCache, room))
+    ) {
         if (data.reservedEnergyStructures.length > 0) {
             logger.debug(`energy is full for all reservedEnergyStructures, release them.`);
             data.reservedEnergyStructures.forEach(i => roomCache.reservedEnergyStructures.delete(i));
@@ -69,7 +76,12 @@ export function spawnFiller(creep: Creep) {
 
     // 找energyStructure，先找最近的，然后找最近的旁边最近的，以此类推，完成预定。
     // 如果循环选择下个时最近的点时 ，存在路径长度（使用范围估计）比到storage的两倍距离还长，就去storage补充能量再去。
-    // TODO 将填塔任务移交给carrier
+
+    if (data.reservedEnergyStructures[0] && !Game.structures[data.reservedEnergyStructures[0]]) {
+        logger.debug(`delete non-exist structure ${data.reservedEnergyStructures[0]}`);
+        roomCache.reservedEnergyStructures.delete(data.reservedEnergyStructures[0]);
+        data.reservedEnergyStructures.shift();
+    }
 
     // 每个tick检测当前目标是否已填充，若填充则移除
 
@@ -128,6 +140,10 @@ export function spawnFiller(creep: Creep) {
                     } else {
                         creep.moveTo(next, { range: 1 });
                     }
+                } else {
+                    if (!creep.pos.isNearTo(storage)) {
+                        creep.moveTo(storage, { range: 1 });
+                    }
                 }
             }
         }
@@ -147,7 +163,11 @@ function cache(creep: Creep) {
         cacheData[room.name] = {
             dataList: [],
             lastUpdateTime: -1,
-            reservedEnergyStructures: new Set()
+            reservedEnergyStructures: new Set(),
+            checkCache: {
+                isAllReserved: false,
+                lastUpdateTime: -1
+            }
         };
     }
 
@@ -247,4 +267,22 @@ function getNearestByRange<T extends { pos: RoomPosition }, U extends { pos: Roo
         }
     }
     return nearest;
+}
+
+// 如果当前列表为空，且当前reserved的建筑能量空值加上room.energyAvailable如果等于room.energyCapacityAvailable就停止该creep的判断。
+function checkIsAllReserved(roomCache: typeof cacheData[""], room: Room) {
+    if (roomCache.checkCache.lastUpdateTime !== Game.time) {
+        roomCache.checkCache.isAllReserved =
+            Array.from(roomCache.reservedEnergyStructures.values()).reduce(
+                (sum, i) =>
+                    (sum +=
+                        (Game.structures[i] as StructureSpawn | StructureExtension)?.store.getFreeCapacity("energy") ??
+                        0),
+                0
+            ) +
+                room.energyAvailable ===
+            room.energyCapacityAvailable;
+        roomCache.checkCache.lastUpdateTime = Game.time;
+    }
+    return roomCache.checkCache.isAllReserved;
 }
