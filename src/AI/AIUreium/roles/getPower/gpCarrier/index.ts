@@ -17,10 +17,20 @@ export function gpCarrier(creep: Creep, args: string[]) {
                 creep.moveTo(powerBankPos, { range: 1 });
                 return;
             }
+            const ruins = creep.room.find(FIND_RUINS, {
+                filter: i => i.store.power > 0 && powerBankPos.isEqualTo(i)
+            });
             const resources = creep.room.find(FIND_DROPPED_RESOURCES, {
                 filter: i => i.resourceType === RESOURCE_POWER && powerBankPos.isEqualTo(i)
             });
-            if (!resources?.[0]) return;
+            if (!resources?.[0]) {
+                if (ruins[0]) {
+                    creep.withdraw(ruins[0], "power");
+                    return;
+                } else {
+                    return;
+                }
+            }
             creep.pickup(resources[0]);
         }
     } else {
