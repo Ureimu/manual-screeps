@@ -27,6 +27,6 @@ export function maintainRoom(): void {
 declare global {
     // Types defined in a global block are available globally
     interface AIUreiumRoomMemory {
-        maintainRoom: DiagramMemory;
+        maintainRoom?: DiagramMemory;
     }
 }

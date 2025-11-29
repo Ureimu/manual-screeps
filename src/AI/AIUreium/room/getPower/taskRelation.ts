@@ -50,6 +50,12 @@ class getPowerProject extends Project<getPowerTaskArgs, getPowerTaskArgs> {
         }
         return Memory.rooms[originRoomName].AIUreium.getPower[powerBankRoomName][powerBankId];
     }
+    public deleteMemory() {
+        const [originRoomName, powerBankRoomName, powerBankId] = this.taskArgs;
+        if (typeof Memory.rooms[originRoomName].AIUreium.getPower[powerBankRoomName][powerBankId] === "object") {
+            delete Memory.rooms[originRoomName].AIUreium.getPower[powerBankRoomName][powerBankId];
+        }
+    }
 }
 
 export const getPowerProjectCollection: {

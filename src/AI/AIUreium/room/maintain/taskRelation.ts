@@ -152,7 +152,16 @@ export class maintainRoomProject extends Project<maintainRoomTaskArgs, maintainR
         if (!Memory.rooms[this.taskArgs[0]].AIUreium) {
             Memory.rooms[this.taskArgs[0]].AIUreium = initAiUreimuRoomMemory();
         }
-        return Memory.rooms?.[this.taskArgs[0]]?.AIUreium?.maintainRoom;
+        const diagram = Memory.rooms?.[this.taskArgs[0]]?.AIUreium?.maintainRoom;
+        if (!diagram) {
+            throw new Error("no maintainRoom memory");
+        }
+        return diagram;
+    }
+    public deleteMemory() {
+        if (typeof Memory.rooms?.[this.taskArgs[0]]?.AIUreium?.maintainRoom === "object") {
+            delete Memory.rooms[this.taskArgs[0]].AIUreium.maintainRoom;
+        }
     }
 }
 

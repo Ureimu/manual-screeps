@@ -63,6 +63,12 @@ class outwardsHarvestProject extends Project<outwardsSourceTaskArgs, outwardsSou
         }
         return Memory.rooms[originRoomName].AIUreium.outwardsSource[sourceRoomName][sourceName];
     }
+    public deleteMemory() {
+        const [originRoomName, sourceRoomName, sourceName] = this.taskArgs;
+        if (typeof Memory.rooms[originRoomName].AIUreium.outwardsSource[sourceRoomName][sourceName] === "object") {
+            delete Memory.rooms[originRoomName].AIUreium.outwardsSource[sourceRoomName][sourceName];
+        }
+    }
 }
 
 export const outwardsHarvestProjectCollection: {

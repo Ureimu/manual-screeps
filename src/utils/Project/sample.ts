@@ -61,4 +61,11 @@ export class SampleProject extends Project<exampleTaskArgs, memoryAddressArgs> {
     public getMemory(): DiagramMemory {
         return sampleDiagramMemory;
     }
+    public deleteMemory() {
+        const [originRoomName] = this.taskArgs;
+        if (typeof sampleDiagramMemory === "object") {
+            // should write delete logic here.
+            // delete sampleDiagramMemory;
+        }
+    }
 }

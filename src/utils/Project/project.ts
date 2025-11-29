@@ -44,6 +44,13 @@ export abstract class Project<TaskArgs extends unknown[], MemoryAddressArgs exte
      */
     public stats = { initTime: 0, runNum: 0 };
     /**
+     * 标识是否在这次运行完成之后删除该项目。
+     *
+     * @type {boolean}
+     * @memberof Project
+     */
+    public hasStopped: boolean = false;
+    /**
      * 项目网络图数据
      *
      * @type {ProjectNetworkDiagram}
@@ -90,6 +97,14 @@ export abstract class Project<TaskArgs extends unknown[], MemoryAddressArgs exte
      * @memberof Project
      */
     public abstract getMemory(): DiagramMemory;
+    /**
+     *  设置Project的存储位置移除方式
+     *
+     * @abstract
+     * @returns {DiagramMemory}
+     * @memberof Project
+     */
+    public abstract deleteMemory(): void;
     private init(): void {
         if (this.stats.initTime === 0) {
             this.stats.initTime = Game.time;
@@ -107,7 +122,11 @@ export abstract class Project<TaskArgs extends unknown[], MemoryAddressArgs exte
             this.init();
         }
         this.engine.run();
-        this.getMemory().diagram = this.diagram.diagramDict;
+        if (!this.hasStopped) {
+            this.getMemory().diagram = this.diagram.diagramDict;
+        } else {
+            this.deleteMemory();
+        }
         this.stats.runNum++;
     }
     /**
@@ -120,5 +139,14 @@ export abstract class Project<TaskArgs extends unknown[], MemoryAddressArgs exte
             this.engine.resetTaskDiagram();
             this.getMemory().diagram = this.diagram.diagramDict;
         }
+    }
+
+    /**
+     * 在该次运行完成后，停止项目并调用deleteMemory。
+     *
+     * @memberof Project
+     */
+    public stop(): void {
+        this.hasStopped = true;
     }
 }

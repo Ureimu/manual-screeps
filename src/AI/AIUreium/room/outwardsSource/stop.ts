@@ -1,5 +1,5 @@
 import { SpawnPool } from "frame/spawn/spawnPool";
-import { outwardsSourceTaskArgs } from "./taskRelation";
+import { getOutwardsHarvestProject, outwardsSourceTaskArgs } from "./taskRelation";
 
 export function stopOutwardsSource(...args: outwardsSourceTaskArgs): void {
     const [originRoomName, sourceRoomName, sourceName] = args;
@@ -27,6 +27,6 @@ export function stopOutwardsSource(...args: outwardsSourceTaskArgs): void {
             }
         })
     );
-    const room = Game.rooms[originRoomName];
-    delete room.memory.AIUreium.outwardsSource[sourceRoomName][sourceName];
+
+    getOutwardsHarvestProject(originRoomName, sourceRoomName, sourceName).stop();
 }

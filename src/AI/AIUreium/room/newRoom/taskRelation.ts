@@ -36,6 +36,12 @@ export class NewRoomProject extends Project<newRoomTaskArgs, MemoryAddressArgs> 
             Memory.rooms[spawnRoomName].AIUreium.newRoom[claimRoomName] = {};
         return Memory.rooms[spawnRoomName].AIUreium.newRoom[claimRoomName];
     }
+    public deleteMemory() {
+        const [spawnRoomName, claimRoomName] = this.taskArgs;
+        if (typeof Memory.rooms[spawnRoomName].AIUreium.newRoom[claimRoomName] === "object") {
+            delete Memory.rooms[spawnRoomName].AIUreium.newRoom[claimRoomName];
+        }
+    }
 }
 
 declare global {
