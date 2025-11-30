@@ -4,7 +4,7 @@ import { FlagMaintainer } from "frame/flagMaintainer";
 import { FlagTools } from "frame/flagMaintainer/tools";
 import { TaskObject } from "utils/Project";
 import { PosStr } from "utils/RoomPositionToStr";
-import { maintainRoomTaskArgs } from "../../taskRelation";
+import { maintainRoomProjectName, maintainRoomTaskArgs } from "../../type";
 
 export const upgradeBySource: TaskObject<maintainRoomTaskArgs> = {
     name: "upgradeBySource",
@@ -58,7 +58,7 @@ export const upgradeBySource: TaskObject<maintainRoomTaskArgs> = {
                 range: 1,
                 doWhenArrive: "withdrawEnergy"
             });
-            CreepGroup.setCreepGroupProperties({ creepGroupName, routeName });
+            CreepGroup.setCreepGroupProperties({ creepGroupName, routeName, projectName: maintainRoomProjectName });
             if (index === sources.length - 1) {
                 RoutePlan.addMidpoint({
                     routeName,

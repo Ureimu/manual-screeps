@@ -2,7 +2,7 @@ import { CreepGroup } from "frame/creep/group";
 import { FlagMaintainer } from "frame/flagMaintainer";
 import { TaskObject } from "utils/Project";
 import { OCarryGroupCreepName } from "../createCreepGroup/createOCarryGroup";
-import { outwardsSourceTaskArgs } from "../../taskRelation";
+import { outwardsSourceProjectName, outwardsSourceTaskArgs } from "../../type";
 
 export const oCarrySourceToStorage: TaskObject<outwardsSourceTaskArgs> = {
     name: "oCarrySourceToStorage",
@@ -24,7 +24,12 @@ export const oCarrySourceToStorage: TaskObject<outwardsSourceTaskArgs> = {
     working(roomName, sourceRoomName, sourceName) {
         const room = Game.rooms[roomName];
         const creepGroupName = OCarryGroupCreepName(roomName, sourceName);
-        CreepGroup.setCreepGroupProperties({ creepGroupName, mode: "role", roleName: "oCarrier1" });
+        CreepGroup.setCreepGroupProperties({
+            creepGroupName,
+            mode: "role",
+            roleName: "oCarrier1",
+            projectName: outwardsSourceProjectName
+        });
 
         // const routeName = `${roomName}oCarrySourceToStorage${sourceName}`;
         // const creepGroupName = OCarryGroupCreepName(roomName, sourceName);
@@ -35,7 +40,7 @@ export const oCarrySourceToStorage: TaskObject<outwardsSourceTaskArgs> = {
         // const carryNum = bodyTools.getNum(creepBody, ["carry"]);
 
         // RoutePlan.create({ routeName, ifLoop: "true" });
-        // CreepGroup.setCreepGroupProperties({ creepGroupName, routeName });
+        // CreepGroup.setCreepGroupProperties({ creepGroupName, routeName, projectName: outwardsSourceProjectName });
         // const containerFlagName = Game.flags[sourceName].pos.findInRange(FIND_FLAGS, 1, {
         //     filter: i => i.name.indexOf("container") !== -1 && i.name.indexOf("ConstructionSite") === -1
         // })[0].name;

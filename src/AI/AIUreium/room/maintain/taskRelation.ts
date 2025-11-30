@@ -35,6 +35,7 @@ import { createKeepLevelGroup } from "./tasks/createCreepGroup/createKeepLevelGr
 import { removeUpgraderToOne } from "./tasks/upgrader/removeUpgraderToOne";
 import { controllerLevelUpgradedTo } from "./tasks/utils/controllerLevelUpgraded";
 import { createCarryGroup } from "./tasks/createCreepGroup/createCarryGroup";
+import { maintainRoomProjectName, maintainRoomTaskArgs } from "./type";
 
 const centerLinkHasBuilt = structureHasBuilt("link", "centerLink", 1);
 const sourceLinkHasBuilt = structureHasBuilt("link", "sourceLink", 2);
@@ -136,10 +137,9 @@ const taskCollection = registerObjectDeep(
     },
     "maintainRoomProjectTaskCollection"
 );
-export type maintainRoomTaskArgs = [roomName: string];
 export class maintainRoomProject extends Project<maintainRoomTaskArgs, maintainRoomTaskArgs> {
     public constructor(taskArgs: maintainRoomTaskArgs, memoryAddressArgs: maintainRoomTaskArgs) {
-        super("maintainRoomProject", taskArgs, memoryAddressArgs);
+        super(maintainRoomProjectName, taskArgs, memoryAddressArgs);
         // this.wrapTaskCollection(); // 注册所有task到profiler模块，可选
     }
     public taskRelation: TaskRelation = taskRelation;

@@ -1,6 +1,6 @@
 import { SpawnPool } from "frame/spawn/spawnPool";
 import { TaskObject } from "utils/Project";
-import { maintainRoomTaskArgs } from "../../taskRelation";
+import { maintainRoomTaskArgs } from "../../type";
 
 export const stopScout: TaskObject<maintainRoomTaskArgs> = {
     name: "stopScout",

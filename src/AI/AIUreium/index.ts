@@ -12,7 +12,9 @@ import { mountUreimuAiAll } from "./mount";
 import { observer } from "./structure/observer";
 import { runGetPower } from "./room/getPower";
 import { powerSpawn } from "./structure/powerSpawn";
-export const runAi = registerFN((): void => {
+
+// ! 该函数未使用。如需修改主逻辑请去src/main.ts修改。
+const runAi = registerFN((): void => {
     mountUreimuAiAll();
 
     if (!Memory.creepBodyConfig?.overalls) {
@@ -31,12 +33,12 @@ export const runAi = registerFN((): void => {
     });
 
     manageScoutTask();
-    if (Game.time % 5 === 0) {
-        maintainRoom();
-        maintainOutwardsSource();
-        maintainNewRoom();
-        runGetPower();
-    }
+    // if (Game.time % 5 === 0) {
+    //     maintainRoom();
+    //     maintainOutwardsSource();
+    //     maintainNewRoom();
+    //     runGetPower();
+    // }
     if (Game.time % 150 === 0) {
         allocateNewRoom();
     }

@@ -5,7 +5,7 @@ import { FlagTools } from "frame/flagMaintainer/tools";
 import { SpawnPool } from "frame/spawn/spawnPool";
 import { TaskObject } from "utils/Project";
 import { PosStr } from "utils/RoomPositionToStr";
-import { maintainRoomTaskArgs } from "../../taskRelation";
+import { maintainRoomProjectName, maintainRoomTaskArgs } from "../../type";
 
 export const fillSpawn: TaskObject<maintainRoomTaskArgs> = {
     name: "fillSpawn",
@@ -29,7 +29,12 @@ export const fillSpawn: TaskObject<maintainRoomTaskArgs> = {
         }); // 提高该creep的优先级
 
         // RoutePlan.create({ routeName, ifLoop: "true" });
-        CreepGroup.setCreepGroupProperties({ creepGroupName, mode: "role", roleName: "spawnFiller" });
+        CreepGroup.setCreepGroupProperties({
+            creepGroupName,
+            mode: "role",
+            roleName: "spawnFiller",
+            projectName: maintainRoomProjectName
+        });
 
         // RoutePlan.addCondition({
         //     routeName,

@@ -1,5 +1,5 @@
 import { TaskObject } from "utils/Project";
-import { outwardsSourceTaskArgs } from "../taskRelation";
+import { outwardsSourceTaskArgs } from "../type";
 
 const start: TaskObject<outwardsSourceTaskArgs> = {
     name: "start",

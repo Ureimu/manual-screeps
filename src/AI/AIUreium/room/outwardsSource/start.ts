@@ -2,7 +2,7 @@ import { getRoomControlData } from "AI/AIUreium/control";
 import { OutwardsSourceData } from "AI/AIUreium/control/recordRoomData";
 import { getCostMatrix } from "frame/construct/utils/costMatrix";
 import { PosStr } from "utils/RoomPositionToStr";
-import { outwardsSourceTaskArgs } from "./taskRelation";
+import { outwardsSourceTaskArgs } from "./type";
 
 export function startOutwardsSource(sourceData: OutwardsSourceData): void {
     const sourcesMemoryData = Memory.rooms[sourceData.sourceRoomName].sources;

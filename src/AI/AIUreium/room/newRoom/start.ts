@@ -1,4 +1,4 @@
-import { newRoomTaskArgs } from "./taskRelation";
+import { newRoomTaskArgs } from "./type";
 
 export function startNewRoom(...args: newRoomTaskArgs): void {
     const [spawnRoomName, claimRoomName] = args;

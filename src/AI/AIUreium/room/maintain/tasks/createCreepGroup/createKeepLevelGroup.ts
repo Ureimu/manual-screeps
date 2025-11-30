@@ -1,7 +1,7 @@
 import { CreepGroup } from "frame/creep/group";
 import { SpawnPool } from "frame/spawn/spawnPool";
 import { TaskObject } from "utils/Project";
-import { maintainRoomTaskArgs } from "../../taskRelation";
+import { maintainRoomProjectName, maintainRoomTaskArgs } from "../../type";
 
 export const createKeepLevelGroup: TaskObject<maintainRoomTaskArgs> = {
     name: "createKeepLevelGroup",
@@ -16,7 +16,12 @@ export const createKeepLevelGroup: TaskObject<maintainRoomTaskArgs> = {
         for (let index = 0; index < 1; index++) {
             createCreepGroup(room, creepGroupName, index);
         }
-        CreepGroup.setCreepGroupProperties({ creepGroupName, mode: "role", roleName: "levelKeeper" });
+        CreepGroup.setCreepGroupProperties({
+            creepGroupName,
+            mode: "role",
+            roleName: "levelKeeper",
+            projectName: maintainRoomProjectName
+        });
         return "end";
     },
     justFinished() {

@@ -9,7 +9,7 @@ import { waitForAttackEnd } from "./tasks/gpCarrier/waitForAttackEnd";
 import { createGPCarrierGroup } from "./tasks/createCreepGroup/createGPCarrierGroup";
 import { finishTask } from "./tasks/finishTask";
 import { spawnAttackerAndHealer } from "./tasks/spawnAttackerAndHealer";
-import { getPowerTaskArgs } from "./type";
+import { getPowerProjectName, getPowerTaskArgs } from "./type";
 
 export const taskRelation = {
     [createGetPowerBodyParts.name]: [ProjectNetworkDiagram.startNodeName],
@@ -34,7 +34,7 @@ const taskCollection = registerObjectDeep(
 );
 class getPowerProject extends Project<getPowerTaskArgs, getPowerTaskArgs> {
     public constructor(taskArgs: getPowerTaskArgs, memoryAddressArgs: getPowerTaskArgs) {
-        super("getPowerProject", taskArgs, memoryAddressArgs);
+        super(getPowerProjectName, taskArgs, memoryAddressArgs);
         // this.wrapTaskCollection(); // 注册所有task到profiler模块，可选
     }
 

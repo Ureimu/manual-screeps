@@ -1,5 +1,5 @@
 import { TaskObject } from "utils/Project";
-import { maintainRoomTaskArgs } from "../taskRelation";
+import { maintainRoomTaskArgs } from "../type";
 
 export const startOutwardsSourceTask: TaskObject<maintainRoomTaskArgs> = {
     name: "startOutwardsSourceTask",

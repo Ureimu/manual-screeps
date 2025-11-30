@@ -4,7 +4,7 @@ import { RoutePlan } from "frame/creep/routePlan";
 import { FlagMaintainer } from "frame/flagMaintainer";
 import { TaskObject } from "utils/Project";
 import { PosStr } from "utils/RoomPositionToStr";
-import { outwardsSourceTaskArgs } from "../../taskRelation";
+import { outwardsSourceProjectName, outwardsSourceTaskArgs } from "../../type";
 import { OHarvestGroupCreepName } from "../createCreepGroup/createOHarvestGroup";
 
 export const oKeepHarvesting: TaskObject<outwardsSourceTaskArgs> = {
@@ -78,7 +78,7 @@ export const oKeepHarvesting: TaskObject<outwardsSourceTaskArgs> = {
             range: 1,
             doWhenArrive: "pause"
         });
-        CreepGroup.setCreepGroupProperties({ creepGroupName, routeName });
+        CreepGroup.setCreepGroupProperties({ creepGroupName, routeName, projectName: outwardsSourceProjectName });
 
         return "end";
     },

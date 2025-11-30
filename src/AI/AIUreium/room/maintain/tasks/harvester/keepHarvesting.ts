@@ -6,7 +6,7 @@ import { FlagTools } from "frame/flagMaintainer/tools";
 import { SpawnPool } from "frame/spawn/spawnPool";
 import { TaskObject } from "utils/Project";
 import { PosStr } from "utils/RoomPositionToStr";
-import { maintainRoomTaskArgs } from "../../taskRelation";
+import { maintainRoomProjectName, maintainRoomTaskArgs } from "../../type";
 
 export const keepHarvesting: TaskObject<maintainRoomTaskArgs> = {
     name: "keepHarvesting",
@@ -47,7 +47,7 @@ export const keepHarvesting: TaskObject<maintainRoomTaskArgs> = {
                 doWhenArrive: "keepOnHarvestingSource",
                 actionArgs: PosStr.setPosToStr(Game.flags[sourceFlagName].pos)
             });
-            CreepGroup.setCreepGroupProperties({ creepGroupName, routeName });
+            CreepGroup.setCreepGroupProperties({ creepGroupName, routeName, projectName: maintainRoomProjectName });
         }
         return "end";
     },

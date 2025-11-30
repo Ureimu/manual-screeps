@@ -5,7 +5,7 @@ import { FlagTools } from "frame/flagMaintainer/tools";
 import { SpawnPool } from "frame/spawn/spawnPool";
 import { TaskObject } from "utils/Project";
 import { PosStr } from "utils/RoomPositionToStr";
-import { maintainRoomTaskArgs } from "../taskRelation";
+import { maintainRoomProjectName, maintainRoomTaskArgs } from "../type";
 
 export const collectSource: TaskObject<maintainRoomTaskArgs> = {
     name: "collectSource",
@@ -27,7 +27,7 @@ export const collectSource: TaskObject<maintainRoomTaskArgs> = {
             range: 50,
             doWhenArrive: "keepOnHarvestingSource"
         });
-        CreepGroup.setCreepGroupProperties({ creepGroupName, routeName });
+        CreepGroup.setCreepGroupProperties({ creepGroupName, routeName, projectName: maintainRoomProjectName });
 
         return "end";
     },

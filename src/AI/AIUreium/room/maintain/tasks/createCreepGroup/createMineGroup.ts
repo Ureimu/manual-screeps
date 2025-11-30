@@ -3,7 +3,7 @@ import { addShiftTimeFunction } from "frame/spawn/spawning/readyCondition/spawnS
 import { numData } from "frame/spawn/spawning/readyCondition/utils/numData";
 import { SpawnPool } from "frame/spawn/spawnPool";
 import { TaskObject } from "utils/Project";
-import { maintainRoomTaskArgs } from "../../taskRelation";
+import { maintainRoomTaskArgs } from "../../type";
 
 export const MineGroupName = (roomName: string): string => `${roomName}mi`;
 export const createMineGroup: TaskObject<maintainRoomTaskArgs> = {

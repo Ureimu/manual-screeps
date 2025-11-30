@@ -1,6 +1,6 @@
 import { CreepGroup } from "frame/creep/group";
 import { TaskObject } from "utils/Project";
-import { maintainRoomTaskArgs } from "../../taskRelation";
+import { maintainRoomProjectName, maintainRoomTaskArgs } from "../../type";
 
 export const centerTask2: TaskObject<maintainRoomTaskArgs> = {
     name: "centerTask2",
@@ -10,7 +10,12 @@ export const centerTask2: TaskObject<maintainRoomTaskArgs> = {
         const room = Game.rooms[roomName];
         if (!room.memory.construct.centerPos) throw new Error("没有centerPos!");
         const creepGroupName = `${room.name}CenterCarry`;
-        CreepGroup.setCreepGroupProperties({ creepGroupName, mode: "role", roleName: "centerCarrierTask2" });
+        CreepGroup.setCreepGroupProperties({
+            creepGroupName,
+            mode: "role",
+            roleName: "centerCarrierTask2",
+            projectName: maintainRoomProjectName
+        });
         return "end";
     }
 };

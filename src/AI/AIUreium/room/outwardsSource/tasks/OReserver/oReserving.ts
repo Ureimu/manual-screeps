@@ -3,7 +3,7 @@ import { RoutePlan } from "frame/creep/routePlan";
 import { FlagMaintainer } from "frame/flagMaintainer";
 import { FlagTools } from "frame/flagMaintainer/tools";
 import { TaskObject } from "utils/Project";
-import { outwardsSourceTaskArgs } from "../../taskRelation";
+import { outwardsSourceProjectName, outwardsSourceTaskArgs } from "../../type";
 import { OReserveGroupCreepName } from "../createCreepGroup/createOReserveGroup";
 
 export const oReserving: TaskObject<outwardsSourceTaskArgs> = {
@@ -15,7 +15,12 @@ export const oReserving: TaskObject<outwardsSourceTaskArgs> = {
     working(roomName, sourceRoomName, sourceName) {
         // const routeName = `${roomName}oReserving${sourceName}`;
         const creepGroupName = OReserveGroupCreepName(roomName, sourceName);
-        CreepGroup.setCreepGroupProperties({ creepGroupName, mode: "role", roleName: "oReserver" });
+        CreepGroup.setCreepGroupProperties({
+            creepGroupName,
+            mode: "role",
+            roleName: "oReserver",
+            projectName: outwardsSourceProjectName
+        });
 
         // FlagMaintainer.refresh({ roomName: sourceRoomName, typeList: FlagMaintainer.getTypeList(["controller"]) });
         // const controllerFlagName = FlagTools.getName(sourceRoomName, "controller", 0);

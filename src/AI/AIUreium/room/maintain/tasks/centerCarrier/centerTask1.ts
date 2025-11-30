@@ -7,7 +7,7 @@ import { FlagTools } from "frame/flagMaintainer/tools";
 import { newAcrossTickTask } from "utils/AcrossTick";
 import { TaskObject } from "utils/Project";
 import { PosStr } from "utils/RoomPositionToStr";
-import { maintainRoomTaskArgs } from "../../taskRelation";
+import { maintainRoomProjectName, maintainRoomTaskArgs } from "../../type";
 if (!global.AcrossTickTaskFunction) global.AcrossTickTaskFunction = {};
 global.AcrossTickTaskFunction.centerTask1 = task => {
     const [roomNameArg, creepGroupNameArg, route1NameArg, route2NameArg] = task.args as string[];
@@ -16,7 +16,11 @@ global.AcrossTickTaskFunction.centerTask1 = task => {
     const creepGroupMemory = Memory.creepGroups[creepGroupNameArg];
     if (creepGroupMemory.mode === "route") {
         if (creepGroupMemory.routeName !== route1NameArg && creepGroupMemory.routeName !== route2NameArg) {
-            CreepGroup.setCreepGroupProperties({ creepGroupName: creepGroupNameArg, routeName: route2NameArg });
+            CreepGroup.setCreepGroupProperties({
+                creepGroupName: creepGroupNameArg,
+                routeName: route2NameArg,
+                projectName: maintainRoomProjectName
+            });
             creepGroupMemory.creepNameList.forEach(creepName => {
                 const creepMemory = Memory.creeps[creepName];
                 if (creepMemory) {
@@ -29,7 +33,11 @@ global.AcrossTickTaskFunction.centerTask1 = task => {
             roomArg.storage.store.energy > resourceLimit.storage.energy.max &&
             creepGroupMemory.routeName !== route1NameArg
         ) {
-            CreepGroup.setCreepGroupProperties({ creepGroupName: creepGroupNameArg, routeName: route1NameArg });
+            CreepGroup.setCreepGroupProperties({
+                creepGroupName: creepGroupNameArg,
+                routeName: route1NameArg,
+                projectName: maintainRoomProjectName
+            });
             creepGroupMemory.creepNameList.forEach(creepName => {
                 const creepMemory = Memory.creeps[creepName];
                 if (creepMemory) {
@@ -40,7 +48,11 @@ global.AcrossTickTaskFunction.centerTask1 = task => {
             roomArg.storage.store.energy < resourceLimit.storage.energy.min &&
             creepGroupMemory.routeName !== route2NameArg
         ) {
-            CreepGroup.setCreepGroupProperties({ creepGroupName: creepGroupNameArg, routeName: route2NameArg });
+            CreepGroup.setCreepGroupProperties({
+                creepGroupName: creepGroupNameArg,
+                routeName: route2NameArg,
+                projectName: maintainRoomProjectName
+            });
             creepGroupMemory.creepNameList.forEach(creepName => {
                 const creepMemory = Memory.creeps[creepName];
                 if (creepMemory) {

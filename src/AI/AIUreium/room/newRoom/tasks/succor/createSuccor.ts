@@ -2,7 +2,7 @@ import { CreepBody } from "frame/creep/body";
 import { CreepGroup } from "frame/creep/group";
 import { SpawnPool } from "frame/spawn/spawnPool";
 import { TaskObject } from "utils/Project";
-import { newRoomTaskArgs } from "../../taskRelation";
+import { newRoomProjectName, newRoomTaskArgs } from "../../type";
 
 export const createSuccor: TaskObject<newRoomTaskArgs> = {
     name: "createSuccor",
@@ -44,5 +44,5 @@ function createSuccorCreep(spawnRoomName: string, claimRoomName: string): void {
         readyCondition: "loop"
     });
     CreepGroup.addCreep({ creepName, creepGroupName });
-    CreepGroup.setCreepGroupProperties({ creepGroupName, roleName: "succor1" });
+    CreepGroup.setCreepGroupProperties({ creepGroupName, roleName: "succor1", projectName: newRoomProjectName });
 }

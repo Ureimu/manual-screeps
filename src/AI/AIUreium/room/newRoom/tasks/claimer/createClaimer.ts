@@ -1,5 +1,5 @@
 import { TaskObject } from "utils/Project";
-import { newRoomTaskArgs } from "../../taskRelation";
+import { newRoomProjectName, newRoomTaskArgs } from "../../type";
 import { CreepBody } from "frame/creep/body";
 import { CreepGroup } from "frame/creep/group";
 import { SpawnPool } from "frame/spawn/spawnPool";
@@ -34,5 +34,5 @@ function createClaimCreep(spawnRoomName: string, claimRoomName: string): void {
         readyCondition: "loop"
     });
     CreepGroup.addCreep({ creepName, creepGroupName });
-    CreepGroup.setCreepGroupProperties({ creepGroupName, roleName: "claimer1" });
+    CreepGroup.setCreepGroupProperties({ creepGroupName, roleName: "claimer1", projectName: newRoomProjectName });
 }

@@ -2,7 +2,7 @@ import { CreepGroup } from "frame/creep/group";
 import { RoutePlan } from "frame/creep/routePlan";
 import { SpawnPool } from "frame/spawn/spawnPool";
 import { TaskObject } from "utils/Project";
-import { maintainRoomTaskArgs } from "../../taskRelation";
+import { maintainRoomTaskArgs } from "../../type";
 
 export const createHarvestGroup: TaskObject<maintainRoomTaskArgs> = {
     name: "createHarvestGroup",

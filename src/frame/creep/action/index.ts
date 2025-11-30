@@ -51,7 +51,7 @@ declare global {
 export type state = "moving" | "arrived" | "end" | "getState";
 export type conditionState = "jump" | "notJump";
 
-export default registerFN(runCreepAction, "runCreepAction");
+export default registerFN(runCreepAction, "runCreepAction", creep => creep.memory.groupName ?? "unknown");
 function runCreepAction(creep: Creep): void {
     try {
         // if (Game.time % 10 === 0) throw new Error("test Error");

@@ -2,7 +2,7 @@ import { calcGetPowerSpawnTime } from "AI/AIUreium/control/getPower/calcSpawnTim
 import { CreepGroup } from "frame/creep/group";
 import { SpawnPool } from "frame/spawn/spawnPool";
 import { TaskObject } from "utils/Project";
-import { getPowerTaskArgs } from "../../type";
+import { getPowerProjectName, getPowerTaskArgs } from "../../type";
 
 export const getGPHealerGroupName = (roomName: string, powerBankRoomName: string, powerBankId: string) =>
     `${roomName}-gph-${powerBankRoomName}-${powerBankId}`;
@@ -21,7 +21,12 @@ export const createGPHealerGroup: TaskObject<getPowerTaskArgs> = {
             mode: "role",
             groupArguments: `${roomName},${powerBankRoomName},${powerBankId}`
         });
-        CreepGroup.setCreepGroupProperties({ creepGroupName, mode: "role", roleName: "gpHealer" });
+        CreepGroup.setCreepGroupProperties({
+            creepGroupName,
+            mode: "role",
+            roleName: "gpHealer",
+            projectName: getPowerProjectName
+        });
 
         return "end";
     },

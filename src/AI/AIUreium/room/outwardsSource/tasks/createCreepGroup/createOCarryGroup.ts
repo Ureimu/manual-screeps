@@ -6,7 +6,7 @@ import { SpawnPool } from "frame/spawn/spawnPool";
 import { MAX_ENERGY_PER_CONTROLLER_LEVEL } from "utils/constants";
 import { logManager } from "utils/log4screeps";
 import { TaskObject } from "utils/Project";
-import { outwardsSourceTaskArgs } from "../../taskRelation";
+import { outwardsSourceTaskArgs } from "../../type";
 const logger = logManager.createLogger("info", "createOCarryGroup");
 export const OCarryGroupCreepName = (roomName: string, sourceName: string): string => `${roomName}oc${sourceName}`;
 export const createOCarryGroup: TaskObject<outwardsSourceTaskArgs> = {

@@ -1,14 +1,11 @@
 import { TaskObject, Project } from "utils/Project";
 import { ProjectNetworkDiagram } from "utils/Project/storage";
 import { TaskRelation, TaskCollection, DiagramMemory } from "utils/Project/type";
+import { newRoomTaskArgs, MemoryAddressArgs, newRoomProjectName } from "./type";
 import { createClaimer } from "./tasks/claimer/createClaimer";
 import { deleteClaimer } from "./tasks/claimer/deleteClaimer";
 import { createSuccor } from "./tasks/succor/createSuccor";
 import { deleteSuccor } from "./tasks/succor/deleteSuccor";
-
-// 设置Project的存储位置
-type MemoryAddressArgs = Parameters<(spawnRoomName: string, claimRoomName: string) => void>;
-export type newRoomTaskArgs = Parameters<(spawnRoomName: string, claimRoomName: string) => void>;
 
 const taskRelation = {
     [createClaimer.name]: [ProjectNetworkDiagram.startNodeName],
@@ -19,7 +16,7 @@ const taskRelation = {
 const taskCollection = { createClaimer, deleteClaimer, createSuccor, deleteSuccor };
 export class NewRoomProject extends Project<newRoomTaskArgs, MemoryAddressArgs> {
     public constructor(taskArgs: newRoomTaskArgs, memoryAddressArgs: MemoryAddressArgs) {
-        super("newRoom", taskArgs, memoryAddressArgs);
+        super(newRoomProjectName, taskArgs, memoryAddressArgs);
         // this.wrapTaskCollection(); // 注册所有task到profiler模块，可选
     }
     public taskRelation: TaskRelation = taskRelation;

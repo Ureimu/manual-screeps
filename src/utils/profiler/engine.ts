@@ -15,7 +15,7 @@ export const Profiler = {
     callgrind(profilerData: ProfilerMemory): string {
         const elapsedTicks =
             typeof profilerData.disableTick === "number"
-                ? profilerData.disableTick - profilerData.enabledTick - 2
+                ? profilerData.disableTick - profilerData.enabledTick + 1
                 : Game.time - profilerData.enabledTick + 1;
         profilerData.map["(tick)"].calls = elapsedTicks;
         profilerData.map["(tick)"].time = profilerData.totalTime;

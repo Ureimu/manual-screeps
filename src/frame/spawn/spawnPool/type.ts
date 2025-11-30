@@ -35,6 +35,13 @@ export interface SpawnCreepDetail {
     spawning?: boolean;
     roomName: string;
     spawnCount: number;
+    /**
+     * 从属的project名称。
+     *
+     * @type {string}
+     * @memberof SpawnCreepDetail
+     */
+    projectName?: string;
 }
 
 export type runningState = "running" | "ready" | "notReady";

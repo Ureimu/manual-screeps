@@ -2,7 +2,7 @@ import { CreepBody } from "frame/creep/body";
 import { CreepGroup } from "frame/creep/group";
 import { SpawnPool } from "frame/spawn/spawnPool";
 import { TaskObject } from "utils/Project";
-import { outwardsSourceTaskArgs } from "../../taskRelation";
+import { outwardsSourceTaskArgs } from "../../type";
 export const OReserveGroupCreepName = (roomName: string, sourceName: string): string => `${roomName}or${sourceName}`;
 export const createOReserveGroup: TaskObject<outwardsSourceTaskArgs> = {
     name: "createOReserveGroup",

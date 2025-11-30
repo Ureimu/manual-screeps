@@ -1,7 +1,7 @@
 import { FullSpecifiedStructureMemory, SpecifiedStructureNameList } from "frame/construct/type";
 import { getStructureMemory } from "frame/construct/utils";
 import { TaskObject } from "utils/Project";
-import { maintainRoomTaskArgs } from "../../taskRelation";
+import { maintainRoomTaskArgs } from "../../type";
 
 export function structureHasBuilt<T extends BuildableStructureConstant>(
     structureType: T,

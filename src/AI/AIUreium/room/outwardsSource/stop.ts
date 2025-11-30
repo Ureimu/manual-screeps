@@ -1,5 +1,6 @@
 import { SpawnPool } from "frame/spawn/spawnPool";
-import { getOutwardsHarvestProject, outwardsSourceTaskArgs } from "./taskRelation";
+import { getOutwardsHarvestProject } from "./taskRelation";
+import { outwardsSourceTaskArgs } from "./type";
 
 export function stopOutwardsSource(...args: outwardsSourceTaskArgs): void {
     const [originRoomName, sourceRoomName, sourceName] = args;

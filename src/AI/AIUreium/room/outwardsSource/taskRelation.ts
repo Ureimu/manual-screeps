@@ -13,6 +13,7 @@ import { createOReserveGroup } from "./tasks/createCreepGroup/createOReserveGrou
 import { oReserving } from "./tasks/OReserver/oReserving";
 import { createOBuildGroup } from "./tasks/createCreepGroup/createOBuildGroup";
 import { oBuildRoad } from "./tasks/OBuilder/oBuildRoad";
+import { outwardsSourceProjectName, outwardsSourceTaskArgs } from "./type";
 
 // 设置Project的存储位置
 
@@ -45,10 +46,9 @@ const taskCollection = registerObjectDeep(
     },
     "outwardsHarvestTaskCollection"
 );
-export type outwardsSourceTaskArgs = [originRoomName: string, sourceRoomName: string, sourceName: string];
 class outwardsHarvestProject extends Project<outwardsSourceTaskArgs, outwardsSourceTaskArgs> {
     public constructor(taskArgs: outwardsSourceTaskArgs, memoryAddressArgs: outwardsSourceTaskArgs) {
-        super("outwardsHarvestProject", taskArgs, memoryAddressArgs);
+        super(outwardsSourceProjectName, taskArgs, memoryAddressArgs);
         // this.wrapTaskCollection(); // 注册所有task到profiler模块，可选
     }
     public taskRelation: TaskRelation = taskRelation;

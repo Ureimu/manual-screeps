@@ -5,7 +5,8 @@ import { AnyFunction, WrappedData } from "../type";
 
 export function wrapFunction<T extends AnyFunction>(
     name: string,
-    originalFunction: T
+    originalFunction: T,
+    suffixFunction?: (...args: Parameters<T>) => string
 ): {
     (this: any, ...args: Parameters<T>): ReturnType<T>;
     profilerWrapped: boolean;
@@ -19,13 +20,14 @@ export function wrapFunction<T extends AnyFunction>(
         // console.log(`wrapping Function ${name}: wrap`);
         const profilerMemory = new SavePath().path;
         if (Profiler.isProfiling(profilerMemory)) {
-            const nameMatchesFilter = name === getFilter();
+            const actualName = suffixFunction ? name + ":" + suffixFunction(...args) : name;
+            const nameMatchesFilter = actualName === getFilter();
             const start = Game.cpu.getUsed();
             if (nameMatchesFilter) {
                 profilerCache.depth++;
             }
             const curParent = profilerCache.parentFn;
-            profilerCache.parentFn = name;
+            profilerCache.parentFn = actualName;
             let result;
             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
             if (this && this.constructor === wrappedFunction) {
@@ -38,7 +40,7 @@ export function wrapFunction<T extends AnyFunction>(
             profilerCache.parentFn = curParent;
             if (profilerCache.depth > 0 || !getFilter()) {
                 const end = Game.cpu.getUsed();
-                Profiler.record(name, end - start, profilerCache.parentFn, profilerMemory);
+                Profiler.record(actualName, end - start, profilerCache.parentFn, profilerMemory);
             }
             if (nameMatchesFilter) {
                 profilerCache.depth--;
@@ -70,7 +72,8 @@ export function wrapFunction<T extends AnyFunction>(
 
 export function profileFunction<T extends AnyFunction>(
     fn: T,
-    functionName: string
+    functionName: string,
+    suffixFunction?: (...args: Parameters<T>) => string
 ):
     | T
     | {
@@ -85,5 +88,5 @@ export function profileFunction<T extends AnyFunction>(
         return fn;
     }
 
-    return wrapFunction<T>(fnName, fn);
+    return wrapFunction<T>(fnName, fn, suffixFunction);
 }

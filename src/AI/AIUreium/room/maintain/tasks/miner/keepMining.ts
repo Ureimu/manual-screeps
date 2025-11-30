@@ -4,7 +4,7 @@ import { FlagMaintainer } from "frame/flagMaintainer";
 import { FlagTools } from "frame/flagMaintainer/tools";
 import { TaskObject } from "utils/Project";
 import { PosStr } from "utils/RoomPositionToStr";
-import { maintainRoomTaskArgs } from "../../taskRelation";
+import { maintainRoomProjectName, maintainRoomTaskArgs } from "../../type";
 import { MineGroupName } from "../createCreepGroup/createMineGroup";
 
 export const keepMining: TaskObject<maintainRoomTaskArgs> = {
@@ -45,7 +45,7 @@ export const keepMining: TaskObject<maintainRoomTaskArgs> = {
             doWhenArrive: "keepOnHarvestingMineral",
             actionArgs: PosStr.setPosToStr(Game.flags[mineralFlagName].pos)
         });
-        CreepGroup.setCreepGroupProperties({ creepGroupName, routeName });
+        CreepGroup.setCreepGroupProperties({ creepGroupName, routeName, projectName: maintainRoomProjectName });
 
         return "end";
     },

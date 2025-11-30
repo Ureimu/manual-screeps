@@ -1,7 +1,7 @@
 import { CreepGroup } from "frame/creep/group";
 import { RoutePlan } from "frame/creep/routePlan";
 import { TaskObject } from "utils/Project";
-import { outwardsSourceTaskArgs } from "../../taskRelation";
+import { outwardsSourceProjectName, outwardsSourceTaskArgs } from "../../type";
 import { OHarvestGroupCreepName } from "../createCreepGroup/createOHarvestGroup";
 
 export const oMoveToSource: TaskObject<outwardsSourceTaskArgs> = {
@@ -28,7 +28,7 @@ export const oMoveToSource: TaskObject<outwardsSourceTaskArgs> = {
             range: 50,
             doWhenArrive: "pause"
         });
-        CreepGroup.setCreepGroupProperties({ creepGroupName, routeName });
+        CreepGroup.setCreepGroupProperties({ creepGroupName, routeName, projectName: outwardsSourceProjectName });
 
         return "end";
     },

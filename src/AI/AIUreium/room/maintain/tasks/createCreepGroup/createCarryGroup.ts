@@ -1,7 +1,7 @@
 import { CreepGroup } from "frame/creep/group";
 import { SpawnPool } from "frame/spawn/spawnPool";
 import { TaskObject } from "utils/Project";
-import { maintainRoomTaskArgs } from "../../taskRelation";
+import { maintainRoomProjectName, maintainRoomTaskArgs } from "../../type";
 
 export const carryGroupName = (roomName: string): string => `${roomName}c`;
 export const createCarryGroup: TaskObject<maintainRoomTaskArgs> = {
@@ -17,7 +17,12 @@ export const createCarryGroup: TaskObject<maintainRoomTaskArgs> = {
         for (let index = 0; index < 2; index++) {
             createCreepGroup(room, creepGroupName, index);
         }
-        CreepGroup.setCreepGroupProperties({ creepGroupName, mode: "role", roleName: "carrier" });
+        CreepGroup.setCreepGroupProperties({
+            creepGroupName,
+            mode: "role",
+            roleName: "carrier",
+            projectName: maintainRoomProjectName
+        });
         return "end";
     },
     justFinished() {

@@ -26,6 +26,7 @@ export type CreepGroupMemory<T extends CreepGroupMode> = T extends "route"
           routeName?: string;
           ifShow: boolean;
           arguments: string[];
+          projectName?: string;
       }
     : T extends "role"
     ? {
@@ -34,6 +35,7 @@ export type CreepGroupMemory<T extends CreepGroupMode> = T extends "route"
           roleName?: string;
           ifShow: boolean;
           arguments: string[];
+          projectName?: string;
       }
     : never;
 

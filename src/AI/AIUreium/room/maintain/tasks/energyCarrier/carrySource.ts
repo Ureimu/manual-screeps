@@ -5,7 +5,7 @@ import { FlagTools } from "frame/flagMaintainer/tools";
 import { SpawnPool } from "frame/spawn/spawnPool";
 import { TaskObject } from "utils/Project";
 import { PosStr } from "utils/RoomPositionToStr";
-import { maintainRoomTaskArgs } from "../../taskRelation";
+import { maintainRoomProjectName, maintainRoomTaskArgs } from "../../type";
 import { energyCarryGroupName } from "../createCreepGroup/createEnergyCarryGroup";
 
 export const carrySource: TaskObject<maintainRoomTaskArgs> = {
@@ -59,7 +59,7 @@ export const carrySource: TaskObject<maintainRoomTaskArgs> = {
                 doWhenArrive: "withdrawEnergy",
                 actionArgs: "true"
             });
-            CreepGroup.setCreepGroupProperties({ creepGroupName, routeName });
+            CreepGroup.setCreepGroupProperties({ creepGroupName, routeName, projectName: maintainRoomProjectName });
             if (index === sources.length - 1) {
                 const maxEnergyNum = 5e5;
                 RoutePlan.addCondition({

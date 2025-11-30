@@ -10,7 +10,8 @@ import { statsEngine } from "./stats";
 import { mapVisualForRoom } from "./visual/mapVisual";
 import { roomVisualize } from "./visual/roomVisual";
 
-export const runFrame = registerFN((): void => {
+// ! 该函数未使用。如需修改主逻辑请去src/main.ts修改。
+const runFrame = registerFN((): void => {
     if (global.mf?.hasClearAll && Game.cpu.halt) Game.cpu.halt();
     mountAll();
     runAllAcrossTickTask();
@@ -44,7 +45,7 @@ export const runFrame = registerFN((): void => {
     statsEngine.storeData();
 }, "runFrame");
 
-function clearUnusedCreepMemory(): void {
+export function clearUnusedCreepMemory(): void {
     const usingCreepSet = new Set<string>();
     Object.values(Game.rooms).forEach(room => {
         if (room.controller?.my && room.find(FIND_MY_SPAWNS).length !== 0) {

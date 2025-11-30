@@ -141,14 +141,18 @@ export class CreepGroup {
          */
         routeName?: string;
         groupArgs?: string;
+        projectName?: string;
     }): string {
-        const { creepGroupName, routeName, roleName, groupArgs } = args;
+        const { creepGroupName, routeName, roleName, groupArgs, projectName } = args;
         // console.log(creepGroupName, routeName);
         const creepGroupMemory = Memory.creepGroups[creepGroupName];
         const { mode = creepGroupMemory.mode } = args;
         // console.log(`设定${creepGroupName}`);
         if (groupArgs !== undefined) {
             creepGroupMemory.arguments = groupArgs.split(",");
+        }
+        if (projectName) {
+            creepGroupMemory.projectName = projectName;
         }
         if (mode === creepGroupMemory.mode) {
             if (creepGroupModeIsRoute(creepGroupMemory)) {
