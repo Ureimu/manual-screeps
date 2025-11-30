@@ -1,7 +1,7 @@
 import { logManager } from "utils/log4screeps";
 import { TaskObject } from "utils/Project";
 import { stopGetPower } from "../stop";
-import { getPowerTaskArgs } from "../taskRelation";
+import { getPowerTaskArgs } from "../type";
 import { getGPCarrierGroupName } from "./createCreepGroup/createGPCarrierGroup";
 const logger = logManager.createLogger("debug", "getPower.finishTask");
 export const finishTask: TaskObject<getPowerTaskArgs> = {

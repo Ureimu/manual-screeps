@@ -1,5 +1,5 @@
 import { TaskObject } from "utils/Project";
-import { getPowerTaskArgs } from "../../taskRelation";
+import { getPowerTaskArgs } from "../../type";
 import { getGPAttackerGroupName } from "../createCreepGroup/createGPAttackerGroup";
 
 export const waitForAttackEnd: TaskObject<getPowerTaskArgs> = {

@@ -11,6 +11,7 @@ import loader from "utils/Project/loader";
 import { SegmentManager } from "utils/SegmentManager/SegmentManager";
 import { waitThenLog } from "utils/AcrossTick/utils";
 import { logManager } from "utils/log4screeps";
+import { DiagramMemory } from "utils/Project/type";
 const logger = logManager.createLogger("debug", "UI");
 const segmentsCache: { [id: number]: string } = {};
 const debugging = false;
@@ -82,7 +83,10 @@ function getStats(task: AcrossTickMemory): AcrossTickReturnCode {
                 },
                 projectDiagram: {
                     maintenance: Base64.encode(
-                        new ProjectNetworkDiagram(room.memory?.AIUreium?.maintainRoom, false).getDiagramCode(false)
+                        new ProjectNetworkDiagram(
+                            room.memory?.AIUreium?.maintainRoom as DiagramMemory,
+                            false
+                        ).getDiagramCode(false)
                     ),
                     outwardsSource: outwardsSourceDiagram,
                     getPower: Base64.encode(

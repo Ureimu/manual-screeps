@@ -9,6 +9,7 @@ import { waitForAttackEnd } from "./tasks/gpCarrier/waitForAttackEnd";
 import { createGPCarrierGroup } from "./tasks/createCreepGroup/createGPCarrierGroup";
 import { finishTask } from "./tasks/finishTask";
 import { spawnAttackerAndHealer } from "./tasks/spawnAttackerAndHealer";
+import { getPowerTaskArgs } from "./type";
 
 export const taskRelation = {
     [createGetPowerBodyParts.name]: [ProjectNetworkDiagram.startNodeName],
@@ -31,7 +32,6 @@ const taskCollection = registerObjectDeep(
     },
     "getPowerTaskCollection"
 );
-export type getPowerTaskArgs = [originRoomName: string, powerBankRoomName: string, powerBankId: string];
 class getPowerProject extends Project<getPowerTaskArgs, getPowerTaskArgs> {
     public constructor(taskArgs: getPowerTaskArgs, memoryAddressArgs: getPowerTaskArgs) {
         super("getPowerProject", taskArgs, memoryAddressArgs);

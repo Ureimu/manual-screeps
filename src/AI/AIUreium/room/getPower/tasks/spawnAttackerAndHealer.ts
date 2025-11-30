@@ -4,7 +4,7 @@ import { CreepGroup } from "frame/creep/group";
 import { SpawnPool } from "frame/spawn/spawnPool";
 import { logManager } from "utils/log4screeps";
 import { TaskObject } from "utils/Project";
-import { getPowerTaskArgs } from "../taskRelation";
+import { getPowerTaskArgs } from "../type";
 import { getGPAttackerGroupName } from "./createCreepGroup/createGPAttackerGroup";
 import { getGPHealerGroupName } from "./createCreepGroup/createGPHealerGroup";
 

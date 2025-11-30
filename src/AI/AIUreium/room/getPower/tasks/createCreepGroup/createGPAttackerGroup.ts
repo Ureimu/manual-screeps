@@ -2,7 +2,7 @@ import { calcGetPowerSpawnTime } from "AI/AIUreium/control/getPower/calcSpawnTim
 import { CreepGroup } from "frame/creep/group";
 import { SpawnPool } from "frame/spawn/spawnPool";
 import { TaskObject } from "utils/Project";
-import { getPowerTaskArgs } from "../../taskRelation";
+import { getPowerTaskArgs } from "../../type";
 
 export const getGPAttackerGroupName = (roomName: string, powerBankRoomName: string, powerBankId: string) =>
     `${roomName}-gpa-${powerBankRoomName}-${powerBankId}`;
