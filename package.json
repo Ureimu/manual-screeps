@@ -5,7 +5,6 @@
     "main": "index.js",
     "//": "If you add or change the names of destinations in screeps.json, make sure you update these scripts to reflect the changes",
     "scripts": {
-        "lint": "eslint \"src/**/*.ts\" --fix",
         "build": "rollup -c & typedoc --options ./typedoc.config.json",
         "push-ureium": "rollup -c --environment DEST:u-main",
         "push-moreOneNight": "rollup -c --environment DEST:miniMain",

@@ -36,7 +36,8 @@ export default {
             values: {
                 '__SCREEPS_CODE_DEST__': String(dest),
             },
-            preventAssignment: true
+            preventAssignment: true,
+            include: "./src/codeConstants.ts"
         }),
         typescript({ tsconfig: "./tsconfig.json" }),
         copy({
