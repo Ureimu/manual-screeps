@@ -22,7 +22,8 @@ export const defaultRoomControlData: RoomControlData = {
         useReserver: true
     },
     market: {
-        buyEnergy: false
+        buyEnergy: false,
+        sellEnergy: true
     },
     upgradeController: {
         run: "onControllerLinkWorks"

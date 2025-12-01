@@ -17,13 +17,24 @@ export function runTerminal(terminal: StructureTerminal): void {
         if (!specifiedResourceLimit) continue;
         const sellLimit = specifiedResourceLimit.max * sellLimitRate;
         const buyLimit = specifiedResourceLimit.min * buyLimitRate;
+        let isDealingEnergy = false;
+        if (resourceType === RESOURCE_ENERGY) {
+            isDealingEnergy = true;
+        }
         if (terminalStoreNum > sellLimit) {
             logger.debug(`${resourceType} overNum:${terminalStoreNum - buyLimit}, try selling`);
             const sellNum = terminalStoreNum - sellLimit;
             const orderList = Game.market.getAllOrders({ type: ORDER_BUY, resourceType }); // 更快
-            let isDealingEnergy = false;
-            if (resourceType === RESOURCE_ENERGY) {
-                isDealingEnergy = true;
+            if (isDealingEnergy) {
+                if (!getRoomControlData(terminal.room.name).market.sellEnergy) {
+                    logger.debug(
+                        `${terminal.room.name} is not allowed to sell energy. set setting.market.sellEnergy to true to allow this.`
+                    );
+                    continue;
+                } else if (sellNum < 100) {
+                    logger.debug(`sell num is too low, stop selling. num:${sellNum}`);
+                    continue;
+                }
             }
             const benefitList = orderList
                 .map(order => {
@@ -69,10 +80,7 @@ export function runTerminal(terminal: StructureTerminal): void {
         }
         if (terminalStoreNum < buyLimit) {
             logger.debug(`${resourceType} requireNum:${buyLimit - terminalStoreNum}, try buying`);
-            let isDealingEnergy = false;
-            if (resourceType === RESOURCE_ENERGY) {
-                isDealingEnergy = true;
-            }
+
             const buyNum = buyLimit - terminalStoreNum;
             if (isDealingEnergy) {
                 if (!getRoomControlData(terminal.room.name).market.buyEnergy) {

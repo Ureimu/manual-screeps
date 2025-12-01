@@ -132,6 +132,11 @@ export interface RoomControlData {
          */
 
         buyEnergy: boolean;
+
+        /**
+         * 是否卖出能量。
+         */
+        sellEnergy: boolean;
     };
     /**
      * 升级控制器设置
