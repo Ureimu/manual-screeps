@@ -1,6 +1,5 @@
 import { enable, registerFN, wrap } from "utils/profiler";
 import { ErrorMapper } from "utils/ErrorMapper";
-import { SegmentManager } from "utils/SegmentManager";
 import { autoConstruction } from "frame/construct";
 import { roomCpuCost } from "frame/cpuStats";
 import { clearUnusedCreepMemory } from "frame/main";
@@ -9,7 +8,6 @@ import { runSpawnPool, runSpawnQueue } from "frame/spawn/spawning";
 import { shiftController } from "frame/spawn/spawning/readyCondition/shiftController";
 import { statsEngine } from "frame/stats";
 import { runAllAcrossTickTask } from "utils/AcrossTick";
-import runCreepAction from "frame/creep/action";
 import { allocateNewRoom } from "AI/AIUreium/control/newRoom";
 import { mountUreimuAiAll } from "AI/AIUreium/mount";
 import { manageScoutTask } from "AI/AIUreium/roles/maintain/scouter";
@@ -24,10 +22,20 @@ import { tower } from "AI/AIUreium/structure/tower";
 import { CreepBody } from "frame/creep/body";
 import { link } from "AI/AIUreium/structure/link";
 import { runProjectCreeps } from "frame/creep";
+import { getMainControlData, loadSettings } from "AI/AIUreium/control";
+import { logManager } from "utils/log4screeps";
 
+const logger = logManager.createLogger("debug", "main.init");
+loadSettings();
 require("moveOptimize");
 global.version = "0.1.1";
-enable();
+if (getMainControlData().useProfiler) {
+    logger.info("已启用profiler，会有一点额外的性能消耗。需要关闭请在settings中设置。");
+    enable();
+} else {
+    logger.info("已关闭profiler，无法使用相关功能。需要启用请在settings中设置。");
+}
+
 export const loop = ErrorMapper.wrapLoop(() => {
     wrap(function () {
         // runFrame();

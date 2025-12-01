@@ -1,3 +1,4 @@
+import { RecursivePartial } from "utils/typeUtils";
 import { RoomStatusOutwardsSource } from "./outwardsSource/type";
 
 export const roomControlDataSegmentNameList = Array(5)
@@ -9,6 +10,36 @@ declare global {
         control?: RoomControlData;
         status?: RoomStatus;
     }
+}
+
+declare global {
+    namespace NodeJS {
+        interface Global {
+            mainControlData: MainControlData;
+        }
+    }
+}
+
+export type ControlDataType = {
+    rooms: {
+        [roomName: string]: RoomControlData;
+    };
+    main: MainControlData;
+};
+
+export type PartialControlDataType = {
+    rooms: {
+        [roomName: string]: RecursivePartial<RoomControlData>;
+    };
+    main?: RecursivePartial<MainControlData>;
+};
+
+export interface MainControlData {
+    /**
+     * 是否启用profiler。
+     *
+     */
+    useProfiler: boolean;
 }
 
 export interface RoomControlData {

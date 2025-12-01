@@ -12,13 +12,12 @@ It works by monkey patching functions on the Global game object prototypes, with
 
 目前新增功能有：
 
-1.支持 ts 的装饰器。
+1. 支持 ts 的装饰器。
+2. 支持计算 Memory 初始化消耗。
+3. 新增函数 registerObjectDeep: 递归注册对象中的函数到 profiler。
+4. 已将 js 原版 改为 ts 版本。
+5. registerFN添加suffixFunction可选参数，用于分类记录函数的特定使用情况
 
-2.支持计算 Memory 初始化消耗。
-
-3.新增函数 registerObjectDeep: 递归注册对象中的函数到 profiler。
-
-4.已将 js 原版 改为 ts 版本。
 
 ## Setup
 

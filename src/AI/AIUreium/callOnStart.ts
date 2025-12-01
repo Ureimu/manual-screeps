@@ -1,7 +1,7 @@
 import { callOnStart as roomCallOnStart } from "./room/callOnStart";
 import { callOnStart as runCreepRole } from "./roles/index";
-import { callOnStart as controlBoard } from "./control/callOnStart";
-const functionList: (() => void)[] = [roomCallOnStart, runCreepRole, controlBoard];
+
+const functionList: (() => void)[] = [roomCallOnStart, runCreepRole];
 
 export function callOnStart(): void {
     Object.defineProperty(Creep.prototype, "globalMemory", {

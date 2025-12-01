@@ -1,4 +1,4 @@
-import { RoomControlData } from "./type";
+import { MainControlData, RoomControlData } from "./type";
 
 export const defaultRoomControlData: RoomControlData = {
     getPower: {
@@ -36,4 +36,8 @@ export const defaultRoomControlData: RoomControlData = {
         energyLimit: 100e3,
         powerLimit: 1e3
     }
+};
+
+export const defaultMainControlData: MainControlData = {
+    useProfiler: true
 };
