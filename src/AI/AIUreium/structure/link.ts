@@ -20,7 +20,7 @@ const unwrappedLink = {
         const centerLinkToControllerLinkList = cartesianProduct(centerLinkList, controllerLinkList);
         const sourceLinkToCenterLinkList = cartesianProduct(sourceLinkList, centerLinkList);
         for (let linkList of sourceLinkToCenterLinkList) {
-            if (linkList[0].cooldown > 0) return;
+            if (linkList[0].cooldown > 0) continue;
             if (linkList[0].store.energy > 700 && linkList[1].store.energy < 100) {
                 linkList[0].transferEnergy(linkList[1]);
                 break;
