@@ -117,7 +117,8 @@ export const Profiler = {
         { name: "Mineral", val: Mineral },
         { name: "Nuke", val: Nuke },
         { name: "OwnedStructure", val: OwnedStructure },
-        { name: "CostMatrix", val: PathFinder.CostMatrix },
+        // 考虑到CostMatrix的调用太频繁，不对其进行记录。
+        // { name: "CostMatrix", val: PathFinder.CostMatrix },
         { name: "Resource", val: Resource },
         { name: "Room", val: Room },
         { name: "RoomObject", val: RoomObject },
