@@ -122,6 +122,9 @@ export abstract class Project<TaskArgs extends unknown[], MemoryAddressArgs exte
             this.init();
         }
         this.engine.run();
+        if (this.engine.isStopped) {
+            this.stop();
+        }
         if (!this.hasStopped) {
             this.getMemory().diagram = this.diagram.diagramDict;
         } else {

@@ -16,6 +16,7 @@ export class ProjectEngine<T extends unknown[]> {
     public taskArgs: T;
     public stats: ProjectEngineStats = { initTime: Game.time, runNum: 0 };
     private stateList: ["start", "working", "justFinished"] = ["start", "working", "justFinished"];
+    public isStopped: boolean = false;
 
     public constructor(
         taskCollection: TaskCollection<T>,
@@ -59,6 +60,9 @@ export class ProjectEngine<T extends unknown[]> {
                             nodeUpdateData[nodeName].stateList.push(this.taskDiagram.updateNodeState(nodeName));
                         }
                         ifRunOnceMore = true;
+                    }
+                    if (returnTaskStateCode === "stopProject") {
+                        this.isStopped = true;
                     }
                 } else {
                     this.taskDiagram.updateNodeState(nodeName);

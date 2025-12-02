@@ -45,7 +45,7 @@ export interface TaskObject<T extends unknown[]> {
     justFinished?: (...args: T) => TaskState;
 }
 
-export type TaskState = "running" | "end";
+export type TaskState = "running" | "end" | "stopProject";
 
 export interface TaskRelation {
     [x: string]: string[];
