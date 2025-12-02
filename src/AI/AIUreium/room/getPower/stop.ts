@@ -34,5 +34,5 @@ export function stopGetPower(...args: getPowerTaskArgs): void {
         CreepGroup.deleteCreepGroup({ creepGroupName });
     });
 
-    getGetPowerProject(originRoomName, powerBankRoomName, powerBankId).stop();
+    // 停止project运行在project处理，具体为直接返回"stopProject"
 }

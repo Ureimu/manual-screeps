@@ -41,7 +41,7 @@ export const finishTask: TaskObject<getPowerTaskArgs> = {
         return "end";
     },
     justFinished() {
-        return "end";
+        return "stopProject";
     }
 };
 // TODO 添加多种任务的启用关闭设置
