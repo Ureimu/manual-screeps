@@ -4,7 +4,7 @@ import { autoConstruction } from "./construct";
 import { roomCpuCost } from "./cpuStats";
 import runCreepAction from "./creep/action";
 import { mountAll } from "./mount";
-import { runSpawnPool, runSpawnQueue } from "./spawn/spawning";
+import { runSpawnPool, runRoomSpawnQueue } from "./spawn/spawning";
 import { shiftController } from "./spawn/spawning/readyCondition/shiftController";
 import { statsEngine } from "./stats";
 import { mapVisualForRoom } from "./visual/mapVisual";
@@ -29,10 +29,6 @@ const runFrame = registerFN((): void => {
         }
         const end = Game.cpu.getUsed();
         roomCpuCost[room.name] = end - start;
-    });
-
-    Object.values(Game.spawns).forEach(spawn => {
-        runSpawnQueue(spawn);
     });
 
     shiftController.run();

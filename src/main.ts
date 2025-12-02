@@ -4,7 +4,7 @@ import { autoConstruction } from "frame/construct";
 import { roomCpuCost } from "frame/cpuStats";
 import { clearUnusedCreepMemory } from "frame/main";
 import { mountAll } from "frame/mount";
-import { runSpawnPool, runSpawnQueue } from "frame/spawn/spawning";
+import { runRoomSpawnQueue, runSpawnPool } from "frame/spawn/spawning";
 import { shiftController } from "frame/spawn/spawning/readyCondition/shiftController";
 import { statsEngine } from "frame/stats";
 import { runAllAcrossTickTask } from "utils/AcrossTick";
@@ -96,9 +96,7 @@ const runRoom = registerFN(
             terminal.run(room);
             observer.run(room);
             powerSpawn.run(room);
-            mySpawns.forEach(spawn => {
-                runSpawnQueue(spawn);
-            });
+            runRoomSpawnQueue(room);
 
             // run projects, creeps with projectName are run by these projects.
             maintainRoom(room);

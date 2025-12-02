@@ -2,20 +2,19 @@ import { ReadyCondition } from "frame/spawn/spawning/readyCondition";
 
 declare global {
     interface SpawnMemory {
-        spawnQueue: SpawnCreepDetail[];
         recorder?: number;
         lastFinishSpawnTime?: number;
         isSpawning: boolean;
     }
 
     interface RoomMemory {
-        diedCreepList: string[];
         spawnPool: {
             [creepName: string]: SpawnCreepDetail;
         };
-        roomEnergy: {
-            amount: number;
-            tick: number;
+        spawnInfo: {
+            energyAmount: number;
+            recorder: number;
+            diedCreepList: string[];
         };
     }
 }

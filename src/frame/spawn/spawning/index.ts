@@ -1,74 +1,75 @@
 import { chooseBefittingBody } from "frame/creep/body/chooseCondition";
 import { bodyTools } from "frame/creep/body/tools";
 import { CreepGroup } from "frame/creep/group";
-import { registerFN } from "utils/profiler";
-import { SpawnCreepDetail } from "frame/spawn/spawnPool/type";
+import { logManager } from "utils/log4screeps";
+import PriorityQueue from "utils/PriorityQueue";
 import { TaskPool } from "utils/PriorityQueue/taskPool";
+import { registerFN } from "utils/profiler";
 import { SetTools } from "utils/SetTools";
+import { SpawnCreepDetail } from "../spawnPool/type";
 import { callOnBirth } from "./callOnBirth";
 import { readyCondition } from "./readyCondition";
-import { logManager } from "utils/log4screeps";
+
 const logger = logManager.createLogger("debug", "spawning");
-
-function runSpawnTask(spawn: StructureSpawn): boolean {
-    if (!spawn.memory.lastFinishSpawnTime) {
-        spawn.memory = {
-            spawnQueue: [],
-            isSpawning: false
-        };
-        spawn.memory.lastFinishSpawnTime = Game.time;
-    }
-    if (typeof spawn.spawning?.name === "string") {
-        if (!spawn.memory.isSpawning) {
-            spawn.memory.isSpawning = true;
-        }
-        return false;
-    } else {
-        if (spawn.memory.isSpawning) {
-            spawn.memory.lastFinishSpawnTime = Game.time;
-            spawn.memory.isSpawning = false;
-        }
-        spawn.memory.recorder =
-            (Game.time - spawn.memory.lastFinishSpawnTime) *
-                Math.max(Math.log1p(spawn.memory.spawnQueue.length + 1), 1) -
-            40 * Math.floor((spawn.room.energyCapacityAvailable - spawn.room.energyAvailable) / 200 + 1);
-        if (
-            (spawn.memory.recorder > 0 && spawn.room.energyAvailable >= 300) ||
-            (spawn.room.energyAvailable === spawn.room.energyCapacityAvailable && spawn.room.energyAvailable >= 300)
-        ) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-}
-
 export const spawningOption: { [spawnName: string]: { energyStructures: Id<StructureExtension | StructureSpawn>[] } } =
     {};
 
-export const runSpawnQueue = registerFN((spawn: StructureSpawn): void => {
-    if (!runSpawnTask(spawn)) return;
-    if (spawn.spawning) return;
-    if (spawn.room.energyAvailable < BODYPART_COST.carry * 6) return;
+const queueList: { [roomName: string]: PriorityQueue<SpawnCreepDetail> } = {};
+const taskPool = new TaskPool<SpawnCreepDetail>();
 
-    if (!spawn.room.memory.roomEnergy) {
-        spawn.room.memory.roomEnergy = {
-            amount: spawn.room.energyAvailable,
-            tick: Game.time
-        };
+export const runRoomSpawnQueue = registerFN((room: Room) => {
+    const spawns = room.find(FIND_MY_SPAWNS);
+    const availableSpawns = spawns.filter(recordSpawnTimeAndIsSpawning);
+    if (availableSpawns.length === 0) return;
+    const lastFinishSpawnTime = availableSpawns.reduce(
+        (time, spawn) => Math.max(time, spawn.memory.lastFinishSpawnTime ?? 0),
+        0
+    );
+
+    if (!queueList[room.name]) {
+        const runningTaskList: SpawnCreepDetail[] = [];
+        for (const creepName in room.memory.spawnPool) {
+            const detail = room.memory.spawnPool[creepName];
+            if (detail.state === "running") {
+                runningTaskList.push(detail);
+            }
+        }
+        queueList[room.name] = taskPool.initQueueFromTaskQueue(runningTaskList);
     }
-    if (spawn.room.memory.roomEnergy.tick !== Game.time) {
-        spawn.room.memory.roomEnergy = {
-            amount: spawn.room.energyAvailable,
-            tick: Game.time
-        };
+    const spawnQueue = queueList[room.name];
+    for (const creepName in room.memory.spawnPool) {
+        const detail = room.memory.spawnPool[creepName];
+        switch (detail.state) {
+            case "ready":
+                spawnQueue.push(detail);
+                detail.state = "running";
+                break;
+            case "notReady":
+                readyCondition[detail.spawnCondition](detail);
+                break;
+            default:
+                break;
+        }
     }
-    // 执行spawn
-    const taskPool = new TaskPool<SpawnCreepDetail>();
-    const spawnQueue = taskPool.initQueueFromTaskQueue(spawn.memory.spawnQueue);
+
+    room.memory.spawnInfo.energyAmount = room.energyAvailable;
+    room.memory.spawnInfo.recorder =
+        (Game.time - lastFinishSpawnTime) * Math.max(Math.log1p(spawnQueue.size() + 1), 1) -
+        40 * Math.floor((room.energyCapacityAvailable - room.energyAvailable) / 200 + 1);
+
+    if (
+        room.energyAvailable < 300 ||
+        (room.energyAvailable !== room.energyCapacityAvailable && room.memory.spawnInfo.recorder <= 0)
+    ) {
+        return;
+    }
+
     let returnCode = 0;
-    const failedList: SpawnCreepDetail[] = [];
+    let spawnIndex = 0;
+    let spawn: StructureSpawn = availableSpawns[spawnIndex];
+    let failedTask: SpawnCreepDetail | undefined = undefined;
     do {
+        spawn = availableSpawns[spawnIndex];
         const spawnTask = spawnQueue.pop();
         if (spawnTask) {
             const creepPreProcessBodyString = chooseBefittingBody({
@@ -76,16 +77,16 @@ export const runSpawnQueue = registerFN((spawn: StructureSpawn): void => {
                 room: spawn.room
             });
             if (!creepPreProcessBodyString) {
-                logger.warn(`${spawn.room.name} ${spawnTask.creepBody} 没有合法的body config`);
-                failedList.push(spawnTask);
-                continue;
+                logger.info(`${spawn.room.name} ${spawnTask.creepBody} 没有合法的body config`);
+                failedTask = spawnTask;
+                break;
             }
             const creepBody = bodyTools.compile(creepPreProcessBodyString);
             const spawnCreepName = spawnTask.creepName;
             const energyCost = bodyTools.getEnergyCost(creepPreProcessBodyString);
-            if (energyCost > spawn.room.memory.roomEnergy.amount) {
-                failedList.push(spawnTask);
-                continue;
+            if (energyCost > spawn.room.memory.spawnInfo.energyAmount) {
+                failedTask = spawnTask;
+                break;
             }
             returnCode = spawn.spawnCreep(creepBody, spawnCreepName, {
                 dryRun: true
@@ -100,9 +101,11 @@ export const runSpawnQueue = registerFN((spawn: StructureSpawn): void => {
                     spawn.spawnCreep(creepBody, spawnCreepName, { energyStructures });
                 }
                 spawn.spawnCreep(creepBody, spawnCreepName);
-                spawn.room.memory.roomEnergy.amount -= energyCost;
-                if (spawn.room.memory.spawnPool[spawnCreepName])
+                spawn.room.memory.spawnInfo.energyAmount -= energyCost;
+                if (spawn.room.memory.spawnPool[spawnCreepName]) {
                     spawn.room.memory.spawnPool[spawnCreepName].state = "notReady";
+                }
+                spawnIndex += 1;
             } else {
                 if (returnCode !== ERR_NOT_ENOUGH_ENERGY && returnCode !== ERR_NAME_EXISTS) {
                     logger.error(`spawn:${spawn.name} 返回错误 returnCode: ${returnCode}`);
@@ -110,27 +113,54 @@ export const runSpawnQueue = registerFN((spawn: StructureSpawn): void => {
                 if (returnCode === ERR_NO_BODYPART && creepBody === []) {
                     logger.error(`spawn:${spawn.name} 返回错误：找不到合适的身体部件数组：${spawnCreepName}`);
                 }
-                failedList.push(spawnTask);
+                failedTask = spawnTask;
+                break;
             }
         } else {
-            returnCode = OK;
+            break;
         }
-    } while (returnCode);
-    failedList.forEach(task => spawnQueue.push(task));
-    taskPool.setQueueFromTaskQueue(spawnQueue, spawn.memory.spawnQueue);
-}, "runSpawnQueue");
+    } while (spawnIndex < availableSpawns.length);
+    if (failedTask) spawnQueue.push(failedTask);
+}, "runRoomSpawnQueue");
 
-export const runSpawnPool = registerFN((room: Room): void => {
+function recordSpawnTimeAndIsSpawning(spawn: StructureSpawn): boolean {
+    if (!spawn.memory.lastFinishSpawnTime) {
+        spawn.memory = {
+            isSpawning: false,
+            lastFinishSpawnTime: Game.time
+        };
+    }
+    if (typeof spawn.spawning?.name === "string") {
+        if (!spawn.memory.isSpawning) {
+            spawn.memory.isSpawning = true;
+        }
+        return false;
+    } else {
+        if (spawn.memory.isSpawning) {
+            spawn.memory.lastFinishSpawnTime = Game.time;
+            spawn.memory.isSpawning = false;
+        }
+        return true;
+    }
+}
+
+export const runSpawnPool = registerFN((room: Room) => {
     if (!room.memory.spawnPool) {
-        room.memory.diedCreepList = [];
         room.memory.spawnPool = {};
+    }
+    if (!room.memory.spawnInfo) {
+        room.memory.spawnInfo = {
+            diedCreepList: [],
+            energyAmount: -1,
+            recorder: -1
+        };
     }
 
     // 上个tick的死亡creep名单
-    const diedCreepListInLastTick = room.memory.diedCreepList;
+    const diedCreepListInLastTick = room.memory.spawnInfo.diedCreepList;
 
     // 维护从属本spawn的diedCreepList
-    const diedCreepSet = new Set<string>(room.memory.diedCreepList);
+    const diedCreepSet = new Set<string>(room.memory.spawnInfo.diedCreepList);
     for (const creepName in room.memory.spawnPool) {
         if (!(creepName in Game.creeps)) {
             diedCreepSet.add(creepName);
@@ -138,7 +168,7 @@ export const runSpawnPool = registerFN((room: Room): void => {
             diedCreepSet.delete(creepName);
         }
     }
-    room.memory.diedCreepList = Array.from(diedCreepSet);
+    room.memory.spawnInfo.diedCreepList = Array.from(diedCreepSet);
     const diedCreepSetInLastTick = new Set<string>(diedCreepListInLastTick);
 
     // 对各类型creep进行维护
@@ -168,31 +198,5 @@ export const runSpawnPool = registerFN((room: Room): void => {
             Memory.rooms[room.name].spawnPool[creepName].creepCondition = "alive";
             Memory.rooms[room.name].spawnPool[creepName].spawnCount += 1;
         });
-    }
-
-    // 从spawnPool拿出所有ready的task并分别放入不同spawn的spawnQueue
-    for (const creepName in room.memory.spawnPool) {
-        const detail = room.memory.spawnPool[creepName];
-        const readyTaskList: SpawnCreepDetail[] = [];
-        switch (detail.state) {
-            case "ready":
-                if (detail.spawnName) {
-                    Game.spawns[detail.spawnName].memory.spawnQueue.push(detail);
-                } else {
-                    readyTaskList.push(detail);
-                }
-                room.memory.spawnPool[creepName].state = "running";
-                break;
-            case "notReady":
-                readyCondition[detail.spawnCondition](detail);
-                break;
-            default:
-                break;
-        }
-        const spawnList = room.find(FIND_MY_SPAWNS);
-        while (readyTaskList.length !== 0) {
-            spawnList.sort((a, b) => a.memory.spawnQueue.length - b.memory.spawnQueue.length);
-            spawnList[0].memory.spawnQueue.push(readyTaskList.pop() as SpawnCreepDetail);
-        }
     }
 }, "runSpawnPool");
