@@ -18,7 +18,7 @@ export const createGetPowerBodyParts: TaskObject<getPowerTaskArgs> = {
                 "8": { body: "m25h25" }
             },
             gpCarrier: {
-                "8": { body: "m25c25" }
+                "8": { body: "m17c33" }
             }
         };
 

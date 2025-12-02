@@ -1,3 +1,5 @@
+import { CreepBody } from "frame/creep/body";
+import { bodyTools } from "frame/creep/body/tools";
 import { CreepGroup } from "frame/creep/group";
 import { SpawnPool } from "frame/spawn/spawnPool";
 import { TaskObject } from "utils/Project";
@@ -22,7 +24,9 @@ export const createGPCarrierGroup: TaskObject<getPowerTaskArgs> = {
         });
         const powerAmount = Memory.rooms[powerBankRoomName].powerBanks?.[powerBankId]?.amount;
         if (!powerAmount) return "end";
-        const creepCount = Math.ceil(powerAmount / 1250);
+        const bodyConfig = CreepBody.getConfig({ creepBodyConfigName: "gpCarrier" })[8];
+        if (!bodyConfig) return "end";
+        const creepCount = Math.ceil(powerAmount / bodyTools.getEnergyCost(bodyConfig.body));
         for (let index = 0; index < creepCount; index++) {
             createNewCreep(room, creepGroupName, index);
         }

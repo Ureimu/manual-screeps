@@ -31,7 +31,7 @@ if (Math.random() < C.POWER_BANK_CAPACITY_CRIT) {
 attacker: m20a20 energy: 50\*20+80\*20 = 2600
 需要保证healer能奶上，所以是a20而不是a25
 healer: m25h25 energy: 50\*25+250\*20 = 6250
-carrier: m25c25 energy: 50\*25+50\*25 = 2500
+carrier: m17c33 energy: 50\*50 = 2500
 
 ## 时长估算
 
@@ -45,15 +45,15 @@ bank有2M血量，attacker伤害为600。
 
 一般四个attacker，四个healer和若干carrier
 
-按平均出四个carrier算，能量消耗为45,600
+按平均出三个carrier算，能量消耗为43,100
 
-按市价能量一单位10块算，成本为456,000
+按市价能量一单位10块算，成本为431,000
 
 按平均搬运回4250power，power一单位2000块算，收入为 8,500,000
 
-利润率为1864%
+利润率为1972%
 
-平均cpu消耗，约为5.0/tick
+平均cpu消耗，约为3.0/tick
 
 按时间计算，按照1500tick一轮，为5667c/tick
 

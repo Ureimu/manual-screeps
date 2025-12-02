@@ -1,8 +1,10 @@
 import { consoleStyle } from "frame/console/style";
 import { ControllerLevels } from "./type";
 import { bodyTools } from "./tools";
+import { logManager } from "utils/log4screeps";
+import { creepBodyConfigDetail } from "./type";
 
-const style = consoleStyle("creepBody");
+const logger = logManager.createLogger("info", "CreepBody");
 
 export class CreepBody {
     /**
@@ -13,13 +15,15 @@ export class CreepBody {
      * @returns {string} 一段文字说明
      * @memberof creepBody
      */
-    public static createConfig(args: { creepBodyConfigName: string }): string {
+    public static createConfig(args: { creepBodyConfigName: string }): boolean {
         const { creepBodyConfigName } = args;
         if (creepBodyConfigName === "") {
-            return style(`creep身体部件配置项名称不可以为空`, "error");
+            logger.error(`creep身体部件配置项名称不可以为空`);
+            return false;
         }
         Memory.creepBodyConfig[creepBodyConfigName] = {};
-        return style(`creep身体部件配置项 ${creepBodyConfigName} 创建成功`, "log");
+        logger.info(`creep身体部件配置项 ${creepBodyConfigName} 创建成功`);
+        return true;
     }
     /**
      * 设置creep身体部件配置项。
@@ -37,16 +41,17 @@ export class CreepBody {
         creepBodyConfigName: string;
         controllerLevel: ControllerLevels;
         creepBodyConfig: string;
-    }): string {
+    }): boolean {
         const { creepBodyConfigName, controllerLevel, creepBodyConfig } = args;
         if (bodyTools.check(creepBodyConfig)) {
             Memory.creepBodyConfig[creepBodyConfigName][controllerLevel] = { body: creepBodyConfig };
-            return style(
-                `设置creep身体部件配置项 ${creepBodyConfigName} level: ${controllerLevel} 为 ${creepBodyConfig} 成功`,
-                "log"
+            logger.info(
+                `设置creep身体部件配置项 ${creepBodyConfigName} level: ${controllerLevel} 为 ${creepBodyConfig} 成功`
             );
+            return true;
         } else {
-            return style(`creep身体部件配置项 ${creepBodyConfig} 格式不合法`, "error");
+            logger.error(`creep身体部件配置项 ${creepBodyConfig} 格式不合法`);
+            return false;
         }
     }
     /**
@@ -57,10 +62,25 @@ export class CreepBody {
      * @returns {string}
      * @memberof creepBody
      */
-    public static deleteConfig(args: { creepBodyConfigName: string }): string {
+    public static deleteConfig(args: { creepBodyConfigName: string }): boolean {
         const { creepBodyConfigName } = args;
         // console.log(creepBodyConfigName);
         delete Memory.creepBodyConfig[creepBodyConfigName];
-        return style(`删除creep身体部件配置项 ${creepBodyConfigName} 完成`, "log");
+        logger.info(`删除creep身体部件配置项 ${creepBodyConfigName} 完成`);
+        return true;
+    }
+
+    /**
+     * 获取配置项。
+     *
+     * @static
+     * @param {{ creepBodyConfigName: string }} args
+     * @return {*}  {creepBodyConfigDetail}
+     * @memberof CreepBody
+     */
+    public static getConfig(args: { creepBodyConfigName: string }): creepBodyConfigDetail {
+        const { creepBodyConfigName } = args;
+        // console.log(creepBodyConfigName);
+        return Memory.creepBodyConfig[creepBodyConfigName];
     }
 }
