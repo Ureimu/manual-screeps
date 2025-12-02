@@ -34,7 +34,7 @@ function createCreepGroup(room: Room, creepGroupName: string, index: number) {
     SpawnPool.addCreep({
         creepName,
         creepBody: "scouter",
-        priority: "5",
+        priority: 5,
         roomName: room.name,
         readyCondition: "loop"
     });

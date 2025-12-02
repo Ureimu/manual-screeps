@@ -35,7 +35,7 @@ function createCreepGroup(room: Room, creepGroupName: string, index: number) {
     SpawnPool.addCreep({
         creepName,
         creepBody: "carrier",
-        priority: "9",
+        priority: 9,
         roomName: room.name,
         readyCondition: "loop"
     });

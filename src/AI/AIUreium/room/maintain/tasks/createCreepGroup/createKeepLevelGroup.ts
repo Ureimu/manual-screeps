@@ -34,7 +34,7 @@ function createCreepGroup(room: Room, creepGroupName: string, index: number) {
     SpawnPool.addCreep({
         creepName,
         creepBody: "levelKeeper",
-        priority: "8",
+        priority: 8,
         roomName: room.name,
         readyCondition: "shift",
         subCond: "levelKeeper"

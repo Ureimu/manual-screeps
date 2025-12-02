@@ -28,7 +28,7 @@ function addCreep(room: Room, creepGroupName: string, index: number) {
     SpawnPool.addCreep({
         creepName,
         creepBody: "worker",
-        priority: "7",
+        priority: 7,
         roomName: room.name,
         readyCondition: "shift",
         subCond: "builder"

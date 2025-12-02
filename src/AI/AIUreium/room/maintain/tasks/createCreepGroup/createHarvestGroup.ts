@@ -19,7 +19,7 @@ export const createHarvestGroup: TaskObject<maintainRoomTaskArgs> = {
             SpawnPool.addCreep({
                 creepName,
                 creepBody: "harvester",
-                priority: "10",
+                priority: 10,
                 roomName: room.name,
                 readyCondition: "shift",
                 subCond: "worker"

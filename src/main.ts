@@ -59,7 +59,7 @@ function run() {
     shiftController.run();
     statsEngine.storeData();
 
-    if (!Memory.creepBodyConfig?.overalls) {
+    if (!Memory.creepBodyConfig?.all) {
         CreepBody.createConfig({ creepBodyConfigName: "all" });
         CreepBody.setConfig({ creepBodyConfigName: "all", creepBodyConfig: "m2w1c1", controllerLevel: "1" });
     }

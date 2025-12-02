@@ -19,7 +19,7 @@ export const createMineGroup: TaskObject<maintainRoomTaskArgs> = {
         SpawnPool.addCreep({
             creepName,
             creepBody: "miner",
-            priority: "4",
+            priority: 4,
             roomName: room.name,
             readyCondition: "shift",
             subCond: "mineralMiner"

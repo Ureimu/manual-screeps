@@ -22,7 +22,7 @@ export class SpawnPool {
     public static addCreep(args: {
         creepName: string;
         creepBody: string;
-        priority: string;
+        priority: string | number;
         roomName: string;
         readyCondition: readyConditionKey;
         subCond?: string;
