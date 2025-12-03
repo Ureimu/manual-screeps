@@ -4,13 +4,21 @@ import { checkHighwayRoomName } from "utils/roomNameUtils";
 
 const routes: {
     [name: string]: {
-        exit: ExitConstant;
-        room: string;
-    }[];
+        route: {
+            exit: ExitConstant;
+            room: string;
+        }[];
+        creepId: Id<Creep>;
+    };
 } = {};
 const logger = logManager.createLogger("debug", "newRoom.findPath");
-export function findPathToNewRoom(creep: Creep, spawnRoomName: string, claimRoomName: string) {
-    if (!routes[creep.name]) {
+
+// 对每个creep的一次性travel函数。只保证creep一生能走到一次claimRoom。
+export function travelToNewRoom(creep: Creep, claimRoomName: string): boolean {
+    if (creep.pos.roomName === claimRoomName) {
+        return true;
+    }
+    if (!routes[creep.name] || routes[creep.name].creepId !== creep.id) {
         // find route
         let from = creep.pos;
         let to = new RoomPosition(25, 25, claimRoomName);
@@ -30,13 +38,13 @@ export function findPathToNewRoom(creep: Creep, spawnRoomName: string, claimRoom
             }
         });
         if (route === -2) {
-            logger.debug(`${spawnRoomName} cannot find path route to ${claimRoomName}`);
+            logger.debug(`${creep.name} cannot find path route to ${claimRoomName}`);
         } else {
-            routes[creep.name] = route;
+            routes[creep.name] = { route: route, creepId: creep.id };
         }
     }
 
-    const route = routes[creep.name];
+    const route = routes[creep.name].route;
     if (route.length > 0) {
         if (creep.pos.roomName === route[0].room) {
             route.shift();
@@ -46,9 +54,9 @@ export function findPathToNewRoom(creep: Creep, spawnRoomName: string, claimRoom
         const exit = creep.pos.findClosestByRange(route[0].exit);
         if (!exit) {
             logger.error(`${route[0].room} cannot find path route exit`);
-            return;
+            return false;
         }
         creep.moveTo(exit);
     }
-    return;
+    return false;
 }
