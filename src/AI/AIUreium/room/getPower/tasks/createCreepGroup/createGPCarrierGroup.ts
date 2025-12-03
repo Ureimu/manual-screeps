@@ -26,7 +26,7 @@ export const createGPCarrierGroup: TaskObject<getPowerTaskArgs> = {
         if (!powerAmount) return "end";
         const bodyConfig = CreepBody.getConfig({ creepBodyConfigName: "gpCarrier" })[8];
         if (!bodyConfig) return "end";
-        const creepCount = Math.ceil(powerAmount / bodyTools.getEnergyCost(bodyConfig.body));
+        const creepCount = Math.ceil(powerAmount / (bodyTools.getNum(bodyConfig.body, ["carry"]) * CARRY_CAPACITY));
         for (let index = 0; index < creepCount; index++) {
             createNewCreep(room, creepGroupName, index);
         }
