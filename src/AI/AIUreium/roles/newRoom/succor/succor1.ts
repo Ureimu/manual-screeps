@@ -1,9 +1,11 @@
+import { findPathToNewRoom } from "../findPath";
+
 const creepIsBuilding: { [name: string]: boolean } = {};
 let miningId: Id<Source> | undefined;
 export function succor1(creep: Creep, args: string[]): void {
     const [spawnRoomName, claimRoomName] = args;
     if (creep.room.name !== claimRoomName) {
-        creep.moveTo(new RoomPosition(25, 25, claimRoomName));
+        findPathToNewRoom(creep, spawnRoomName, claimRoomName);
         return;
     }
     if (!(creep.name in creepIsBuilding)) {
