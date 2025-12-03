@@ -22,7 +22,9 @@ export function succor1(creep: Creep, args: string[]): void {
             if (creep.pos.inRangeTo(spawnSite, 3)) {
                 creep.build(spawnSite);
             }
-            creep.moveTo(spawnSite);
+            if (!creep.pos.inRangeTo(spawnSite, 1)) {
+                creep.moveTo(spawnSite);
+            }
         }
     } else {
         if (!miningId) {
