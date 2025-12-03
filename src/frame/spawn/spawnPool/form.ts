@@ -6,7 +6,6 @@ export function callOnStart(): void {
     for (const spawnName in Game.spawns) {
         if (!Memory.spawns[spawnName]) {
             Memory.spawns[spawnName] = {
-                spawnQueue: [],
                 isSpawning: false
             };
         }

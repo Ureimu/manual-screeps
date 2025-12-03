@@ -34,3 +34,12 @@
 ## 只记录creep的能量相关api调用的方案
 
 其实可以只记录creep的。
+
+## 常规建筑维护能量消耗
+
+road: plain 0.001/tick swamp 0.005/tick wall 0.15/tick
+考虑到creep损耗，按翻倍估计。
+
+rampant: 0.03/tick
+
+container: 0.1/tick
