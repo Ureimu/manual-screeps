@@ -1,5 +1,5 @@
 import { MAX_ENERGY_PER_CONTROLLER_LEVEL } from "utils/constants";
-import { tryAllocateTargetRoom } from "../control/newRoom/allocateNewRoom";
+import { allocateNewRoom, tryAllocateTargetRoom } from "../control/newRoom/allocateNewRoom";
 import { abandonRoom } from "../control/room/stop";
 
 declare global {
@@ -9,6 +9,7 @@ declare global {
                 tryAllocateTargetRoom: typeof tryAllocateTargetRoom;
                 MAX_ENERGY_PER_CONTROLLER_LEVEL: typeof MAX_ENERGY_PER_CONTROLLER_LEVEL;
                 abandonRoom: typeof abandonRoom;
+                allocateNewRoom: typeof allocateNewRoom;
             };
         }
     }
@@ -18,6 +19,7 @@ export function mountAIFunction() {
     global.aiu = {
         tryAllocateTargetRoom,
         MAX_ENERGY_PER_CONTROLLER_LEVEL,
-        abandonRoom
+        abandonRoom,
+        allocateNewRoom
     };
 }

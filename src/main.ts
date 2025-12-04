@@ -65,9 +65,6 @@ function run() {
     }
 
     manageScoutTask();
-    if (Game.time % 150 === 0) {
-        allocateNewRoom();
-    }
 
     Object.values(Game.rooms).forEach(room => {
         runRoom(room);

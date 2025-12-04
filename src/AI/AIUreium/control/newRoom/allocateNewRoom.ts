@@ -4,20 +4,17 @@ import { logManager } from "utils/log4screeps";
 import { checkHighwayRoomName } from "utils/roomNameUtils";
 import { getMyRoom } from "utils/roomTools";
 import { getRoomControlData } from "..";
-import { getNewRoom } from "./getRoom";
 
 const logger = logManager.createLogger("debug", "allocateNewRoom");
 
-export function allocateNewRoom(): void {
-    const newRoomName = getNewRoom();
-    if (!newRoomName) return;
-    const myClosestRoomName = getMyClosestRoomForClaim(newRoomName);
+export function allocateNewRoom(roomName: string): void {
+    const myClosestRoomName = getMyClosestRoomForClaim(roomName);
     if (!myClosestRoomName) {
-        logger.log(`找不到能够claim${newRoomName}的房间`);
+        logger.log(`找不到能够claim${roomName}的房间`);
         return;
     }
-    logger.log(`开始从房间${myClosestRoomName}占领房间${newRoomName}。`);
-    startNewRoom(myClosestRoomName, newRoomName);
+    logger.log(`开始从房间${myClosestRoomName}占领房间${roomName}。`);
+    startNewRoom(myClosestRoomName, roomName);
 }
 
 export function tryAllocateTargetRoom(roomName: string) {

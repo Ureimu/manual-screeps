@@ -39,7 +39,4 @@ const runAi = registerFN((): void => {
     //     maintainNewRoom();
     //     runGetPower();
     // }
-    if (Game.time % 150 === 0) {
-        allocateNewRoom();
-    }
 }, "runAi");
