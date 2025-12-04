@@ -1,4 +1,4 @@
-import { TaskObject, Project } from "utils/Project";
+import { Project } from "utils/Project";
 import { ProjectNetworkDiagram } from "utils/Project/storage";
 import { TaskRelation, TaskCollection, DiagramMemory } from "utils/Project/type";
 import { newRoomTaskArgs, MemoryAddressArgs, newRoomProjectName } from "./type";
@@ -6,14 +6,16 @@ import { createClaimer } from "./tasks/claimer/createClaimer";
 import { deleteClaimer } from "./tasks/claimer/deleteClaimer";
 import { createSuccor } from "./tasks/succor/createSuccor";
 import { deleteSuccor } from "./tasks/succor/deleteSuccor";
+import { finishTask } from "./tasks/finishTask";
 
 const taskRelation = {
     [createClaimer.name]: [ProjectNetworkDiagram.startNodeName],
     [deleteClaimer.name]: [createClaimer.name],
     [createSuccor.name]: [deleteClaimer.name],
-    [deleteSuccor.name]: [createSuccor.name]
+    [deleteSuccor.name]: [createSuccor.name],
+    [finishTask.name]: [deleteSuccor.name]
 };
-const taskCollection = { createClaimer, deleteClaimer, createSuccor, deleteSuccor };
+const taskCollection = { createClaimer, deleteClaimer, createSuccor, deleteSuccor, finishTask };
 export class NewRoomProject extends Project<newRoomTaskArgs, MemoryAddressArgs> {
     public constructor(taskArgs: newRoomTaskArgs, memoryAddressArgs: MemoryAddressArgs) {
         super(newRoomProjectName, taskArgs, memoryAddressArgs);

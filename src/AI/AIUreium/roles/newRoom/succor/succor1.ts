@@ -25,6 +25,8 @@ export function succor1(creep: Creep, args: string[]): void {
             if (!creep.pos.inRangeTo(spawnSite, 1)) {
                 creep.moveTo(spawnSite);
             }
+        } else {
+            creep.moveTo(new RoomPosition(25, 25, claimRoomName));
         }
     } else {
         if (!miningId) {

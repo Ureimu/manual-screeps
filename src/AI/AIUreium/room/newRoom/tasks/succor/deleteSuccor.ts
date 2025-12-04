@@ -2,7 +2,8 @@ import { TaskObject } from "utils/Project";
 import { newRoomTaskArgs } from "../../type";
 import { CreepGroup } from "frame/creep/group";
 import { SpawnPool } from "frame/spawn/spawnPool";
-
+import { logManager } from "utils/log4screeps";
+const logger = logManager.createLogger("debug", "newRoom.deleteSuccor");
 export const deleteSuccor: TaskObject<newRoomTaskArgs> = {
     name: "deleteSuccor",
     description: "deleteSuccor",
@@ -12,6 +13,10 @@ export const deleteSuccor: TaskObject<newRoomTaskArgs> = {
             return "running";
         }
         if (claimRoom.find(FIND_MY_SPAWNS).length > 0) return "end";
+        if (!claimRoom.controller?.my) {
+            logger.log("claimRoom has lost control. succor end");
+            return "end";
+        }
         return "running";
     },
     working(spawnRoomName, claimRoomName) {
