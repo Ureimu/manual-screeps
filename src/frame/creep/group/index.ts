@@ -2,11 +2,11 @@ import { consoleStyle } from "frame/console/style";
 import { setRoleForCreep } from "frame/creep/action/runCreepByRole";
 import { RoutePlan } from "frame/creep/routePlan";
 import { newAcrossTickTask } from "utils/AcrossTick";
+import { logManager } from "utils/log4screeps";
 import { showCreepGroups } from "./show";
 import { CreepGroupMemory, CreepGroupMode, creepGroupModeIsRoute } from "./type";
 
-const style = consoleStyle("CreepGroup");
-
+const logger = logManager.createLogger("debug", "CreepGroup");
 export class CreepGroup {
     /**
      * 创建creep组。
@@ -16,14 +16,20 @@ export class CreepGroup {
      * @returns {string}
      * @memberof creepGroup
      */
-    public static create(args: { creepGroupName: string; mode: CreepGroupMode; groupArguments: string }): string {
+    public static create(args: {
+        creepGroupName: string;
+        mode: CreepGroupMode;
+        groupArguments: string;
+    }): CreepGroupMemory<CreepGroupMode> | undefined {
         const { creepGroupName } = args;
         const { mode, groupArguments } = args;
         if (creepGroupName === "") {
-            return style(`creep组名称不可以为空`, "error");
+            logger.error(`creep组名称不可以为空`);
+            return undefined;
         }
         if (mode !== "route" && mode !== "role") {
-            throw new Error("mode输入错误，请检查");
+            logger.error(`mode输入错误，请检查`);
+            return undefined;
         }
         Memory.creepGroups[creepGroupName] = {
             mode,
@@ -31,7 +37,8 @@ export class CreepGroup {
             ifShow: false,
             arguments: groupArguments.split(",")
         };
-        return style(`creep组 ${creepGroupName} 创建成功`, "log");
+        logger.info(`creep组 ${creepGroupName} 创建成功`);
+        return Memory.creepGroups[creepGroupName];
     }
     /**
      * 为creep组添加creep
@@ -41,11 +48,12 @@ export class CreepGroup {
      * @returns {string}
      * @memberof creepGroup
      */
-    public static addCreep(args: { creepName: string; creepGroupName: string }): string {
+    public static addCreep(args: { creepName: string; creepGroupName: string }): boolean {
         const { creepName, creepGroupName } = args;
         // console.log(creepName, creepGroupName);
         if (!Memory.creepGroups[creepGroupName]) {
-            return style(`creep组 ${creepGroupName} 不存在，请先创建该creep组`, "error");
+            logger.error(`creep组 ${creepGroupName} 不存在，请先创建该creep组`);
+            return false;
         } else {
             const creepNameSet = new Set<string>(Memory.creepGroups[creepGroupName].creepNameList);
             creepNameSet.add(creepName);
@@ -66,10 +74,10 @@ export class CreepGroup {
         }
 
         Memory.creeps[creepName].groupName = creepGroupName;
-        return style(
-            `为creep组 ${creepGroupName} 添加creep ${creepName} 成功，现在有 ${Memory.creepGroups[creepGroupName].creepNameList.length} 个creep`,
-            "log"
+        logger.info(
+            `为creep组 ${creepGroupName} 添加creep ${creepName} 成功，现在有 ${Memory.creepGroups[creepGroupName].creepNameList.length} 个creep`
         );
+        return true;
     }
     /**
      * 将一个creep从原creep组移动到一个新creep组
@@ -87,11 +95,12 @@ export class CreepGroup {
         creepName: string;
         currentCreepGroupName: string;
         newCreepGroupName: string;
-    }): string {
+    }): boolean {
         const { creepName, currentCreepGroupName, newCreepGroupName } = args;
         // console.log(creepName, creepGroupName);
         if (!Memory.creepGroups[newCreepGroupName] || !Memory.creepGroups[currentCreepGroupName]) {
-            return style(`creep组 ${newCreepGroupName} 或 ${currentCreepGroupName} 不存在，请先创建该路径`, "error");
+            logger.error(`creep组 ${newCreepGroupName} 或 ${currentCreepGroupName} 不存在，请先创建该路径`);
+            return false;
         } else {
             const creepNameSet = new Set<string>(Memory.creepGroups[newCreepGroupName].creepNameList);
             creepNameSet.add(creepName);
@@ -115,12 +124,12 @@ export class CreepGroup {
             }
         }
         Memory.creeps[creepName].groupName = newCreepGroupName;
-        return style(
+        logger.info(
             `为creep组 ${currentCreepGroupName} 删除creep ${creepName} 成功，${currentCreepGroupName} 现在有 ${Memory.creepGroups[currentCreepGroupName].creepNameList.length} 个creep;` +
                 "\n" +
-                `为creep组 ${newCreepGroupName} 添加creep ${creepName} 成功，${newCreepGroupName} 现在有 ${Memory.creepGroups[newCreepGroupName].creepNameList.length} 个creep`,
-            "log"
+                `为creep组 ${newCreepGroupName} 添加creep ${creepName} 成功，${newCreepGroupName} 现在有 ${Memory.creepGroups[newCreepGroupName].creepNameList.length} 个creep`
         );
+        return true;
     }
     /**
      * 设定creep组参数。
@@ -142,7 +151,7 @@ export class CreepGroup {
         routeName?: string;
         groupArgs?: string;
         projectName?: string;
-    }): string {
+    }): boolean {
         const { creepGroupName, routeName, roleName, groupArgs, projectName } = args;
         // console.log(creepGroupName, routeName);
         const creepGroupMemory = Memory.creepGroups[creepGroupName];
@@ -161,7 +170,8 @@ export class CreepGroup {
                 creepGroupMemory.creepNameList.forEach(creepName => {
                     RoutePlan.chooseRouteForCreep({ creepName, routeName });
                 });
-                return style(`将creep组 ${creepGroupName} 的路径修改为 ${routeName} 设置完成`, "log");
+                logger.info(`将creep组 ${creepGroupName} 的路径修改为 ${routeName} 设置完成`);
+                return true;
             } else {
                 if (!roleName) throw new Error("没有给定角色名称");
                 creepGroupMemory.roleName = roleName;
@@ -170,8 +180,8 @@ export class CreepGroup {
                         setRoleForCreep({ roleName, creepName });
                     }
                 });
-                console.log(style(`将creep组 ${creepGroupName} 的角色修改为 ${roleName} 设置完成`, "log"));
-                return style(`将creep组 ${creepGroupName} 的角色修改为 ${roleName} 设置完成`, "log");
+                logger.info(`将creep组 ${creepGroupName} 的角色修改为 ${roleName} 设置完成`);
+                return true;
             }
         } else {
             if (creepGroupModeIsRoute(creepGroupMemory)) {
@@ -185,7 +195,8 @@ export class CreepGroup {
                         setRoleForCreep({ roleName, creepName });
                     }
                 });
-                return style(`更改mode为role并将creep组 ${creepGroupName} 的角色修改为 ${roleName} 设置完成`, "log");
+                logger.info(`更改mode为role并将creep组 ${creepGroupName} 的角色修改为 ${roleName} 设置完成`);
+                return true;
             } else {
                 if (!routeName) throw new Error("没有给定路径名称");
                 creepGroupMemory.roleName = undefined;
@@ -195,7 +206,8 @@ export class CreepGroup {
                 newCreepGroupMemory.creepNameList.forEach(creepName => {
                     RoutePlan.chooseRouteForCreep({ creepName, routeName });
                 });
-                return style(`更改mode为route并将creep组 ${creepGroupName} 的路径修改为 ${routeName} 设置完成`, "log");
+                logger.info(`更改mode为route并将creep组 ${creepGroupName} 的路径修改为 ${routeName} 设置完成`);
+                return true;
             }
         }
     }
@@ -207,7 +219,7 @@ export class CreepGroup {
      * @returns {string}
      * @memberof creepGroup
      */
-    public static showCreepGroups(args: { creepGroupName: string; roomName: string; ifRun: string }): string {
+    public static showCreepGroups(args: { creepGroupName: string; roomName: string; ifRun: string }): boolean {
         const { creepGroupName, roomName, ifRun } = args;
         // console.log(creepGroupName, roomName);
         const booleanIfRun = ifRun === "true" ? true : false;
@@ -216,7 +228,8 @@ export class CreepGroup {
         if (creepGroupModeIsRoute(creepGroupMemory)) {
             const routeName = creepGroupMemory.routeName;
             if (!routeName || routeName === "") {
-                return style(`路径名称不可以为空`, "error");
+                logger.error(`路径名称不可以为空`);
+                return false;
             }
             if (booleanIfRun) {
                 newAcrossTickTask(
@@ -241,7 +254,8 @@ export class CreepGroup {
         } else {
             throw new Error("showCreepGroups暂时不支持mode为role的可视化。");
         }
-        return style(`执行可视化 ${creepGroupName} : ${roomName} : ${ifRun}`, "log");
+        logger.info(`执行可视化 ${creepGroupName} : ${roomName} : ${ifRun}`);
+        return true;
     }
     /**
      * 删除creep组。
@@ -251,11 +265,12 @@ export class CreepGroup {
      * @returns {string}
      * @memberof creepGroup
      */
-    public static deleteCreepGroup(args: { creepGroupName: string }): string {
+    public static deleteCreepGroup(args: { creepGroupName: string }): boolean {
         const { creepGroupName } = args;
         // console.log(creepGroupName);
         delete Memory.creepGroups[creepGroupName];
-        return style(`删除creep组 ${creepGroupName} 设置完成`, "log");
+        logger.info(`删除creep组 ${creepGroupName} 设置完成`);
+        return true;
     }
 
     /**
@@ -266,15 +281,17 @@ export class CreepGroup {
      * @returns {string}
      * @memberof creepGroup
      */
-    public static deleteCreep(args: { creepGroupName: string; creepName: string }): string {
+    public static deleteCreep(args: { creepGroupName: string; creepName: string }): boolean {
         const { creepGroupName, creepName } = args;
         // console.log(creepGroupName);
         const index = Memory.creepGroups[creepGroupName].creepNameList.findIndex(name => name === creepName);
         if (index !== -1) {
             Memory.creepGroups[creepGroupName].creepNameList.splice(index, 1);
-            return style(`删除creep组 ${creepGroupName} 设置完成`, "log");
+            logger.info(`删除creep组 ${creepGroupName} 设置完成`);
+            return true;
         } else {
-            return style(`在creep组${creepGroupName}中不存在creep${creepName}`, "error");
+            logger.error(`在creep组${creepGroupName}中不存在creep${creepName}`);
+            return false;
         }
     }
 }
