@@ -39,8 +39,9 @@ export function succor1(creep: Creep, args: string[]): void {
         if (source && source.energy !== 0) {
             if (creep.pos.inRangeTo(source, 1)) {
                 creep.harvest(source);
+            } else {
+                creep.moveTo(source);
             }
-            creep.moveTo(source);
         } else {
             miningId = undefined;
         }
