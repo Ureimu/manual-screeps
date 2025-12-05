@@ -34,7 +34,7 @@ export function getMyClosestRoomForClaim(goalRoomName: string): string | undefin
             logger.debug(`${myRoomName} is too far from ${goalRoomName}`);
             return [myRoomName, 700] as [string, number];
         }
-        if (controller && controller.level <= 3) {
+        if (controller && controller.level < 3) {
             logger.debug(`${myRoomName} controller level is lower than 3`);
             return [myRoomName, 700] as [string, number];
         }
