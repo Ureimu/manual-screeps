@@ -32,7 +32,8 @@ function getStats(task: AcrossTickMemory): AcrossTickReturnCode {
             name: Object.values(Game.spawns)[0].owner.username,
             gcl: Game.gcl,
             gpl: Game.gpl,
-            error: ErrorMapper.getErrorSegmentMemory()
+            error: ErrorMapper.getErrorSegmentMemory(),
+            memoryString: RawMemory.get()
         },
         shardData: {
             shardName: Game.shard.name
