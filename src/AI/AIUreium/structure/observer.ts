@@ -1,4 +1,4 @@
-import { getStructureMemory } from "frame/construct/utils";
+import { getLayoutStructureMemory } from "frame/construct/utils";
 import { logManager } from "utils/log4screeps";
 import { registerFN } from "utils/profiler";
 import {
@@ -57,7 +57,7 @@ type RoomType = "highwayRoom" | "controllerRoom" | "centerRoom";
 
 function observe(room: Room) {
     if ((room.controller?.level ?? 0) < 8) return;
-    const id: Id<StructureObserver> | undefined = getStructureMemory(room.name, "observer", "observer")
+    const id: Id<StructureObserver> | undefined = getLayoutStructureMemory(room.name, "observer", "observer")
         ?.structureList?.[0]?.id;
     if (!id) return;
     const observer = Game.structures[id] as StructureObserver;

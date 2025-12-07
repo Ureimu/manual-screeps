@@ -1,6 +1,6 @@
 import { runLayout } from "frame/construct";
 import { baseOutwardsLayout } from "frame/construct/outwardsComposition/baseLayout";
-import { getStructureMemory } from "frame/construct/utils";
+import { getLayoutStructureMemory } from "frame/construct/utils";
 import { getCostMatrix } from "frame/construct/utils/costMatrix";
 import { CreepGroup } from "frame/creep/group";
 import { RoutePlan } from "frame/creep/routePlan";
@@ -60,7 +60,7 @@ export const oBuildSourceContainer: TaskObject<outwardsSourceTaskArgs> = {
     working(roomName, sourceRoomName, sourceName) {
         const sourceRoom = Game.rooms[sourceRoomName];
         if (!sourceRoom) return "running";
-        if (getStructureMemory(sourceRoom.name, "container", "sourceContainer")?.hasBuilt) {
+        if (getLayoutStructureMemory(sourceRoom.name, "container", "sourceContainer")?.hasBuilt) {
             return "end";
         }
         FlagMaintainer.refresh({

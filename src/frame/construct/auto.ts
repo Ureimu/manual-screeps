@@ -2,7 +2,7 @@ import { logManager } from "utils/log4screeps";
 import { registerFN } from "utils/profiler";
 import { PosStr } from "utils/RoomPositionToStr";
 import { runLayout } from "./runLayOut";
-import { getStructureMemory } from "./utils";
+import { getLayoutStructureMemory } from "./utils";
 import { getTotalSiteNum } from "./utils/getTotalSiteNum";
 
 const logger = logManager.createLogger("info", "build");
@@ -24,7 +24,7 @@ export function callOnStart(room: Room): void {
         }
 
         if (!room.memory.construct.firstSpawnName) {
-            const spawnMemory = getStructureMemory(room.name, "spawn", "spawn")?.structureList[0];
+            const spawnMemory = getLayoutStructureMemory(room.name, "spawn", "spawn")?.structureList[0];
             if (spawnMemory) {
                 room.memory.construct.firstSpawnName = {
                     name: (Game.structures[spawnMemory.id] as StructureSpawn).name,

@@ -1,5 +1,5 @@
 import { FullSpecifiedStructureMemory, SpecifiedStructureNameList } from "frame/construct/type";
-import { getStructureMemory } from "frame/construct/utils";
+import { getLayoutStructureMemory } from "frame/construct/utils";
 import { TaskObject } from "utils/Project";
 import { maintainRoomTaskArgs } from "../../type";
 
@@ -13,7 +13,7 @@ export function structureHasBuilt<T extends BuildableStructureConstant>(
         description: `${structureKind}HasBuilt`,
         working(roomName) {
             const room = Game.rooms[roomName];
-            if (getStructureMemory(room.name, structureType, structureKind)?.hasBuilt) {
+            if (getLayoutStructureMemory(room.name, structureType, structureKind)?.hasBuilt) {
                 return "end";
             }
             return "running";

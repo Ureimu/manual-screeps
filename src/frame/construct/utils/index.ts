@@ -15,7 +15,7 @@ import {
  * @param {SpecifiedStructureNameList<T>} structureSpecifiedName
  * @returns {(SpecifiedStructureInf<T, SpecifiedStructureNameList<T>> | undefined)}
  */
-export function getStructureMemory<T extends BuildableStructureConstant>(
+export function getLayoutStructureMemory<T extends BuildableStructureConstant>(
     roomName: string,
     structureType: T,
     structureSpecifiedName: SpecifiedStructureNameList<T>
@@ -41,7 +41,7 @@ type ReturnStructureList<T extends RequireStructureData> = {
         : never;
 };
 /**
- * BUG 注意该api不太稳定，返回值经常不存在，待修复后再使用。
+ * BUG 注意该api不太稳定，返回值经常不存在，待修复后再使用。可以使用getLayoutStructureData来获取自己拥有房间的建筑id
  *
  * 获取某种建筑的id与pos列表。会自动缓存列表并返回缓存。
  * 如果获取的建筑属于自己，可以使用Game.structures来索引到对应建筑，这样更加节省cpu。
@@ -70,7 +70,7 @@ export function getStructureIdList<T extends RequireStructureData>(
     if (!creep.globalMemory.structureCache[roomName]) {
         const dataRes = Object.entries(requireStructureList).map(([structureType, data]) => {
             if (!data) throw new Error("how?");
-            const structureMemory = getStructureMemory(
+            const structureMemory = getLayoutStructureMemory(
                 roomName,
                 getStructureTypeBySpecifiedName(
                     structureType as SpecifiedStructureNameList<BuildableStructureConstant>
@@ -89,6 +89,17 @@ export function getStructureIdList<T extends RequireStructureData>(
         creep.globalMemory.structureCache[roomName] = dataLast;
     }
     return creep.globalMemory.structureCache[roomName] as ReturnStructureList<T>;
+}
+
+export function getLayoutStructureData<T extends BuildableStructureConstant, P extends SpecifiedStructureNameList<T>>(
+    roomName: string,
+    requireStructureType: T,
+    requireStructureSpecifiedType: P
+): {
+    pos: string;
+    id: Id<ConcreteStructure<T>>;
+}[] {
+    return getLayoutStructureMemory(roomName, requireStructureType, requireStructureSpecifiedType)?.structureList ?? [];
 }
 
 declare global {

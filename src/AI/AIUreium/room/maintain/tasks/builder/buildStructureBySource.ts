@@ -1,4 +1,4 @@
-import { getStructureMemory } from "frame/construct/utils";
+import { getLayoutStructureMemory } from "frame/construct/utils";
 import { CreepGroup } from "frame/creep/group";
 import { RoutePlan } from "frame/creep/routePlan";
 import { FlagMaintainer } from "frame/flagMaintainer";
@@ -18,7 +18,7 @@ export const buildStructureBySource: TaskObject<maintainRoomTaskArgs> = {
                 typeList: FlagMaintainer.getTypeList(["container", "containerConstructionSite", "source"])
             });
         }
-        if (getStructureMemory(room.name, "container", "sourceContainer")?.hasBuilt) {
+        if (getLayoutStructureMemory(room.name, "container", "sourceContainer")?.hasBuilt) {
             return "end";
         }
         return "running";

@@ -1,7 +1,6 @@
 import { resourceLimit } from "AI/AIUreium/control/constants/roomResource";
 import { runLayout } from "frame/construct";
 
-import { getStructureIdList } from "frame/construct/utils";
 import { logManager } from "utils/log4screeps";
 import { PosStr } from "utils/RoomPositionToStr";
 const logger = logManager.createLogger("debug", "oCarrier");

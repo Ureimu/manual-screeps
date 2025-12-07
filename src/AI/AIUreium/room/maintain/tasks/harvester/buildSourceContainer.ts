@@ -1,4 +1,4 @@
-import { getStructureMemory } from "frame/construct/utils";
+import { getLayoutStructureMemory } from "frame/construct/utils";
 import { CreepGroup } from "frame/creep/group";
 import { RoutePlan } from "frame/creep/routePlan";
 import { FlagMaintainer } from "frame/flagMaintainer";
@@ -24,7 +24,7 @@ export const buildSourceContainer: TaskObject<maintainRoomTaskArgs> = {
             filter: i => i.name.indexOf("container") !== -1
         })[0]?.name;
         if (
-            getStructureMemory(room.name, "container", "sourceContainer")?.hasPutSites &&
+            getLayoutStructureMemory(room.name, "container", "sourceContainer")?.hasPutSites &&
             (containerSiteFlagName || containerFlagName)
         ) {
             return "end";
@@ -34,7 +34,7 @@ export const buildSourceContainer: TaskObject<maintainRoomTaskArgs> = {
     },
     working(roomName) {
         const room = Game.rooms[roomName];
-        if (getStructureMemory(room.name, "container", "sourceContainer")?.hasBuilt) {
+        if (getLayoutStructureMemory(room.name, "container", "sourceContainer")?.hasBuilt) {
             return "end";
         }
         const sources = room.find(FIND_SOURCES);

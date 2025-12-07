@@ -1,4 +1,4 @@
-import { getStructureMemory } from "frame/construct/utils";
+import { getLayoutStructureMemory } from "frame/construct/utils";
 import { stayByRoad } from "frame/creep/action/doOnArrived/stayByRoad";
 import { logManager } from "utils/log4screeps";
 import { getAvailableNearbyRooms } from "utils/roomTools";
@@ -65,7 +65,7 @@ export function manageScoutTask(): void {
     let myUserName: string | undefined;
     _.forEach(Game.rooms, room => {
         if (room.controller?.my && room.controller.my === true) {
-            if (getStructureMemory(room.name, "observer", "observer")?.hasBuilt) return;
+            if (getLayoutStructureMemory(room.name, "observer", "observer")?.hasBuilt) return;
 
             myUserName = room.controller?.owner?.username;
             const availableRoomNameSet = new Set(getAvailableNearbyRooms(room.name));

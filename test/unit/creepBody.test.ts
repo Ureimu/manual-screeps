@@ -77,8 +77,8 @@ describe("parseBoostInfo", () => {
         assert.equal(res.energy["UO"], res.byCompound["UO"] * LAB_BOOST_ENERGY);
     });
 
-    it("should parse complex boosts across multiple parts (m3r1h1t1*2m1 m2b1 rb2 h1b3)", () => {
-        const res = bodyTools.parseBoostInfo("m3r1h1t1*2m1 m2b1 rb2 h1b3");
+    it("should parse complex boosts across multiple parts (m3r1h1t1*2m1 m2b1rb2 h1b3)", () => {
+        const res = bodyTools.parseBoostInfo("m3r1h1t1*2m1 m2b1rb2 h1b3");
         // flattened body: m3r1h1t1 m3r1h1t1 m1 -> totals: m=7, r=2, h=2, t=2
         // m2b1 -> ZO x2
         // rb2  -> KHO2 x2 (all ranged parts)
