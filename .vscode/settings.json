@@ -4,7 +4,14 @@
         "cooldown",
         "Coord",
         "dont",
-        "Mincut"
+        "Mincut",
+        "mwcarht",
+        "ulzg",
+        "XGHO",
+        "XKHO",
+        "XLHO",
+        "XUHO",
+        "XZHO"
     ],
     "search.exclude": {
         "**/node_modules": true,
