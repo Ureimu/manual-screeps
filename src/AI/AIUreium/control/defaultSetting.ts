@@ -5,7 +5,8 @@ export const defaultRoomControlData: RoomControlData = {
     getPower: {
         run: false,
         rooms: [],
-        lowestEnergyInStorage: 8e4
+        lowestEnergyInStorage: 8e4,
+        minPowerInBank: 2500
     },
     harvestMineral: {
         run: true

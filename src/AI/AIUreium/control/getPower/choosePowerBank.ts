@@ -32,7 +32,7 @@ export function choosePowerBank(mainRoom: Room): void {
     }
     if (!mainRoom.storage) return;
     const storage = mainRoom.storage;
-    if (storage.store.energy < getRoomControlData(mainRoom.name).getPower.lowestEnergyInStorage) return;
+    if (storage.store.energy < taskControl.lowestEnergyInStorage) return;
     const validatedPowerBanks: PowerBankData[] = [];
     _.forEach(Memory.rooms, (powerBankRoomMemory, powerBankRoomName) => {
         if (status.getPower) return;
@@ -44,6 +44,7 @@ export function choosePowerBank(mainRoom: Room): void {
             // 如果已经被其他人攻击过，则不选取
             if (powerBankMemory.isAttackedByOthers) return;
             if (powerBankMemory.isInMyAttack) return;
+            if (powerBankMemory.amount < taskControl.minPowerInBank) return;
             if (getRoomDistance(powerBankRoomName, mainRoom.name) > maxMoveTime / 50) return;
             const periodToGetPower = powerBankMemory.decayTime - Game.time;
             const pathData = PathFinder.search(

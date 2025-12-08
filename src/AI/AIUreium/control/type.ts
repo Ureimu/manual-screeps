@@ -63,6 +63,12 @@ export interface RoomControlData {
          * 启用power采集的最低能量限制。
          */
         lowestEnergyInStorage: number;
+
+        /**
+         * 选定powerBank开挖的，powerBank最低power值
+         *
+         */
+        minPowerInBank: number;
     };
     /**
      * 家里的mineral采集设定。
