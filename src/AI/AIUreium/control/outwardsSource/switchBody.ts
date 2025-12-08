@@ -11,7 +11,7 @@ export function switchBody(roomName: string, sourceRoomName: string, sourceName:
     const setting = getRoomControlData(roomName).outwardsSource;
     const creepName = OCarryGroupCreepName(roomName, sourceName);
     const bodyName = `${creepName}-${getOCarrierBodySuffix(setting.useRoad, setting.useReserver)}`;
-    const originBody = Memory.rooms[roomName].spawnPool[creepName]?.creepBody;
+    const originBody = Memory.rooms[roomName].spawnPool[creepName]?.creepBodyConfig;
     if (originBody && originBody !== bodyName) {
         SpawnPool.setCreepProperties({
             creepName,

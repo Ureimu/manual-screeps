@@ -40,7 +40,8 @@ export class SpawnPool {
         }
         roomMemory.spawnPool[creepName] = {
             creepName,
-            creepBody: creepBodyConfigName,
+            creepBodyConfig: creepBodyConfigName,
+            creepBody: "",
             priority: Number(priority),
             idList: [],
             spawnCondition: readyCondition,
@@ -106,7 +107,8 @@ export class SpawnPool {
         const memCopy = Object.assign({}, Memory.rooms[roomName].spawnPool[creepName]);
         Memory.rooms[roomName].spawnPool[creepName] = {
             creepName: memCopy.creepName,
-            creepBody: creepBody || memCopy.creepBody,
+            creepBodyConfig: creepBody || memCopy.creepBodyConfig,
+            creepBody: memCopy.creepBody,
             priority: Number(priority) || memCopy.priority,
             spawnCondition: readyCondition || memCopy.spawnCondition,
             creepCondition: memCopy.creepCondition,

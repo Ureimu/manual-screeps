@@ -23,6 +23,7 @@ export interface SpawnCreepDetail {
     creepName: string;
     idList: { [name: number]: boolean };
     creepLevel?: number;
+    creepBodyConfig: string;
     creepBody: string;
     priority: number;
     spawnCondition: readyConditionKey;

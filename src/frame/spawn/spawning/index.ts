@@ -73,11 +73,11 @@ export const runRoomSpawnQueue = registerFN((room: Room) => {
         const spawnTask = spawnQueue.pop();
         if (spawnTask) {
             const creepPreProcessBodyString = chooseBefittingBody({
-                creepBodyConfigName: spawnTask.creepBody,
+                creepBodyConfigName: spawnTask.creepBodyConfig,
                 room: spawn.room
             });
             if (!creepPreProcessBodyString) {
-                logger.info(`${spawn.room.name} ${spawnTask.creepBody} 没有合法的body config`);
+                logger.info(`${spawn.room.name} ${spawnTask.creepBodyConfig} 没有合法的body config`);
                 failedTask = spawnTask;
                 break;
             }
@@ -99,11 +99,14 @@ export const runRoomSpawnQueue = registerFN((room: Room) => {
                         )
                         .filter((i): i is StructureSpawn | StructureExtension => !i);
                     spawn.spawnCreep(creepBody, spawnCreepName, { energyStructures });
+                } else {
+                    spawn.spawnCreep(creepBody, spawnCreepName);
                 }
-                spawn.spawnCreep(creepBody, spawnCreepName);
+
                 spawn.room.memory.spawnInfo.energyAmount -= energyCost;
                 if (spawn.room.memory.spawnPool[spawnCreepName]) {
                     spawn.room.memory.spawnPool[spawnCreepName].state = "notReady";
+                    spawn.room.memory.spawnPool[spawnCreepName].creepBody = creepPreProcessBodyString;
                 }
                 spawnIndex += 1;
             } else {

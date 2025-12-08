@@ -57,7 +57,13 @@ export const shiftController = {
         return Math.max(...idList) + 1;
     },
     addSubCreepDetail: function addSubCreepDetail(mainCreepDetail: SpawnCreepDetail): number {
-        const { creepName, creepBody, priority, roomName, spawnCondition: readyCondition } = mainCreepDetail;
+        const {
+            creepName,
+            creepBodyConfig: creepBody,
+            priority,
+            roomName,
+            spawnCondition: readyCondition
+        } = mainCreepDetail;
         const nextId = this.getNextCreepId(mainCreepDetail);
         const newSubCreepName = getSubCreepName(mainCreepDetail, nextId);
         SpawnPool.addCreep({
@@ -94,7 +100,13 @@ export const shiftController = {
         }
     }, // s
     manageShiftCreepTeam: function manageShiftCreepTeam(mainCreepDetail: SpawnCreepDetail): void {
-        const { creepName, creepBody, priority, roomName, spawnCondition: readyCondition } = mainCreepDetail;
+        const {
+            creepName,
+            creepBodyConfig: creepBody,
+            priority,
+            roomName,
+            spawnCondition: readyCondition
+        } = mainCreepDetail;
         // debug(`${creepName} manage`);
         if (determineShiftTime(mainCreepDetail)) {
             // debug(`${creepName} try enqueue`);
