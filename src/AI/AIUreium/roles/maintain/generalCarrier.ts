@@ -1,4 +1,6 @@
+import { RoomCarryTask } from "AI/AIUreium/control/roomCarry";
 import { stayByRoad } from "frame/creep/action/doOnArrived/stayByRoad";
+import { AsyncTask } from "utils/AsyncTask";
 import { logManager } from "utils/log4screeps";
 import { PosStr } from "utils/RoomPositionToStr";
 import { checkArray } from "utils/typeCheck";
@@ -65,6 +67,7 @@ export function generalCarrier(creep: Creep, carrierType: string) {
                 task.isHandlingSurplusResourceAtEnd = false;
                 task.status = "end";
                 logger.debug(`${creep.name} ${task.name} end(2)`);
+                onEnd(task);
                 return;
             }
             task.isHandlingSurplusResource = false;
@@ -148,6 +151,7 @@ export function generalCarrier(creep: Creep, carrierType: string) {
         if (!task.isCarrying) {
             task.status = "end";
             logger.debug(`${creep.name} ${task.name} end(1)`);
+            onEnd(task);
             return;
         } else {
             // 默认使用storage作为回收位置，用于在搬运时发现目标容器没有资源空位后放置资源。
@@ -212,5 +216,11 @@ function handleResourceWhenNotEnoughCapacity(creep: Creep) {
 function stay(creep: Creep) {
     if (creep.room.controller?.my && checkArray(creep.room.memory?.construct?.freeSpacePosList)) {
         stayByRoad.run(creep);
+    }
+}
+
+function onEnd(task: RoomCarryTask) {
+    if (task.onTaskEnd) {
+        AsyncTask.runAsyncTask(task.onTaskEnd);
     }
 }

@@ -1,3 +1,5 @@
+import { AsyncTask } from "utils/AsyncTask";
+import { AwaitedTask } from "utils/AsyncTask/type";
 import { logManager } from "utils/log4screeps";
 
 declare global {
@@ -33,6 +35,7 @@ export interface RoomCarryTask {
     amounts: number[];
     remainingAmounts: number[];
     lastTickStore?: [resource: string, amount: number];
+    onTaskEnd?: string;
 }
 
 const minimumLiveTicks = 100;
@@ -99,6 +102,7 @@ export function addCarryTask(
         resources: ResourceConstant[];
         priority: number;
         amounts?: number[];
+        onTaskEnd?: string;
     }
 ) {
     const amountsArg = task.amounts ?? Array(task.resources.length).fill(Infinity);
@@ -116,6 +120,7 @@ export function addCarryTask(
         isHandlingSurplusResource: false,
         isHandlingSurplusResourceAtEnd: false
     };
+    if (task.onTaskEnd) carryTask.onTaskEnd = task.onTaskEnd;
     Memory.rooms[roomName].AIUreium.carryTaskPools[roleName][task.name] = carryTask;
 }
 
