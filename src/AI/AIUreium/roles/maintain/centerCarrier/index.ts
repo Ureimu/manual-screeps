@@ -1,6 +1,7 @@
 import { getRoomControlData } from "AI/AIUreium/control";
-import { capacityRate, resourceLimit } from "AI/AIUreium/control/constants/roomResource";
+import { capacityRate } from "AI/AIUreium/control/constants/roomResource";
 import { Constant } from "AI/AIUreium/control/constants/roomTaskControl";
+import { getRoomResourceLimit } from "AI/AIUreium/control/roomResources";
 import { PosStr } from "utils/RoomPositionToStr";
 
 declare global {
@@ -44,6 +45,7 @@ export function centerCarrierTask2(creep: Creep): void {
         creep.memory.centerCarrierLinkState = true;
     }
 
+    const resourceLimit = getRoomResourceLimit(room.name);
     // 切换link工作状态
     if (
         !creep.memory.centerCarrierLinkState &&

@@ -1,3 +1,4 @@
+import { defaultResourceLimit } from "./roomResources/default";
 import { MainControlData, RoomControlData } from "./type";
 
 export const defaultRoomControlData: RoomControlData = {
@@ -36,7 +37,8 @@ export const defaultRoomControlData: RoomControlData = {
         run: false,
         energyLimit: 100e3,
         powerLimit: 1e3
-    }
+    },
+    roomResources: { terminalBoundToStorageLimit: true, limit: defaultResourceLimit }
 };
 
 export const defaultMainControlData: MainControlData = {

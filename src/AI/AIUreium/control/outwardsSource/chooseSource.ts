@@ -2,7 +2,6 @@ import { OutwardsSourceData } from "AI/AIUreium/control/recordRoomData";
 import { startOutwardsSource } from "AI/AIUreium/room/outwardsSource/start";
 import { stopOutwardsSource } from "AI/AIUreium/room/outwardsSource/stop";
 import { checkControllerRoomName } from "utils/roomNameUtils";
-import { resourceLimit } from "../constants/roomResource";
 import { Constant } from "../constants/roomTaskControl";
 import { getRoomControlData } from "..";
 import { OutwardsSourceCheckInterval } from "./constant";
@@ -10,6 +9,7 @@ import { logManager } from "utils/log4screeps";
 import { getOCarrierBodyRatio } from "AI/AIUreium/room/outwardsSource/tasks/createCreepGroup/createOCarryGroup";
 import { MAX_ENERGY_PER_CONTROLLER_LEVEL } from "utils/constants";
 import { RoomStatusOutwardsSource } from "./type";
+import { getRoomResourceLimit } from "../roomResources";
 
 declare global {
     interface TaskStatus {
@@ -53,6 +53,7 @@ export function chooseSource(mainRoom: Room): void {
     }
 
     if (!storeEnergy) return;
+    const resourceLimit = getRoomResourceLimit(mainRoom.name);
     logger.debug(
         `storeEnergy: ${storeEnergy} max:${(
             resourceLimit.storage.energy.max * Constant.outwardsSource.energyRate.stop

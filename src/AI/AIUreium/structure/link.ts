@@ -2,7 +2,7 @@ import { SpecifiedStructureNameList } from "frame/construct/type";
 import { getLayoutStructureMemory } from "frame/construct/utils";
 import { registerFN } from "utils/profiler";
 import { PosStr } from "utils/RoomPositionToStr";
-import { resourceLimit } from "../control/constants/roomResource";
+import { getRoomResourceLimit } from "../control/roomResources";
 export const getLink = registerFN((room: Room, linkName: SpecifiedStructureNameList<"link">): StructureLink[] => {
     if (!room.memory.construct.layout) return [];
     const memory = getLayoutStructureMemory(room.name, "link", linkName);
@@ -27,6 +27,7 @@ const unwrappedLink = {
             }
         }
         if (room.storage) {
+            const resourceLimit = getRoomResourceLimit(room.name);
             if (room.storage.store.energy > resourceLimit.storage.energy.min) {
                 centerLinkToControllerLinkList.forEach(linkList => {
                     if (linkList[0].cooldown > 0) return;

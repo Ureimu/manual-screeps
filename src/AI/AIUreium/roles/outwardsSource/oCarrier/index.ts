@@ -1,4 +1,4 @@
-import { resourceLimit } from "AI/AIUreium/control/constants/roomResource";
+import { getRoomResourceLimit } from "AI/AIUreium/control/roomResources";
 import { runLayout } from "frame/construct";
 
 import { logManager } from "utils/log4screeps";
@@ -63,6 +63,7 @@ export function oCarrier1(creep: Creep, args: string[]): void {
             logger.debug(`${creep.name} no storage in origin room ${originRoomName}`);
             return;
         }
+        const resourceLimit = getRoomResourceLimit(originRoom.name);
         const maxEnergyNum = resourceLimit.storage.energy.max * 1.3;
         if (originRoom.storage.store.energy > maxEnergyNum) {
             logger.debug(`${creep.name} storage energy exceeded limit in ${originRoomName}`);

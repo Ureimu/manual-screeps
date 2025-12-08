@@ -1,14 +1,15 @@
 import { logManager } from "utils/log4screeps";
 import { getRoomControlData } from "..";
-import { buyLimitRate, energyCostPrice, resourceLimit, sellLimitRate } from "../constants/roomResource";
+import { buyLimitRate, energyCostPrice, sellLimitRate } from "../constants/roomResource";
 import { Constant } from "../constants/roomTaskControl";
+import { getRoomResourceLimit } from "../roomResources";
 const logger = logManager.createLogger("debug", "Market");
 export function runTerminal(terminal: StructureTerminal): void {
     const { market } = Constant;
     if (Game.time % market.sellRate !== 0) return;
     logger.info(`${terminal.room.name} terminal runs`);
     const terminalRoomName = terminal.room.name;
-    const limit = resourceLimit.terminal;
+    const limit = getRoomResourceLimit(terminalRoomName).terminal;
     const terminalEnergy = terminal.store[RESOURCE_ENERGY];
     const startCpu = Game.cpu.getUsed();
     for (const resourceType of RESOURCES_ALL) {

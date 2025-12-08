@@ -1,4 +1,4 @@
-import { resourceLimit } from "AI/AIUreium/control/constants/roomResource";
+import { getRoomResourceLimit } from "AI/AIUreium/control/roomResources";
 import { getLink } from "AI/AIUreium/structure/link";
 import { CreepGroup } from "frame/creep/group";
 import { RoutePlan } from "frame/creep/routePlan";
@@ -14,6 +14,7 @@ global.AcrossTickTaskFunction.centerTask1 = task => {
     const roomArg = Game.rooms[roomNameArg];
     if (!roomArg.storage) return "finish";
     const creepGroupMemory = Memory.creepGroups[creepGroupNameArg];
+    const resourceLimit = getRoomResourceLimit(roomArg.name);
     if (creepGroupMemory.mode === "route") {
         if (creepGroupMemory.routeName !== route1NameArg && creepGroupMemory.routeName !== route2NameArg) {
             CreepGroup.setCreepGroupProperties({
@@ -78,6 +79,7 @@ export const centerTask1: TaskObject<maintainRoomTaskArgs> = {
     },
     working(roomName) {
         const room = Game.rooms[roomName];
+        const resourceLimit = getRoomResourceLimit(room.name);
         if (!room.memory.construct.centerPos) throw new Error("没有centerPos!");
         const centerPos = PosStr.getPosFromStr(room.memory.construct.centerPos);
 

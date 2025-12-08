@@ -3,6 +3,7 @@ import { FlagMaintainer } from "frame/flagMaintainer";
 import { TaskObject } from "utils/Project";
 import { OCarryGroupCreepName } from "../createCreepGroup/createOCarryGroup";
 import { outwardsSourceProjectName, outwardsSourceTaskArgs } from "../../type";
+import { getRoomResourceLimit } from "AI/AIUreium/control/roomResources";
 
 export const oCarrySourceToStorage: TaskObject<outwardsSourceTaskArgs> = {
     name: "oCarrySourceToStorage",
@@ -59,6 +60,7 @@ export const oCarrySourceToStorage: TaskObject<outwardsSourceTaskArgs> = {
         //     actionArgs: "true"
         // });
 
+        // const resourceLimit = getRoomResourceLimit(room.name);
         // const maxEnergyNum = resourceLimit.storage.energy.max * 0.98;
         // RoutePlan.addCondition({
         //     routeName,

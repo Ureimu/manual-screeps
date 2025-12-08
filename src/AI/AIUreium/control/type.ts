@@ -1,5 +1,8 @@
 import { RecursivePartial } from "utils/typeUtils";
+import { RoomResourceLimit } from "./constants/type";
 import { RoomStatusOutwardsSource } from "./outwardsSource/type";
+
+// 对roomSetting有个重要的假定，即设定信息不会在运行时修改。
 
 export const roomControlDataSegmentNameList = Array(5)
     .fill(0)
@@ -179,7 +182,24 @@ export interface RoomControlData {
          */
         powerLimit: number;
     };
+    /**
+     * 房间资源量上下限设置。
+     */
+    roomResources: RoomResourcesSetting;
 }
+
+export type RoomResourcesSetting = {
+    /**
+     * 设定为true，则terminal设置不会生效，
+     * 会使用storage的数据设定乘以一定比例转换为terminal数据设定。
+     *
+     */
+    terminalBoundToStorageLimit: boolean;
+    /**
+     *  房间资源量上下限设置。
+     */
+    limit: RoomResourceLimit;
+};
 
 export interface RoomStatus {
     outwardsSource?: RoomStatusOutwardsSource;
