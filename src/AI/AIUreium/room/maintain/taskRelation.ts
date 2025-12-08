@@ -162,6 +162,9 @@ export class maintainRoomProject extends Project<maintainRoomTaskArgs, maintainR
         if (typeof Memory.rooms?.[this.taskArgs[0]]?.AIUreium?.maintainRoom === "object") {
             delete Memory.rooms[this.taskArgs[0]].AIUreium.maintainRoom;
         }
+        if (maintainRoomProjectCollection[this.taskArgs[0]]) {
+            delete maintainRoomProjectCollection[this.taskArgs[0]];
+        }
     }
 }
 

@@ -68,6 +68,9 @@ class outwardsHarvestProject extends Project<outwardsSourceTaskArgs, outwardsSou
         if (typeof Memory.rooms[originRoomName].AIUreium.outwardsSource[sourceRoomName][sourceName] === "object") {
             delete Memory.rooms[originRoomName].AIUreium.outwardsSource[sourceRoomName][sourceName];
         }
+        if (outwardsHarvestProjectCollection[originRoomName]?.[sourceRoomName]?.[sourceName]) {
+            delete outwardsHarvestProjectCollection[originRoomName][sourceRoomName][sourceName];
+        }
     }
 }
 

@@ -40,6 +40,9 @@ export class NewRoomProject extends Project<newRoomTaskArgs, MemoryAddressArgs> 
         if (typeof Memory.rooms[spawnRoomName].AIUreium.newRoom[claimRoomName] === "object") {
             delete Memory.rooms[spawnRoomName].AIUreium.newRoom[claimRoomName];
         }
+        if (newRoomProjectCollection[spawnRoomName]?.[claimRoomName]) {
+            delete newRoomProjectCollection[spawnRoomName][claimRoomName];
+        }
     }
 }
 

@@ -55,6 +55,9 @@ class getPowerProject extends Project<getPowerTaskArgs, getPowerTaskArgs> {
         if (typeof Memory.rooms[originRoomName].AIUreium.getPower[powerBankRoomName][powerBankId] === "object") {
             delete Memory.rooms[originRoomName].AIUreium.getPower[powerBankRoomName][powerBankId];
         }
+        if (getPowerProjectCollection[originRoomName]?.[powerBankRoomName]?.[powerBankId]) {
+            delete getPowerProjectCollection[originRoomName][powerBankRoomName][powerBankId];
+        }
     }
 }
 
