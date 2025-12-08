@@ -40,6 +40,15 @@ export function runTerminal(terminal: StructureTerminal): void {
             const benefitList = orderList
                 .map(order => {
                     if (!order.roomName) throw new Error("order 没有 roomName");
+                    if (order.price < specifiedResourceLimit.minSellPrice) {
+                        return {
+                            id: order.id,
+                            amount: 0,
+                            benefit: 0,
+                            price: order.price,
+                            energyCost: 0
+                        };
+                    }
                     let costPricePerUnit = 0;
                     const dealAmount = order.amount > sellNum ? sellNum : order.amount;
                     const energyCost = Game.market.calcTransactionCost(dealAmount, order.roomName, terminalRoomName);
@@ -101,6 +110,9 @@ export function runTerminal(terminal: StructureTerminal): void {
             const costList = orderList
                 .map(order => {
                     if (!order.roomName) throw new Error("order 没有 roomName");
+                    if (order.price > specifiedResourceLimit.maxBuyPrice) {
+                        return { id: order.id, amount: 0, cost: 0, price: order.price, energyCost: 0 };
+                    }
                     let costPricePerUnit = 0;
                     const dealAmount = order.amount > buyNum ? buyNum : order.amount;
                     const energyCost = Game.market.calcTransactionCost(dealAmount, order.roomName, terminalRoomName);
