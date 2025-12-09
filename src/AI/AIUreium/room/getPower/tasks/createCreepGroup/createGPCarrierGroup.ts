@@ -2,13 +2,12 @@ import { CreepBody } from "frame/creep/body";
 import { bodyTools } from "frame/creep/body/tools";
 import { CreepGroup } from "frame/creep/group";
 import { SpawnPool } from "frame/spawn/spawnPool";
-import { TaskObject } from "utils/Project";
-import { getPowerProjectName, getPowerTaskArgs } from "../../type";
+import { getPowerProjectName, getPowerTaskObject } from "../../type";
 
 export const getGPCarrierGroupName = (roomName: string, powerBankRoomName: string, powerBankId: string) =>
     `${roomName}-gpc-${powerBankRoomName}-${powerBankId}`;
 
-export const createGPCarrierGroup: TaskObject<getPowerTaskArgs, getPowerTaskArgs> = {
+export const createGPCarrierGroup: getPowerTaskObject = {
     name: "createGPCarrierGroup",
     description: "createGPCarrierGroup",
     start() {

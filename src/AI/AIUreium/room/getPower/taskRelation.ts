@@ -9,7 +9,7 @@ import { waitForAttackEnd } from "./tasks/gpCarrier/waitForAttackEnd";
 import { createGPCarrierGroup } from "./tasks/createCreepGroup/createGPCarrierGroup";
 import { finishTask } from "./tasks/finishTask";
 import { spawnAttackerAndHealer } from "./tasks/spawnAttackerAndHealer";
-import { getPowerProjectName, getPowerTaskArgs } from "./type";
+import { getPowerProjectMemoryType, getPowerProjectName, getPowerTaskArgs } from "./type";
 
 export const taskRelation = {
     [createGetPowerBodyParts.name]: [ProjectNetworkDiagram.startNodeName],
@@ -32,15 +32,16 @@ const taskCollection = registerObjectDeep(
     },
     "getPowerTaskCollection"
 );
-class getPowerProject extends Project<getPowerTaskArgs, getPowerTaskArgs> {
+class getPowerProject extends Project<getPowerTaskArgs, getPowerTaskArgs, getPowerProjectMemoryType> {
     public constructor(taskArgs: getPowerTaskArgs, memoryAddressArgs: getPowerTaskArgs) {
         super(getPowerProjectName, taskArgs, memoryAddressArgs);
         // this.wrapTaskCollection(); // 注册所有task到profiler模块，可选
     }
 
     public taskRelation: TaskRelation = taskRelation;
-    public taskCollection: TaskCollection<getPowerTaskArgs, getPowerTaskArgs> = taskCollection;
-    public getMemory(): DiagramMemory {
+    public taskCollection: TaskCollection<getPowerTaskArgs, getPowerTaskArgs, getPowerProjectMemoryType> =
+        taskCollection;
+    public getMemoryStorage(): DiagramMemory<getPowerProjectMemoryType> {
         const [originRoomName, powerBankRoomName, powerBankId] = this.taskArgs;
         if (!Memory.rooms[originRoomName].AIUreium.getPower[powerBankRoomName]) {
             Memory.rooms[originRoomName].AIUreium.getPower[powerBankRoomName] = {};
@@ -50,7 +51,7 @@ class getPowerProject extends Project<getPowerTaskArgs, getPowerTaskArgs> {
         }
         return Memory.rooms[originRoomName].AIUreium.getPower[powerBankRoomName][powerBankId];
     }
-    public deleteMemory() {
+    public deleteMemoryStorage() {
         const [originRoomName, powerBankRoomName, powerBankId] = this.taskArgs;
         if (typeof Memory.rooms[originRoomName].AIUreium.getPower[powerBankRoomName][powerBankId] === "object") {
             delete Memory.rooms[originRoomName].AIUreium.getPower[powerBankRoomName][powerBankId];

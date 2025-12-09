@@ -1,10 +1,9 @@
 import { CreepGroup } from "frame/creep/group";
 import { RoutePlan } from "frame/creep/routePlan";
-import { TaskObject } from "utils/Project";
-import { outwardsSourceProjectName, outwardsSourceTaskArgs } from "../../type";
+import { outwardsSourceProjectName, outwardsSourceTaskObject } from "../../type";
 import { OHarvestGroupCreepName } from "../createCreepGroup/createOHarvestGroup";
 
-export const oMoveToSource: TaskObject<outwardsSourceTaskArgs, outwardsSourceTaskArgs> = {
+export const oMoveToSource: outwardsSourceTaskObject = {
     name: "oMoveToSource",
     description: "oMoveToSource",
     start(roomName, sourceRoomName, sourceName) {

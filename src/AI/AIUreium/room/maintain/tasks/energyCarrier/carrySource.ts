@@ -3,12 +3,11 @@ import { RoutePlan } from "frame/creep/routePlan";
 import { FlagMaintainer } from "frame/flagMaintainer";
 import { FlagTools } from "frame/flagMaintainer/tools";
 import { SpawnPool } from "frame/spawn/spawnPool";
-import { TaskObject } from "utils/Project";
 import { PosStr } from "utils/RoomPositionToStr";
-import { maintainRoomProjectName, maintainRoomTaskArgs } from "../../type";
+import { maintainRoomProjectName, maintainRoomTaskObject } from "../../type";
 import { energyCarryGroupName } from "../createCreepGroup/createEnergyCarryGroup";
 
-export const carrySource: TaskObject<maintainRoomTaskArgs, maintainRoomTaskArgs> = {
+export const carrySource: maintainRoomTaskObject = {
     name: "carrySource",
     description: "carrySource",
     start(roomName) {

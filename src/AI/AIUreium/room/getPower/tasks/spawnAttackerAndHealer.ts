@@ -3,14 +3,13 @@ import { calcGetPowerSpawnTime } from "AI/AIUreium/control/getPower/calcSpawnTim
 import { CreepGroup } from "frame/creep/group";
 import { SpawnPool } from "frame/spawn/spawnPool";
 import { logManager } from "utils/log4screeps";
-import { TaskObject } from "utils/Project";
-import { getPowerTaskArgs } from "../type";
+import { getPowerTaskObject } from "../type";
 import { getGPAttackerGroupName } from "./createCreepGroup/createGPAttackerGroup";
 import { getGPHealerGroupName } from "./createCreepGroup/createGPHealerGroup";
 
 const logger = logManager.createLogger("info", "getPower.spawn");
 
-export const spawnAttackerAndHealer: TaskObject<getPowerTaskArgs, getPowerTaskArgs> = {
+export const spawnAttackerAndHealer: getPowerTaskObject = {
     name: "spawnAttackerAndHealer",
     description: "spawnAttackerAndHealer",
     start(roomName, powerBankRoomName, powerBankId) {

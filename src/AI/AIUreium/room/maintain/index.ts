@@ -8,7 +8,7 @@ import { registerFN } from "utils/profiler";
 import { DiagramMemory } from "utils/Project/type";
 import { initAiUreimuRoomMemory } from "../utils";
 import { getMaintainRoomProject } from "./taskRelation";
-import { maintainRoomProjectName } from "./type";
+import { maintainRoomProjectMemoryType, maintainRoomProjectName } from "./type";
 
 export const maintainRoom = registerFN((room: Room): void => {
     runProjectCreeps(room, maintainRoomProjectName);
@@ -31,6 +31,6 @@ export const maintainRoom = registerFN((room: Room): void => {
 declare global {
     // Types defined in a global block are available globally
     interface AIUreiumRoomMemory {
-        maintainRoom?: DiagramMemory;
+        maintainRoom?: DiagramMemory<maintainRoomProjectMemoryType>;
     }
 }

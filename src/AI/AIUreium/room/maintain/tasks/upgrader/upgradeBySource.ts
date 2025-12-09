@@ -3,11 +3,10 @@ import { CreepGroup } from "frame/creep/group";
 import { RoutePlan } from "frame/creep/routePlan";
 import { FlagMaintainer } from "frame/flagMaintainer";
 import { FlagTools } from "frame/flagMaintainer/tools";
-import { TaskObject } from "utils/Project";
 import { PosStr } from "utils/RoomPositionToStr";
-import { maintainRoomProjectName, maintainRoomTaskArgs } from "../../type";
+import { maintainRoomProjectName, maintainRoomTaskObject } from "../../type";
 
-export const upgradeBySource: TaskObject<maintainRoomTaskArgs, maintainRoomTaskArgs> = {
+export const upgradeBySource: maintainRoomTaskObject = {
     name: "upgradeBySource",
     description: "upgradeBySource",
     start(roomName) {

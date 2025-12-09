@@ -1,9 +1,8 @@
-import { TaskObject } from "utils/Project";
-import { MemoryAddressArgs, newRoomTaskArgs } from "../../type";
+import { newRoomTaskObject } from "../../type";
 import { CreepGroup } from "frame/creep/group";
 import { SpawnPool } from "frame/spawn/spawnPool";
 
-export const deleteClaimer: TaskObject<newRoomTaskArgs, MemoryAddressArgs> = {
+export const deleteClaimer: newRoomTaskObject = {
     name: "deleteClaimer",
     description: "deleteClaimer",
     start(spawnRoomName, claimRoomName) {

@@ -2,12 +2,11 @@ import { getLayoutStructureMemory } from "frame/construct/utils";
 import { CreepGroup } from "frame/creep/group";
 import { RoutePlan } from "frame/creep/routePlan";
 import { FlagMaintainer } from "frame/flagMaintainer";
-import { TaskObject } from "utils/Project";
 import { PosStr } from "utils/RoomPositionToStr";
-import { outwardsSourceProjectName, outwardsSourceTaskArgs } from "../../type";
+import { outwardsSourceProjectName, outwardsSourceTaskObject } from "../../type";
 import { OHarvestGroupCreepName } from "../createCreepGroup/createOHarvestGroup";
 
-export const oKeepHarvesting: TaskObject<outwardsSourceTaskArgs, outwardsSourceTaskArgs> = {
+export const oKeepHarvesting: outwardsSourceTaskObject = {
     name: "oKeepHarvesting",
     description: "oKeepHarvesting",
     start(roomName, sourceRoomName, sourceName) {

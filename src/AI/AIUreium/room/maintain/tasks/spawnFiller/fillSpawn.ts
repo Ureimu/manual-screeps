@@ -5,9 +5,9 @@ import { FlagTools } from "frame/flagMaintainer/tools";
 import { SpawnPool } from "frame/spawn/spawnPool";
 import { TaskObject } from "utils/Project";
 import { PosStr } from "utils/RoomPositionToStr";
-import { maintainRoomProjectName, maintainRoomTaskArgs } from "../../type";
+import { maintainRoomProjectName, maintainRoomTaskArgs, maintainRoomTaskObject } from "../../type";
 
-export const fillSpawn: TaskObject<maintainRoomTaskArgs, maintainRoomTaskArgs> = {
+export const fillSpawn: maintainRoomTaskObject = {
     name: "fillSpawn",
     description: "fillSpawn",
     start(roomName) {

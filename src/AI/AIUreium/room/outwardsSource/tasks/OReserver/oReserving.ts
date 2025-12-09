@@ -2,11 +2,10 @@ import { CreepGroup } from "frame/creep/group";
 import { RoutePlan } from "frame/creep/routePlan";
 import { FlagMaintainer } from "frame/flagMaintainer";
 import { FlagTools } from "frame/flagMaintainer/tools";
-import { TaskObject } from "utils/Project";
-import { outwardsSourceProjectName, outwardsSourceTaskArgs } from "../../type";
+import { outwardsSourceProjectName, outwardsSourceTaskObject } from "../../type";
 import { OReserveGroupCreepName } from "../createCreepGroup/createOReserveGroup";
 
-export const oReserving: TaskObject<outwardsSourceTaskArgs, outwardsSourceTaskArgs> = {
+export const oReserving: outwardsSourceTaskObject = {
     name: "oReserving",
     description: "oReserving",
     start(roomName, sourceRoomName, sourceName) {

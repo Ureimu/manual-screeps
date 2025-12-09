@@ -1,11 +1,9 @@
-import { CreepGroup } from "frame/creep/group";
 import { FlagMaintainer } from "frame/flagMaintainer";
 import { SpawnPool } from "frame/spawn/spawnPool";
-import { TaskObject } from "utils/Project";
-import { maintainRoomTaskArgs } from "../../type";
+import { maintainRoomTaskObject } from "../../type";
 import { energyCarryGroupName } from "../createCreepGroup/createEnergyCarryGroup";
 
-export const stopCarrySource: TaskObject<maintainRoomTaskArgs, maintainRoomTaskArgs> = {
+export const stopCarrySource: maintainRoomTaskObject = {
     name: "stopCarrySource",
     description: "stopCarrySource",
     start(roomName) {

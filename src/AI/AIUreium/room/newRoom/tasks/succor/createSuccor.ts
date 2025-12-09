@@ -1,10 +1,9 @@
 import { CreepBody } from "frame/creep/body";
 import { CreepGroup } from "frame/creep/group";
 import { SpawnPool } from "frame/spawn/spawnPool";
-import { TaskObject } from "utils/Project";
-import { MemoryAddressArgs, newRoomProjectName, newRoomTaskArgs } from "../../type";
+import { newRoomProjectName, newRoomTaskObject } from "../../type";
 
-export const createSuccor: TaskObject<newRoomTaskArgs, MemoryAddressArgs> = {
+export const createSuccor: newRoomTaskObject = {
     name: "createSuccor",
     description: "createSuccor",
     working(spawnRoomName, claimRoomName) {

@@ -1,10 +1,8 @@
 import { canBoostGetPowerCreeps } from "AI/AIUreium/control/getPower/canBoostGetPowerCreeps";
 import { CreepBody } from "frame/creep/body";
-import { ControllerLevels, creepBodyConfigDetail } from "frame/creep/body/type";
-import { TaskObject } from "utils/Project";
-import { getPowerTaskArgs } from "../type";
+import { getPowerTaskObject } from "../type";
 
-export const createGetPowerBodyParts: TaskObject<getPowerTaskArgs, getPowerTaskArgs> = {
+export const createGetPowerBodyParts: getPowerTaskObject = {
     name: "createGetPowerBodyParts",
     description: "createGetPowerBodyParts",
     start() {

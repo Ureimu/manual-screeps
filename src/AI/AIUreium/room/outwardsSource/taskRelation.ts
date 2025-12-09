@@ -13,7 +13,7 @@ import { createOReserveGroup } from "./tasks/createCreepGroup/createOReserveGrou
 import { oReserving } from "./tasks/OReserver/oReserving";
 import { createOBuildGroup } from "./tasks/createCreepGroup/createOBuildGroup";
 import { oBuildRoad } from "./tasks/OBuilder/oBuildRoad";
-import { outwardsSourceProjectName, outwardsSourceTaskArgs } from "./type";
+import { outwardsSourceMemoryType, outwardsSourceProjectName, outwardsSourceTaskArgs } from "./type";
 
 // 设置Project的存储位置
 
@@ -46,14 +46,15 @@ const taskCollection = registerObjectDeep(
     },
     "outwardsHarvestTaskCollection"
 );
-class outwardsHarvestProject extends Project<outwardsSourceTaskArgs, outwardsSourceTaskArgs> {
+class outwardsHarvestProject extends Project<outwardsSourceTaskArgs, outwardsSourceTaskArgs, outwardsSourceMemoryType> {
     public constructor(taskArgs: outwardsSourceTaskArgs, memoryAddressArgs: outwardsSourceTaskArgs) {
         super(outwardsSourceProjectName, taskArgs, memoryAddressArgs);
         // this.wrapTaskCollection(); // 注册所有task到profiler模块，可选
     }
     public taskRelation: TaskRelation = taskRelation;
-    public taskCollection: TaskCollection<outwardsSourceTaskArgs, outwardsSourceTaskArgs> = taskCollection;
-    public getMemory(): DiagramMemory {
+    public taskCollection: TaskCollection<outwardsSourceTaskArgs, outwardsSourceTaskArgs, outwardsSourceMemoryType> =
+        taskCollection;
+    public getMemoryStorage(): DiagramMemory<outwardsSourceMemoryType> {
         const [originRoomName, sourceRoomName, sourceName] = this.taskArgs;
         if (!Memory.rooms[originRoomName].AIUreium.outwardsSource[sourceRoomName]) {
             Memory.rooms[originRoomName].AIUreium.outwardsSource[sourceRoomName] = {};
@@ -63,7 +64,7 @@ class outwardsHarvestProject extends Project<outwardsSourceTaskArgs, outwardsSou
         }
         return Memory.rooms[originRoomName].AIUreium.outwardsSource[sourceRoomName][sourceName];
     }
-    public deleteMemory() {
+    public deleteMemoryStorage() {
         const [originRoomName, sourceRoomName, sourceName] = this.taskArgs;
         if (typeof Memory.rooms[originRoomName].AIUreium.outwardsSource[sourceRoomName][sourceName] === "object") {
             delete Memory.rooms[originRoomName].AIUreium.outwardsSource[sourceRoomName][sourceName];

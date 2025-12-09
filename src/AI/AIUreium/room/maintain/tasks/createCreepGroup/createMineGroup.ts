@@ -1,12 +1,9 @@
 import { CreepGroup } from "frame/creep/group";
-import { addShiftTimeFunction } from "frame/spawn/spawning/readyCondition/spawnShiftCreep";
-import { numData } from "frame/spawn/spawning/readyCondition/utils/numData";
 import { SpawnPool } from "frame/spawn/spawnPool";
-import { TaskObject } from "utils/Project";
-import { maintainRoomTaskArgs } from "../../type";
+import { maintainRoomTaskObject } from "../../type";
 
 export const MineGroupName = (roomName: string): string => `${roomName}mi`;
-export const createMineGroup: TaskObject<maintainRoomTaskArgs, maintainRoomTaskArgs> = {
+export const createMineGroup: maintainRoomTaskObject = {
     name: "createMineGroup",
     description: "createMineGroup",
     start() {

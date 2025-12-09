@@ -5,9 +5,8 @@ import { RoutePlan } from "frame/creep/routePlan";
 import { FlagMaintainer } from "frame/flagMaintainer";
 import { FlagTools } from "frame/flagMaintainer/tools";
 import { newAcrossTickTask } from "utils/AcrossTick";
-import { TaskObject } from "utils/Project";
 import { PosStr } from "utils/RoomPositionToStr";
-import { maintainRoomProjectName, maintainRoomTaskArgs } from "../../type";
+import { maintainRoomProjectName, maintainRoomTaskObject } from "../../type";
 if (!global.AcrossTickTaskFunction) global.AcrossTickTaskFunction = {};
 global.AcrossTickTaskFunction.centerTask1 = task => {
     const [roomNameArg, creepGroupNameArg, route1NameArg, route2NameArg] = task.args as string[];
@@ -66,7 +65,7 @@ global.AcrossTickTaskFunction.centerTask1 = task => {
     return "runAgain";
 };
 
-export const centerTask1: TaskObject<maintainRoomTaskArgs, maintainRoomTaskArgs> = {
+export const centerTask1: maintainRoomTaskObject = {
     name: "centerTask1",
     description: "center creep carry source from storage to link",
     start(roomName) {

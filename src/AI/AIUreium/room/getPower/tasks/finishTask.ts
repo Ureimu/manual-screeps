@@ -1,10 +1,10 @@
 import { logManager } from "utils/log4screeps";
 import { TaskObject } from "utils/Project";
 import { stopGetPower } from "../stop";
-import { getPowerTaskArgs } from "../type";
+import { getPowerTaskArgs, getPowerTaskObject } from "../type";
 import { getGPCarrierGroupName } from "./createCreepGroup/createGPCarrierGroup";
 const logger = logManager.createLogger("debug", "getPower.finishTask");
-export const finishTask: TaskObject<getPowerTaskArgs, getPowerTaskArgs> = {
+export const finishTask: getPowerTaskObject = {
     name: "finishTask",
     description: "finishTask",
     start(roomName, powerBankRoomName, powerBankId) {

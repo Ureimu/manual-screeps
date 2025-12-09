@@ -10,9 +10,13 @@ export interface ProjectEngineStats {
     runNum: number;
 }
 
-export class ProjectEngine<TaskArgs extends unknown[], MemoryAddressArgs extends unknown[]> {
-    public project: Project<TaskArgs, MemoryAddressArgs>;
-    public taskCollection: TaskCollection<TaskArgs, MemoryAddressArgs>;
+export class ProjectEngine<
+    TaskArgs extends unknown[],
+    MemoryAddressArgs extends unknown[],
+    ProjectMemoryType extends unknown
+> {
+    public project: Project<TaskArgs, MemoryAddressArgs, ProjectMemoryType>;
+    public taskCollection: TaskCollection<TaskArgs, MemoryAddressArgs, ProjectMemoryType>;
     public taskDiagram: ProjectNetworkDiagram;
     public taskRelation: TaskRelation;
     public taskArgs: TaskArgs;
@@ -21,11 +25,11 @@ export class ProjectEngine<TaskArgs extends unknown[], MemoryAddressArgs extends
     public isStopped: boolean = false;
 
     public constructor(
-        taskCollection: TaskCollection<TaskArgs, MemoryAddressArgs>,
+        taskCollection: TaskCollection<TaskArgs, MemoryAddressArgs, ProjectMemoryType>,
         taskRelation: TaskRelation,
         taskDiagram: ProjectNetworkDiagram,
         taskArgs: TaskArgs,
-        project: Project<TaskArgs, MemoryAddressArgs>
+        project: Project<TaskArgs, MemoryAddressArgs, ProjectMemoryType>
     ) {
         this.taskArgs = taskArgs;
         this.taskDiagram = taskDiagram;

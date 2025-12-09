@@ -3,11 +3,9 @@ import { CreepGroup } from "frame/creep/group";
 import { RoutePlan } from "frame/creep/routePlan";
 import { FlagMaintainer } from "frame/flagMaintainer";
 import { FlagTools } from "frame/flagMaintainer/tools";
-import { SpawnPool } from "frame/spawn/spawnPool";
-import { TaskObject } from "utils/Project";
-import { maintainRoomProjectName, maintainRoomTaskArgs } from "../../type";
+import { maintainRoomProjectName, maintainRoomTaskObject } from "../../type";
 
-export const buildSourceContainer: TaskObject<maintainRoomTaskArgs, maintainRoomTaskArgs> = {
+export const buildSourceContainer: maintainRoomTaskObject = {
     name: "buildSourceContainer",
     description: "buildSourceContainer",
     start(roomName) {

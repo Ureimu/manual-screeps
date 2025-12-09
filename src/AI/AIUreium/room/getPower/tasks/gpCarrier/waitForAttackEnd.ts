@@ -1,8 +1,7 @@
-import { TaskObject } from "utils/Project";
-import { getPowerTaskArgs } from "../../type";
+import { getPowerTaskObject } from "../../type";
 import { getGPAttackerGroupName } from "../createCreepGroup/createGPAttackerGroup";
 
-export const waitForAttackEnd: TaskObject<getPowerTaskArgs, getPowerTaskArgs> = {
+export const waitForAttackEnd: getPowerTaskObject = {
     name: "waitForAttackEnd",
     description: "waitForAttackEnd",
     start(roomName) {

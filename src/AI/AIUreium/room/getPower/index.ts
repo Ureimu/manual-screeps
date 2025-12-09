@@ -4,7 +4,7 @@ import { registerFN } from "utils/profiler";
 import { DiagramMemory } from "utils/Project/type";
 import { initAiUreimuRoomMemory } from "../utils";
 import { getGetPowerProject } from "./taskRelation";
-import { getPowerProjectName } from "./type";
+import { getPowerProjectMemoryType, getPowerProjectName } from "./type";
 
 export const runGetPower = registerFN((room: Room): void => {
     runProjectCreeps(room, getPowerProjectName);
@@ -29,6 +29,6 @@ export const runGetPower = registerFN((room: Room): void => {
 declare global {
     // Types defined in a global block are available globally
     interface AIUreiumRoomMemory {
-        getPower: { [powerBankRoomName: string]: { [powerBankId: string]: DiagramMemory } };
+        getPower: { [powerBankRoomName: string]: { [powerBankId: string]: DiagramMemory<getPowerProjectMemoryType> } };
     }
 }

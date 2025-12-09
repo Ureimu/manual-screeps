@@ -4,7 +4,11 @@ import { ProjectNetworkDiagram } from "./storage";
 import { logManager } from "utils/log4screeps";
 const logger = logManager.createLogger("info", "Project");
 
-export abstract class Project<TaskArgs extends unknown[], MemoryAddressArgs extends unknown[]> {
+export abstract class Project<
+    TaskArgs extends unknown[],
+    MemoryAddressArgs extends unknown[],
+    ProjectMemoryType extends unknown
+> {
     public constructor(
         /**
          * 项目名称
@@ -20,11 +24,11 @@ export abstract class Project<TaskArgs extends unknown[], MemoryAddressArgs exte
         this.memoryAddressArgs = memoryAddressArgs;
         this.taskArgs = taskArgs;
         logger.log(`init project: ${name}, args: ${String(this.taskArgs)}`);
-        this.diagram = new ProjectNetworkDiagram(this.getMemory());
-        this.getMemory().diagram = this.diagram.diagramDict;
+        this.diagram = new ProjectNetworkDiagram(this.getMemoryStorage());
+        this.getMemoryStorage().diagram = this.diagram.diagramDict;
     }
 
-    private engineCache?: ProjectEngine<TaskArgs, MemoryAddressArgs>;
+    private engineCache?: ProjectEngine<TaskArgs, MemoryAddressArgs, ProjectMemoryType>;
     /**
      * 项目运行的引擎代码。所有节点的状态变化在这里进行
      *
@@ -32,7 +36,7 @@ export abstract class Project<TaskArgs extends unknown[], MemoryAddressArgs exte
      * @type {ProjectEngine<TaskArgs>}
      * @memberof Project
      */
-    public get engine(): ProjectEngine<TaskArgs, MemoryAddressArgs> {
+    public get engine(): ProjectEngine<TaskArgs, MemoryAddressArgs, ProjectMemoryType> {
         if (!this.engineCache)
             this.engineCache = new ProjectEngine(
                 this.taskCollection,
@@ -94,7 +98,7 @@ export abstract class Project<TaskArgs extends unknown[], MemoryAddressArgs exte
      * @type {TaskCollection<TaskArgs>}
      * @memberof Project
      */
-    public abstract taskCollection: TaskCollection<TaskArgs, MemoryAddressArgs>;
+    public abstract taskCollection: TaskCollection<TaskArgs, MemoryAddressArgs, ProjectMemoryType>;
     /**
      *  设置Project的存储位置
      *
@@ -102,7 +106,7 @@ export abstract class Project<TaskArgs extends unknown[], MemoryAddressArgs exte
      * @returns {DiagramMemory}
      * @memberof Project
      */
-    public abstract getMemory(): DiagramMemory;
+    public abstract getMemoryStorage(): DiagramMemory<ProjectMemoryType>;
     /**
      *  设置Project的存储位置移除方式
      *
@@ -110,13 +114,13 @@ export abstract class Project<TaskArgs extends unknown[], MemoryAddressArgs exte
      * @returns {DiagramMemory}
      * @memberof Project
      */
-    public abstract deleteMemory(): void;
+    public abstract deleteMemoryStorage(): void;
     private init(): void {
         if (this.stats.initTime === 0) {
             this.stats.initTime = Game.time;
         }
         this.engine.initTaskDiagram();
-        this.getMemory().diagram = this.diagram.diagramDict;
+        this.getMemoryStorage().diagram = this.diagram.diagramDict;
     }
     /**
      * 运行项目
@@ -132,9 +136,9 @@ export abstract class Project<TaskArgs extends unknown[], MemoryAddressArgs exte
             this.stop();
         }
         if (!this.hasStopped) {
-            this.getMemory().diagram = this.diagram.diagramDict;
+            this.getMemoryStorage().diagram = this.diagram.diagramDict;
         } else {
-            this.deleteMemory();
+            this.deleteMemoryStorage();
         }
         this.stats.runNum++;
     }
@@ -144,9 +148,9 @@ export abstract class Project<TaskArgs extends unknown[], MemoryAddressArgs exte
      * @memberof Project
      */
     public reset(): void {
-        if (this.getMemory()) {
+        if (this.getMemoryStorage()) {
             this.engine.resetTaskDiagram();
-            this.getMemory().diagram = this.diagram.diagramDict;
+            this.getMemoryStorage().diagram = this.diagram.diagramDict;
         }
     }
 

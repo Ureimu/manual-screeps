@@ -1,9 +1,8 @@
 import { CreepGroup } from "frame/creep/group";
 import { SpawnPool } from "frame/spawn/spawnPool";
-import { TaskObject } from "utils/Project";
-import { maintainRoomProjectName, maintainRoomTaskArgs } from "../../type";
+import { maintainRoomProjectName, maintainRoomTaskObject } from "../../type";
 
-export const createKeepLevelGroup: TaskObject<maintainRoomTaskArgs, maintainRoomTaskArgs> = {
+export const createKeepLevelGroup: maintainRoomTaskObject = {
     name: "createKeepLevelGroup",
     description: "createKeepLevelGroup",
     start() {

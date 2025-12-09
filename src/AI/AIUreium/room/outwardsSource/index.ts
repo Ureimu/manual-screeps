@@ -7,7 +7,7 @@ import { registerFN } from "utils/profiler";
 import { DiagramMemory } from "utils/Project/type";
 import { initAiUreimuRoomMemory } from "../utils";
 import { getOutwardsHarvestProject } from "./taskRelation";
-import { outwardsSourceProjectName } from "./type";
+import { outwardsSourceMemoryType, outwardsSourceProjectName } from "./type";
 // 如果外矿没有正常运作，可能是第一个spawn没有放到正确位置。
 // TODO buildRoadInterval放入配置表
 const buildRoadInterval = 20000;
@@ -44,6 +44,6 @@ export const maintainOutwardsSource = registerFN((room: Room): void => {
 declare global {
     // Types defined in a global block are available globally
     interface AIUreiumRoomMemory {
-        outwardsSource: { [sourceRoomName: string]: { [sourceName: string]: DiagramMemory } };
+        outwardsSource: { [sourceRoomName: string]: { [sourceName: string]: DiagramMemory<outwardsSourceMemoryType> } };
     }
 }

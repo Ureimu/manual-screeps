@@ -1,7 +1,6 @@
-import { TaskObject } from "utils/Project";
-import { outwardsSourceTaskArgs } from "../type";
+import { outwardsSourceTaskObject } from "../type";
 
-const start: TaskObject<outwardsSourceTaskArgs, outwardsSourceTaskArgs> = {
+const start: outwardsSourceTaskObject = {
     name: "start",
     description: "start",
     start() {

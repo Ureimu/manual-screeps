@@ -5,13 +5,11 @@ import { getCostMatrix } from "frame/construct/utils/costMatrix";
 import { CreepGroup } from "frame/creep/group";
 import { RoutePlan } from "frame/creep/routePlan";
 import { FlagMaintainer } from "frame/flagMaintainer";
-import { FlagTools } from "frame/flagMaintainer/tools";
-import { TaskObject } from "utils/Project";
 import { PosStr } from "utils/RoomPositionToStr";
-import { outwardsSourceProjectName, outwardsSourceTaskArgs } from "../../type";
+import { outwardsSourceProjectName, outwardsSourceTaskObject } from "../../type";
 import { OHarvestGroupCreepName } from "../createCreepGroup/createOHarvestGroup";
 
-export const oBuildSourceContainer: TaskObject<outwardsSourceTaskArgs, outwardsSourceTaskArgs> = {
+export const oBuildSourceContainer: outwardsSourceTaskObject = {
     name: "oBuildSourceContainer",
     description: "oBuildSourceContainer",
     start(roomName, sourceRoomName, sourceName) {

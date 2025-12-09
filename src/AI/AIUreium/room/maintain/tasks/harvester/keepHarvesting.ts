@@ -3,12 +3,10 @@ import { CreepGroup } from "frame/creep/group";
 import { RoutePlan } from "frame/creep/routePlan";
 import { FlagMaintainer } from "frame/flagMaintainer";
 import { FlagTools } from "frame/flagMaintainer/tools";
-import { SpawnPool } from "frame/spawn/spawnPool";
-import { TaskObject } from "utils/Project";
 import { PosStr } from "utils/RoomPositionToStr";
-import { maintainRoomProjectName, maintainRoomTaskArgs } from "../../type";
+import { maintainRoomProjectName, maintainRoomTaskObject } from "../../type";
 
-export const keepHarvesting: TaskObject<maintainRoomTaskArgs, maintainRoomTaskArgs> = {
+export const keepHarvesting: maintainRoomTaskObject = {
     name: "keepHarvesting",
     description: "keepHarvesting",
     start(roomName) {

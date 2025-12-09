@@ -1,9 +1,7 @@
-import { CreepGroup } from "frame/creep/group";
 import { SpawnPool } from "frame/spawn/spawnPool";
-import { TaskObject } from "utils/Project";
-import { maintainRoomTaskArgs } from "../../type";
+import { maintainRoomTaskObject } from "../../type";
 
-export const removeUpgraderToOne: TaskObject<maintainRoomTaskArgs, maintainRoomTaskArgs> = {
+export const removeUpgraderToOne: maintainRoomTaskObject = {
     name: "removeUpgraderToOne",
     description: "removeUpgraderToOne",
     start() {

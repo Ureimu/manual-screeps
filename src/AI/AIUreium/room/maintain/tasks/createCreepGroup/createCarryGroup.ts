@@ -1,10 +1,9 @@
 import { CreepGroup } from "frame/creep/group";
 import { SpawnPool } from "frame/spawn/spawnPool";
-import { TaskObject } from "utils/Project";
-import { maintainRoomProjectName, maintainRoomTaskArgs } from "../../type";
+import { maintainRoomProjectName, maintainRoomTaskObject } from "../../type";
 
 export const carryGroupName = (roomName: string): string => `${roomName}c`;
-export const createCarryGroup: TaskObject<maintainRoomTaskArgs, maintainRoomTaskArgs> = {
+export const createCarryGroup: maintainRoomTaskObject = {
     name: "createCarryGroup",
     description: "createCarryGroup",
     start() {

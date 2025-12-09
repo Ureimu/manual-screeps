@@ -35,7 +35,7 @@ import { createKeepLevelGroup } from "./tasks/createCreepGroup/createKeepLevelGr
 import { removeUpgraderToOne } from "./tasks/upgrader/removeUpgraderToOne";
 import { controllerLevelUpgradedTo } from "./tasks/utils/controllerLevelUpgraded";
 import { createCarryGroup } from "./tasks/createCreepGroup/createCarryGroup";
-import { maintainRoomProjectName, maintainRoomTaskArgs } from "./type";
+import { maintainRoomProjectMemoryType, maintainRoomProjectName, maintainRoomTaskArgs } from "./type";
 
 const centerLinkHasBuilt = structureHasBuilt("link", "centerLink", 1);
 const sourceLinkHasBuilt = structureHasBuilt("link", "sourceLink", 2);
@@ -137,14 +137,19 @@ const taskCollection = registerObjectDeep(
     },
     "maintainRoomProjectTaskCollection"
 );
-export class maintainRoomProject extends Project<maintainRoomTaskArgs, maintainRoomTaskArgs> {
+export class maintainRoomProject extends Project<
+    maintainRoomTaskArgs,
+    maintainRoomTaskArgs,
+    maintainRoomProjectMemoryType
+> {
     public constructor(taskArgs: maintainRoomTaskArgs, memoryAddressArgs: maintainRoomTaskArgs) {
         super(maintainRoomProjectName, taskArgs, memoryAddressArgs);
         // this.wrapTaskCollection(); // 注册所有task到profiler模块，可选
     }
     public taskRelation: TaskRelation = taskRelation;
-    public taskCollection: TaskCollection<maintainRoomTaskArgs, maintainRoomTaskArgs> = taskCollection;
-    public getMemory(): DiagramMemory {
+    public taskCollection: TaskCollection<maintainRoomTaskArgs, maintainRoomTaskArgs, maintainRoomProjectMemoryType> =
+        taskCollection;
+    public getMemoryStorage(): DiagramMemory<maintainRoomProjectMemoryType> {
         if (!Memory.rooms) Memory.rooms = {};
         if (!Memory.rooms[this.taskArgs[0]]) {
             (Memory.rooms[this.taskArgs[0]] as Partial<RoomMemory>) = {};
@@ -158,7 +163,7 @@ export class maintainRoomProject extends Project<maintainRoomTaskArgs, maintainR
         }
         return diagram;
     }
-    public deleteMemory() {
+    public deleteMemoryStorage() {
         if (typeof Memory.rooms?.[this.taskArgs[0]]?.AIUreium?.maintainRoom === "object") {
             delete Memory.rooms[this.taskArgs[0]].AIUreium.maintainRoom;
         }

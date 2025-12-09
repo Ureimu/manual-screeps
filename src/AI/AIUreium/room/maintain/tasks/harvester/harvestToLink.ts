@@ -2,10 +2,9 @@ import { CreepGroup } from "frame/creep/group";
 import { RoutePlan } from "frame/creep/routePlan";
 import { FlagMaintainer } from "frame/flagMaintainer";
 import { FlagTools } from "frame/flagMaintainer/tools";
-import { TaskObject } from "utils/Project";
-import { maintainRoomProjectName, maintainRoomTaskArgs } from "../../type";
+import { maintainRoomProjectName, maintainRoomTaskObject } from "../../type";
 
-export const harvestToLink: TaskObject<maintainRoomTaskArgs, maintainRoomTaskArgs> = {
+export const harvestToLink: maintainRoomTaskObject = {
     name: "harvestToLink",
     description: "harvestToLink",
     start(roomName) {

@@ -5,8 +5,9 @@ import { ProjectNetworkDiagram } from "./storage";
 // 设置Project的存储位置
 type memoryAddressArgs = Parameters<(roomName: string) => void>;
 type exampleTaskArgs = Parameters<(roomName: string) => void>;
+type memoryType = { a: number };
 // task的示例
-const taskExample: TaskObject<exampleTaskArgs> = {
+const taskExample: TaskObject<exampleTaskArgs, memoryAddressArgs, memoryType> = {
     name: "taskExample",
     description: "taskExample",
     start(arg0: string) {
@@ -20,7 +21,7 @@ const taskExample: TaskObject<exampleTaskArgs> = {
         return "end";
     }
 };
-const anotherTaskExample: TaskObject<exampleTaskArgs> = {
+const anotherTaskExample: TaskObject<exampleTaskArgs, memoryAddressArgs, memoryType> = {
     name: "anotherTaskExample",
     description: "anotherTaskExample"
 };
@@ -36,7 +37,7 @@ const taskCollection = {
 export function getSampleData(): {
     name: string;
     taskRelation: TaskRelation;
-    taskCollection: TaskCollection<exampleTaskArgs>;
+    taskCollection: TaskCollection<exampleTaskArgs, memoryAddressArgs, memoryType>;
 } {
     return {
         name: "sample",
@@ -44,24 +45,24 @@ export function getSampleData(): {
         taskCollection
     };
 }
-export const sampleDiagramMemory: DiagramMemory = {};
-export class SampleProject extends Project<exampleTaskArgs, memoryAddressArgs> {
+export const sampleDiagramMemory: DiagramMemory<memoryType> = {};
+export class SampleProject extends Project<exampleTaskArgs, memoryAddressArgs, memoryType> {
     public constructor(taskArgs: exampleTaskArgs, memoryAddressArgs: memoryAddressArgs) {
         super("sample", taskArgs, memoryAddressArgs);
         // this.wrapTaskCollection(); // 注册所有task到profiler模块，可选
     }
     public taskRelation: TaskRelation = taskRelation;
-    public taskCollection: TaskCollection<exampleTaskArgs> = taskCollection;
+    public taskCollection: TaskCollection<exampleTaskArgs, memoryAddressArgs, memoryType> = taskCollection;
     /**
      *  设置Project的存储位置
      *
      * @returns {DiagramMemory}
      * @memberof SampleProject
      */
-    public getMemory(): DiagramMemory {
+    public getMemoryStorage(): DiagramMemory<memoryType> {
         return sampleDiagramMemory;
     }
-    public deleteMemory() {
+    public deleteMemoryStorage() {
         const [originRoomName] = this.taskArgs;
         if (typeof sampleDiagramMemory === "object") {
             // should write delete logic here.

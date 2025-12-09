@@ -22,8 +22,9 @@ export type NodeState = "unplayed" | "start" | "working" | "justFinished" | "end
 export interface DiagramDict {
     [name: string]: Node;
 }
-export interface DiagramMemory {
+export interface DiagramMemory<ProjectMemoryType extends unknown> {
     diagram?: DiagramDict;
+    memory?: ProjectMemoryType;
 }
 
 /**
@@ -33,7 +34,11 @@ export interface DiagramMemory {
  * @interface TaskObject
  * @template T
  */
-export interface TaskObject<TaskArgs extends unknown[], MemoryAddressArgs extends unknown[]> {
+export interface TaskObject<
+    TaskArgs extends unknown[],
+    MemoryAddressArgs extends unknown[],
+    ProjectMemoryType extends unknown
+> {
     /**
      * 和对象名称应一致
      *
@@ -42,9 +47,9 @@ export interface TaskObject<TaskArgs extends unknown[], MemoryAddressArgs extend
      */
     name: string;
     description: string;
-    start?: (this: Project<TaskArgs, MemoryAddressArgs>, ...args: TaskArgs) => TaskState;
-    working?: (this: Project<TaskArgs, MemoryAddressArgs>, ...args: TaskArgs) => TaskState;
-    justFinished?: (this: Project<TaskArgs, MemoryAddressArgs>, ...args: TaskArgs) => TaskState;
+    start?: (this: Project<TaskArgs, MemoryAddressArgs, ProjectMemoryType>, ...args: TaskArgs) => TaskState;
+    working?: (this: Project<TaskArgs, MemoryAddressArgs, ProjectMemoryType>, ...args: TaskArgs) => TaskState;
+    justFinished?: (this: Project<TaskArgs, MemoryAddressArgs, ProjectMemoryType>, ...args: TaskArgs) => TaskState;
 }
 
 export type TaskState = "running" | "end" | "stopProject";
@@ -53,8 +58,12 @@ export interface TaskRelation {
     [x: string]: string[];
 }
 
-export interface TaskCollection<TaskArgs extends unknown[], MemoryAddressArgs extends unknown[]> {
-    [x: string]: TaskObject<TaskArgs, MemoryAddressArgs>;
+export interface TaskCollection<
+    TaskArgs extends unknown[],
+    MemoryAddressArgs extends unknown[],
+    ProjectMemoryType extends unknown
+> {
+    [x: string]: TaskObject<TaskArgs, MemoryAddressArgs, ProjectMemoryType>;
 }
 
 export type Colors = "red" | "green" | "yellow" | "blue";

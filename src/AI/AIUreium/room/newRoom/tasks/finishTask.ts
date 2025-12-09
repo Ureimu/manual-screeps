@@ -1,9 +1,8 @@
 import { logManager } from "utils/log4screeps";
-import { TaskObject } from "utils/Project";
 import { stopNewRoom } from "../stop";
-import { MemoryAddressArgs, newRoomTaskArgs } from "../type";
+import { newRoomTaskObject } from "../type";
 const logger = logManager.createLogger("debug", "newRoom.finishTask");
-export const finishTask: TaskObject<newRoomTaskArgs, MemoryAddressArgs> = {
+export const finishTask: newRoomTaskObject = {
     name: "finishTask",
     description: "finishTask",
     start(spawnRoomName, claimRoomName) {

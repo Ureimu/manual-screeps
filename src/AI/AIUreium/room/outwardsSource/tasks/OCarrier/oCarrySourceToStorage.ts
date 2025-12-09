@@ -1,11 +1,9 @@
 import { CreepGroup } from "frame/creep/group";
 import { FlagMaintainer } from "frame/flagMaintainer";
-import { TaskObject } from "utils/Project";
 import { OCarryGroupCreepName } from "../createCreepGroup/createOCarryGroup";
-import { outwardsSourceProjectName, outwardsSourceTaskArgs } from "../../type";
-import { getRoomResourceLimit } from "AI/AIUreium/control/roomResources";
+import { outwardsSourceProjectName, outwardsSourceTaskObject } from "../../type";
 
-export const oCarrySourceToStorage: TaskObject<outwardsSourceTaskArgs, outwardsSourceTaskArgs> = {
+export const oCarrySourceToStorage: outwardsSourceTaskObject = {
     name: "oCarrySourceToStorage",
     description: "oCarrySourceToStorage",
     start(roomName, sourceRoomName, sourceName) {

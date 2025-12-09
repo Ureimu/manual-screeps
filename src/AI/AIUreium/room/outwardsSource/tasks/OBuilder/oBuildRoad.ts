@@ -1,9 +1,8 @@
 import { CreepGroup } from "frame/creep/group";
-import { TaskObject } from "utils/Project";
-import { outwardsSourceProjectName, outwardsSourceTaskArgs } from "../../type";
+import { outwardsSourceProjectName, outwardsSourceTaskObject } from "../../type";
 import { OBuildGroupCreepName } from "../createCreepGroup/createOBuildGroup";
 
-export const oBuildRoad: TaskObject<outwardsSourceTaskArgs, outwardsSourceTaskArgs> = {
+export const oBuildRoad: outwardsSourceTaskObject = {
     name: "oBuildRoad",
     description: "oBuildRoad",
     start(roomName, sourceRoomName, sourceName) {

@@ -1,9 +1,8 @@
 import { CreepBody } from "frame/creep/body";
 import { ControllerLevels, creepBodyConfigDetail } from "frame/creep/body/type";
-import { TaskObject } from "utils/Project";
-import { outwardsSourceTaskArgs } from "../type";
+import { outwardsSourceTaskObject } from "../type";
 
-export const createOBodyParts: TaskObject<outwardsSourceTaskArgs, outwardsSourceTaskArgs> = {
+export const createOBodyParts: outwardsSourceTaskObject = {
     name: "createOBodyParts",
     description: "createOBodyParts",
     start() {
