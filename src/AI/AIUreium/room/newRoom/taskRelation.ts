@@ -33,7 +33,7 @@ export class NewRoomProject extends Project<newRoomTaskArgs, MemoryAddressArgs, 
     public getMemoryStorage(): DiagramMemory<newRoomProjectMemoryType> {
         const [spawnRoomName, claimRoomName] = this.taskArgs;
         if (!Memory.rooms[spawnRoomName].AIUreium.newRoom[claimRoomName])
-            Memory.rooms[spawnRoomName].AIUreium.newRoom[claimRoomName] = {};
+            Memory.rooms[spawnRoomName].AIUreium.newRoom[claimRoomName] = { memory: {} };
         return Memory.rooms[spawnRoomName].AIUreium.newRoom[claimRoomName];
     }
     public deleteMemoryStorage() {

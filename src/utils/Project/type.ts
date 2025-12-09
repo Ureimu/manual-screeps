@@ -24,7 +24,7 @@ export interface DiagramDict {
 }
 export interface DiagramMemory<ProjectMemoryType extends unknown> {
     diagram?: DiagramDict;
-    memory?: ProjectMemoryType;
+    memory: ProjectMemoryType;
 }
 
 /**

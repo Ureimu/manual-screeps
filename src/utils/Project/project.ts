@@ -47,6 +47,9 @@ export abstract class Project<
             );
         return this.engineCache;
     }
+    public get memory(): ProjectMemoryType {
+        return this.getMemoryStorage().memory;
+    }
     /**
      * 统计数据
      *

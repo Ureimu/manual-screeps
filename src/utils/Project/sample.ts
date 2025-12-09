@@ -45,7 +45,9 @@ export function getSampleData(): {
         taskCollection
     };
 }
-export const sampleDiagramMemory: DiagramMemory<memoryType> = {};
+export const sampleDiagramMemory: DiagramMemory<memoryType> = {
+    memory: { a: 0 }
+};
 export class SampleProject extends Project<exampleTaskArgs, memoryAddressArgs, memoryType> {
     public constructor(taskArgs: exampleTaskArgs, memoryAddressArgs: memoryAddressArgs) {
         super("sample", taskArgs, memoryAddressArgs);

@@ -1,6 +1,6 @@
 export function initAiUreimuRoomMemory(): AIUreiumRoomMemory {
     return {
-        maintainRoom: {},
+        maintainRoom: { memory: {} },
         outwardsSource: {},
         newRoom: {},
         getPower: {},

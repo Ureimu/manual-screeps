@@ -60,7 +60,7 @@ class outwardsHarvestProject extends Project<outwardsSourceTaskArgs, outwardsSou
             Memory.rooms[originRoomName].AIUreium.outwardsSource[sourceRoomName] = {};
         }
         if (!Memory.rooms[originRoomName].AIUreium.outwardsSource[sourceRoomName][sourceName]) {
-            Memory.rooms[originRoomName].AIUreium.outwardsSource[sourceRoomName][sourceName] = {};
+            Memory.rooms[originRoomName].AIUreium.outwardsSource[sourceRoomName][sourceName] = { memory: {} };
         }
         return Memory.rooms[originRoomName].AIUreium.outwardsSource[sourceRoomName][sourceName];
     }

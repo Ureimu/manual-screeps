@@ -47,7 +47,7 @@ class getPowerProject extends Project<getPowerTaskArgs, getPowerTaskArgs, getPow
             Memory.rooms[originRoomName].AIUreium.getPower[powerBankRoomName] = {};
         }
         if (!Memory.rooms[originRoomName].AIUreium.getPower[powerBankRoomName][powerBankId]) {
-            Memory.rooms[originRoomName].AIUreium.getPower[powerBankRoomName][powerBankId] = {};
+            Memory.rooms[originRoomName].AIUreium.getPower[powerBankRoomName][powerBankId] = { memory: {} };
         }
         return Memory.rooms[originRoomName].AIUreium.getPower[powerBankRoomName][powerBankId];
     }
