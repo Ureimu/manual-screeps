@@ -16,14 +16,18 @@ export const createGetPowerBodyParts: getPowerTaskObject = {
         };
 
         const boostedBodyCollection: { [name: string]: string } = {
-            gpAttacker: "m20a20",
-            gpHealer: "m25h25",
+            gpAttacker: "t5m25a20 t5b2 a20b2",
+            gpHealer: "m19h19 h19b2",
             gpCarrier: "m17c33"
         };
 
         let lastCollection: { [name: string]: string };
 
-        if (canBoostGetPowerCreeps(Game.rooms[roomName], boostedBodyCollection)) {
+        if (typeof this.memory.boosted !== "boolean") {
+            this.memory.boosted = canBoostGetPowerCreeps(Game.rooms[roomName], boostedBodyCollection);
+        }
+
+        if (this.memory.boosted) {
             lastCollection = boostedBodyCollection;
         } else {
             lastCollection = bodyCollection;

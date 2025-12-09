@@ -31,8 +31,12 @@ export const spawnAttackerAndHealer: getPowerTaskObject = {
         logger.log(`passedTime:${nextTime}, create ${attackerCreepGroupName}`);
         createNewCreep(room, attackerCreepGroupName, healerCreepGroupName, index);
         args[4] = `${index + 1}`;
-        if (index + 1 < Constant.getPower.spawnAttackerCount) return "running";
-        else return "end";
+        if (this.memory.boosted) {
+            if (index + 1 < 1) return "running";
+        } else {
+            if (index + 1 < Constant.getPower.spawnAttackerCount) return "running";
+        }
+        return "end";
     },
     justFinished() {
         return "end";
