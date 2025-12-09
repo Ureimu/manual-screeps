@@ -26,9 +26,11 @@ AsyncTask.mountAsyncFunction(callbackName.boostCreep, ({ args }) => {
 // 当结束任务后和开始任务前时，检查lab是否有多余化合物并移除。
 // lab能量值维持任务自动发出。
 export function runLabTaskPool(room: Room) {
-    const labsMemory = room.memory.AIUreium.labData;
+    if (!room.memory.AIUreium) {
+        return;
+    }
     const labsData = room.memory.AIUreium.labData;
-    const labs = _.filter(labsMemory, (labData, key) => !labData.running);
+    const labs = _.filter(labsData, (labData, key) => !labData.running);
     if (labs.length === 0) return;
     if (!queueList[room.name]) {
         const readyTaskList: LabTask[] = [];
