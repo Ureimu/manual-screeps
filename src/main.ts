@@ -24,6 +24,7 @@ import { link } from "AI/AIUreium/structure/link";
 import { runProjectCreeps } from "frame/creep";
 import { getMainControlData, loadSettings } from "AI/AIUreium/control";
 import { logManager } from "utils/log4screeps";
+import { runLabTaskPool } from "AI/AIUreium/control/runLab";
 
 const logger = logManager.createLogger("debug", "main.init");
 loadSettings();
@@ -84,6 +85,7 @@ const runRoom = registerFN(
         if (room.controller?.my && mySpawns.length !== 0) {
             // run main tasks
             runSpawnPool(room);
+            runLabTaskPool(room);
             // roomVisualize(room);
             // mapVisualForRoom(room);
 

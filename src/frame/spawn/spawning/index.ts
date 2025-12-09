@@ -71,55 +71,53 @@ export const runRoomSpawnQueue = registerFN((room: Room) => {
     do {
         spawn = availableSpawns[spawnIndex];
         const spawnTask = spawnQueue.pop();
-        if (spawnTask) {
-            const creepPreProcessBodyString = chooseBefittingBody({
-                creepBodyConfigName: spawnTask.creepBodyConfig,
-                room: spawn.room
-            });
-            if (!creepPreProcessBodyString) {
-                logger.info(`${spawn.room.name} ${spawnTask.creepBodyConfig} 没有合法的body config`);
-                failedTask = spawnTask;
-                break;
-            }
-            const creepBody = bodyTools.compile(creepPreProcessBodyString);
-            const spawnCreepName = spawnTask.creepName;
-            const energyCost = bodyTools.getEnergyCost(creepPreProcessBodyString);
-            if (energyCost > spawn.room.memory.spawnInfo.energyAmount) {
-                failedTask = spawnTask;
-                break;
-            }
-            returnCode = spawn.spawnCreep(creepBody, spawnCreepName, {
-                dryRun: true
-            });
-            if (returnCode === OK) {
-                if (spawningOption[spawn.name]) {
-                    const energyStructures = spawningOption[spawn.name].energyStructures
-                        .map<StructureSpawn | StructureExtension | undefined>(
-                            i => Game.structures[i] as StructureSpawn | StructureExtension | undefined
-                        )
-                        .filter((i): i is StructureSpawn | StructureExtension => !i);
-                    spawn.spawnCreep(creepBody, spawnCreepName, { energyStructures });
-                } else {
-                    spawn.spawnCreep(creepBody, spawnCreepName);
-                }
+        if (!spawnTask) break;
 
-                spawn.room.memory.spawnInfo.energyAmount -= energyCost;
-                if (spawn.room.memory.spawnPool[spawnCreepName]) {
-                    spawn.room.memory.spawnPool[spawnCreepName].state = "notReady";
-                    spawn.room.memory.spawnPool[spawnCreepName].creepBody = creepPreProcessBodyString;
-                }
-                spawnIndex += 1;
+        const creepPreProcessBodyString = chooseBefittingBody({
+            creepBodyConfigName: spawnTask.creepBodyConfig,
+            room: spawn.room
+        });
+        if (!creepPreProcessBodyString) {
+            logger.info(`${spawn.room.name} ${spawnTask.creepBodyConfig} 没有合法的body config`);
+            failedTask = spawnTask;
+            break;
+        }
+        const creepBody = bodyTools.compile(creepPreProcessBodyString);
+        const spawnCreepName = spawnTask.creepName;
+        const energyCost = bodyTools.getEnergyCost(creepPreProcessBodyString);
+        if (energyCost > spawn.room.memory.spawnInfo.energyAmount) {
+            failedTask = spawnTask;
+            break;
+        }
+        returnCode = spawn.spawnCreep(creepBody, spawnCreepName, {
+            dryRun: true
+        });
+        if (returnCode === OK) {
+            if (spawningOption[spawn.name]) {
+                const energyStructures = spawningOption[spawn.name].energyStructures
+                    .map<StructureSpawn | StructureExtension | undefined>(
+                        i => Game.structures[i] as StructureSpawn | StructureExtension | undefined
+                    )
+                    .filter((i): i is StructureSpawn | StructureExtension => !i);
+                spawn.spawnCreep(creepBody, spawnCreepName, { energyStructures });
             } else {
-                if (returnCode !== ERR_NOT_ENOUGH_ENERGY && returnCode !== ERR_NAME_EXISTS) {
-                    logger.error(`spawn:${spawn.name} 返回错误 returnCode: ${returnCode}`);
-                }
-                if (returnCode === ERR_NO_BODYPART && creepBody === []) {
-                    logger.error(`spawn:${spawn.name} 返回错误：找不到合适的身体部件数组：${spawnCreepName}`);
-                }
-                failedTask = spawnTask;
-                break;
+                spawn.spawnCreep(creepBody, spawnCreepName);
             }
+
+            spawn.room.memory.spawnInfo.energyAmount -= energyCost;
+            if (spawn.room.memory.spawnPool[spawnCreepName]) {
+                spawn.room.memory.spawnPool[spawnCreepName].state = "notReady";
+                spawn.room.memory.spawnPool[spawnCreepName].creepBody = creepPreProcessBodyString;
+            }
+            spawnIndex += 1;
         } else {
+            if (returnCode !== ERR_NOT_ENOUGH_ENERGY && returnCode !== ERR_NAME_EXISTS) {
+                logger.error(`spawn:${spawn.name} 返回错误 returnCode: ${returnCode}`);
+            }
+            if (returnCode === ERR_NO_BODYPART && creepBody === []) {
+                logger.error(`spawn:${spawn.name} 返回错误：找不到合适的身体部件数组：${spawnCreepName}`);
+            }
+            failedTask = spawnTask;
             break;
         }
     } while (spawnIndex < availableSpawns.length);

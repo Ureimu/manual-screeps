@@ -1,5 +1,8 @@
+import { getBoost } from "../../../control/runLab/getBoost";
+
 export function gpAttacker(creep: Creep, args: string[]) {
     const [originRoomName, powerBankRoomName, powerBankId] = args;
+    if (!getBoost(creep)) return;
     const getPowerData = Memory.rooms[powerBankRoomName].powerBanks?.[powerBankId];
     if (!getPowerData) return;
     const powerBankPos = new RoomPosition(getPowerData.x, getPowerData.y, getPowerData.roomName);

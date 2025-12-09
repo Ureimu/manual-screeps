@@ -2,6 +2,7 @@ import { carryMineral } from "AI/AIUreium/control/carryMineral";
 import { fillTower } from "AI/AIUreium/control/fillTower";
 import { processPower } from "AI/AIUreium/control/processPower";
 import { roomCarry } from "AI/AIUreium/control/roomCarry";
+import { fillLabEnergy } from "AI/AIUreium/control/runLab/fillLabEnergy";
 import { runProjectCreeps } from "frame/creep";
 import { registerFN } from "utils/profiler";
 import { DiagramMemory } from "utils/Project/type";
@@ -21,6 +22,7 @@ export const maintainRoom = registerFN((room: Room): void => {
             processPower(room);
             carryMineral(room);
             fillTower(room);
+            fillLabEnergy(room);
         }
         roomCarry(room);
     }

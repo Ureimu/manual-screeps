@@ -107,9 +107,8 @@ export class bodyTools {
      *
      * 返回对象格式：
      * {
-     *   byCompound: { [boostCode: string]: number }, // 汇总每种 boost code 需要的数量（按部件数量计）
-     *   byPart: { [partShort: string]: { [boostCode: string]: number } }, // 分部件类型的明细
-     *   energy: { [boostCode: string]: number } // 每种 boost code 需要的能量（总和）
+     *   byCompound: { [boostCompoundName: string]: number }, // 每种boostCompound需要的数量（按部件数量计）
+     *   energy: { [boostCompoundName: string]: number } // 每种boostCompound需要的能量（总和）
      * }
      *
      * boost 语法示例（放在 body 字符串后，以空格分隔）：
@@ -119,12 +118,10 @@ export class bodyTools {
      */
     public static parseBoostInfo(body: string): {
         byCompound: { [boostCompoundName: string]: number };
-        byPart: { [partName: string]: { [boostCompoundName: string]: number } };
         energy: { [boostCompoundName: string]: number };
     } {
         const result = {
             byCompound: {},
-            byPart: {},
             energy: {}
         } as ReturnType<typeof bodyTools["parseBoostInfo"]>;
 
@@ -151,15 +148,10 @@ export class bodyTools {
             const partShort = m[1]; // e.g. 'm','w'
             const countStr = m[2]; // may be empty -> means "all"
             const boostCode = m[3]; // e.g. 'b1','u1'
-            const partName = bodyAbbreviation[partShort];
             const boostCompoundName = boostAbbreviation[partShort][boostCode];
 
             const count = countStr ? Number(countStr) : totalPerPart[partShort] || 0;
             if (!count) continue;
-
-            // byPart detail
-            if (!result.byPart[partName]) result.byPart[partName] = {};
-            result.byPart[partName][boostCompoundName] = (result.byPart[partName][boostCompoundName] || 0) + count;
 
             // byCompound (boostCode) aggregation
             result.byCompound[boostCompoundName] = (result.byCompound[boostCompoundName] || 0) + count;

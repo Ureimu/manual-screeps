@@ -1,3 +1,4 @@
+import { canBoostGetPowerCreeps } from "AI/AIUreium/control/getPower/canBoostGetPowerCreeps";
 import { CreepBody } from "frame/creep/body";
 import { ControllerLevels, creepBodyConfigDetail } from "frame/creep/body/type";
 import { TaskObject } from "utils/Project";
@@ -9,29 +10,34 @@ export const createGetPowerBodyParts: TaskObject<getPowerTaskArgs> = {
     start() {
         return "end";
     },
-    working() {
-        const bodyCollection: { [name: string]: creepBodyConfigDetail } = {
-            gpAttacker: {
-                "8": { body: "m20a20" }
-            },
-            gpHealer: {
-                "8": { body: "m25h25" }
-            },
-            gpCarrier: {
-                "8": { body: "m17c33" }
-            }
+    working(roomName, powerBankRoomName, powerBankId) {
+        const bodyCollection: { [name: string]: string } = {
+            gpAttacker: "m20a20",
+            gpHealer: "m25h25",
+            gpCarrier: "m17c33"
         };
 
-        for (const creepBodyConfigName in bodyCollection) {
-            const creepBodyConfig = bodyCollection[creepBodyConfigName];
+        const boostedBodyCollection: { [name: string]: string } = {
+            gpAttacker: "m20a20",
+            gpHealer: "m25h25",
+            gpCarrier: "m17c33"
+        };
+
+        let lastCollection: { [name: string]: string };
+
+        if (canBoostGetPowerCreeps(Game.rooms[roomName], boostedBodyCollection)) {
+            lastCollection = boostedBodyCollection;
+        } else {
+            lastCollection = bodyCollection;
+        }
+        for (const creepBodyConfigName in lastCollection) {
+            const creepBodyConfig = lastCollection[creepBodyConfigName];
             CreepBody.createConfig({ creepBodyConfigName });
-            for (const level in creepBodyConfig) {
-                CreepBody.setConfig({
-                    creepBodyConfigName,
-                    controllerLevel: level as ControllerLevels,
-                    creepBodyConfig: (creepBodyConfig[level as ControllerLevels] as { body: string }).body
-                });
-            }
+            CreepBody.setConfig({
+                creepBodyConfigName,
+                controllerLevel: "8",
+                creepBodyConfig: creepBodyConfig
+            });
         }
         return "end";
     },

@@ -4,6 +4,8 @@ export function initAiUreimuRoomMemory(): AIUreiumRoomMemory {
         outwardsSource: {},
         newRoom: {},
         getPower: {},
-        carryTaskPools: { carrier: {}, centerCarrier: {} }
+        carryTaskPools: { carrier: {}, centerCarrier: {} },
+        labTaskPool: {},
+        labData: {}
     };
 }
