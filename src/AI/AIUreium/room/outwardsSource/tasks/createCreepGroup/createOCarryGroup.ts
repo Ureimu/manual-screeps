@@ -9,7 +9,7 @@ import { TaskObject } from "utils/Project";
 import { outwardsSourceTaskArgs } from "../../type";
 const logger = logManager.createLogger("info", "createOCarryGroup");
 export const OCarryGroupCreepName = (roomName: string, sourceName: string): string => `${roomName}oc${sourceName}`;
-export const createOCarryGroup: TaskObject<outwardsSourceTaskArgs> = {
+export const createOCarryGroup: TaskObject<outwardsSourceTaskArgs, outwardsSourceTaskArgs> = {
     name: "createOCarryGroup",
     description: "createOCarryGroup",
     start() {

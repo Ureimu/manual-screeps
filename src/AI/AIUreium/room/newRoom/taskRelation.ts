@@ -22,7 +22,7 @@ export class NewRoomProject extends Project<newRoomTaskArgs, MemoryAddressArgs> 
         // this.wrapTaskCollection(); // 注册所有task到profiler模块，可选
     }
     public taskRelation: TaskRelation = taskRelation;
-    public taskCollection: TaskCollection<newRoomTaskArgs> = taskCollection;
+    public taskCollection: TaskCollection<newRoomTaskArgs, MemoryAddressArgs> = taskCollection;
     /**
      *  设置Project的存储位置
      *

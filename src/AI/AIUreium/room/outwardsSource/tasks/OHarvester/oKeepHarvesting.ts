@@ -7,7 +7,7 @@ import { PosStr } from "utils/RoomPositionToStr";
 import { outwardsSourceProjectName, outwardsSourceTaskArgs } from "../../type";
 import { OHarvestGroupCreepName } from "../createCreepGroup/createOHarvestGroup";
 
-export const oKeepHarvesting: TaskObject<outwardsSourceTaskArgs> = {
+export const oKeepHarvesting: TaskObject<outwardsSourceTaskArgs, outwardsSourceTaskArgs> = {
     name: "oKeepHarvesting",
     description: "oKeepHarvesting",
     start(roomName, sourceRoomName, sourceName) {

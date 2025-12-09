@@ -3,7 +3,7 @@ import { SpawnPool } from "frame/spawn/spawnPool";
 import { TaskObject } from "utils/Project";
 import { maintainRoomTaskArgs } from "../../type";
 
-export const removeUpgraderToOne: TaskObject<maintainRoomTaskArgs> = {
+export const removeUpgraderToOne: TaskObject<maintainRoomTaskArgs, maintainRoomTaskArgs> = {
     name: "removeUpgraderToOne",
     description: "removeUpgraderToOne",
     start() {

@@ -4,7 +4,7 @@ import { ControllerLevels, creepBodyConfigDetail } from "frame/creep/body/type";
 import { TaskObject } from "utils/Project";
 import { getPowerTaskArgs } from "../type";
 
-export const createGetPowerBodyParts: TaskObject<getPowerTaskArgs> = {
+export const createGetPowerBodyParts: TaskObject<getPowerTaskArgs, getPowerTaskArgs> = {
     name: "createGetPowerBodyParts",
     description: "createGetPowerBodyParts",
     start() {

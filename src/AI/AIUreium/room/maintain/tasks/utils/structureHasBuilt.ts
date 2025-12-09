@@ -7,7 +7,7 @@ export function structureHasBuilt<T extends BuildableStructureConstant>(
     structureType: T,
     structureKind: SpecifiedStructureNameList<T>,
     num: number
-): TaskObject<maintainRoomTaskArgs> {
+): TaskObject<maintainRoomTaskArgs, maintainRoomTaskArgs> {
     return {
         name: `${structureKind}HasBuilt`,
         description: `${structureKind}HasBuilt`,

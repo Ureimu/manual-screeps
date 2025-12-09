@@ -7,7 +7,7 @@ import { getPowerProjectName, getPowerTaskArgs } from "../../type";
 export const getGPHealerGroupName = (roomName: string, powerBankRoomName: string, powerBankId: string) =>
     `${roomName}-gph-${powerBankRoomName}-${powerBankId}`;
 
-export const createGPHealerGroup: TaskObject<getPowerTaskArgs> = {
+export const createGPHealerGroup: TaskObject<getPowerTaskArgs, getPowerTaskArgs> = {
     name: "createGPHealerGroup",
     description: "createGPHealerGroup",
     start(roomName, powerBankRoomName, powerBankId) {

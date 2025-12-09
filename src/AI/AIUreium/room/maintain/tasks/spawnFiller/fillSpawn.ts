@@ -7,7 +7,7 @@ import { TaskObject } from "utils/Project";
 import { PosStr } from "utils/RoomPositionToStr";
 import { maintainRoomProjectName, maintainRoomTaskArgs } from "../../type";
 
-export const fillSpawn: TaskObject<maintainRoomTaskArgs> = {
+export const fillSpawn: TaskObject<maintainRoomTaskArgs, maintainRoomTaskArgs> = {
     name: "fillSpawn",
     description: "fillSpawn",
     start(roomName) {

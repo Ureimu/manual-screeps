@@ -1,7 +1,7 @@
 import { TaskObject } from "utils/Project";
 import { maintainRoomTaskArgs } from "../type";
 
-export const startNewRoomTask: TaskObject<maintainRoomTaskArgs> = {
+export const startNewRoomTask: TaskObject<maintainRoomTaskArgs, maintainRoomTaskArgs> = {
     name: "startNewRoomTask",
     description: "startNewRoomTask",
 

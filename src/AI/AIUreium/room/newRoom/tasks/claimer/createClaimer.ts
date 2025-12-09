@@ -1,10 +1,10 @@
 import { TaskObject } from "utils/Project";
-import { newRoomProjectName, newRoomTaskArgs } from "../../type";
+import { MemoryAddressArgs, newRoomProjectName, newRoomTaskArgs } from "../../type";
 import { CreepBody } from "frame/creep/body";
 import { CreepGroup } from "frame/creep/group";
 import { SpawnPool } from "frame/spawn/spawnPool";
 
-export const createClaimer: TaskObject<newRoomTaskArgs> = {
+export const createClaimer: TaskObject<newRoomTaskArgs, MemoryAddressArgs> = {
     name: "createClaimer",
     description: "createClaimer",
     working(spawnRoomName, claimRoomName) {

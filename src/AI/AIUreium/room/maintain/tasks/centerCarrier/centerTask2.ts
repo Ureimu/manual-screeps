@@ -2,7 +2,7 @@ import { CreepGroup } from "frame/creep/group";
 import { TaskObject } from "utils/Project";
 import { maintainRoomProjectName, maintainRoomTaskArgs } from "../../type";
 
-export const centerTask2: TaskObject<maintainRoomTaskArgs> = {
+export const centerTask2: TaskObject<maintainRoomTaskArgs, maintainRoomTaskArgs> = {
     name: "centerTask2",
     description:
         "center creep carry source from storage to link, and keep resource num in storage and terminal to be normal",

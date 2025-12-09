@@ -5,7 +5,7 @@ import { OCarryGroupCreepName } from "../createCreepGroup/createOCarryGroup";
 import { outwardsSourceProjectName, outwardsSourceTaskArgs } from "../../type";
 import { getRoomResourceLimit } from "AI/AIUreium/control/roomResources";
 
-export const oCarrySourceToStorage: TaskObject<outwardsSourceTaskArgs> = {
+export const oCarrySourceToStorage: TaskObject<outwardsSourceTaskArgs, outwardsSourceTaskArgs> = {
     name: "oCarrySourceToStorage",
     description: "oCarrySourceToStorage",
     start(roomName, sourceRoomName, sourceName) {

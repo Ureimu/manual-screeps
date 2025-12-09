@@ -3,7 +3,7 @@ import { TaskObject } from "utils/Project";
 import { outwardsSourceProjectName, outwardsSourceTaskArgs } from "../../type";
 import { OBuildGroupCreepName } from "../createCreepGroup/createOBuildGroup";
 
-export const oBuildRoad: TaskObject<outwardsSourceTaskArgs> = {
+export const oBuildRoad: TaskObject<outwardsSourceTaskArgs, outwardsSourceTaskArgs> = {
     name: "oBuildRoad",
     description: "oBuildRoad",
     start(roomName, sourceRoomName, sourceName) {

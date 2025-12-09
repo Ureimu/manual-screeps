@@ -39,7 +39,7 @@ class getPowerProject extends Project<getPowerTaskArgs, getPowerTaskArgs> {
     }
 
     public taskRelation: TaskRelation = taskRelation;
-    public taskCollection: TaskCollection<getPowerTaskArgs> = taskCollection;
+    public taskCollection: TaskCollection<getPowerTaskArgs, getPowerTaskArgs> = taskCollection;
     public getMemory(): DiagramMemory {
         const [originRoomName, powerBankRoomName, powerBankId] = this.taskArgs;
         if (!Memory.rooms[originRoomName].AIUreium.getPower[powerBankRoomName]) {

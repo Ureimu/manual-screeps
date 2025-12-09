@@ -66,7 +66,7 @@ global.AcrossTickTaskFunction.centerTask1 = task => {
     return "runAgain";
 };
 
-export const centerTask1: TaskObject<maintainRoomTaskArgs> = {
+export const centerTask1: TaskObject<maintainRoomTaskArgs, maintainRoomTaskArgs> = {
     name: "centerTask1",
     description: "center creep carry source from storage to link",
     start(roomName) {

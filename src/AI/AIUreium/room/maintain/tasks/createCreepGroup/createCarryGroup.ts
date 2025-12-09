@@ -4,7 +4,7 @@ import { TaskObject } from "utils/Project";
 import { maintainRoomProjectName, maintainRoomTaskArgs } from "../../type";
 
 export const carryGroupName = (roomName: string): string => `${roomName}c`;
-export const createCarryGroup: TaskObject<maintainRoomTaskArgs> = {
+export const createCarryGroup: TaskObject<maintainRoomTaskArgs, maintainRoomTaskArgs> = {
     name: "createCarryGroup",
     description: "createCarryGroup",
     start() {

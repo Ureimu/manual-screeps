@@ -1,3 +1,5 @@
+import { Project } from ".";
+
 /**
  * 任务节点
  *
@@ -31,7 +33,7 @@ export interface DiagramMemory {
  * @interface TaskObject
  * @template T
  */
-export interface TaskObject<T extends unknown[]> {
+export interface TaskObject<TaskArgs extends unknown[], MemoryAddressArgs extends unknown[]> {
     /**
      * 和对象名称应一致
      *
@@ -40,9 +42,9 @@ export interface TaskObject<T extends unknown[]> {
      */
     name: string;
     description: string;
-    start?: (...args: T) => TaskState;
-    working?: (...args: T) => TaskState;
-    justFinished?: (...args: T) => TaskState;
+    start?: (this: Project<TaskArgs, MemoryAddressArgs>, ...args: TaskArgs) => TaskState;
+    working?: (this: Project<TaskArgs, MemoryAddressArgs>, ...args: TaskArgs) => TaskState;
+    justFinished?: (this: Project<TaskArgs, MemoryAddressArgs>, ...args: TaskArgs) => TaskState;
 }
 
 export type TaskState = "running" | "end" | "stopProject";
@@ -51,8 +53,8 @@ export interface TaskRelation {
     [x: string]: string[];
 }
 
-export interface TaskCollection<T extends unknown[]> {
-    [x: string]: TaskObject<T>;
+export interface TaskCollection<TaskArgs extends unknown[], MemoryAddressArgs extends unknown[]> {
+    [x: string]: TaskObject<TaskArgs, MemoryAddressArgs>;
 }
 
 export type Colors = "red" | "green" | "yellow" | "blue";

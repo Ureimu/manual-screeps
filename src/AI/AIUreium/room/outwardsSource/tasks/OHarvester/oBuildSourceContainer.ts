@@ -11,7 +11,7 @@ import { PosStr } from "utils/RoomPositionToStr";
 import { outwardsSourceProjectName, outwardsSourceTaskArgs } from "../../type";
 import { OHarvestGroupCreepName } from "../createCreepGroup/createOHarvestGroup";
 
-export const oBuildSourceContainer: TaskObject<outwardsSourceTaskArgs> = {
+export const oBuildSourceContainer: TaskObject<outwardsSourceTaskArgs, outwardsSourceTaskArgs> = {
     name: "oBuildSourceContainer",
     description: "oBuildSourceContainer",
     start(roomName, sourceRoomName, sourceName) {

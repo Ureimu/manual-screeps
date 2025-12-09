@@ -3,7 +3,7 @@ import { SpawnPool } from "frame/spawn/spawnPool";
 import { TaskObject } from "utils/Project";
 import { maintainRoomTaskArgs } from "../../type";
 
-export const createFillSpawnGroup: TaskObject<maintainRoomTaskArgs> = {
+export const createFillSpawnGroup: TaskObject<maintainRoomTaskArgs, maintainRoomTaskArgs> = {
     name: "createFillSpawnGroup",
     description: "createFillSpawnGroup",
     start() {

@@ -2,7 +2,7 @@ import { CreepGroup } from "frame/creep/group";
 import { TaskObject } from "utils/Project";
 import { maintainRoomTaskArgs } from "../../type";
 
-export const scoutRoom: TaskObject<maintainRoomTaskArgs> = {
+export const scoutRoom: TaskObject<maintainRoomTaskArgs, maintainRoomTaskArgs> = {
     name: "scoutRoom",
     description: "scoutRoom",
     start() {

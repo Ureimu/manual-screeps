@@ -1,10 +1,10 @@
 import { TaskObject } from "utils/Project";
-import { newRoomTaskArgs } from "../../type";
+import { MemoryAddressArgs, newRoomTaskArgs } from "../../type";
 import { CreepGroup } from "frame/creep/group";
 import { SpawnPool } from "frame/spawn/spawnPool";
 import { logManager } from "utils/log4screeps";
 const logger = logManager.createLogger("debug", "newRoom.deleteSuccor");
-export const deleteSuccor: TaskObject<newRoomTaskArgs> = {
+export const deleteSuccor: TaskObject<newRoomTaskArgs, MemoryAddressArgs> = {
     name: "deleteSuccor",
     description: "deleteSuccor",
     start(spawnRoomName, claimRoomName) {

@@ -4,7 +4,7 @@ import { stopGetPower } from "../stop";
 import { getPowerTaskArgs } from "../type";
 import { getGPCarrierGroupName } from "./createCreepGroup/createGPCarrierGroup";
 const logger = logManager.createLogger("debug", "getPower.finishTask");
-export const finishTask: TaskObject<getPowerTaskArgs> = {
+export const finishTask: TaskObject<getPowerTaskArgs, getPowerTaskArgs> = {
     name: "finishTask",
     description: "finishTask",
     start(roomName, powerBankRoomName, powerBankId) {

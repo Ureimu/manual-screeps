@@ -10,7 +10,7 @@ import { getGPHealerGroupName } from "./createCreepGroup/createGPHealerGroup";
 
 const logger = logManager.createLogger("info", "getPower.spawn");
 
-export const spawnAttackerAndHealer: TaskObject<getPowerTaskArgs> = {
+export const spawnAttackerAndHealer: TaskObject<getPowerTaskArgs, getPowerTaskArgs> = {
     name: "spawnAttackerAndHealer",
     description: "spawnAttackerAndHealer",
     start(roomName, powerBankRoomName, powerBankId) {

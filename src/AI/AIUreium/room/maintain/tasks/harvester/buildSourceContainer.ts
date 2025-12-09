@@ -7,7 +7,7 @@ import { SpawnPool } from "frame/spawn/spawnPool";
 import { TaskObject } from "utils/Project";
 import { maintainRoomProjectName, maintainRoomTaskArgs } from "../../type";
 
-export const buildSourceContainer: TaskObject<maintainRoomTaskArgs> = {
+export const buildSourceContainer: TaskObject<maintainRoomTaskArgs, maintainRoomTaskArgs> = {
     name: "buildSourceContainer",
     description: "buildSourceContainer",
     start(roomName) {

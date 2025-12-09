@@ -24,7 +24,7 @@ export abstract class Project<TaskArgs extends unknown[], MemoryAddressArgs exte
         this.getMemory().diagram = this.diagram.diagramDict;
     }
 
-    private engineCache?: ProjectEngine<TaskArgs>;
+    private engineCache?: ProjectEngine<TaskArgs, MemoryAddressArgs>;
     /**
      * 项目运行的引擎代码。所有节点的状态变化在这里进行
      *
@@ -32,9 +32,15 @@ export abstract class Project<TaskArgs extends unknown[], MemoryAddressArgs exte
      * @type {ProjectEngine<TaskArgs>}
      * @memberof Project
      */
-    public get engine(): ProjectEngine<TaskArgs> {
+    public get engine(): ProjectEngine<TaskArgs, MemoryAddressArgs> {
         if (!this.engineCache)
-            this.engineCache = new ProjectEngine(this.taskCollection, this.taskRelation, this.diagram, this.taskArgs);
+            this.engineCache = new ProjectEngine(
+                this.taskCollection,
+                this.taskRelation,
+                this.diagram,
+                this.taskArgs,
+                this
+            );
         return this.engineCache;
     }
     /**
@@ -88,7 +94,7 @@ export abstract class Project<TaskArgs extends unknown[], MemoryAddressArgs exte
      * @type {TaskCollection<TaskArgs>}
      * @memberof Project
      */
-    public abstract taskCollection: TaskCollection<TaskArgs>;
+    public abstract taskCollection: TaskCollection<TaskArgs, MemoryAddressArgs>;
     /**
      *  设置Project的存储位置
      *

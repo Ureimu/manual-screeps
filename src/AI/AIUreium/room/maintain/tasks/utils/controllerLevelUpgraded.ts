@@ -1,7 +1,7 @@
 import { TaskObject } from "utils/Project";
 import { maintainRoomTaskArgs } from "../../type";
 
-export function controllerLevelUpgradedTo(level: number): TaskObject<maintainRoomTaskArgs> {
+export function controllerLevelUpgradedTo(level: number): TaskObject<maintainRoomTaskArgs, maintainRoomTaskArgs> {
     return {
         name: `controllerLevelUpgradedTo${level}`,
         description: `controllerLevelUpgradedTo${level}`,

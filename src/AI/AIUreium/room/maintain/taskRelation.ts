@@ -143,7 +143,7 @@ export class maintainRoomProject extends Project<maintainRoomTaskArgs, maintainR
         // this.wrapTaskCollection(); // 注册所有task到profiler模块，可选
     }
     public taskRelation: TaskRelation = taskRelation;
-    public taskCollection: TaskCollection<maintainRoomTaskArgs> = taskCollection;
+    public taskCollection: TaskCollection<maintainRoomTaskArgs, maintainRoomTaskArgs> = taskCollection;
     public getMemory(): DiagramMemory {
         if (!Memory.rooms) Memory.rooms = {};
         if (!Memory.rooms[this.taskArgs[0]]) {

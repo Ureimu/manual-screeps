@@ -4,7 +4,7 @@ import { SpawnPool } from "frame/spawn/spawnPool";
 import { TaskObject } from "utils/Project";
 import { maintainRoomTaskArgs } from "../../type";
 
-export const createHarvestGroup: TaskObject<maintainRoomTaskArgs> = {
+export const createHarvestGroup: TaskObject<maintainRoomTaskArgs, maintainRoomTaskArgs> = {
     name: "createHarvestGroup",
     description: "createHarvestGroup",
     start() {

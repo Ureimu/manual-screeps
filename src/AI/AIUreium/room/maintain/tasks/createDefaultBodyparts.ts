@@ -3,7 +3,7 @@ import { ControllerLevels, creepBodyConfigDetail } from "frame/creep/body/type";
 import { TaskObject } from "utils/Project";
 import { maintainRoomTaskArgs } from "../type";
 
-export const createDefaultBodyparts: TaskObject<maintainRoomTaskArgs> = {
+export const createDefaultBodyparts: TaskObject<maintainRoomTaskArgs, maintainRoomTaskArgs> = {
     name: "createDefaultBodyparts",
     description: "createDefaultBodyparts",
     start() {

@@ -5,7 +5,7 @@ import { FlagTools } from "frame/flagMaintainer/tools";
 import { TaskObject } from "utils/Project";
 import { maintainRoomProjectName, maintainRoomTaskArgs } from "../../type";
 
-export const harvestToLink: TaskObject<maintainRoomTaskArgs> = {
+export const harvestToLink: TaskObject<maintainRoomTaskArgs, maintainRoomTaskArgs> = {
     name: "harvestToLink",
     description: "harvestToLink",
     start(roomName) {

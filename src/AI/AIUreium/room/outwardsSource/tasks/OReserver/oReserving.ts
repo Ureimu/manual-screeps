@@ -6,7 +6,7 @@ import { TaskObject } from "utils/Project";
 import { outwardsSourceProjectName, outwardsSourceTaskArgs } from "../../type";
 import { OReserveGroupCreepName } from "../createCreepGroup/createOReserveGroup";
 
-export const oReserving: TaskObject<outwardsSourceTaskArgs> = {
+export const oReserving: TaskObject<outwardsSourceTaskArgs, outwardsSourceTaskArgs> = {
     name: "oReserving",
     description: "oReserving",
     start(roomName, sourceRoomName, sourceName) {

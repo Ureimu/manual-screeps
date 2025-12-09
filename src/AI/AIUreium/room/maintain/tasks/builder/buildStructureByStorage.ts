@@ -7,7 +7,7 @@ import { TaskObject } from "utils/Project";
 import { PosStr } from "utils/RoomPositionToStr";
 import { maintainRoomProjectName, maintainRoomTaskArgs } from "../../type";
 
-export const buildStructureByStorage: TaskObject<maintainRoomTaskArgs> = {
+export const buildStructureByStorage: TaskObject<maintainRoomTaskArgs, maintainRoomTaskArgs> = {
     name: "buildStructureByStorage",
     description: "buildStructureByStorage",
     start(roomName) {

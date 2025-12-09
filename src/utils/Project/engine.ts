@@ -1,4 +1,5 @@
 import { profile } from "utils/profiler/decorator";
+import type { Project } from ".";
 import { ProjectNetworkDiagram } from "./storage";
 import { NodeState, TaskCollection, TaskRelation } from "./type";
 export interface NodeUpdateData {
@@ -9,25 +10,28 @@ export interface ProjectEngineStats {
     runNum: number;
 }
 
-export class ProjectEngine<T extends unknown[]> {
-    public taskCollection: TaskCollection<T>;
+export class ProjectEngine<TaskArgs extends unknown[], MemoryAddressArgs extends unknown[]> {
+    public project: Project<TaskArgs, MemoryAddressArgs>;
+    public taskCollection: TaskCollection<TaskArgs, MemoryAddressArgs>;
     public taskDiagram: ProjectNetworkDiagram;
     public taskRelation: TaskRelation;
-    public taskArgs: T;
+    public taskArgs: TaskArgs;
     public stats: ProjectEngineStats = { initTime: Game.time, runNum: 0 };
     private stateList: ["start", "working", "justFinished"] = ["start", "working", "justFinished"];
     public isStopped: boolean = false;
 
     public constructor(
-        taskCollection: TaskCollection<T>,
+        taskCollection: TaskCollection<TaskArgs, MemoryAddressArgs>,
         taskRelation: TaskRelation,
         taskDiagram: ProjectNetworkDiagram,
-        taskArgs: T
+        taskArgs: TaskArgs,
+        project: Project<TaskArgs, MemoryAddressArgs>
     ) {
         this.taskArgs = taskArgs;
         this.taskDiagram = taskDiagram;
         this.taskRelation = taskRelation;
         this.taskCollection = taskCollection;
+        this.project = project;
     }
 
     public run(): NodeUpdateData {
@@ -47,7 +51,7 @@ export class ProjectEngine<T extends unknown[]> {
                 if (!this.taskCollection[nodeName]) throw new Error(`${nodeName}不存在于taskCollection内`);
                 const taskFunction = this.taskCollection[nodeName][stateName];
                 if (taskFunction) {
-                    const returnTaskStateCode = taskFunction(...this.taskArgs);
+                    const returnTaskStateCode = taskFunction.apply(this.project, this.taskArgs);
                     if (returnTaskStateCode === "end") {
                         if (!nodeUpdateData[nodeName]) {
                             nodeUpdateData[nodeName] = {

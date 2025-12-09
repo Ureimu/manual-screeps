@@ -4,7 +4,7 @@ import { TaskObject } from "utils/Project";
 import { outwardsSourceProjectName, outwardsSourceTaskArgs } from "../../type";
 import { OHarvestGroupCreepName } from "../createCreepGroup/createOHarvestGroup";
 
-export const oMoveToSource: TaskObject<outwardsSourceTaskArgs> = {
+export const oMoveToSource: TaskObject<outwardsSourceTaskArgs, outwardsSourceTaskArgs> = {
     name: "oMoveToSource",
     description: "oMoveToSource",
     start(roomName, sourceRoomName, sourceName) {

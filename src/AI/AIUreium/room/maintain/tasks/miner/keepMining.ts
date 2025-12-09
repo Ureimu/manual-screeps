@@ -7,7 +7,7 @@ import { PosStr } from "utils/RoomPositionToStr";
 import { maintainRoomProjectName, maintainRoomTaskArgs } from "../../type";
 import { MineGroupName } from "../createCreepGroup/createMineGroup";
 
-export const keepMining: TaskObject<maintainRoomTaskArgs> = {
+export const keepMining: TaskObject<maintainRoomTaskArgs, maintainRoomTaskArgs> = {
     name: "keepMining",
     description: "keepMining",
     start(roomName) {

@@ -52,7 +52,7 @@ class outwardsHarvestProject extends Project<outwardsSourceTaskArgs, outwardsSou
         // this.wrapTaskCollection(); // 注册所有task到profiler模块，可选
     }
     public taskRelation: TaskRelation = taskRelation;
-    public taskCollection: TaskCollection<outwardsSourceTaskArgs> = taskCollection;
+    public taskCollection: TaskCollection<outwardsSourceTaskArgs, outwardsSourceTaskArgs> = taskCollection;
     public getMemory(): DiagramMemory {
         const [originRoomName, sourceRoomName, sourceName] = this.taskArgs;
         if (!Memory.rooms[originRoomName].AIUreium.outwardsSource[sourceRoomName]) {

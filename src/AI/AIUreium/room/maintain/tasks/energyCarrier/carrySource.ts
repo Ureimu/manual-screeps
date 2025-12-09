@@ -8,7 +8,7 @@ import { PosStr } from "utils/RoomPositionToStr";
 import { maintainRoomProjectName, maintainRoomTaskArgs } from "../../type";
 import { energyCarryGroupName } from "../createCreepGroup/createEnergyCarryGroup";
 
-export const carrySource: TaskObject<maintainRoomTaskArgs> = {
+export const carrySource: TaskObject<maintainRoomTaskArgs, maintainRoomTaskArgs> = {
     name: "carrySource",
     description: "carrySource",
     start(roomName) {

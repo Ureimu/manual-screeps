@@ -5,7 +5,7 @@ import { TaskObject } from "utils/Project";
 import { maintainRoomTaskArgs } from "../../type";
 import { energyCarryGroupName } from "../createCreepGroup/createEnergyCarryGroup";
 
-export const stopCarrySource: TaskObject<maintainRoomTaskArgs> = {
+export const stopCarrySource: TaskObject<maintainRoomTaskArgs, maintainRoomTaskArgs> = {
     name: "stopCarrySource",
     description: "stopCarrySource",
     start(roomName) {

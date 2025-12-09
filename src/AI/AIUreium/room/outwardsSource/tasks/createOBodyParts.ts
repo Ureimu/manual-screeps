@@ -3,7 +3,7 @@ import { ControllerLevels, creepBodyConfigDetail } from "frame/creep/body/type";
 import { TaskObject } from "utils/Project";
 import { outwardsSourceTaskArgs } from "../type";
 
-export const createOBodyParts: TaskObject<outwardsSourceTaskArgs> = {
+export const createOBodyParts: TaskObject<outwardsSourceTaskArgs, outwardsSourceTaskArgs> = {
     name: "createOBodyParts",
     description: "createOBodyParts",
     start() {
