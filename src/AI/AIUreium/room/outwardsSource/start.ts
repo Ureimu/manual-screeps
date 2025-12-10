@@ -13,7 +13,7 @@ export function startOutwardsSource(sourceData: OutwardsSourceData): void {
     if (!mainRoom.memory.AIUreium.outwardsSource[sourceData.sourceRoomName]) {
         mainRoom.memory.AIUreium.outwardsSource[sourceData.sourceRoomName] = {};
     }
-    mainRoom.memory.AIUreium.outwardsSource[sourceData.sourceRoomName][sourceData.sourceName] = {};
+    mainRoom.memory.AIUreium.outwardsSource[sourceData.sourceRoomName][sourceData.sourceName] = { memory: {} };
     const spawnName = mainRoom.memory.construct.firstSpawnName?.name;
     if (!spawnName) return;
     const ret = PathFinder.search(

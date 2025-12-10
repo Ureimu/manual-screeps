@@ -6,5 +6,5 @@ export function startGetPower(powerBankData: PowerBankData): void {
     if (!mainRoom.memory.AIUreium.getPower[powerBankData.roomName]) {
         mainRoom.memory.AIUreium.getPower[powerBankData.roomName] = {};
     }
-    mainRoom.memory.AIUreium.getPower[powerBankData.roomName][powerBankData.id] = {};
+    mainRoom.memory.AIUreium.getPower[powerBankData.roomName][powerBankData.id] = { memory: {} };
 }

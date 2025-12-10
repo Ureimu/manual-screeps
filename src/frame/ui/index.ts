@@ -12,6 +12,8 @@ import { SegmentManager } from "utils/SegmentManager/SegmentManager";
 import { waitThenLog } from "utils/AcrossTick/utils";
 import { logManager } from "utils/log4screeps";
 import { DiagramMemory } from "utils/Project/type";
+import { maintainRoomProjectMemoryType } from "AI/AIUreium/room/maintain/type";
+import { newRoomProjectMemoryType } from "AI/AIUreium/room/newRoom/type";
 const logger = logManager.createLogger("debug", "UI");
 const segmentsCache: { [id: number]: string } = {};
 const debugging = false;
@@ -85,17 +87,22 @@ function getStats(task: AcrossTickMemory): AcrossTickReturnCode {
                 projectDiagram: {
                     maintenance: Base64.encode(
                         new ProjectNetworkDiagram(
-                            room.memory?.AIUreium?.maintainRoom as DiagramMemory,
+                            room.memory?.AIUreium?.maintainRoom as DiagramMemory<maintainRoomProjectMemoryType>,
                             false
                         ).getDiagramCode(false)
                     ),
                     outwardsSource: outwardsSourceDiagram,
-                    getPower: Base64.encode(
-                        new ProjectNetworkDiagram(room.memory?.AIUreium?.getPower, false).getDiagramCode(false)
-                    ),
-                    newRoom: Base64.encode(
-                        new ProjectNetworkDiagram(room.memory?.AIUreium?.newRoom, false).getDiagramCode(false)
-                    )
+                    getPower: "",
+                    // getPower: Base64.encode(
+                    //     new ProjectNetworkDiagram(room.memory?.AIUreium?.getPower, false).getDiagramCode(false)
+                    // ),
+                    newRoom: ""
+                    // newRoom: Base64.encode(
+                    //     new ProjectNetworkDiagram<newRoomProjectMemoryType>(
+                    //         room.memory?.AIUreium?.newRoom as DiagramMemory<newRoomProjectMemoryType>,
+                    //         false
+                    //     ).getDiagramCode(false)
+                    // )
                 },
                 name: room.name,
                 spawnPool: room.memory.spawnPool
