@@ -48,12 +48,15 @@ export function generalCarrier(creep: Creep, carrierType: string) {
     // 准确的数量参数有助于减少creep处理多余资源的次数，进而减少cpu使用量。
     const res = task.resources[indexList[resourceIndex]];
     const amountNow = creep.store[res] ?? 0;
-    if (task.lastTickStore) {
-        if (res === task.lastTickStore[0] && amountNow > task.lastTickStore[1]) {
+    if (task.lastTickStore && amountNow > task.lastTickStore[1]) {
+        const lastAmount = task.remainingAmounts[indexList[resourceIndex]];
+        // 发生withdraw时，记录remainingAmounts减少量
+        if (res === task.lastTickStore[0]) {
             task.remainingAmounts[indexList[resourceIndex]] -= amountNow - task.lastTickStore[1];
-        } else {
-            task.remainingAmounts[indexList[resourceIndex]] -= amountNow;
         }
+        logger.log(
+            `${creep.name} ${res} task remaining:${lastAmount} -> ${task.remainingAmounts[indexList[resourceIndex]]}`
+        );
     }
     task.lastTickStore = [res, creep.store[res] ?? 0];
 

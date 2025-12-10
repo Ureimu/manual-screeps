@@ -20,7 +20,7 @@ export function fillTower(room: Room) {
             to: towers.map(i => i.id),
             resources: [RESOURCE_ENERGY],
             priority: 15,
-            amounts: towers.map(i => i.store.getFreeCapacity("energy"))
+            amounts: [_.sum(towers.map(i => i.store.getFreeCapacity("energy")))]
         });
     }
 }

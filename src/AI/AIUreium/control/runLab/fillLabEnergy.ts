@@ -19,7 +19,7 @@ export function fillLabEnergy(room: Room) {
             to: labs.map(i => i.id),
             resources: [RESOURCE_ENERGY],
             priority: 8,
-            amounts: labs.map(i => i.store.getFreeCapacity("energy"))
+            amounts: [_.sum(labs.map(i => i.store.getFreeCapacity("energy")))]
         });
     }
 }
