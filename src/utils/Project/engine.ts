@@ -17,7 +17,7 @@ export class ProjectEngine<
 > {
     public project: Project<TaskArgs, MemoryAddressArgs, ProjectMemoryType>;
     public taskCollection: TaskCollection<TaskArgs, MemoryAddressArgs, ProjectMemoryType>;
-    public taskDiagram: ProjectNetworkDiagram;
+    public taskDiagram: ProjectNetworkDiagram<ProjectMemoryType>;
     public taskRelation: TaskRelation;
     public taskArgs: TaskArgs;
     public stats: ProjectEngineStats = { initTime: Game.time, runNum: 0 };
@@ -27,7 +27,7 @@ export class ProjectEngine<
     public constructor(
         taskCollection: TaskCollection<TaskArgs, MemoryAddressArgs, ProjectMemoryType>,
         taskRelation: TaskRelation,
-        taskDiagram: ProjectNetworkDiagram,
+        taskDiagram: ProjectNetworkDiagram<ProjectMemoryType>,
         taskArgs: TaskArgs,
         project: Project<TaskArgs, MemoryAddressArgs, ProjectMemoryType>
     ) {

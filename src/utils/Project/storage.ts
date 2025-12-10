@@ -10,7 +10,7 @@ export const emptyNodeName = "emptyGraphNode";
  * @export
  * @class ProjectNetworkDiagram
  */
-export class ProjectNetworkDiagram {
+export class ProjectNetworkDiagram<ProjectMemoryType extends unknown> {
     public readonly NodeStateList: NodeState[] = ["unplayed", "start", "working", "justFinished", "end"];
     public static readonly startNodeName = startNodeName;
     public static readonly emptyNodeName = emptyNodeName;
@@ -21,7 +21,7 @@ export class ProjectNetworkDiagram {
         justFinished: "blue",
         end: "red"
     };
-    public memoryPath: DiagramMemory;
+    public memoryPath: DiagramMemory<ProjectMemoryType>;
     public diagramDict: DiagramDict;
     private readonly emptyNode: Node = {
         in: [],
@@ -59,7 +59,7 @@ export class ProjectNetworkDiagram {
     }
     private readonly Regex = /(?<=\s)([a-zA-Z0-9]+)(?=\s)/g;
 
-    public constructor(memoryPath: DiagramMemory, public writable: boolean = true) {
+    public constructor(memoryPath: DiagramMemory<ProjectMemoryType>, public writable: boolean = true) {
         if (!memoryPath.diagram && writable) {
             memoryPath.diagram = { startNode: this.getStartNode(Game.time) };
         }

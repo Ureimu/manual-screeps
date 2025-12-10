@@ -69,7 +69,7 @@ export abstract class Project<
      * @type {ProjectNetworkDiagram}
      * @memberof Project
      */
-    public diagram: ProjectNetworkDiagram;
+    public diagram: ProjectNetworkDiagram<ProjectMemoryType>;
     /**
      * 存储地址
      *
