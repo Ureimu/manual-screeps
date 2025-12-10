@@ -30,7 +30,8 @@ export const createDefaultBodyparts: maintainRoomTaskObject = {
                 "1": { body: "w2c1m1" },
                 "2": { body: "w4c1m1" },
                 "3": { body: "w6c1m1" },
-                "5": { body: "w8c4m2" }
+                "5": { body: "w8c4m2" },
+                "8": { body: "w20c4m5" }
             },
             carrier: {
                 "1": { body: "m3c3" },
@@ -45,10 +46,12 @@ export const createDefaultBodyparts: maintainRoomTaskObject = {
             },
             centerCarrier: {
                 "1": { body: "m1c5" },
-                "4": { body: "m2c16" }
+                "4": { body: "m2c16" },
+                "8": { body: "m2c40" }
             },
             miner: {
-                "5": { body: "m3w12" }
+                "5": { body: "m3w12" },
+                "8": { body: "m10w40" }
             },
             levelKeeper: {
                 "1": { body: "m2w1c2" },
