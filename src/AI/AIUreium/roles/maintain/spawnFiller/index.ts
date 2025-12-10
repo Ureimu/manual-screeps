@@ -3,7 +3,7 @@ import { stayByRoad } from "frame/creep/action/doOnArrived/stayByRoad";
 import { spawningOption } from "frame/spawn/spawning";
 import { logManager } from "utils/log4screeps";
 
-const logger = logManager.createLogger("debug", "spawnFiller");
+const logger = logManager.createLogger("info", "spawnFiller");
 
 const cacheData: {
     [roomName: string]: {

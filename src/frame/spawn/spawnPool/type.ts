@@ -23,7 +23,13 @@ export interface SpawnCreepDetail {
     creepName: string;
     idList: { [name: number]: boolean };
     creepLevel?: number;
+    /**
+     * creep的部件设定名称
+     */
     creepBodyConfig: string;
+    /**
+     * creep的部件字符串
+     */
     creepBody: string;
     priority: number;
     spawnCondition: readyConditionKey;

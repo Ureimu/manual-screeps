@@ -12,14 +12,15 @@ export const waitForAttackEnd: getPowerTaskObject = {
         const powerBankRoom = Game.rooms[powerBankRoomName];
         const powerBank = Game.getObjectById(powerBankId as Id<StructurePowerBank>);
         if (powerBankRoom && !powerBank) {
+            // powerBank已经消失
             return "end";
         }
-        const attackerNameList =
-            Memory.creepGroups[getGPAttackerGroupName(roomName, powerBankRoomName, powerBankId)].creepNameList;
+        if (powerBank && powerBank.hits < powerBank.hitsMax / 2) {
+            // 半血以下，开始孵化
+            return "end";
+        }
 
-        // 未启用
-        // return "running"
-        return "end";
+        return "running";
     },
     justFinished() {
         return "end";

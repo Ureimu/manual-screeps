@@ -195,6 +195,7 @@ export const runSpawnPool = registerFN((room: Room) => {
     if (justSpawningCreepSet?.size) {
         justSpawningCreepSet.forEach(creepName => {
             const creep = Game.creeps[creepName];
+            // logger.debug(`run callOnBirth on ${creep.name}`);
             callOnBirth(creep);
             Memory.rooms[room.name].spawnPool[creepName].creepCondition = "alive";
             Memory.rooms[room.name].spawnPool[creepName].spawnCount += 1;

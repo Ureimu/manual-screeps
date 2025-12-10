@@ -22,10 +22,14 @@ export function getBoost(creep: Creep): boolean {
         } else {
             return false;
         }
-    } else {
+    }
+    if (boostInfo[creep.name]) {
         const carryEndTaskName = boostInfo[creep.name];
         const task = room.memory.AIUreium.labTaskPool[carryEndTaskName];
-        if (!task) delete boostInfo[creep.name];
+        if (!task) {
+            delete boostInfo[creep.name];
+            return false;
+        }
         if (task.type !== "boostCreep") return false;
         const lab = Game.getObjectById(task.labList[0]);
         if (!lab) return false;

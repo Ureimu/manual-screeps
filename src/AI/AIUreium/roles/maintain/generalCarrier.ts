@@ -5,7 +5,7 @@ import { logManager } from "utils/log4screeps";
 import { PosStr } from "utils/RoomPositionToStr";
 import { checkArray } from "utils/typeCheck";
 
-const logger = logManager.createLogger("debug", "generalCarrier");
+const logger = logManager.createLogger("info", "generalCarrier");
 
 export function generalCarrier(creep: Creep, carrierType: string) {
     if (carrierType === "centerCarrier") {

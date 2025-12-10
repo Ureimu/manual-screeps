@@ -128,7 +128,7 @@ export class bodyTools {
         if (!body) return result;
 
         const [bodyPartStr, boostStr] = bodyTools.splitBodyAndBoost(body);
-        console.log(`${body} boostStr:${boostStr}`);
+        // console.log(`${body} boostStr:${boostStr}`);
         if (!boostStr) return result;
 
         // get total counts per part shortname from the body
@@ -152,7 +152,7 @@ export class bodyTools {
             const boostCode = m[3]; // e.g. 'b1','u1'
             const boostCompoundName = boostAbbreviation[partShort][boostCode];
 
-            console.log(`${body} ${m}`);
+            // console.log(`${body} ${m}`);
             const count = countStr ? Number(countStr) : totalPerPart[partShort] || 0;
             if (!count) continue;
 

@@ -1,3 +1,4 @@
+import { getLayoutStructureData } from "frame/construct/utils";
 import { AsyncTask } from "utils/AsyncTask";
 import { logManager } from "utils/log4screeps";
 import PriorityQueue from "utils/PriorityQueue";
@@ -29,9 +30,7 @@ export function runLabTaskPool(room: Room) {
     if (!room.memory.AIUreium) {
         return;
     }
-    const labsData = room.memory.AIUreium.labData;
-    const labs = _.filter(labsData, (labData, key) => !labData.running);
-    if (labs.length === 0) return;
+
     if (!queueList[room.name]) {
         const readyTaskList: LabTask[] = [];
         for (const taskName in room.memory.AIUreium.labTaskPool) {
@@ -42,6 +41,25 @@ export function runLabTaskPool(room: Room) {
         }
         queueList[room.name] = taskPool.initQueueFromTaskQueue(readyTaskList);
     }
+
+    // 更新labData，添加新增的lab
+
+    const labsData = room.memory.AIUreium.labData;
+    const layoutLabData = getLayoutStructureData(room.name, "lab", "lab");
+    if (layoutLabData.length > Object.keys(labsData).length) {
+        layoutLabData.forEach(layoutLab => {
+            if (!(layoutLab.id in labsData)) {
+                labsData[layoutLab.id] = {
+                    running: false,
+                    id: layoutLab.id
+                };
+            }
+            // TODO 检查lab是否存在其他物资，如果有，则添加carryTask，并将lab设为running。
+            // 当任务完成时，再将lab设为running: false.
+        });
+    }
+    const labs = _.filter(labsData, (labData, key) => !labData.running);
+    if (labs.length === 0) return;
 
     const taskQueue = queueList[room.name];
     do {
@@ -71,7 +89,7 @@ export function runLabTaskPool(room: Room) {
                 resources: [task.boostType],
                 priority: 6,
                 amounts: [task.bodyPartsCount * LAB_BOOST_MINERAL],
-                onTaskEnd: [callbackFuncName]
+                onTaskEnd: [task.name]
             });
         } else {
             logger.error(`${task.type} is not implemented.`);
