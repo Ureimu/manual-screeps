@@ -1,7 +1,7 @@
 import { carryMineral } from "AI/AIUreium/control/carryMineral";
 import { fillTower } from "AI/AIUreium/control/fillTower";
 import { processPower } from "AI/AIUreium/control/processPower";
-import { roomCarry } from "AI/AIUreium/control/roomCarry";
+import { runRoomCarryTaskPool } from "AI/AIUreium/control/roomCarry";
 import { fillLabEnergy } from "AI/AIUreium/control/runLab/fillLabEnergy";
 import { runProjectCreeps } from "frame/creep";
 import { registerFN } from "utils/profiler";
@@ -18,13 +18,15 @@ export const maintainRoom = registerFN((room: Room): void => {
         const maintainRoomProject = getMaintainRoomProject(room.name);
         maintainRoomProject.run();
         // console.log(room.name, JSON.stringify(maintainRoomProject.stats));
-        if (Game.time % 50 === 0) {
-            processPower(room);
-            carryMineral(room);
-            fillTower(room);
-            fillLabEnergy(room);
-        }
-        roomCarry(room);
+    }
+    if (Game.time % 50 === 0) {
+        processPower(room);
+        carryMineral(room);
+        fillTower(room);
+        fillLabEnergy(room);
+    }
+    if (Game.time % 5 === 0) {
+        runRoomCarryTaskPool(room);
     }
 }, "maintainRoom");
 

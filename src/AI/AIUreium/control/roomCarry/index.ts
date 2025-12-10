@@ -1,5 +1,3 @@
-import { AsyncTask } from "utils/AsyncTask";
-import { AwaitedTask } from "utils/AsyncTask/type";
 import { logManager } from "utils/log4screeps";
 
 declare global {
@@ -35,6 +33,10 @@ export interface RoomCarryTask {
     amounts: number[];
     remainingAmounts: number[];
     lastTickStore?: [resource: string, amount: number];
+    /**
+     * 当任务结束时，要执行的Async Task的taskName、
+     *
+     */
     onTaskEnd?: string;
 }
 
@@ -44,7 +46,7 @@ const logger = logManager.createLogger("debug", "roomCarry");
  * 分发carryTask给carry creep。
  * @param room
  */
-export function roomCarry(room: Room) {
+export function runRoomCarryTaskPool(room: Room) {
     const taskPools = room.memory.AIUreium.carryTaskPools;
     const roomName = room.name;
     _.forEach(taskPools, (taskPool, roleName) => {
