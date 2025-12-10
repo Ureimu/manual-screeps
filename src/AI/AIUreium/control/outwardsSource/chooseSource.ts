@@ -18,8 +18,12 @@ declare global {
 }
 const logger = logManager.createLogger("debug", "chooseSource");
 export function chooseSource(mainRoom: Room): void {
+    if (!global.roomMemory[mainRoom.name]) global.roomMemory[mainRoom.name] = {};
+    if (!global.roomMemory[mainRoom.name].status) {
+        global.roomMemory[mainRoom.name].status = {};
+    }
     const taskStatus = global.roomMemory[mainRoom.name].status;
-    if (!taskStatus) throw new Error("no status, should init in callOnStart.ts");
+    if (!taskStatus) return;
     if (!taskStatus.outwardsSource)
         taskStatus.outwardsSource = { lastRunTime: Game.time, sources: {}, isRunning: false };
     const runningStatus = taskStatus.outwardsSource;
