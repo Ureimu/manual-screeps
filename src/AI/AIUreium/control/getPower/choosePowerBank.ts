@@ -6,6 +6,7 @@ import { getRoomControlData } from "..";
 import { PowerBankData } from "../recordRoomData";
 import { calcGetPowerSpawnTime } from "./calcSpawnTime";
 import { logManager } from "utils/log4screeps";
+import { canBoostGetPowerCreeps } from "./canBoostGetPowerCreeps";
 
 const workTime = 1500;
 const maxMoveTime = 500;
@@ -16,6 +17,20 @@ declare global {
         getPower?: boolean;
     }
 }
+
+export const getPowerBodyCollection = {
+    normal: {
+        gpAttacker: "m20a20",
+        gpHealer: "m25h25",
+        gpCarrier: "m17c33"
+    },
+
+    boosted: {
+        gpAttacker: "t5m25a20 t5b2 a20b2",
+        gpHealer: "m19h19 h19b2",
+        gpCarrier: "m17c33"
+    }
+};
 
 export function choosePowerBank(mainRoom: Room): void {
     const taskControl = getRoomControlData(mainRoom.name).getPower;
@@ -56,14 +71,18 @@ export function choosePowerBank(mainRoom: Room): void {
             const moveTime = pathData.cost / 2;
             if (moveTime > maxMoveTime) return;
 
+            const isBoosted = canBoostGetPowerCreeps(mainRoom, getPowerBodyCollection["boosted"]);
+
             const spawnCreepTime = calcGetPowerSpawnTime(
                 powerBankMemory.blankSpaceCount,
-                Constant.getPower.spawnAttackerCount
+                isBoosted ? 1 : Constant.getPower.spawnAttackerCount
             );
             const neededTime = moveTime + spawnCreepTime + workTime;
             const ifChooseThisPowerBank = periodToGetPower > neededTime;
             logger.debug(
-                `chosen:${Boolean(ifChooseThisPowerBank)} periodToGetPower:${periodToGetPower} ${
+                `chosen:${Boolean(ifChooseThisPowerBank)} boosted:${Boolean(
+                    isBoosted
+                )} periodToGetPower:${periodToGetPower} ${
                     periodToGetPower > neededTime ? ">" : "<"
                 } neededTime:${neededTime} = \npathLength:${moveTime} + spawnCreepTime:${spawnCreepTime} + workTime:${workTime}`
             );
@@ -71,6 +90,9 @@ export function choosePowerBank(mainRoom: Room): void {
             validatedPowerBanks.push(powerBankMemory);
             powerBankMemory.originRoomName = mainRoom.name;
             powerBankMemory.moveTime = moveTime;
+            if (isBoosted) {
+                powerBankMemory.boosted = true;
+            }
         });
     });
 

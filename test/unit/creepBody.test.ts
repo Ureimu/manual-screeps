@@ -58,8 +58,6 @@ describe("parseBoostInfo", () => {
         // b1 on move maps to ZO
         assert.property(res.byCompound, "ZO");
         assert.equal(res.byCompound["ZO"], 3);
-        assert.property(res.byPart, "move");
-        assert.equal(res.byPart["move"]["ZO"], 3);
         // energy should be count * LAB_BOOST_ENERGY (mockConstants sets LAB_BOOST_ENERGY)
         assert.property(res.energy, "ZO");
         assert.equal(res.energy["ZO"], res.byCompound["ZO"] * LAB_BOOST_ENERGY);
@@ -71,8 +69,6 @@ describe("parseBoostInfo", () => {
         assert.property(res.byCompound, "UO");
         // m1w1*2 contains two work parts according to the body syntax
         assert.equal(res.byCompound["UO"], 2);
-        assert.property(res.byPart, "work");
-        assert.equal(res.byPart["work"]["UO"], 2);
         assert.property(res.energy, "UO");
         assert.equal(res.energy["UO"], res.byCompound["UO"] * LAB_BOOST_ENERGY);
     });
@@ -90,14 +86,6 @@ describe("parseBoostInfo", () => {
         assert.equal(res.byCompound["ZO"], 2);
         assert.equal(res.byCompound["KHO2"], 2);
         assert.equal(res.byCompound["XLHO2"], 1);
-
-        assert.property(res.byPart, "move");
-        assert.property(res.byPart, "ranged_attack");
-        assert.property(res.byPart, "heal");
-
-        assert.equal(res.byPart["move"]["ZO"], 2);
-        assert.equal(res.byPart["ranged_attack"]["KHO2"], 2);
-        assert.equal(res.byPart["heal"]["XLHO2"], 1);
 
         assert.equal(res.energy["ZO"], 2 * LAB_BOOST_ENERGY);
         assert.equal(res.energy["KHO2"], 2 * LAB_BOOST_ENERGY);

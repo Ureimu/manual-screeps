@@ -128,7 +128,8 @@ export function recordRoomData(room: Room): void {
                     id: powerBank.id,
                     blankSpaceCount: blankSpacePosList.length,
                     isAttackedByOthers: powerBank.hits !== powerBank.hitsMax,
-                    isInMyAttack: false
+                    isInMyAttack: false,
+                    boosted: false
                 };
             }
         });
@@ -224,6 +225,7 @@ export interface PowerBankData {
     blankSpaceCount: number;
     isAttackedByOthers: boolean;
     isInMyAttack: boolean;
+    boosted: boolean;
 }
 export interface InvaderCoreData {
     decayTime: number;

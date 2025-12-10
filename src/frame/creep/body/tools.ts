@@ -30,9 +30,9 @@ export const boostAbbreviation: { [bodyAbbreviationName: string]: { [boostType: 
         g3: "XGH2O"
     },
     c: {
-        KH: "KH",
-        KH2O: "KH2O",
-        XKH2O: "XKH2O"
+        b1: "KH",
+        b2: "KH2O",
+        b3: "XKH2O"
     },
     a: {
         b1: "UH",
@@ -128,7 +128,7 @@ export class bodyTools {
         if (!body) return result;
 
         const [bodyPartStr, boostStr] = bodyTools.splitBodyAndBoost(body);
-
+        console.log(`${body} boostStr:${boostStr}`);
         if (!boostStr) return result;
 
         // get total counts per part shortname from the body
@@ -144,12 +144,15 @@ export class bodyTools {
 
         // iterate boost specs
         let m: RegExpExecArray | null;
+        // console.log(`${this.boostRegExp.test(boostStr)}`);
+        this.boostRegExp.lastIndex = 0;
         while ((m = this.boostRegExp.exec(boostStr)) !== null) {
             const partShort = m[1]; // e.g. 'm','w'
             const countStr = m[2]; // may be empty -> means "all"
             const boostCode = m[3]; // e.g. 'b1','u1'
             const boostCompoundName = boostAbbreviation[partShort][boostCode];
 
+            console.log(`${body} ${m}`);
             const count = countStr ? Number(countStr) : totalPerPart[partShort] || 0;
             if (!count) continue;
 
@@ -341,6 +344,7 @@ export class bodyTools {
 
         if (!body) return false;
 
+        this.boostRegExp.lastIndex = 0;
         return this.checkRegExp.test(bodyPartStr) && (!boostStr || this.boostRegExp.test(boostStr));
     }
 }

@@ -31,7 +31,10 @@ export const spawnAttackerAndHealer: getPowerTaskObject = {
         logger.log(`passedTime:${nextTime}, create ${attackerCreepGroupName}`);
         createNewCreep(room, attackerCreepGroupName, healerCreepGroupName, index);
         args[4] = `${index + 1}`;
-        if (this.memory.boosted) {
+
+        const powerBankMemory = Memory.rooms[powerBankRoomName].powerBanks?.[powerBankId];
+        if (!powerBankMemory) throw new Error("no powerBank Memory");
+        if (powerBankMemory.boosted) {
             if (index + 1 < 1) return "running";
         } else {
             if (index + 1 < Constant.getPower.spawnAttackerCount) return "running";
