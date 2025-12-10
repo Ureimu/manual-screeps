@@ -41,7 +41,9 @@ export function carryMineral(room: Room) {
             const validResources = Object.entries(mineralContainer.store).filter(i => i[1] > 0);
             const resources: ResourceConstant[] = validResources.map(i => i[0]) as ResourceConstant[];
             const amounts: number[] = validResources.map(i => i[1]);
-            addCarryTask(room.name, "carrier", {
+            addCarryTask({
+                roleName: "carrier",
+                roomName: room.name,
                 name: taskName,
                 from: [mineralContainer.id],
                 to: [room.storage.id],

@@ -37,7 +37,7 @@ export interface RoomCarryTask {
      * 当任务结束时，要执行的Async Task的taskName、
      *
      */
-    onTaskEnd?: string;
+    onTaskEnd?: string[];
 }
 
 const minimumLiveTicks = 100;
@@ -94,19 +94,18 @@ export function runRoomCarryTaskPool(room: Room) {
     });
 }
 
-export function addCarryTask(
-    roomName: string,
-    roleName: CarryRoleName,
-    task: {
-        name: string;
-        from: Id<AnyStoreStructure>[];
-        to: Id<AnyStoreStructure>[];
-        resources: ResourceConstant[];
-        priority: number;
-        amounts?: number[];
-        onTaskEnd?: string;
-    }
-) {
+export type AddCarryTaskArgs = {
+    roomName: string;
+    roleName: CarryRoleName;
+    name: string;
+    from: Id<AnyStoreStructure>[];
+    to: Id<AnyStoreStructure>[];
+    resources: ResourceConstant[];
+    priority: number;
+    amounts?: number[];
+    onTaskEnd?: string[];
+};
+export function addCarryTask(task: AddCarryTaskArgs) {
     const amountsArg = task.amounts ?? Array(task.resources.length).fill(Infinity);
     const carryTask: RoomCarryTask = {
         name: task.name,
@@ -123,11 +122,14 @@ export function addCarryTask(
         isHandlingSurplusResourceAtEnd: false
     };
     if (task.onTaskEnd) carryTask.onTaskEnd = task.onTaskEnd;
-    Memory.rooms[roomName].AIUreium.carryTaskPools[roleName][task.name] = carryTask;
+    Memory.rooms[task.roomName].AIUreium.carryTaskPools[task.roleName][task.name] = carryTask;
 }
 
 export function getCarryTask(roomName: string, roleName: CarryRoleName, taskName: string): RoomCarryTask | undefined {
     return Memory.rooms[roomName]?.AIUreium.carryTaskPools?.[roleName]?.[taskName];
 }
+
+//添加任务链。完成上一个任务就会自动添加下一个任务。
+export function addCarryTaskChain(tasks: AddCarryTaskArgs[]) {}
 
 export type CarryRoleName = "carrier" | "centerCarrier";

@@ -21,7 +21,9 @@ export function processPower(room: Room) {
     logger.log(`${room.name} process power`);
     const task = getCarryTask(room.name, "carrier", taskName);
     if (!task || task.status === "end") {
-        addCarryTask(room.name, "carrier", {
+        addCarryTask({
+            roleName: "carrier",
+            roomName: room.name,
             name: taskName,
             from: [room.storage.id],
             to: [powerSpawn.id],

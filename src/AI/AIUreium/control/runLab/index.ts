@@ -62,14 +62,16 @@ export function runLabTaskPool(room: Room) {
                 funcName: callbackFuncName,
                 args: [room.name, task.name]
             });
-            addCarryTask(room.name, "carrier", {
+            addCarryTask({
+                roleName: "carrier",
+                roomName: room.name,
                 name: carryTaskName,
                 from: [room.storage.id],
                 to: [targetLab.id],
                 resources: [task.boostType],
                 priority: 6,
                 amounts: [task.bodyPartsCount * LAB_BOOST_MINERAL],
-                onTaskEnd: callbackFuncName
+                onTaskEnd: [callbackFuncName]
             });
         } else {
             logger.error(`${task.type} is not implemented.`);

@@ -224,6 +224,6 @@ function stay(creep: Creep) {
 
 function onEnd(task: RoomCarryTask) {
     if (task.onTaskEnd) {
-        AsyncTask.runAsyncTask(task.onTaskEnd);
+        task.onTaskEnd.forEach(taskName => AsyncTask.runAsyncTask(taskName));
     }
 }

@@ -14,7 +14,9 @@ export function fillTower(room: Room) {
     logger.log(`${room.name} fill tower`);
     const task = getCarryTask(room.name, "carrier", taskName);
     if (!task || task.status === "end") {
-        addCarryTask(room.name, "carrier", {
+        addCarryTask({
+            roleName: "carrier",
+            roomName: room.name,
             name: taskName,
             from: [room.storage.id],
             to: towers.map(i => i.id),
