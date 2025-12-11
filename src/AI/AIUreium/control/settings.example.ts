@@ -9,17 +9,14 @@
  * 可以复制controlBoard/type.ts下的defaultRoomControlData为自己的初始设定，然后再自己更改。
  */
 
-import { RecursivePartial } from "utils/typeUtils";
-import { defaultRoomControlData } from "./defaultSetting";
-import { RoomControlData } from "./type";
+import { defaultMainControlData, defaultRoomControlData } from "./defaultSetting";
+import { ControlDataType, MainControlData, PartialControlDataType } from "./type";
 
-const shard3ControlSettings: { [roomName: string]: RecursivePartial<RoomControlData> } = {};
+const shard3ControlSettings: PartialControlDataType = { rooms: {} };
 
 export const FullControlSetting: {
     [destName: string]: {
-        [shardName: string]: {
-            [roomName: string]: RoomControlData;
-        };
+        [shardName: string]: ControlDataType;
     };
 } = {
     official_server: {
@@ -27,14 +24,14 @@ export const FullControlSetting: {
     }
 };
 
-function fromPartialSetting(partialSetting: { [roomName: string]: RecursivePartial<RoomControlData> }): {
-    [roomName: string]: RoomControlData;
-} {
-    const newSetting: {
-        [roomName: string]: RoomControlData;
-    } = {};
-    for (const roomName in partialSetting) {
-        newSetting[roomName] = _.merge(_.cloneDeep(defaultRoomControlData), partialSetting[roomName]);
+function fromPartialSetting(partialSetting: PartialControlDataType): ControlDataType {
+    const newSetting: ControlDataType = {
+        main: _.merge(_.cloneDeep(defaultMainControlData), partialSetting.main) as MainControlData,
+        rooms: {}
+    };
+    for (const roomName in partialSetting.rooms) {
+        newSetting.rooms[roomName] = _.merge(_.cloneDeep(defaultRoomControlData), partialSetting.rooms[roomName]);
     }
+
     return newSetting;
 }
