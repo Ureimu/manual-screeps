@@ -9,7 +9,13 @@ export const finishTask: getPowerTaskObject = {
     description: "finishTask",
     start(roomName, powerBankRoomName, powerBankId) {
         const carrierNameList =
-            Memory.creepGroups[getGPCarrierGroupName(roomName, powerBankRoomName, powerBankId)].creepNameList;
+            Memory.creepGroups[getGPCarrierGroupName(roomName, powerBankRoomName, powerBankId)]?.creepNameList;
+        if (!carrierNameList) {
+            logger.debug(
+                `no carriers spawned for room:${roomName}, powerBankRoom:${powerBankRoomName}, id:${powerBankId}`
+            );
+            return "end";
+        }
         if (
             carrierNameList.every(
                 creepName => Memory.rooms[roomName].spawnPool[creepName].spawnCount > 0 && !Game.creeps[creepName]

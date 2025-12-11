@@ -33,6 +33,6 @@ export function sendBoostTask(creep: Creep) {
             bodyPartsCount: amount
         });
         creep.memory.boostLabTaskNameList.push(taskName);
-        logger.debug(`${creep.name} add boost lab task ${boostCompoundName}`);
+        logger.debug(`${creep.name} add boost lab task ${taskName}`);
     });
 }

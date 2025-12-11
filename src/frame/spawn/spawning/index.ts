@@ -70,8 +70,10 @@ export const runRoomSpawnQueue = registerFN((room: Room) => {
     let failedTask: SpawnCreepDetail | undefined = undefined;
     do {
         spawn = availableSpawns[spawnIndex];
-        const spawnTask = spawnQueue.pop();
-        if (!spawnTask) break;
+        const spawnTaskFromQueue = spawnQueue.pop();
+        if (!spawnTaskFromQueue) break;
+        // 由于使用的对象来自跨tick的taskQueue，需要确保索引正确才能写到正确的memory位置。
+        const spawnTask = Memory.rooms[spawn.room.name].spawnPool[spawnTaskFromQueue.creepName];
 
         const creepPreProcessBodyString = chooseBefittingBody({
             creepBodyConfigName: spawnTask.creepBodyConfig,

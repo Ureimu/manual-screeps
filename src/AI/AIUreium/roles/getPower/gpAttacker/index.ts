@@ -1,4 +1,4 @@
-import { getBoost } from "../../../control/runLab/getBoost";
+import { getBoost } from "../../../control/boostCreep/getBoost";
 
 export function gpAttacker(creep: Creep, args: string[]) {
     const [originRoomName, powerBankRoomName, powerBankId] = args;

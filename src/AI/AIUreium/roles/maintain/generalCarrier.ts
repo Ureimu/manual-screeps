@@ -5,7 +5,7 @@ import { logManager } from "utils/log4screeps";
 import { PosStr } from "utils/RoomPositionToStr";
 import { checkArray } from "utils/typeCheck";
 
-const logger = logManager.createLogger("info", "generalCarrier");
+const logger = logManager.createLogger("debug", "generalCarrier");
 
 export function generalCarrier(creep: Creep, carrierType: string) {
     if (carrierType === "centerCarrier") {
@@ -54,7 +54,7 @@ export function generalCarrier(creep: Creep, carrierType: string) {
         if (res === task.lastTickStore[0]) {
             task.remainingAmounts[indexList[resourceIndex]] -= amountNow - task.lastTickStore[1];
         }
-        logger.log(
+        logger.debug(
             `${creep.name} ${res} task remaining:${lastAmount} -> ${task.remainingAmounts[indexList[resourceIndex]]}`
         );
     }
@@ -69,7 +69,7 @@ export function generalCarrier(creep: Creep, carrierType: string) {
             if (task.isHandlingSurplusResourceAtEnd) {
                 task.isHandlingSurplusResourceAtEnd = false;
                 task.status = "end";
-                logger.debug(`${creep.name} ${task.name} end(2)`);
+                logger.debug(`${creep.name} ${task.name} end(2. handle surplus resource end)`);
                 onEnd(task);
                 return;
             }
@@ -127,8 +127,13 @@ export function generalCarrier(creep: Creep, carrierType: string) {
         resource = task.resources[indexList[resourceIndex]];
         while (
             indexList[directionIndex] < task[direction].length &&
-            (!container || (container.store[storeMethodName](resource) ?? 0)) === 0
+            (!container || (container.store[storeMethodName](resource) ?? 0) === 0)
         ) {
+            logger.debug(
+                `last container exist:${Boolean(container)}, id:${
+                    container?.id
+                }, res:${resource}, method:${storeMethodName}, store:${container?.store[storeMethodName](resource)}`
+            );
             indexList[directionIndex]++;
             container = Game.getObjectById(task[direction][indexList[directionIndex]]);
             logger.debug(
@@ -153,7 +158,7 @@ export function generalCarrier(creep: Creep, carrierType: string) {
         //已经不存在任何对应资源或资源空位
         if (!task.isCarrying) {
             task.status = "end";
-            logger.debug(`${creep.name} ${task.name} end(1)`);
+            logger.debug(`${creep.name} ${task.name} end(1. no more resource or place to put resource)`);
             onEnd(task);
             return;
         } else {

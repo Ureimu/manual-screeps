@@ -13,13 +13,21 @@ export const waitForAttackEnd: getPowerTaskObject = {
         const powerBank = Game.getObjectById(powerBankId as Id<StructurePowerBank>);
         if (powerBankRoom && !powerBank) {
             // powerBank已经消失
+            this.memory.spawnCarrier = false;
             return "end";
         }
         if (powerBank && powerBank.hits < powerBank.hitsMax / 2) {
             // 半血以下，开始孵化
+            this.memory.spawnCarrier = true;
             return "end";
         }
-
+        const powerBankMemory = Memory.rooms[powerBankRoomName].powerBanks?.[powerBankId];
+        if (!powerBankMemory) throw new Error("no powerBank Memory");
+        if (powerBankMemory.decayTime < Game.time) {
+            // 已经decay掉了
+            this.memory.spawnCarrier = false;
+            return "end";
+        }
         return "running";
     },
     justFinished() {

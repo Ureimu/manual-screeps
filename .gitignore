@@ -23,7 +23,10 @@
 screeps.json
 .screeps-multimeter.history
 screeps-multimeter.json
+.screeps.yaml
 /src/AI/AIUreium/control/settings.ts
+multimeter.log
+multimeter.error.log
 
 # ScreepsServer data from integration tests
 /server

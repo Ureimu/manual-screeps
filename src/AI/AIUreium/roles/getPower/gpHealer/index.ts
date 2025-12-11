@@ -1,5 +1,5 @@
 import { PosStr } from "utils/RoomPositionToStr";
-import { getBoost } from "../../../control/runLab/getBoost";
+import { getBoost } from "../../../control/boostCreep/getBoost";
 
 export function gpHealer(creep: Creep, args: string[]) {
     const [originRoomName, powerBankRoomName, powerBankId] = args;

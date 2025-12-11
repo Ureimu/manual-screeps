@@ -14,6 +14,9 @@ export const createGPCarrierGroup: getPowerTaskObject = {
         return "end";
     },
     working(roomName, powerBankRoomName, powerBankId) {
+        if (!this.memory.spawnCarrier) {
+            return "end";
+        }
         const room = Game.rooms[roomName];
         const creepGroupName = getGPCarrierGroupName(roomName, powerBankRoomName, powerBankId);
         CreepGroup.create({
