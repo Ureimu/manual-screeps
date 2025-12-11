@@ -8,7 +8,6 @@ import { runRoomSpawnQueue, runSpawnPool } from "frame/spawn/spawning";
 import { shiftController } from "frame/spawn/spawning/readyCondition/shiftController";
 import { statsEngine } from "frame/stats";
 import { runAllAcrossTickTask } from "utils/AcrossTick";
-import { allocateNewRoom } from "AI/AIUreium/control/newRoom";
 import { mountUreimuAiAll } from "AI/AIUreium/mount";
 import { manageScoutTask } from "AI/AIUreium/roles/maintain/scouter";
 import { runGetPower } from "AI/AIUreium/room/getPower";
@@ -25,6 +24,7 @@ import { runProjectCreeps } from "frame/creep";
 import { getMainControlData, loadSettings } from "AI/AIUreium/control";
 import { logManager } from "utils/log4screeps";
 import { runLabTaskPool } from "AI/AIUreium/control/runLab";
+import { multimeterWatch } from "utils/multimeter";
 
 const logger = logManager.createLogger("debug", "main.init");
 loadSettings();
@@ -70,6 +70,8 @@ function run() {
     Object.values(Game.rooms).forEach(room => {
         runRoom(room);
     });
+
+    multimeterWatch();
 }
 
 const runRoom = registerFN(
