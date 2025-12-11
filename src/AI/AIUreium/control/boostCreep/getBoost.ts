@@ -1,3 +1,4 @@
+import { stayByRoad } from "frame/creep/action/doOnArrived/stayByRoad";
 import { logManager } from "utils/log4screeps";
 import { onLabTaskEnd } from "../runLab";
 
@@ -5,13 +6,12 @@ const boostInfo: {
     [name: string]: string;
 } = {};
 
-const logger = logManager.createLogger("debug", "Creep.getBoost");
+const logger = logManager.createLogger("info", "Creep.getBoost");
 
 export function getBoost(creep: Creep): boolean {
     if (!creep.memory.boostLabTaskNameList || creep.memory.boostLabTaskNameList.length === 0) {
         return true;
     }
-
     const taskNameList = creep.memory.boostLabTaskNameList;
     const room = creep.room;
 
@@ -24,6 +24,7 @@ export function getBoost(creep: Creep): boolean {
             boostInfo[creep.name] = carryEndTaskName;
         } else {
             logger.debug(`${creep.name} wait for any boost task carry end`);
+            stayByRoad.run(creep);
             return false;
         }
     }
@@ -38,18 +39,19 @@ export function getBoost(creep: Creep): boolean {
         if (task.type !== "boostCreep") return false;
         const lab = Game.getObjectById(task.labList[0]);
         if (!lab) return false;
+        if (lab.store.energy < task.bodyPartsCount * LAB_BOOST_ENERGY) {
+            // logger.debug(
+            //     `${creep.name} lab.store:${lab.store.energy}<${
+            //         task.bodyPartsCount * LAB_BOOST_ENERGY
+            //     }, wait for energy`
+            // );
+            stayByRoad.run(creep);
+            return false;
+        }
 
         if (!creep.pos.isNearTo(lab)) {
             creep.moveTo(lab, { range: 1 });
         } else {
-            if (lab.store.energy < task.bodyPartsCount * LAB_BOOST_ENERGY) {
-                // logger.debug(
-                //     `${creep.name} lab.store:${lab.store.energy}<${
-                //         task.bodyPartsCount * LAB_BOOST_ENERGY
-                //     }, wait for energy`
-                // );
-                return false;
-            }
             const returnCode = lab.boostCreep(creep);
             if (returnCode === OK) {
                 onLabTaskEnd(room.name, task.name);
