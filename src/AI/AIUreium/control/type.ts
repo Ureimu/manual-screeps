@@ -69,6 +69,15 @@ export interface RoomControlData {
          *
          */
         minPowerInBank: number;
+
+        /**
+         * 是否允许使用boost。
+         * 为true时，实际运行时会自动检查是否能够使用。
+         * 若无法使用boost会自动使用非boost配置。
+         *
+         * 实际使用还需配置roomResource提供相应boost资源。
+         */
+        useBoost: boolean;
     };
     /**
      * 家里的mineral采集设定。

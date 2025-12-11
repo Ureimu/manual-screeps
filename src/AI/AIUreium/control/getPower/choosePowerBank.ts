@@ -71,7 +71,9 @@ export function choosePowerBank(mainRoom: Room): void {
             const moveTime = pathData.cost / 2;
             if (moveTime > maxMoveTime) return;
 
-            const isBoosted = canBoostGetPowerCreeps(mainRoom, getPowerBodyCollection["boosted"]);
+            const isBoosted = taskControl.useBoost
+                ? canBoostGetPowerCreeps(mainRoom, getPowerBodyCollection["boosted"])
+                : false;
 
             const spawnCreepTime = calcGetPowerSpawnTime(
                 powerBankMemory.blankSpaceCount,
