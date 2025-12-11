@@ -21,9 +21,11 @@ export const maintainRoom = registerFN((room: Room): void => {
     }
     if (Game.time % 50 === 0) {
         processPower(room);
-        carryMineral(room);
         fillTower(room);
         fillLabEnergy(room);
+    }
+    if (Game.time % 25 === 0) {
+        carryMineral(room);
     }
     if (Game.time % 5 === 0) {
         runRoomCarryTaskPool(room);
