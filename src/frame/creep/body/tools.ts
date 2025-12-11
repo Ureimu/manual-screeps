@@ -9,7 +9,7 @@ export const bodyAbbreviation: { [name: string]: BodyPartConstant } = {
     t: "tough"
 };
 
-export const boostAbbreviation: { [bodyAbbreviationName: string]: { [boostType: string]: MineralBoostConstant } } = {
+export const BOOST_KIND = {
     m: {
         b1: "ZO",
         b2: "ZHO2",
@@ -49,12 +49,17 @@ export const boostAbbreviation: { [bodyAbbreviationName: string]: { [boostType: 
         b2: "LHO2",
         b3: "XLHO2"
     },
+    i: {},
     t: {
         b1: "GO",
         b2: "GHO2",
         b3: "XGHO2"
     }
-};
+} as const;
+
+const boostAbbreviation: {
+    [bodyAbbreviationName: string]: { [boostType: string]: MineralBoostConstant };
+} = BOOST_KIND;
 
 // TODO 实现兼容boost。
 /**
