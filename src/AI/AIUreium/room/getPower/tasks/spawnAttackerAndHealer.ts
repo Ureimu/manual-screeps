@@ -3,12 +3,14 @@ import { calcGetPowerSpawnTime } from "AI/AIUreium/control/getPower/calcSpawnTim
 import { CreepGroup } from "frame/creep/group";
 import { SpawnPool } from "frame/spawn/spawnPool";
 import { logManager } from "utils/log4screeps";
-import { getPowerTaskObject } from "../type";
+
+import { getPowerProjectRunInterval, getPowerTaskObject } from "../type";
 import { getGPAttackerGroupName } from "./createCreepGroup/createGPAttackerGroup";
 import { getGPHealerGroupName } from "./createCreepGroup/createGPHealerGroup";
 
 const logger = logManager.createLogger("info", "getPower.spawn");
 
+const maxAttack = 2400;
 export const spawnAttackerAndHealer: getPowerTaskObject = {
     name: "spawnAttackerAndHealer",
     description: "spawnAttackerAndHealer",
@@ -17,6 +19,16 @@ export const spawnAttackerAndHealer: getPowerTaskObject = {
     },
     working(roomName, powerBankRoomName, powerBankId) {
         const room = Game.rooms[roomName];
+        const powerBankRoom = Game.rooms[powerBankRoomName];
+        const powerBank = Game.getObjectById(powerBankId as Id<StructurePowerBank>);
+        if (powerBankRoom && !powerBank) {
+            // powerBank已经消失
+            return "end";
+        }
+        if (powerBankRoom && powerBank && powerBank.hits < maxAttack * 2 * getPowerProjectRunInterval) {
+            // powerBank马上消失
+            return "end";
+        }
         const attackerCreepGroupName = getGPAttackerGroupName(roomName, powerBankRoomName, powerBankId);
         const healerCreepGroupName = getGPHealerGroupName(roomName, powerBankRoomName, powerBankId);
         const args = Memory.creepGroups[attackerCreepGroupName].arguments;

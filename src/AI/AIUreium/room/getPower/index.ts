@@ -4,11 +4,11 @@ import { registerFN } from "utils/profiler";
 import { DiagramMemory } from "utils/Project/type";
 import { initAiUreimuRoomMemory } from "../utils";
 import { getGetPowerProject } from "./taskRelation";
-import { getPowerProjectMemoryType, getPowerProjectName } from "./type";
+import { getPowerProjectMemoryType, getPowerProjectName, getPowerProjectRunInterval } from "./type";
 
 export const runGetPower = registerFN((room: Room): void => {
     runProjectCreeps(room, getPowerProjectName);
-    if (Game.time % 5 === 0) {
+    if (Game.time % getPowerProjectRunInterval === 0) {
         if (!room.memory.AIUreium || !room.memory.AIUreium.getPower) {
             room.memory.AIUreium = initAiUreimuRoomMemory();
         }

@@ -111,7 +111,7 @@ export function runTerminal(terminal: StructureTerminal): void {
                 .map(order => {
                     if (!order.roomName) throw new Error("order 没有 roomName");
                     if (order.price > specifiedResourceLimit.maxBuyPrice) {
-                        return { id: order.id, amount: 0, cost: 0, price: order.price, energyCost: 0 };
+                        return { id: order.id, amount: 0, cost: -1, price: order.price, energyCost: 0 };
                     }
                     let costPricePerUnit = 0;
                     const dealAmount = order.amount > buyNum ? buyNum : order.amount;
@@ -120,7 +120,7 @@ export function runTerminal(terminal: StructureTerminal): void {
                     costPricePerUnit += (energyCost * energyCostPrice) / dealAmount;
                     // 能量不足
                     if (energyCost > terminalEnergy)
-                        return { id: order.id, amount: dealAmount, cost: 0, price: order.price, energyCost };
+                        return { id: order.id, amount: dealAmount, cost: -1, price: order.price, energyCost };
                     else
                         return {
                             id: order.id,
@@ -130,8 +130,9 @@ export function runTerminal(terminal: StructureTerminal): void {
                             energyCost
                         };
                 })
+                .filter(i => i.cost >= 0)
                 .sort((a, b) => a.cost - b.cost);
-            if (costList[0] && costList[0].cost > 0) {
+            if (costList[0]) {
                 const orderToDeal = costList[0];
                 Game.market.deal(orderToDeal.id, orderToDeal.amount, terminalRoomName);
                 logger.info(
@@ -141,12 +142,7 @@ export function runTerminal(terminal: StructureTerminal): void {
                 );
                 return;
             } else {
-                if (costList[0]) {
-                    const orderToDeal = costList[0];
-                    logger.debug(`${resourceType} not bought. Best order cost: ${orderToDeal.cost}`);
-                } else {
-                    logger.debug(`${resourceType} not bought. No available order.`);
-                }
+                logger.debug(`${resourceType} not bought. No available order.`);
             }
         }
     }

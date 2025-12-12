@@ -22,7 +22,8 @@ export const createDefaultBodyparts: maintainRoomTaskObject = {
                 "2": { body: "m1w1c1*2" },
                 "3": { body: "m1w1c1*4" },
                 "4": { body: "m1w1c1*6" },
-                "5": { body: "m1w1c1*7" },
+                "5": { body: "m3w12c8" },
+                "6": { body: "m4w16c8" },
                 "7": { body: "m5w20c8" },
                 "8": { body: "m4w15c8" }
             },

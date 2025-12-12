@@ -4,3 +4,4 @@ export type getPowerTaskArgs = [originRoomName: string, powerBankRoomName: strin
 export const getPowerProjectName = "getPowerProject";
 export type getPowerProjectMemoryType = { spawnCarrier: boolean };
 export type getPowerTaskObject = TaskObject<getPowerTaskArgs, getPowerTaskArgs, getPowerProjectMemoryType>;
+export const getPowerProjectRunInterval = 5;
