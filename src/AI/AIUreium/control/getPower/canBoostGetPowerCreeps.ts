@@ -1,9 +1,13 @@
+import { getLayoutStructureData } from "frame/construct/utils";
 import { bodyTools } from "frame/creep/body/tools";
-import { getRoomResourceLimit } from "../../config/roomResources";
+import { logManager } from "utils/log4screeps";
 
+const logger = logManager.createLogger("debug", "canBoostGetPowerCreeps");
 export function canBoostGetPowerCreeps(room: Room, bodyCollection: { [name: string]: string }): boolean {
-    const roomLimit = getRoomResourceLimit(room.name);
-    if (!room.storage) return false;
+    if (!room.storage) {
+        logger.debug(`no storage, can't boost`);
+        return false;
+    }
     const fullBoostInfo: {
         byCompound: {
             [boostCompoundName: string]: number;
@@ -34,14 +38,23 @@ export function canBoostGetPowerCreeps(room: Room, bodyCollection: { [name: stri
     for (let compoundName in fullBoostInfo.byCompound) {
         const amount = fullBoostInfo.byCompound[compoundName] * LAB_BOOST_MINERAL;
         const myCompoundName = compoundName as ResourceConstant;
-        if (room.storage.store[myCompoundName] < amount) return false;
+        if (room.storage.store[myCompoundName] < amount) {
+            logger.debug(`${myCompoundName} ${room.storage.store[myCompoundName]} < ${amount}, can't boost`);
+            return false;
+        }
     }
 
-    if (room.storage.store[RESOURCE_ENERGY] < 10e3) return false;
-    if (room.storage.store.LHO2 < roomLimit.storage.LHO2.min) return false;
-    const labs: StructureLab[] = room
-        .find(FIND_MY_STRUCTURES)
-        .filter<StructureLab>((i): i is StructureLab => i.structureType === "lab");
-    if (labs.length === 0) return false;
+    const minEnergy = 10e3;
+    if (room.storage.store[RESOURCE_ENERGY] < minEnergy) {
+        logger.debug(`${RESOURCE_ENERGY} ${room.storage.store[RESOURCE_ENERGY]} < ${minEnergy}, can't boost`);
+        return false;
+    }
+    const labs = getLayoutStructureData(room.name, "lab", "lab");
+    if (labs.length === 0) {
+        logger.debug(`${room.name} no lab, can't boost`);
+        return false;
+    }
+
+    logger.debug(`can boost`);
     return true;
 }
