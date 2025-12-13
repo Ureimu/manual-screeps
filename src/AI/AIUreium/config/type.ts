@@ -1,33 +1,30 @@
 import { RecursivePartial } from "utils/typeUtils";
 import { RoomResourceLimit } from "../control/constants/type";
-import { RoomStatusOutwardsSource } from "../control/outwardsSource/type";
 
 // 对roomSetting有个重要的假定，即设定信息不会在运行时修改。
-declare global {
-    interface GlobalRoomMemory {
-        control?: RoomConfig;
-        status?: RoomStatus;
-    }
-}
 
-declare global {
-    namespace NodeJS {
-        interface Global {
-            mainControlData: MainConfig;
-        }
-    }
-}
-
-export type ScreepsConfigType = {
+export type ScreepsConfig = {
     rooms: {
         [roomName: string]: RoomConfig;
+        /**
+         * default配置，为该shard的房间预设。
+         *
+         * 配置应用顺序为，defaultRoomConfig -> rooms.default -> rooms[roomName]，依次覆盖。
+         */
+        default: RoomConfig;
     };
     main: MainConfig;
 };
 
-export type PartialConfigType = {
+export type PartialScreepsConfig = {
     rooms: {
         [roomName: string]: RecursivePartial<RoomConfig>;
+        /**
+         * default配置，为该shard的房间预设。
+         *
+         * 配置应用顺序为，defaultRoomConfig -> rooms.default -> rooms[roomName]，依次覆盖。
+         */
+        default: RecursivePartial<RoomConfig>;
     };
     main?: RecursivePartial<MainConfig>;
 };
@@ -210,7 +207,3 @@ export type RoomResourcesConfig = {
      */
     limit: RoomResourceLimit;
 };
-
-export interface RoomStatus {
-    outwardsSource?: RoomStatusOutwardsSource;
-}

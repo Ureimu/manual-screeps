@@ -15,7 +15,16 @@ declare global {
     interface TaskStatus {
         outwardsSource?: boolean;
     }
+
+    interface GlobalRoomMemory {
+        status?: RoomStatusData;
+    }
 }
+
+export interface RoomStatusData {
+    outwardsSource?: RoomStatusOutwardsSource;
+}
+
 const logger = logManager.createLogger("debug", "chooseSource");
 export function chooseSource(mainRoom: Room): void {
     if (!global.roomMemory[mainRoom.name]) global.roomMemory[mainRoom.name] = {};

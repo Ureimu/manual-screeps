@@ -43,6 +43,6 @@ export const defaultRoomConfig: RoomConfig = {
     roomResources: { terminalBoundToStorageLimit: true, limit: defaultResourceLimit }
 };
 
-export const defaultMainControlData: MainConfig = {
+export const defaultMainConfig: MainConfig = {
     useProfiler: true
 };
