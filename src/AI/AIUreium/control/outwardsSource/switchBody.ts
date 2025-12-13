@@ -5,7 +5,7 @@ import {
     OCarryGroupCreepName
 } from "AI/AIUreium/room/outwardsSource/tasks/createCreepGroup/createOCarryGroup";
 import { SpawnPool } from "frame/spawn/spawnPool";
-import { getRoomControlData } from "..";
+import { getRoomControlData } from "../../settings";
 
 export function switchBody(roomName: string, sourceRoomName: string, sourceName: string) {
     const setting = getRoomControlData(roomName).outwardsSource;

@@ -1,6 +1,6 @@
 import { getRoomControlData } from "..";
-import { capacityRate } from "../constants/roomResource";
-import { RoomResourceLimit, StructureResourceLimit } from "../constants/type";
+import { capacityRate } from "../../control/constants/roomResource";
+import { RoomResourceLimit, StructureResourceLimit } from "../../control/constants/type";
 
 const boundedTerminalResourceLimitCache: { [roomName: string]: RoomResourceLimit } = {};
 

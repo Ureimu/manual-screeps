@@ -1,7 +1,7 @@
 import { consoleStyle } from "frame/console/style";
 import { creators } from "utils/console/form";
 import { createFlattenHelp } from "utils/console/flattenHelp";
-import { getRoomControlData } from "..";
+import { getRoomControlData } from "../../settings";
 import { logManager } from "utils/log4screeps";
 
 const getButton = (funcName: string) => {

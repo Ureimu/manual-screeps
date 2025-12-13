@@ -1,7 +1,7 @@
-import { getRoomControlData } from "AI/AIUreium/control";
+import { getRoomControlData } from "AI/AIUreium/settings";
 import { capacityRate } from "AI/AIUreium/control/constants/roomResource";
 import { Constant } from "AI/AIUreium/control/constants/roomTaskControl";
-import { getRoomResourceLimit } from "AI/AIUreium/control/roomResources";
+import { getRoomResourceLimit } from "AI/AIUreium/settings/roomResources";
 import { PosStr } from "utils/RoomPositionToStr";
 
 declare global {

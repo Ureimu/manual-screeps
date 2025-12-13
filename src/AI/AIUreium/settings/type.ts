@@ -1,13 +1,8 @@
 import { RecursivePartial } from "utils/typeUtils";
-import { RoomResourceLimit } from "./constants/type";
-import { RoomStatusOutwardsSource } from "./outwardsSource/type";
+import { RoomResourceLimit } from "../control/constants/type";
+import { RoomStatusOutwardsSource } from "../control/outwardsSource/type";
 
 // 对roomSetting有个重要的假定，即设定信息不会在运行时修改。
-
-export const roomControlDataSegmentNameList = Array(5)
-    .fill(0)
-    .map((i, index) => index + 10);
-
 declare global {
     interface GlobalRoomMemory {
         control?: RoomControlData;

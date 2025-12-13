@@ -3,7 +3,7 @@ import { avoidEnemyRooms, getCostMatrix, isEnemyRoom } from "frame/construct/uti
 import { logManager } from "utils/log4screeps";
 import { checkHighwayRoomName } from "utils/roomNameUtils";
 import { getMyRoom } from "utils/roomTools";
-import { getRoomControlData } from "..";
+import { getRoomControlData } from "../../settings";
 
 const logger = logManager.createLogger("debug", "allocateNewRoom");
 

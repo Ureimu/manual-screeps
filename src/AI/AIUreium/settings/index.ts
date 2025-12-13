@@ -2,7 +2,7 @@ import { MainControlData, RoomControlData } from "./type";
 import { SCREEPS_CODE_DEST } from "codeConstants";
 import { logManager } from "utils/log4screeps";
 import { defaultMainControlData, defaultRoomControlData } from "./defaultSetting";
-import { FullControlSetting } from "./settings";
+import { FullControlSetting } from "./config";
 
 export function getRoomControlData(roomName: string): RoomControlData {
     return global.roomMemory[roomName]?.control ?? defaultRoomControlData;
@@ -12,7 +12,7 @@ export function getMainControlData(): MainControlData {
     return global.mainControlData;
 }
 
-const logger = logManager.createLogger("debug", "AIControl");
+const logger = logManager.createLogger("debug", "AISettings");
 
 export function loadSettings() {
     logger.info(`load ai config from ControlSetting/${SCREEPS_CODE_DEST}/${Game.shard.name}`);

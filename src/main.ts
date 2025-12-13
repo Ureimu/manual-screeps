@@ -21,7 +21,7 @@ import { tower } from "AI/AIUreium/structure/tower";
 import { CreepBody } from "frame/creep/body";
 import { link } from "AI/AIUreium/structure/link";
 import { runProjectCreeps } from "frame/creep";
-import { getMainControlData, loadSettings } from "AI/AIUreium/control";
+import { getMainControlData, loadSettings } from "AI/AIUreium/settings";
 import { logManager } from "utils/log4screeps";
 import { runLabTaskPool } from "AI/AIUreium/control/runLab";
 import { multimeterWatch } from "utils/multimeter";

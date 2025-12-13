@@ -1,8 +1,8 @@
 import { logManager } from "utils/log4screeps";
-import { getRoomControlData } from "..";
+import { getRoomControlData } from "../../settings";
 import { buyLimitRate, energyCostPrice, sellLimitRate } from "../constants/roomResource";
 import { Constant } from "../constants/roomTaskControl";
-import { getRoomResourceLimit } from "../roomResources";
+import { getRoomResourceLimit } from "../../settings/roomResources";
 const logger = logManager.createLogger("debug", "Market");
 export function runTerminal(terminal: StructureTerminal): void {
     const { market } = Constant;

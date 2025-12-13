@@ -1,4 +1,4 @@
-import { getRoomControlData } from "AI/AIUreium/control";
+import { getRoomControlData } from "AI/AIUreium/settings";
 import { OutwardsSourceData } from "AI/AIUreium/control/recordRoomData";
 import { getCostMatrix } from "frame/construct/utils/costMatrix";
 import { PosStr } from "utils/RoomPositionToStr";

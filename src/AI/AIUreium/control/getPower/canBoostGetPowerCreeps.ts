@@ -1,5 +1,5 @@
 import { bodyTools } from "frame/creep/body/tools";
-import { getRoomResourceLimit } from "../roomResources";
+import { getRoomResourceLimit } from "../../settings/roomResources";
 
 export function canBoostGetPowerCreeps(room: Room, bodyCollection: { [name: string]: string }): boolean {
     const roomLimit = getRoomResourceLimit(room.name);

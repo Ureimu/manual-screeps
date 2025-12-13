@@ -11,9 +11,9 @@ import {
     WNCommodityResource,
     ENCommodityResource,
     ESCommodityResource
-} from "../constants/resourcesConstant";
-import { capacityRate } from "../constants/roomResource";
-import { StructureResourceLimit, RoomResourceLimit, SingleResourceLimit } from "../constants/type";
+} from "../../control/constants/resourcesConstant";
+import { capacityRate } from "../../control/constants/roomResource";
+import { StructureResourceLimit, RoomResourceLimit, SingleResourceLimit } from "../../control/constants/type";
 
 export function transferList<T extends ResourceConstant>(setting: SingleResourceLimit, resList: readonly T[]) {
     const a = {};

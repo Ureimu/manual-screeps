@@ -3,7 +3,7 @@ import { addShiftTimeFunction } from "frame/spawn/spawning/readyCondition/spawnS
 import { numData } from "frame/spawn/spawning/readyCondition/utils/numData";
 import { SpawnCreepDetail } from "frame/spawn/spawnPool/type";
 import { logManager } from "utils/log4screeps";
-import { getRoomControlData } from "../control";
+import { getRoomControlData } from "../settings";
 import { getMaintainRoomProject } from "./maintain/taskRelation";
 import { getCenterCarrierCreepName } from "./maintain/tasks/createCreepGroup/createCenterCarryGroup";
 import { upgradeByLink } from "./maintain/tasks/upgrader/upgradeByLink";

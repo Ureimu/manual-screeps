@@ -3,13 +3,13 @@ import { startOutwardsSource } from "AI/AIUreium/room/outwardsSource/start";
 import { stopOutwardsSource } from "AI/AIUreium/room/outwardsSource/stop";
 import { checkControllerRoomName } from "utils/roomNameUtils";
 import { Constant } from "../constants/roomTaskControl";
-import { getRoomControlData } from "..";
+import { getRoomControlData } from "../../settings";
 import { OutwardsSourceCheckInterval } from "./constant";
 import { logManager } from "utils/log4screeps";
 import { getOCarrierBodyRatio } from "AI/AIUreium/room/outwardsSource/tasks/createCreepGroup/createOCarryGroup";
 import { MAX_ENERGY_PER_CONTROLLER_LEVEL } from "utils/constants";
 import { RoomStatusOutwardsSource } from "./type";
-import { getRoomResourceLimit } from "../roomResources";
+import { getRoomResourceLimit } from "../../settings/roomResources";
 
 declare global {
     interface TaskStatus {

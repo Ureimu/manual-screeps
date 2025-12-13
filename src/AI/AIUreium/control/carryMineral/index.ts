@@ -1,7 +1,7 @@
 import { FlagMaintainer } from "frame/flagMaintainer";
 import { FlagTools } from "frame/flagMaintainer/tools";
 import { logManager } from "utils/log4screeps";
-import { getRoomControlData } from "..";
+import { getRoomControlData } from "../../settings";
 import { addCarryTask, getCarryTask } from "../roomCarry";
 
 const containerIdList: { [roomName: string]: Id<StructureContainer> } = {};
