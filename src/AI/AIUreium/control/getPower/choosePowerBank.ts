@@ -1,7 +1,7 @@
 import { startGetPower } from "AI/AIUreium/projects/getPower/start";
 import { getCostMatrix } from "frame/construct/utils/costMatrix";
 import { getRoomDistance } from "utils/roomNameUtils";
-import { Constant } from "../constants/roomTaskControl";
+
 import { getRoomConfig } from "../../config";
 import { PowerBankData } from "../recordRoomData";
 import { calcGetPowerSpawnTime } from "./calcSpawnTime";
@@ -75,10 +75,7 @@ export function choosePowerBank(mainRoom: Room): void {
                 ? canBoostGetPowerCreeps(mainRoom, getPowerBodyCollection["boosted"])
                 : false;
 
-            const spawnCreepTime = calcGetPowerSpawnTime(
-                powerBankMemory.blankSpaceCount,
-                isBoosted ? 1 : Constant.getPower.spawnAttackerCount
-            );
+            const spawnCreepTime = calcGetPowerSpawnTime(powerBankMemory.blankSpaceCount, isBoosted ? 1 : 4);
             const neededTime = moveTime + spawnCreepTime + workTime;
             const ifChooseThisPowerBank = periodToGetPower > neededTime;
             logger.debug(

@@ -1,5 +1,5 @@
 import { RecursivePartial } from "utils/typeUtils";
-import { RoomResourceLimit } from "../control/constants/type";
+import { RoomResourceLimit } from "./roomResources/type";
 
 // 对roomSetting有个重要的假定，即设定信息不会在运行时修改。
 
@@ -108,6 +108,28 @@ export interface RoomConfig {
          * 允许采集外矿的房间列表。
          */
         rooms: string[];
+
+        /**
+         * 允许的最大source数量。
+         */
+        sourceAmount: number;
+
+        /**
+         * 开始外矿作业的能量比率。
+         *
+         * 当storage的能量小于storage的能量最小值乘以该比率时，会开始执行外矿作业。
+         *
+         * 该设置用于防止能量爆仓。
+         */
+        startEnergyRate: number;
+        /**
+         * 停止外矿作业的能量比率。
+         *
+         * 当storage的能量大于storage的能量最大值乘以该比率时，会停止执行外矿作业。
+         *
+         *  该设置用于防止能量爆仓。
+         */
+        stopEnergyRate: number;
         /**
          * 处理invaderCore的策略。
          *
@@ -147,6 +169,32 @@ export interface RoomConfig {
          * 是否卖出能量。
          */
         sellEnergy: boolean;
+
+        /**
+         * 交易处理速率。
+         */
+        dealRate: number;
+
+        /**
+         * 物资数量的卖出限制比率。
+         *
+         * 当storage的物资数量大于storage的物资数量最大值乘以该比率时，就会自动尝试卖出该物资。
+         */
+        sellLimitRate: number;
+
+        /**
+         * 物资数量的买入限制比率。
+         *
+         * 当storage的物资数量小于storage的物资数量最小值乘以该比率时，就会自动尝试买入该物资。
+         */
+        buyLimitRate: number;
+
+        /**
+         * 能量消耗时，消耗的能量的估算单价。
+         *
+         * 在deal单子时，会以该价格估算能量成本，以选择更好的单子。
+         */
+        energyCostPrice: number;
     };
     /**
      * 升级控制器设置

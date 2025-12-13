@@ -18,6 +18,9 @@ export const defaultRoomConfig: RoomConfig = {
     outwardsSource: {
         run: true,
         maxDistance: 80,
+        sourceAmount: 4,
+        stopEnergyRate: 1.5,
+        startEnergyRate: 1,
         rooms: [],
         invaderCoreStrategy: "stop",
         invaderStrategy: "stop",
@@ -26,7 +29,11 @@ export const defaultRoomConfig: RoomConfig = {
     },
     market: {
         buyEnergy: false,
-        sellEnergy: true
+        sellEnergy: true,
+        dealRate: 150,
+        sellLimitRate: 1,
+        buyLimitRate: 1,
+        energyCostPrice: 10
     },
     upgradeController: {
         run: "onControllerLinkWorks"

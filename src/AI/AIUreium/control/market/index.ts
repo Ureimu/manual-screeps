@@ -1,12 +1,10 @@
 import { logManager } from "utils/log4screeps";
 import { getRoomConfig } from "../../config";
-import { buyLimitRate, energyCostPrice, sellLimitRate } from "../constants/roomResource";
-import { Constant } from "../constants/roomTaskControl";
 import { getRoomResourceLimit } from "../../config/roomResources";
 const logger = logManager.createLogger("debug", "Market");
 export function runTerminal(terminal: StructureTerminal): void {
-    const { market } = Constant;
-    if (Game.time % market.sellRate !== 0) return;
+    const config = getRoomConfig(terminal.room.name);
+    if (Game.time % Math.round(config.market.dealRate) !== 0) return;
     logger.info(`${terminal.room.name} terminal runs`);
     const terminalRoomName = terminal.room.name;
     const limit = getRoomResourceLimit(terminalRoomName).terminal;
@@ -16,8 +14,8 @@ export function runTerminal(terminal: StructureTerminal): void {
         const terminalStoreNum = terminal.store[resourceType] ?? 0;
         const specifiedResourceLimit = limit[resourceType];
         if (!specifiedResourceLimit) continue;
-        const sellLimit = specifiedResourceLimit.max * sellLimitRate;
-        const buyLimit = specifiedResourceLimit.min * buyLimitRate;
+        const sellLimit = specifiedResourceLimit.max * config.market.sellLimitRate;
+        const buyLimit = specifiedResourceLimit.min * config.market.buyLimitRate;
         let isDealingEnergy = false;
         if (resourceType === RESOURCE_ENERGY) {
             isDealingEnergy = true;
@@ -53,7 +51,7 @@ export function runTerminal(terminal: StructureTerminal): void {
                     const dealAmount = order.amount > sellNum ? sellNum : order.amount;
                     const energyCost = Game.market.calcTransactionCost(dealAmount, order.roomName, terminalRoomName);
 
-                    costPricePerUnit += (energyCost * energyCostPrice) / dealAmount;
+                    costPricePerUnit += (energyCost * config.market.energyCostPrice) / dealAmount;
 
                     if (energyCost > terminalEnergy)
                         return { id: order.id, amount: dealAmount, benefit: 0, price: order.price, energyCost }; // 能量不足
@@ -117,7 +115,7 @@ export function runTerminal(terminal: StructureTerminal): void {
                     const dealAmount = order.amount > buyNum ? buyNum : order.amount;
                     const energyCost = Game.market.calcTransactionCost(dealAmount, order.roomName, terminalRoomName);
 
-                    costPricePerUnit += (energyCost * energyCostPrice) / dealAmount;
+                    costPricePerUnit += (energyCost * config.market.energyCostPrice) / dealAmount;
                     // 能量不足
                     if (energyCost > terminalEnergy)
                         return { id: order.id, amount: dealAmount, cost: -1, price: order.price, energyCost };

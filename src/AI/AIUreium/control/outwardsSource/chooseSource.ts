@@ -2,7 +2,6 @@ import { OutwardsSourceData } from "AI/AIUreium/control/recordRoomData";
 import { startOutwardsSource } from "AI/AIUreium/projects/outwardsSource/start";
 import { stopOutwardsSource } from "AI/AIUreium/projects/outwardsSource/stop";
 import { checkControllerRoomName } from "utils/roomNameUtils";
-import { Constant } from "../constants/roomTaskControl";
 import { getRoomConfig } from "../../config";
 import { OutwardsSourceCheckInterval } from "./constant";
 import { logManager } from "utils/log4screeps";
@@ -54,7 +53,6 @@ export function chooseSource(mainRoom: Room): void {
     }
     logger.debug(`${mainRoom.name} chooseSource start`);
     let sourceNum = 0;
-    const { outwardsSource } = Constant;
     const storeEnergy = mainRoom.storage?.store[RESOURCE_ENERGY];
 
     if (!mainRoom.memory.status) {
@@ -62,37 +60,32 @@ export function chooseSource(mainRoom: Room): void {
     }
     const status = mainRoom.memory.status;
     if (!status.outwardsSource) {
-        status.outwardsSource = Constant.outwardsSource.defaultStatus;
+        status.outwardsSource = true;
     }
+
+    const startRate = getRoomConfig(mainRoom.name).outwardsSource.startEnergyRate;
+    const stopRate = getRoomConfig(mainRoom.name).outwardsSource.stopEnergyRate;
 
     if (!storeEnergy) return;
     const resourceLimit = getRoomResourceLimit(mainRoom.name);
     logger.debug(
-        `storeEnergy: ${storeEnergy} max:${(
-            resourceLimit.storage.energy.max * Constant.outwardsSource.energyRate.stop
-        ).toFixed(0)}, min:${resourceLimit.storage.energy.min * Constant.outwardsSource.energyRate.start}`
+        `storeEnergy: ${storeEnergy} max:${(resourceLimit.storage.energy.max * stopRate).toFixed(0)}, min:${
+            resourceLimit.storage.energy.min * startRate
+        }`
     );
-    if (storeEnergy > resourceLimit.storage.energy.max * Constant.outwardsSource.energyRate.stop) {
+    if (storeEnergy > resourceLimit.storage.energy.max * stopRate) {
         status.outwardsSource = false;
-        logger.debug(
-            `storeEnergy: ${storeEnergy} > ${
-                resourceLimit.storage.energy.max * Constant.outwardsSource.energyRate.stop
-            }, stop. `
-        );
+        logger.debug(`storeEnergy: ${storeEnergy} > ${resourceLimit.storage.energy.max * stopRate}, stop. `);
     }
 
-    if (storeEnergy < resourceLimit.storage.energy.min * Constant.outwardsSource.energyRate.start) {
+    if (storeEnergy < resourceLimit.storage.energy.min * startRate) {
         status.outwardsSource = true;
-        logger.debug(
-            `storeEnergy: ${storeEnergy} < ${
-                resourceLimit.storage.energy.min * Constant.outwardsSource.energyRate.start
-            }, start. `
-        );
+        logger.debug(`storeEnergy: ${storeEnergy} < ${resourceLimit.storage.energy.min * startRate}, start. `);
     }
     runningStatus.isRunning = status.outwardsSource ?? false;
     if (status.outwardsSource) {
-        sourceNum = outwardsSource.sourceNum;
-        logger.debug(`sourceNum: ${outwardsSource.sourceNum}, `);
+        sourceNum = getRoomConfig(mainRoom.name).outwardsSource.sourceAmount;
+        logger.debug(`sourceNum: ${sourceNum}, `);
     }
     const chosenSourceDataList: { [sourceName: string]: OutwardsSourceData } = {};
     const setting = getRoomConfig(mainRoom.name).outwardsSource;

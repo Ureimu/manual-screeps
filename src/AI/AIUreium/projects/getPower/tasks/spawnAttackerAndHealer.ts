@@ -1,4 +1,3 @@
-import { Constant } from "AI/AIUreium/control/constants/roomTaskControl";
 import { calcGetPowerSpawnTime } from "AI/AIUreium/control/getPower/calcSpawnTime";
 import { CreepGroup } from "frame/creep/group";
 import { SpawnPool } from "frame/spawn/spawnPool";
@@ -49,7 +48,7 @@ export const spawnAttackerAndHealer: getPowerTaskObject = {
         if (powerBankMemory.boosted) {
             if (index + 1 < 1) return "running";
         } else {
-            if (index + 1 < Constant.getPower.spawnAttackerCount) return "running";
+            if (index + 1 < 4) return "running";
         }
         return "end";
     },

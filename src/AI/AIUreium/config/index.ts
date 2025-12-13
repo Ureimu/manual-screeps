@@ -3,6 +3,7 @@ import { SCREEPS_CODE_DEST } from "codeConstants";
 import { logManager } from "utils/log4screeps";
 import { defaultMainConfig, defaultRoomConfig } from "./defaultConfig";
 import { FullConfig } from "./config";
+import { getRoomResourceLimit } from "./roomResources";
 
 const config = FullConfig[SCREEPS_CODE_DEST]?.[Game.shard.name];
 export function getRoomConfig(roomName: string): RoomConfig {
@@ -23,3 +24,4 @@ export function loadSettings() {
         );
     }
 }
+export { getRoomResourceLimit };
