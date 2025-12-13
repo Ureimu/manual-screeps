@@ -1,5 +1,6 @@
 import { getRoomConfig } from "AI/AIUreium/config";
-import { capacityRate, getRoomResourceLimit } from "AI/AIUreium/config/roomResources";
+import { getRoomResourceLimit } from "AI/AIUreium/config/roomResources";
+import { capacityRate } from "AI/AIUreium/config/roomResources/type";
 import { PosStr } from "utils/RoomPositionToStr";
 
 declare global {

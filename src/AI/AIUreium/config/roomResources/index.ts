@@ -1,8 +1,5 @@
-import { getRoomConfig } from "..";
-import { RoomResourceLimit, StructureResourceLimit } from "./type";
-export const capacityRate = {
-    terminalToStorage: TERMINAL_CAPACITY / STORAGE_CAPACITY
-};
+import { getRoomConfig } from "../getter";
+import { capacityRate, RoomResourceLimit, StructureResourceLimit } from "./type";
 
 const boundedTerminalResourceLimitCache: { [roomName: string]: RoomResourceLimit } = {};
 

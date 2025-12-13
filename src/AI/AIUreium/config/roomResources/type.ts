@@ -21,3 +21,7 @@ export type SingleResourceLimit = {
 };
 export type ResourceType<T extends readonly ResourceConstant[]> = T extends readonly (infer U)[] ? U : never;
 export type MineralResource = ResourceType<typeof mineralResource>;
+
+export const capacityRate = {
+    terminalToStorage: TERMINAL_CAPACITY / STORAGE_CAPACITY
+};

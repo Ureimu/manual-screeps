@@ -1,4 +1,4 @@
-import { capacityRate } from ".";
+import { capacityRate } from "./type";
 import {
     mineralResource,
     compound0Resource,
