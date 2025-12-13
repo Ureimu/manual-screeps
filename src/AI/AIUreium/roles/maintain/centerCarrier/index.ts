@@ -42,7 +42,11 @@ export function centerCarrierTask2(creep: Creep): void {
     if (!centerLink) throw new Error("没有centerLink");
 
     if (!("centerCarrierLinkState" in creep.memory)) {
-        creep.memory.centerCarrierLinkState = true;
+        if ((room.controller?.level ?? 0) >= 6) {
+            creep.memory.centerCarrierLinkState = true;
+        } else {
+            creep.memory.centerCarrierLinkState = false;
+        }
     }
 
     const resourceLimit = getRoomResourceLimit(room.name);
