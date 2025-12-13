@@ -2,7 +2,7 @@ import { roomCpuCost } from "frame/cpuStats";
 import { registerFN } from "utils/profiler";
 import { GUIfun } from "utils/roomVisualGUI";
 import { printMulText } from "utils/roomVisualGUI/utils";
-import { getCreepNum, getBpSumInSpawnQueue } from "../roomInf/creeps";
+import { getCreepNum } from "../roomInf/creeps";
 import { getUpgradeSpeed } from "../roomInf/upgradeSpeed";
 
 export const roomVisualize = registerFN((room: Room): void => {
@@ -11,11 +11,8 @@ export const roomVisualize = registerFN((room: Room): void => {
         upgradeSpeed: upgradeSpeed[0].toFixed(4),
         creepNum: getCreepNum(room.name),
         ticksToUpgrade: upgradeSpeed[1].toFixed(0),
-        creepBodySizeInSpawnQueue: {}
+        creepBodySizeInSpawnQueue: -1
     };
-    for (const spawn of room.find(FIND_MY_SPAWNS)) {
-        room.memory.stats.creepBodySizeInSpawnQueue[spawn.name] = getBpSumInSpawnQueue(spawn);
-    }
     GUIfun().draw(new RoomVisual(room.name), [
         {
             type: "Div",

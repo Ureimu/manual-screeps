@@ -1,6 +1,10 @@
 {
-    "entryPoints": ["./src/frame"],
+    "entryPoints": [
+        "./src/AI/AIUreium/config/type.ts"
+    ],
     "exclude": "**/__test__/*.ts",
     "out": "./docs",
-    "includes": ["./tutorial"]
+    "includes": [
+        "./tutorial"
+    ]
 }

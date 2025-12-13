@@ -3,9 +3,7 @@ declare global {
         stats: {
             upgradeSpeed: string;
             creepNum: number;
-            creepBodySizeInSpawnQueue: {
-                [key: string]: number;
-            };
+            creepBodySizeInSpawnQueue: number;
             ticksToUpgrade: string;
         };
     }

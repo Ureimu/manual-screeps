@@ -8,7 +8,9 @@ import { mockConstants } from "./mock";
 mockConstants();
 
 describe("Project", () => {
-    const diagramTest: DiagramMemory = {};
+    const diagramTest: DiagramMemory<{ a: number }> = { memory: { a: 0 } };
+    const data = getSampleData();
+    const sample = new SampleProject(["testRoom"], ["testRoom"]);
     describe("storage: ProjectNetworkDiagram should work", () => {
         const diagram = new ProjectNetworkDiagram(diagramTest);
         it("should return right number of out", () => {
@@ -87,7 +89,7 @@ describe("Project", () => {
         delete diagramTest.diagram;
         const data = getSampleData();
         const diagram = new ProjectNetworkDiagram(diagramTest);
-        const engine = new ProjectEngine(data.taskCollection, data.taskRelation, diagram, ["testRoom"]);
+        const engine = new ProjectEngine(data.taskCollection, data.taskRelation, diagram, ["testRoom"], sample);
         engine.initTaskDiagram();
         assert.equal(Object.keys(data.taskRelation).length + 1, Object.keys(diagram.diagramDict).length);
         engine.run();
@@ -95,8 +97,6 @@ describe("Project", () => {
     });
 
     describe("project: Project should work", () => {
-        const data = getSampleData();
-        const sample = new SampleProject(["testRoom"], ["testRoom"]);
         sample.run();
         assert.equal(Object.keys(data.taskRelation).length + 1, Object.keys(sample.diagram.diagramDict).length);
     });
