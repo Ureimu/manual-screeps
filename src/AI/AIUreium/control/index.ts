@@ -5,7 +5,7 @@ import { defaultMainControlData, defaultRoomControlData } from "./defaultSetting
 import { FullControlSetting } from "./settings";
 
 export function getRoomControlData(roomName: string): RoomControlData {
-    return global.roomMemory[roomName].control ?? defaultRoomControlData;
+    return global.roomMemory[roomName]?.control ?? defaultRoomControlData;
 }
 
 export function getMainControlData(): MainControlData {
