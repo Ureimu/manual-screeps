@@ -1,5 +1,5 @@
 import { logManager } from "utils/log4screeps";
-import { getRoomControlData } from "../../settings";
+import { getRoomConfig } from "../../config";
 import { addCarryTask, getCarryTask } from "../roomCarry";
 
 const logger = logManager.createLogger("debug", "fillTower");

@@ -1,7 +1,7 @@
 import { defaultResourceLimit } from "./roomResources/default";
-import { MainControlData, RoomControlData } from "./type";
+import { MainConfig, RoomConfig } from "./type";
 
-export const defaultRoomControlData: RoomControlData = {
+export const defaultRoomConfig: RoomConfig = {
     getPower: {
         run: false,
         rooms: [],
@@ -43,6 +43,6 @@ export const defaultRoomControlData: RoomControlData = {
     roomResources: { terminalBoundToStorageLimit: true, limit: defaultResourceLimit }
 };
 
-export const defaultMainControlData: MainControlData = {
+export const defaultMainControlData: MainConfig = {
     useProfiler: true
 };

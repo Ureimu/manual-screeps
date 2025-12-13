@@ -1,8 +1,8 @@
 import { logManager } from "utils/log4screeps";
-import { getRoomControlData } from "../../settings";
+import { getRoomConfig } from "../../config";
 import { buyLimitRate, energyCostPrice, sellLimitRate } from "../constants/roomResource";
 import { Constant } from "../constants/roomTaskControl";
-import { getRoomResourceLimit } from "../../settings/roomResources";
+import { getRoomResourceLimit } from "../../config/roomResources";
 const logger = logManager.createLogger("debug", "Market");
 export function runTerminal(terminal: StructureTerminal): void {
     const { market } = Constant;
@@ -27,7 +27,7 @@ export function runTerminal(terminal: StructureTerminal): void {
             const sellNum = terminalStoreNum - sellLimit;
             const orderList = Game.market.getAllOrders({ type: ORDER_BUY, resourceType }); // 更快
             if (isDealingEnergy) {
-                if (!getRoomControlData(terminal.room.name).market.sellEnergy) {
+                if (!getRoomConfig(terminal.room.name).market.sellEnergy) {
                     logger.debug(
                         `${terminal.room.name} is not allowed to sell energy. set setting.market.sellEnergy to true to allow this.`
                     );
@@ -93,7 +93,7 @@ export function runTerminal(terminal: StructureTerminal): void {
 
             const buyNum = buyLimit - terminalStoreNum;
             if (isDealingEnergy) {
-                if (!getRoomControlData(terminal.room.name).market.buyEnergy) {
+                if (!getRoomConfig(terminal.room.name).market.buyEnergy) {
                     logger.debug(
                         `${terminal.room.name} is not allowed to buy energy. set setting.market.buyEnergy to true to allow this.`
                     );

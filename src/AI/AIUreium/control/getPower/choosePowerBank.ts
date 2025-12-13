@@ -1,8 +1,8 @@
-import { startGetPower } from "AI/AIUreium/room/getPower/start";
+import { startGetPower } from "AI/AIUreium/projects/getPower/start";
 import { getCostMatrix } from "frame/construct/utils/costMatrix";
 import { getRoomDistance } from "utils/roomNameUtils";
 import { Constant } from "../constants/roomTaskControl";
-import { getRoomControlData } from "../../settings";
+import { getRoomConfig } from "../../config";
 import { PowerBankData } from "../recordRoomData";
 import { calcGetPowerSpawnTime } from "./calcSpawnTime";
 import { logManager } from "utils/log4screeps";
@@ -33,7 +33,7 @@ export const getPowerBodyCollection = {
 };
 
 export function choosePowerBank(mainRoom: Room): void {
-    const taskControl = getRoomControlData(mainRoom.name).getPower;
+    const taskControl = getRoomConfig(mainRoom.name).getPower;
     if (!taskControl) return;
     if (!taskControl.run) return;
     logger.info(`${mainRoom.name} choosePowerBank`);

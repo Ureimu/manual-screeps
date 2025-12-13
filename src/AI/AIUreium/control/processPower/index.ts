@@ -1,10 +1,10 @@
 import { logManager } from "utils/log4screeps";
-import { getRoomControlData } from "../../settings";
+import { getRoomConfig } from "../../config";
 import { addCarryTask, getCarryTask } from "../roomCarry";
 
 const logger = logManager.createLogger("debug", "processPower");
 export function processPower(room: Room) {
-    const control = getRoomControlData(room.name).processPower;
+    const control = getRoomConfig(room.name).processPower;
     if (!control.run) return;
     const taskName = `processPower`;
     if (!room.storage) return;

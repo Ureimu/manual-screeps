@@ -1,4 +1,4 @@
-import { projectNameList } from "AI/AIUreium/room";
+import { projectNameList } from "AI/AIUreium/projects";
 import { stopProjectCreeps } from "frame/utils";
 import { logManager } from "utils/log4screeps";
 

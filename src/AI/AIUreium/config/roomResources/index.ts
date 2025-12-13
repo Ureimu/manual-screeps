@@ -1,4 +1,4 @@
-import { getRoomControlData } from "..";
+import { getRoomConfig } from "..";
 import { capacityRate } from "../../control/constants/roomResource";
 import { RoomResourceLimit, StructureResourceLimit } from "../../control/constants/type";
 
@@ -6,7 +6,7 @@ const boundedTerminalResourceLimitCache: { [roomName: string]: RoomResourceLimit
 
 // 对roomSetting有个重要的假定，即设定信息不会在运行时修改。
 export function getRoomResourceLimit(roomName: string): RoomResourceLimit {
-    const data = getRoomControlData(roomName).roomResources;
+    const data = getRoomConfig(roomName).roomResources;
     if (data.terminalBoundToStorageLimit) {
         if (!boundedTerminalResourceLimitCache[roomName]) {
             const resourceLimit = data.limit;

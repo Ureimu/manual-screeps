@@ -3,12 +3,12 @@
 import {
     getOCarrierBodySuffix,
     OCarryGroupCreepName
-} from "AI/AIUreium/room/outwardsSource/tasks/createCreepGroup/createOCarryGroup";
+} from "AI/AIUreium/projects/outwardsSource/tasks/createCreepGroup/createOCarryGroup";
 import { SpawnPool } from "frame/spawn/spawnPool";
-import { getRoomControlData } from "../../settings";
+import { getRoomConfig } from "../../config";
 
 export function switchBody(roomName: string, sourceRoomName: string, sourceName: string) {
-    const setting = getRoomControlData(roomName).outwardsSource;
+    const setting = getRoomConfig(roomName).outwardsSource;
     const creepName = OCarryGroupCreepName(roomName, sourceName);
     const bodyName = `${creepName}-${getOCarrierBodySuffix(setting.useRoad, setting.useReserver)}`;
     const originBody = Memory.rooms[roomName].spawnPool[creepName]?.creepBodyConfig;

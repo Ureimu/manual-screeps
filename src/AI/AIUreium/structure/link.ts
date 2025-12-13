@@ -2,7 +2,7 @@ import { SpecifiedStructureNameList } from "frame/construct/type";
 import { getLayoutStructureMemory } from "frame/construct/utils";
 import { registerFN } from "utils/profiler";
 import { PosStr } from "utils/RoomPositionToStr";
-import { getRoomResourceLimit } from "../settings/roomResources";
+import { getRoomResourceLimit } from "../config/roomResources";
 export const getLink = registerFN((room: Room, linkName: SpecifiedStructureNameList<"link">): StructureLink[] => {
     if (!room.memory.construct.layout) return [];
     const memory = getLayoutStructureMemory(room.name, "link", linkName);

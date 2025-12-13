@@ -1,15 +1,15 @@
 import { OutwardsSourceData } from "AI/AIUreium/control/recordRoomData";
-import { startOutwardsSource } from "AI/AIUreium/room/outwardsSource/start";
-import { stopOutwardsSource } from "AI/AIUreium/room/outwardsSource/stop";
+import { startOutwardsSource } from "AI/AIUreium/projects/outwardsSource/start";
+import { stopOutwardsSource } from "AI/AIUreium/projects/outwardsSource/stop";
 import { checkControllerRoomName } from "utils/roomNameUtils";
 import { Constant } from "../constants/roomTaskControl";
-import { getRoomControlData } from "../../settings";
+import { getRoomConfig } from "../../config";
 import { OutwardsSourceCheckInterval } from "./constant";
 import { logManager } from "utils/log4screeps";
-import { getOCarrierBodyRatio } from "AI/AIUreium/room/outwardsSource/tasks/createCreepGroup/createOCarryGroup";
+import { getOCarrierBodyRatio } from "AI/AIUreium/projects/outwardsSource/tasks/createCreepGroup/createOCarryGroup";
 import { MAX_ENERGY_PER_CONTROLLER_LEVEL } from "utils/constants";
 import { RoomStatusOutwardsSource } from "./type";
-import { getRoomResourceLimit } from "../../settings/roomResources";
+import { getRoomResourceLimit } from "../../config/roomResources";
 
 declare global {
     interface TaskStatus {
@@ -27,7 +27,7 @@ export function chooseSource(mainRoom: Room): void {
     if (!taskStatus.outwardsSource)
         taskStatus.outwardsSource = { lastRunTime: Game.time, sources: {}, isRunning: false };
     const runningStatus = taskStatus.outwardsSource;
-    if (!getRoomControlData(mainRoom.name).outwardsSource.run) {
+    if (!getRoomConfig(mainRoom.name).outwardsSource.run) {
         // 移除所有外矿。
         const projectStorage = mainRoom.memory.AIUreium.outwardsSource;
         if (Object.keys(projectStorage).length > 0) {
@@ -86,7 +86,7 @@ export function chooseSource(mainRoom: Room): void {
         logger.debug(`sourceNum: ${outwardsSource.sourceNum}, `);
     }
     const chosenSourceDataList: { [sourceName: string]: OutwardsSourceData } = {};
-    const setting = getRoomControlData(mainRoom.name).outwardsSource;
+    const setting = getRoomConfig(mainRoom.name).outwardsSource;
     const availableMaxDistance = getAvailableMaxDistance(mainRoom);
     logger.debug(
         `available max distance: ${availableMaxDistance.toFixed(0)}, setting distance: ${setting.maxDistance.toFixed(
@@ -219,7 +219,7 @@ export function chooseSource(mainRoom: Room): void {
 }
 
 function getAvailableMaxDistance(room: Room): number {
-    const setting = getRoomControlData(room.name).outwardsSource;
+    const setting = getRoomConfig(room.name).outwardsSource;
     const ratios = getOCarrierBodyRatio(setting.useRoad, setting.useReserver);
     const bodySize = Math.min(
         MAX_CREEP_SIZE,

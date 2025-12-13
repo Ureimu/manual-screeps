@@ -14,6 +14,10 @@
 
 [教程目录](tutorial/README.md)
 
+## AI使用说明
+
+在使用ai前，除了配置screeps.json，还需要先写自己的ai配置文件。参照[该文件](src\AI\AIUreium\config\config.example\index.ts)。该配置文件不会上传到代码库，请自行备份。
+
 ## api 文档
 
 api 文档由 typedoc 自动生成。

@@ -9,28 +9,28 @@
  * 可以复制controlBoard/type.ts下的defaultRoomControlData为自己的初始设定，然后再自己更改。
  */
 
-import { defaultMainControlData, defaultRoomControlData } from "../defaultSetting";
-import { ControlDataType, MainControlData, PartialControlDataType } from "../type";
+import { defaultMainControlData, defaultRoomConfig } from "../defaultConfig";
+import { ScreepsConfigType, MainConfig, PartialConfigType } from "../type";
 
-const shard3ControlSettings: PartialControlDataType = { rooms: {} };
+const shard3Config: PartialConfigType = { rooms: {} };
 
-export const FullControlSetting: {
+export const FullConfig: {
     [destName: string]: {
-        [shardName: string]: ControlDataType;
+        [shardName: string]: ScreepsConfigType;
     };
 } = {
     official_server: {
-        shard3: fromPartialSetting(shard3ControlSettings)
+        shard3: fromPartialSetting(shard3Config)
     }
 };
 
-function fromPartialSetting(partialSetting: PartialControlDataType): ControlDataType {
-    const newSetting: ControlDataType = {
-        main: _.merge(_.cloneDeep(defaultMainControlData), partialSetting.main) as MainControlData,
+function fromPartialSetting(partialSetting: PartialConfigType): ScreepsConfigType {
+    const newSetting: ScreepsConfigType = {
+        main: _.merge(_.cloneDeep(defaultMainControlData), partialSetting.main) as MainConfig,
         rooms: {}
     };
     for (const roomName in partialSetting.rooms) {
-        newSetting.rooms[roomName] = _.merge(_.cloneDeep(defaultRoomControlData), partialSetting.rooms[roomName]);
+        newSetting.rooms[roomName] = _.merge(_.cloneDeep(defaultRoomConfig), partialSetting.rooms[roomName]);
     }
 
     return newSetting;

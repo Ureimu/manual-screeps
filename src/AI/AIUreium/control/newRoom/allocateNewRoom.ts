@@ -1,9 +1,9 @@
-import { startNewRoom } from "AI/AIUreium/room/newRoom/start";
+import { startNewRoom } from "AI/AIUreium/projects/newRoom/start";
 import { avoidEnemyRooms, getCostMatrix, isEnemyRoom } from "frame/construct/utils/costMatrix";
 import { logManager } from "utils/log4screeps";
 import { checkHighwayRoomName } from "utils/roomNameUtils";
 import { getMyRoom } from "utils/roomTools";
-import { getRoomControlData } from "../../settings";
+import { getRoomConfig } from "../../config";
 
 const logger = logManager.createLogger("debug", "allocateNewRoom");
 
@@ -38,7 +38,7 @@ export function getMyClosestRoomForClaim(goalRoomName: string): string | undefin
             logger.debug(`${myRoomName} controller level is lower than 3`);
             return [myRoomName, 700] as [string, number];
         }
-        if (!getRoomControlData(myRoomName)?.claimNewRoom) {
+        if (!getRoomConfig(myRoomName)?.claimNewRoom) {
             logger.debug(`${myRoomName} setting.claimNewRoom is set to false`);
             return [myRoomName, 700] as [string, number];
         }

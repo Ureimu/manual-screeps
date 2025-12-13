@@ -3,7 +3,7 @@ import { addShiftTimeFunction } from "frame/spawn/spawning/readyCondition/spawnS
 import { numData } from "frame/spawn/spawning/readyCondition/utils/numData";
 import { SpawnCreepDetail } from "frame/spawn/spawnPool/type";
 import { logManager } from "utils/log4screeps";
-import { getRoomControlData } from "../settings";
+import { getRoomConfig } from "../config";
 import { getMaintainRoomProject } from "./maintain/taskRelation";
 import { getCenterCarrierCreepName } from "./maintain/tasks/createCreepGroup/createCenterCarryGroup";
 import { upgradeByLink } from "./maintain/tasks/upgrader/upgradeByLink";
@@ -28,7 +28,7 @@ export function mountShiftTimeFunction() {
         const centerCarrierMemory = Memory.creeps[getCenterCarrierCreepName(roomName, 0)];
         if (!centerCarrierMemory) return false;
 
-        const setting = getRoomControlData(roomName).upgradeController.run;
+        const setting = getRoomConfig(roomName).upgradeController.run;
         if (setting === "loop") {
             return true;
         } else if (setting === "onControllerLinkWorks") {
@@ -42,7 +42,7 @@ export function mountShiftTimeFunction() {
     });
 
     addShiftTimeFunction("mineralMiner", detail => {
-        if (!getRoomControlData(detail.roomName).harvestMineral.run) return false;
+        if (!getRoomConfig(detail.roomName).harvestMineral.run) return false;
         const data = numData(detail);
         if (!(data.aliveNum === 0 && data.queueNum === 0 && data.deadNum === 1)) return false;
 
@@ -114,7 +114,7 @@ export function mountShiftTimeFunction() {
         if (checkInvaderCoreExist(detail)) return false;
         if (checkInvaderExist(detail)) return false;
 
-        if (!getRoomControlData(detail.roomName)?.outwardsSource.useReserver) return false;
+        if (!getRoomConfig(detail.roomName)?.outwardsSource.useReserver) return false;
         const [roomName, sourceRoomName, sourceName] = getCreepGroupDetailBySpawnCreepDetail(detail).arguments;
         const reserveEndTime = Memory.rooms[sourceRoomName].controller?.reserveEndTime;
         if (reserveEndTime && reserveEndTime - Game.time > 1500) {
@@ -135,7 +135,7 @@ export function mountShiftTimeFunction() {
 }
 
 function checkInvaderCoreExist(detail: SpawnCreepDetail): boolean {
-    if (getRoomControlData(detail.roomName)?.outwardsSource.invaderCoreStrategy === "stop") {
+    if (getRoomConfig(detail.roomName)?.outwardsSource.invaderCoreStrategy === "stop") {
         const [roomName, sourceRoomName, sourceName] = getCreepGroupDetailBySpawnCreepDetail(detail).arguments;
         const coreData = Memory.rooms[sourceRoomName].invaderCores;
         if (coreData) {
@@ -149,7 +149,7 @@ function checkInvaderCoreExist(detail: SpawnCreepDetail): boolean {
 }
 
 function checkInvaderExist(detail: SpawnCreepDetail): boolean {
-    if (getRoomControlData(detail.roomName)?.outwardsSource.invaderStrategy === "stop") {
+    if (getRoomConfig(detail.roomName)?.outwardsSource.invaderStrategy === "stop") {
         const [roomName, sourceRoomName, sourceName] = getCreepGroupDetailBySpawnCreepDetail(detail).arguments;
         const invaderData = Memory.rooms[sourceRoomName].invaders;
         if (invaderData) {
@@ -163,7 +163,7 @@ function checkInvaderExist(detail: SpawnCreepDetail): boolean {
 }
 
 function checkUseOutwardsRoad(detail: SpawnCreepDetail): boolean {
-    if (getRoomControlData(detail.roomName)?.outwardsSource.useRoad) {
+    if (getRoomConfig(detail.roomName)?.outwardsSource.useRoad) {
         const [roomName, sourceRoomName, sourceName] = getCreepGroupDetailBySpawnCreepDetail(detail).arguments;
         const sourceData = Memory.rooms[sourceRoomName].sources?.[sourceName].roomData[roomName];
         if (!sourceData) return false;

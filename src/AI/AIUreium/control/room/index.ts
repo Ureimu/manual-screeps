@@ -1,7 +1,7 @@
 import { consoleStyle } from "frame/console/style";
 import { creators } from "utils/console/form";
 import { createFlattenHelp } from "utils/console/flattenHelp";
-import { getRoomControlData } from "../../settings";
+import { getRoomConfig } from "../../config";
 import { logManager } from "utils/log4screeps";
 
 const getButton = (funcName: string) => {
@@ -40,7 +40,7 @@ export class AIRoomSetting {
             })
         ].join("\n");
 
-        const settings = getRoomControlData(roomName);
+        const settings = getRoomConfig(roomName);
         logger.log(`${roomName} setting:\n` + JSON.stringify(settings, null, 4));
     }
 

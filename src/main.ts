@@ -10,10 +10,10 @@ import { statsEngine } from "frame/stats";
 import { runAllAcrossTickTask } from "utils/AcrossTick";
 import { mountUreimuAiAll } from "AI/AIUreium/mount";
 import { manageScoutTask } from "AI/AIUreium/roles/maintain/scouter";
-import { runGetPower } from "AI/AIUreium/room/getPower";
-import { maintainRoom } from "AI/AIUreium/room/maintain";
-import { maintainNewRoom } from "AI/AIUreium/room/newRoom";
-import { maintainOutwardsSource } from "AI/AIUreium/room/outwardsSource";
+import { runGetPower } from "AI/AIUreium/projects/getPower";
+import { maintainRoom } from "AI/AIUreium/projects/maintain";
+import { maintainNewRoom } from "AI/AIUreium/projects/newRoom";
+import { maintainOutwardsSource } from "AI/AIUreium/projects/outwardsSource";
 import { observer } from "AI/AIUreium/structure/observer";
 import { powerSpawn } from "AI/AIUreium/structure/powerSpawn";
 import { terminal } from "AI/AIUreium/structure/terminal";
@@ -21,7 +21,7 @@ import { tower } from "AI/AIUreium/structure/tower";
 import { CreepBody } from "frame/creep/body";
 import { link } from "AI/AIUreium/structure/link";
 import { runProjectCreeps } from "frame/creep";
-import { getMainControlData, loadSettings } from "AI/AIUreium/settings";
+import { getMainConfig, loadSettings } from "AI/AIUreium/config";
 import { logManager } from "utils/log4screeps";
 import { runLabTaskPool } from "AI/AIUreium/control/runLab";
 import { multimeterWatch } from "utils/multimeter";
@@ -30,7 +30,7 @@ const logger = logManager.createLogger("debug", "main.init");
 loadSettings();
 require("moveOptimize");
 global.version = "0.1.1";
-if (getMainControlData().useProfiler) {
+if (getMainConfig().useProfiler) {
     logger.info("已启用profiler，会有一点额外的性能消耗。需要关闭请在settings中设置。");
     enable();
 } else {

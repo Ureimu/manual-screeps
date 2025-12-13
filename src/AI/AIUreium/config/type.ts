@@ -5,7 +5,7 @@ import { RoomStatusOutwardsSource } from "../control/outwardsSource/type";
 // 对roomSetting有个重要的假定，即设定信息不会在运行时修改。
 declare global {
     interface GlobalRoomMemory {
-        control?: RoomControlData;
+        control?: RoomConfig;
         status?: RoomStatus;
     }
 }
@@ -13,26 +13,26 @@ declare global {
 declare global {
     namespace NodeJS {
         interface Global {
-            mainControlData: MainControlData;
+            mainControlData: MainConfig;
         }
     }
 }
 
-export type ControlDataType = {
+export type ScreepsConfigType = {
     rooms: {
-        [roomName: string]: RoomControlData;
+        [roomName: string]: RoomConfig;
     };
-    main: MainControlData;
+    main: MainConfig;
 };
 
-export type PartialControlDataType = {
+export type PartialConfigType = {
     rooms: {
-        [roomName: string]: RecursivePartial<RoomControlData>;
+        [roomName: string]: RecursivePartial<RoomConfig>;
     };
-    main?: RecursivePartial<MainControlData>;
+    main?: RecursivePartial<MainConfig>;
 };
 
-export interface MainControlData {
+export interface MainConfig {
     /**
      * 是否启用profiler。
      *
@@ -40,7 +40,7 @@ export interface MainControlData {
     useProfiler: boolean;
 }
 
-export interface RoomControlData {
+export interface RoomConfig {
     /**
      * Power采集设定。
      */
@@ -195,10 +195,10 @@ export interface RoomControlData {
     /**
      * 房间资源量上下限设置。
      */
-    roomResources: RoomResourcesSetting;
+    roomResources: RoomResourcesConfig;
 }
 
-export type RoomResourcesSetting = {
+export type RoomResourcesConfig = {
     /**
      * 设定为true，则terminal设置不会生效，
      * 会使用storage的数据设定乘以一定比例转换为terminal数据设定。

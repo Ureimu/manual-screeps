@@ -1,14 +1,14 @@
 import { FlagMaintainer } from "frame/flagMaintainer";
 import { FlagTools } from "frame/flagMaintainer/tools";
 import { logManager } from "utils/log4screeps";
-import { getRoomControlData } from "../../settings";
+import { getRoomConfig } from "../../config";
 import { addCarryTask, getCarryTask } from "../roomCarry";
 
 const containerIdList: { [roomName: string]: Id<StructureContainer> } = {};
 
 const logger = logManager.createLogger("debug", "carryMineral");
 export function carryMineral(room: Room) {
-    if (!getRoomControlData(room.name).harvestMineral) {
+    if (!getRoomConfig(room.name).harvestMineral) {
         return;
     }
     if (!containerIdList[room.name] || !Game.getObjectById(containerIdList[room.name])) {

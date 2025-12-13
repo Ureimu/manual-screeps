@@ -1,4 +1,4 @@
-import { callOnStart as roomCallOnStart } from "./room/callOnStart";
+import { callOnStart as roomCallOnStart } from "./projects/callOnStart";
 import { callOnStart as runCreepRole } from "./roles/index";
 
 const functionList: (() => void)[] = [roomCallOnStart, runCreepRole];

@@ -1,16 +1,16 @@
 import { tower } from "./structure/tower";
-import { maintainRoom } from "./room/maintain";
+import { maintainRoom } from "./projects/maintain";
 import { CreepBody } from "frame/creep/body";
 import { manageScoutTask } from "./roles/maintain/scouter";
 import { link } from "./structure/link";
 import { registerFN } from "utils/profiler";
-import { maintainOutwardsSource } from "./room/outwardsSource";
+import { maintainOutwardsSource } from "./projects/outwardsSource";
 import { terminal } from "./structure/terminal";
 import { allocateNewRoom } from "./control/newRoom";
-import { maintainNewRoom } from "./room/newRoom";
+import { maintainNewRoom } from "./projects/newRoom";
 import { mountUreimuAiAll } from "./mount";
 import { observer } from "./structure/observer";
-import { runGetPower } from "./room/getPower";
+import { runGetPower } from "./projects/getPower";
 import { powerSpawn } from "./structure/powerSpawn";
 
 // ! 该函数未使用。如需修改主逻辑请去src/main.ts修改。

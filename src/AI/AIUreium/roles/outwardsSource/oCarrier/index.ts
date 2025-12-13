@@ -1,4 +1,4 @@
-import { getRoomResourceLimit } from "AI/AIUreium/settings/roomResources";
+import { getRoomResourceLimit } from "AI/AIUreium/config/roomResources";
 import { runLayout } from "frame/construct";
 
 import { logManager } from "utils/log4screeps";

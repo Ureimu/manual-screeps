@@ -1,4 +1,4 @@
-import { getRoomResourceLimit } from "AI/AIUreium/settings/roomResources";
+import { getRoomResourceLimit } from "AI/AIUreium/config/roomResources";
 import { getLink } from "AI/AIUreium/structure/link";
 import { CreepGroup } from "frame/creep/group";
 import { RoutePlan } from "frame/creep/routePlan";
